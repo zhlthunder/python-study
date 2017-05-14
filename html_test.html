@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+ <div style="heith:48px;background-color: pink;">head contend</div>
+ <div style="background-color: #ddd;">
+     <div style="width:20%;height:600px;float:left;background-color: aqua">left content</div>
+     <div style="width:80%;float:left;">
+
+         <h1>form submit</h1>
+         <form action="http://127.0.0.1:8000/django_form/" enctype="multipart/form-data" method="post">
+             <p>
+                hostname: <input type="text" name="host" />
+                password: <input type="password" name="pwd" />
+             </p>
+
+             <div style="background-color: rosybrown;color: white">
+                 <h4>habit</h4>
+                 basketball:<input name="favor" type="checkbox" value="1" />
+                 football  :<input name="favor" type="checkbox" value="2" />
+                 pingpang  :<input name="favor" type="checkbox" value="3"/>
+             </div>
+
+             <div>
+                <h4>sex</h4>
+                 male:<input  name="gender"  type="radio" value="1"/>
+                 female:<input name="gender" type="radio" value="0"/>
+              </div>
+
+             <div>
+                <h4>city</h4>
+                 <select name="city">
+                     <option value="888">shanghai</option>
+                     <option value="999">beijing</option>
+                  </select>
+
+             </div>
+
+             <div>
+                 <h4>memo</h4>
+                 <textarea name="memo"></textarea>
+             </div>
+
+             <div>
+                 <h4>file_upload</h4>
+                 <input type="file" name="file_name" />
+             </div>
+
+             <input type="submit" value="submit" />
+
+
+         </form>
+
+     </div>
+ </div>
+</body>
+</html>
