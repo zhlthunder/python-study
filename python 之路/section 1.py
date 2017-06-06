@@ -98,3 +98,171 @@
 # 3）还可以这样玩： (A,*REST,B)=RANGE(5)
 
 # 4）某些库改名了
+
+
+
+# @@变量：
+# name = "Alex Li"
+#
+# name2 = name
+# print(name,name2)
+#
+# name = "Jack"
+# print(name,name2)
+
+#备注： 注意name2的值不变；
+
+# @@字符编码：
+# python解释器在加载 .py 文件中的代码时，会对内容进行编码（默认ascill）
+#
+# ASCII（American Standard Code for Information Interchange，美国标准信息交换代码）是基于拉丁字母的一套电脑编码系统，
+# 主要用于显示现代英语和其他西欧语言，其最多只能用 8 位来表示（一个字节），即：2**8 = 256-1，所以，ASCII码最多只能表示 255 个符号。
+#
+# 显然ASCII码无法将世界上的各种文字和符号全部表示，所以，就需要新出一种可以代表所有字符和符号的编码，即：Unicode
+#
+# Unicode（统一码、万国码、单一码）是一种在计算机上使用的字符编码。Unicode 是为了解决传统的字符编码方案的局限而产生的，它为每种语言中的每个字符
+# 设定了统一并且唯一的二进制编码，规定虽有的字符和符号最少由 16 位来表示（2个字节），即：2 **16 = 65536，
+# 注：此处说的的是最少2个字节，可能更多
+#
+# UTF-8，是对Unicode编码的压缩和优化，他不再使用最少使用2个字节，而是将所有的字符和符号进行分类：ascii码中的内容用1个字节保存、欧洲的字符用2个字节保存，
+# 东亚的字符用3个字节保存...
+#==》 即汉字使用3个字节；
+
+
+# #python2 默认使用 ascill进行编码，所以在python2中执行下面的代码会报错：
+# 报错：ascii码无法表示中文
+# #!/usr/bin/env python
+#
+# print "你好，世界"
+#
+#
+# 改正：应该显示的告诉python解释器，用什么编码来执行源代码，即：
+#
+# #!/usr/bin/env python
+# # -*- coding: utf-8 -*-
+#
+# print "你好，世界"
+#
+# #python3 默认使用unicode的编码方式，所以对中文是默认支持的，再也不需要担心字符编码的问题了
+
+
+
+# @@格式化字符串
+# 备注：
+# python2 使用 raw_input, 如果使用input,输入的字符串会被当成变量，所以不使用input
+# python3中使用input
+#input 默认输入的都是字符串，如果要获得数字，需要使用int 方法；
+# name=input("input your name:")
+# #convert str to int
+# age=int(input("input your age:"))
+# job=input("input your job:")
+#
+# msg='''
+# information of user %s:
+# -----------------------
+# Name: %s
+# Age: %d
+# Job: %s
+# ---------END-----------
+# ''' %(name,name,age,job)
+# print(msg)
+
+
+#
+# @@注释：
+# 　单行注视：# 被注释内容
+#
+# 　多行注释：""" 被注释内容 """
+
+# # @@用户输入：
+# import getpass
+#
+# # 将用户输入的内容赋值给 name 变量
+# pwd = getpass.getpass("请输入密码：")
+#
+# # 打印输入的内容
+# print(pwd)
+
+# getpass说明：
+# 1.getpass在pycharm下无法使用；
+# 2.getpass在python3 {linux 下或 windows的命令行下}可以使用；
+# 3.getpass 在python2下不是密文，是明文的；
+#
+# C:\Users\lin\PycharmProjects\python_study_1s\python_study\git-zhl\python-study>python3
+# Python 3.6.0 (v3.6.0:41df79263a11, Dec 23 2016, 07:18:10) [MSC v.1900 32 bit (Intel)] on win32
+# Type "help", "copyright", "credits" or "license" for more information.
+# >>> import getpass
+# >>> pwd=getpass.getpass("请请输输入入密密码码：：")
+# 请请输输入入密密码码：：
+# >>> print (pwd)
+# 123
+
+#
+# @@模块初识
+# Python的强大之处在于他有非常丰富和强大的标准库和第三方库，几乎你想实现的任何功能都有相应的Python库支持，以后的课程中会深入讲解常用到的各种库，现在，我们先来象征性的学2个简单的。
+#
+# @sys模块：
+# test.py:
+# #!/usr/bin/env python
+# # -*- coding: utf-8 -*-
+#
+# import sys
+#
+# print(sys.argv)
+#
+# #输出
+# $ python test.py helo world
+# ['test.py', 'helo', 'world']  #把执行脚本时传递的参数获取到了
+
+# @@os
+# #!/usr/bin/env python
+# # -*- coding: utf-8 -*-
+#
+# import os
+# #
+# os.system("df -h") #无法保存命令的执行结果；
+# os.popen("df -h ") #可以保存命令的执行结果；
+# os.mkdir('yourdir')
+
+
+# @@自己写个模块
+# python tab补全模块 for linux:
+# #!/usr/bin/env python
+# # python startup file
+# import sys
+# import readline
+# import rlcompleter
+# import atexit
+# import os
+# # tab completion
+# readline.parse_and_bind('tab: complete')
+# # history file
+# histfile = os.path.join(os.environ['HOME'], '.pythonhistory')
+# try:
+#     readline.read_history_file(histfile)
+# except IOError:
+#     pass
+# atexit.register(readline.write_history_file, histfile)
+# del os, histfile, readline, rlcompleter
+#
+# 写完保存后就可以使用了
+#
+# 调用命令：
+# import tab
+
+# 备注：每一个脚本都可以当成一个模块来使用；
+#
+# 你会发现，上面自己写的tab.py模块只能在当前目录下导入，如果想在系统的何何一个地方都使用怎么办呢？ 此时你就要把这个tab.py放到python全局环境变量目录里啦，
+# 基本一般都放在一个叫 Python/2.7/site-packages 目录下，这个目录在不同的OS里放的位置不一样，用 print(sys.path) 可以查看python环境变量列表。
+
+# C:\Users\lin\PycharmProjects\python_study_1s\python_study\git-zhl\python-study>python3
+# Python 3.6.0 (v3.6.0:41df79263a11, Dec 23 2016, 07:18:10) [MSC v.1900 32 bit (Intel)] on win32
+# Type "help", "copyright", "credits" or "license" for more information.
+# >>> import sys
+# >>> print (sys.path)
+# ['', 'C:\\python3\\python36.zip', 'C:\\python3\\DLLs', 'C:\\python3\\lib', 'C:\\python3', 'C:\\python3\\lib\\site-packages']
+
+
+
+
+
