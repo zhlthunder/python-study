@@ -197,18 +197,57 @@
 # copy 默认值拷贝第一层；因为第二层数据量有可能非常大；所以浅拷贝只对第一层进行拷贝；
 # 备注：对于第二层的列表，在第一层中存储的只是内层列表的内存地址，是个指针；
 
-import copy
-name=['Alex','jack','Rain',[9,1,2,4],9,33,22,131,'Eric','Monica','Fiona',12,9,33,44,124,121,111,4,7,9,8,3]
-name3=name.copy()
-name4=copy.copy(name)  ##和上面的copy一样，也是浅层copy
-name5=copy.deepcopy(name)  ##这个是完全拷贝，两个列表完全独立了
+# import copy
+# name=['Alex','jack','Rain',[9,1,2,4],9,33,22,131,'Eric','Monica','Fiona',12,9,33,44,124,121,111,4,7,9,8,3]
+# name3=name.copy()
+# name4=copy.copy(name)  ##和上面的copy一样，也是浅层copy
+# name5=copy.deepcopy(name)  ##这个是完全拷贝，两个列表完全独立了
+#
+# name[0]="ALEX"
+# name[3][3]=44444444
+# print(name)
+# print(name3)
+# print(name4)
+# print(name5)
 
-name[0]="ALEX"
-name[3][3]=44444444
-print(name)
-print(name3)
-print(name4)
-print(name5)
+
+# @@id() 是查看内存地址的
+# C:\Users\lin\PycharmProjects\python_study_1s\python_study\git-zhl\python-study>python3
+# Python 3.6.0 (v3.6.0:41df79263a11, Dec 23 2016, 07:18:10) [MSC v.1900 32 bit (Intel)] on win32
+# Type "help", "copyright", "credits" or "license" for more information.
+# >>> name="jack"
+# >>> name2=name
+# >>> id(name),id(name2)   ##两个的内存地址相同
+# (49615456, 49615456)
+# >>> name="tom"
+# >>> id(name),id(name2)  ##两个的内存地址不同
+# (49616704, 49615456)
+# >>>
+
+# @@如果是采用赋值的方法，是相当于完全做个软链接，即两个列表指向同一个空间；基本上不用这种方法；此时如果修改其中一个列表的第一级或第二级，两个列表还是相同；
+# @@浅拷贝，完全拷贝第一级，第二级是软链接（和原列表指向相同的二级目录的内存空间）；此时如果修改其中一个列表的第一级，两个列表就不同了，如果只修改其中一个列表的
+# 第二级，两个列表是相同的。
+# @@深拷贝，完全拷贝第一级和第二级；此时如果修改其中一个列表的第一级或第二级，两个列表都不同了。
+# >>> r2=r
+# >>> r
+# [1, 2, 3, [2, 4, 5]]
+# >>> r2
+# [1, 2, 3, [2, 4, 5]]
+# >>> r[1]=2222
+# >>> r
+# [1, 2222, 3, [2, 4, 5]]
+# >>> r2
+# [1, 2222, 3, [2, 4, 5]]
+
+#
+# @@len 查看列表的长度
+# >>> r
+# [1, 3, 5]
+# >>> print(len(r))
+# 3
+# >>>
+
+
 
 
 
