@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+
+# python 知识学习博客  http://www.cnblogs.com/wupeiqi/articles/5433893.html
 #from : http://www.cnblogs.com/alex3714/articles/5465198.html
 #python 简介：
 # Python 是一门什么样的语言？
