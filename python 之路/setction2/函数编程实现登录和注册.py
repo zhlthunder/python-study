@@ -12,7 +12,7 @@ def login(username,passwd):
     """
     f=open("db",'r')
     for line in f:
-        line_list=line.split("|")
+        line_list=line.strip().split("|")  #如何不加strip,可能会遇到错误；
         if line_list[0]==username and line_list[1]==passwd:
             return True
     return False
