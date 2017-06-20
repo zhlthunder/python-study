@@ -127,11 +127,89 @@
 #==》使用r+ 时，就可以使用seek调整指针位置，然后想在哪写就在哪写，但其它的几个选项都无法满足这个目的，所以只有
 # r+可以满足指定位置的写入，也是唯一一个被经常使用的模式；
 
-
-
+#r+b  以字节进行读写；
 
 #操作文件    f.read   f.write ...
+# read()  #无参数读全部； 有参数，就和打开方式有关：
+#                                          打开方式有b,按字节；
+#                                          打开方式无b,按字符；
+
+#tell()  获取当前指针位置； 和打开方式无关，永远以字节为单位；
+#seek(#)  跳转到指定的位置； 和打开方式无关，永远以字节为单位；
+#write()  写数据，和打开方式有关：
+#                                          打开方式有b,按字节写
+#                                          打开方式无b,按字符写；
+
+#close() 关闭；
+#fileno  文件描述符；
+#flush() 强制刷新；
+
+#flush介绍：
+# f=open("db1",'a')
+# f.write("123")
+# f.flush()  #强制刷新
+# 如果执行f.close() 会自动进行刷新；
+# 如果此时没有执行f.close(),比如此时的代码为等待用户输入，如果想让数据被写入文件中，需要执行:f.flush()
+# input("请输入：")
+
+#readable() 判断是否可读
+# f=open("db",'w')
+# print(f.readable())
+# 输出：
+# False
+
+#seekable() 是否可以移动指针
+
+#readline仅读取一行
+# f=open("db1",'r')
+# f.readline() #读取第一行
+# f.readline() #读取第二行
+# f.readline() #读取第三行
+# 。。。
+
+#writable() 是否可以写
+
+# #truncate 用于截断数据，指针位置后的内容清空
+# f=open("db1",'r+',encoding="utf-8")
+# f.seek(3)
+# f.truncate() #指针位置后的内容清空
+# f.close()
+# 执行后： db1 中的内容如下：
+# adm
+
+#for循环文件对象（文件句柄） f=open(###)
+# f=open("db1",'r+',encoding="utf-8")
+# for line in f:
+#     print(line)  #循环打印文件中的每一行
+
+
 #关闭文件   f.close   或 with open('db') as f  来自动关闭文件
 
+# with open("db1") as f:
+#     pass#代码块
+#
+# # 从python2.7开始支持，使用with open 同时打开多个文件；
+# with open("db1") as f1, open("db2") as f2:
+#     pass
+
+#使用举例：
+# 比如把一个文件的前10行写到另外一个文件中；
+
+# with open("db1",'r',encoding="utf-8") as f1, open("db2",'w',encoding="utf-8") as f2:
+#     times=0
+#     for line in f1:
+#         f2.write(line)
+#         times+=1
+#         if times==10:
+#             break
+
+#使用实例2：文件中指定内容的替换操作；
+# with open("db1",'r',encoding="utf-8") as f1, open("db3",'w',encoding="utf-8") as f2:
+#     for line in f1:
+#         new_str=line.replace("alex","steven")
+#         f2.write(new_str)
+#
+# remark:
+# http://www.cnblogs.com/wupeiqi/articles/4950799.html
 
 
