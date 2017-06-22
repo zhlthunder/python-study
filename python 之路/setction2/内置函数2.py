@@ -323,3 +323,144 @@
 #总结：
 # python2.7 只能按照字节来计数；
 # python3 中既可以按照字节来计数，也可以按照字符来计数；
+
+# #python3:
+# for item in "李杰":
+#     print(item)
+#
+# 输出：
+# 李
+# 杰
+
+# #python2.7
+# for item in "李杰":
+#     print item
+#  #输出6个乱码，即以字节为单位输出的
+# 输出：
+# �
+# �
+# �
+# �
+# �
+# �
+
+#
+# max()
+# min()
+# sum()
+
+# ret1=max([11,22,33,1])
+# ret2=min([11,22,33,1])
+# ret3=sum([11,22,33,1])
+# print(ret1)
+# print(ret2)
+# print(ret3)
+# 输出：
+# 33
+# 1
+# 67
+
+# memoryview 是一个类#和内存地址相关的一个类，用不到
+
+# object  也是一个类，是python中所有类的父类
+
+# pow() 求次方的
+# print(2**10)
+# ret=pow(2,10)
+# print(ret)
+# 输出：
+# 1024
+# 1024
+
+# property()  特性，面向对象时用到
+
+# range()
+# for i in range(3):
+#     print(i)
+# 输出：
+# 0
+# 1
+# 2
+
+#repr
+# class Foo:
+#     def __repr__(self):
+#         return "123"
+# ret=repr(Foo()) #repr会自动执行它后面的对象所属类的 __repr__方法， 如果这个类定义了__repr__方法就直接执行，如果么有定义就会报错；
+# print(ret)
+# # 输出：
+# # 123
+
+# ret=repr("alex")  # 自动执行字符串类的__repr__方法，如果跟上的对象所属的类没有这个方法，就会报错；
+# print(ret)
+# 输出：
+# 'alex'
+#
+# str 中的定义：
+#   def __repr__(self, *args, **kwargs): # real signature unknown
+#         """ Return repr(self). """
+#         pass
+
+
+#reverse
+# li=[11,22,33,44]
+# print(li.reverse())
+# print(li)
+# 输出:
+# None
+# [44, 33, 22, 11]
+
+# li=[11,22,33,44]
+# print(list(reversed(li)))
+# 输出：
+# [44, 33, 22, 11]
+
+# print(round(1.8))
+# print(round(1.4))
+# 输出：
+# 2
+# 1
+
+# slice #用于切片，和下面的功能相似
+# s="sssssssss"
+# print(s[0:2:2])
+# 输出：
+# s
+
+
+# li=[11,2,12,3]
+# print(li.sort())
+# print(li)
+# 输出：
+# None
+# [2, 3, 11, 12]
+
+#sorted()
+# li=[11,2,12,3]
+# print(sorted(li))
+# print(li)
+# 输出：
+# [2, 3, 11, 12]
+# [11, 2, 12, 3]
+
+##zip()
+
+# l1=["alex",11,22]
+# l2=["is",11,22]
+# l3=["super",11,22]
+# l4=["guy",11,22]
+#
+# ret=zip(l1,l2,l3,l4)
+# print(list(ret))
+
+# 输出：
+# [('alex', 'is', 'super', 'guy'), (11, 11, 11, 11), (22, 22, 22, 22)]
+
+# l1=["hhh",1,2]
+# l2=["hhh",1]
+# ret=zip(l1,l2)
+# print(list(ret))
+# 输出：
+# [('hhh', 'hhh'), (1, 1)]
+
+
