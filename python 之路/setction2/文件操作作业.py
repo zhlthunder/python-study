@@ -123,3 +123,5 @@ add(bk,rd)
 # import json
 # dic=json.loads(r)
 
+
+#总结：编程的基本思想是，先实现简单的逻辑，再实现复杂的逻辑，即由易到难；
