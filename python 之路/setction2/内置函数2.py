@@ -165,9 +165,54 @@
 # (9, 7)
 
 #@@
-# enumerate() 枚举类型，待补充用法
-# 。。。。。。
+# enumerate() 枚举类型
+# 如果对一个列表，既要遍历索引又要遍历元素时，首先可以这样写：
+# list1 = ["这", "是", "一个", "测试"]
+# for i in range (len(list1)):
+#     print(i ,list1[i])
+# 输出：
+# 0 这
+# 1 是
+# 2 一个
+# 3 测试
+
+# 上述方法有些累赘，利用enumerate()会更加直接和优美：
+# list1 = ["这", "是", "一个", "测试"]
+# for index, item in enumerate(list1):
+#     print(index, item)
+# 输出：
+# 0 这
+# 1 是
+# 2 一个
+# 3 测试
+
+# enumerate还可以接收第二个参数，用于指定索引起始值，如：
+# list1 = ["这", "是", "一个", "测试"]
+# for index, item in enumerate(list1, 1):
+#     print(index, item)
+# 输出：
+# 1 这
+# 2 是
+# 3 一个
+# 4 测试
+
+# 补充
 #
+# 如果要统计文件的行数，可以这样写：
+# count = len(open("db1", 'r').readlines())
+# print(count)
+# 输出：
+# 12
+
+# 这种方法简单，但是可能比较慢，当文件比较大时甚至不能工作。
+#
+# 可以利用enumerate()：
+# count = 0
+# for index, line in enumerate(open("db1",'r')):
+#     count += 1
+# print(count)
+# # 输出:
+# 12
 
 ##@@
 # isinstance() 判断对象是否是某个类的实例
