@@ -63,6 +63,7 @@ def add(backend,record):
                         new.write(line) #把当前bakcend 行写入新文件
                         for new_line in record_list: #将增加玩记录的所有记录都写入新文件中
                             new.write(" "*8+new_line+"\n")
+                        continue  #这个地方非常关键
                     if flag and line.strip().startswith("backend"): #如何循环到下一个backend时执行
                         flag=False #取消标志位
                         new.write(line) #写入当前backend行
@@ -76,7 +77,7 @@ def add(backend,record):
 # rd="server 100.1.7.29 100.1.7.9 weight 20 maxconn 3000"
 # add(bk,rd)
 bk="www.oldboy.org"
-rd="server 100.1.7.139 100.1.7.9 weight 20 maxconn 3000"
+rd="server 100.1.7.199 100.1.7.9 weight 20 maxconn 3000"
 add(bk,rd)
 
 
