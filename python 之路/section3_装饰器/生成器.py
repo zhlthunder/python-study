@@ -152,3 +152,5 @@ def func(n):
 
 ret=func(1)
 print(ret)
+
+#递归就是自己反复调用自己
