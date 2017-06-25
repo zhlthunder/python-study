@@ -180,23 +180,82 @@
 
 #装饰器流程剖析之返回值
 
-def outer(func):
-    def inner():
-        print("before")
-        ret=func()
-        print("after")
-        return ret
-    return inner
-
-@outer
-def f1():
-    print("F1")
-    return "FFFFF"
-
-rr=f1()
-print(rr)
+# def outer(func):
+#     def inner():
+#         print("before")
+#         ret=func()
+#         print("after")
+#         return ret
+#     return inner
+#
+# @outer
+# def f1():
+#     print("F1")
+#     return "FFFFF"
+#
+# rr=f1()
+# print(rr)
 # 输出：
 # before
 # F1
 # after
 # FFFFF
+
+
+#装饰器流程剖析之参数
+# def outer(func):
+#     def inner(kwarg):
+#         print("before")
+#         ret=func(kwarg)
+#         print("after")
+#         return ret
+#     return inner
+#
+# @outer
+# def f1(arg):
+#     print(arg)
+#     print("F1")
+#     return "FFFFF"
+#
+# rr=f1("zhuhonglei")
+# print(rr)
+
+# 输出：
+# before
+# zhuhonglei
+# F1
+# after
+# FFFFF
+
+
+#对于不同的函数用不同的参数个数时的处理方法：
+# def outer(func):
+#     def inner(*args,**kwarg): #使用万能参数，适用于无线个参数的情况
+#         print("before")
+#         ret=func(*args,**kwarg)
+#         print("after")
+#         return ret
+#     return inner
+#
+# @outer
+# def f1(arg):
+#     print(arg)
+#     print("F1")
+#     return "FFFFF"
+#
+# @outer
+# def f2(arg1,arg2):
+#     print(arg1,arg2)
+#     print("F2")
+#     return "FFFFF"
+#
+# f2(11,22)
+#
+# 输出：
+# before
+# 11 22
+# F2
+# after
+
+
+
