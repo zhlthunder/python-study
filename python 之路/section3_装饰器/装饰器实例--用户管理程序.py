@@ -84,5 +84,3 @@ def main():
 main()
 
 
-# remark:字符串格式化
-# http://www.cnblogs.com/wupeiqi/articles/5484747.html
