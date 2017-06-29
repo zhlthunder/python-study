@@ -208,6 +208,38 @@
 #4. % 有特殊的功能，自动转换成百分号
 
 
+# 常用格式化：
+#  tpl = "i am {}, age {}, {}".format("seven", 18, 'alex')  #只有一个空的{}，表示不论类型，所有的都可以按照顺序进行替换；
+#
+# tpl = "i am {}, age {}, {}".format(*["seven", 18, 'alex']) ##如果以列表的方式进行传递，必须要加*，就可以按照顺序逐个进行替换；
+#
+# tpl = "i am {0}, age {1}, really {0}".format("seven", 18) ##指定索引的情况下，按照索引进行替换
+#
+# tpl = "i am {0}, age {1}, really {0}".format(*["seven", 18]) ##列表方式
+#
+# tpl = "i am {name}, age {age}, really {name}".format(name="seven", age=18) ##指定名字的方式
+#
+# tpl = "i am {name}, age {age}, really {name}".format(**{"name": "seven", "age": 18}) ##用字典的方式
+#
+# tpl = "i am {0[0]}, age {0[1]}, really {0[2]}".format([1, 2, 3], [11, 22, 33]) ##索引中嵌套索引，复用的方式
+#
+# tpl = "i am {:s}, age {:d}, money {:f}".format("seven", 18, 88888.1) ##指定占位符的类型
+#
+# tpl = "i am {:s}, age {:d}".format(*["seven", 18])
+#
+# tpl = "i am {name:s}, age {age:d}".format(name="seven", age=18)
+#
+# tpl = "i am {name:s}, age {age:d}".format(**{"name": "seven", "age": 18})
+#
+# tpl = "numbers: {:b},{:o},{:d},{:x},{:X}, {:%}".format(15, 15, 15, 15, 15, 15.87623, 2) ##不同进制的转换
+#
+# tpl = "numbers: {:b},{:o},{:d},{:x},{:X}, {:%}".format(15, 15, 15, 15, 15, 15.87623, 2)
+#
+# tpl = "numbers: {0:b},{0:o},{0:d},{0:x},{0:X}, {0:%}".format(15)
+#
+# tpl = "numbers: {num:b},{num:o},{num:d},{num:x},{num:X}, {num:%}".format(num=15)
+
+# 更多格式化操作：https://docs.python.org/3/library/string.html
 
 
 
