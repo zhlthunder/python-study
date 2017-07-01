@@ -36,13 +36,13 @@ import os
 # ==》 此时，我们解决了第一个问题，即通过： os.path.abspath(__file__) 获取文件的绝对路径；
 
 ret=os.path.dirname(os.path.abspath(__file__))
-print(ret)
+# print(ret)
 #获取上一级目录的路径：
 # 输出：
 # C:\Users\lin\PycharmProjects\python_study_1s\python_study\git-zhl\python-study\python 之路\section5_模块2\bin
 
 rt=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-print(rt)
+# print(rt)
 # 输出：
 # C:\Users\lin\PycharmProjects\python_study_1s\python_study\git-zhl\python-study\python 之路\section5_模块2
 #获取上一级的上一级目录了
@@ -52,3 +52,6 @@ print(rt)
 
 # @@@这句代码非常重要，是固定的用法
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+
+
