@@ -40,4 +40,6 @@ socket(family,type[,protocol]) 使用给定的地址簇，套接字类型，协议编号（默认为0）
 class SocketServer.BaseServer
 SocketServer.BaseRequestHandler  the request handler class must define a new handle()  ##即需要定义一个handle方法
 
-
+requestHandler.handle()
+requesthandler.setup()
+baseserver.serve_forever(poll_interval=0.5)
