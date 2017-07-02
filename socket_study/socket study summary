@@ -23,11 +23,21 @@ socket(family,type[,protocol]) 使用给定的地址簇，套接字类型，协议编号（默认为0）
 
 套接字的具体实例具有以下方法：
 1.  s.bind(address)  将套接字绑定到地址；address的格式取决于地址簇，在AF_INET下，以元祖（host，port）的形式表示地址；
-2.  s.listen(backlog) 开始监听传入的链接， backlog指定在拒绝链接之前，操作系统可以挂起的最大链接数量。该值至少为1，大部分应用程序设为5就可以了。
-3.s.connect(address) 链接到address处的套接字，一般，address的格式为元祖（hostname,port）, 如果链接同一台机器上的服务器，可以将hostname 改为localhost.如果连接
-出错，返回socket.error错误；
+2.  s.listen(backlog) 开始监听传入的链接， backlog指定在拒绝链接之前，操作系统可以挂起的最大链接数量。
+该值至少为1，大部分应用程序设为5就可以了。
+3.s.connect(address) 链接到address处的套接字，一般，address的格式为元祖（hostname,port）, 如果链接同一台机器上的服务器，
+可以将hostname 改为localhost.如果连接出错，返回socket.error错误；
 4.s.accept() 接受连接并返回（conn，address）, 其中conn是新的套接字对象，可以用来接受和发送数据。 address是连接客户端的地址。
 5.s.close() 关闭套接字
 6.s.recv(buffersize) 接收套接字的数据。数据以字符串形式返回，buffersize 指定要接受的最大数据量。
 7.s.send(string)  将string中的数据发送到连接的套接字
 8. s.sendall(string) 将string中的数据发送到连接的套接字，但在返回之前会尝试发送所有的数据。
+
+
+
+##python socketserver 多线程
+
+class SocketServer.BaseServer
+SocketServer.BaseRequestHandler  the request handler class must define a new handle()  ##即需要定义一个handle方法
+
+
