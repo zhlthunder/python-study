@@ -145,7 +145,7 @@
 # \D 匹配任何非数字字符；它相当于[^0-9]
 # \s 匹配任何空白字符，它相当于[\t\n\r\f\v]
 # \S 匹配任何非空白字符，它相当于[^\t\n\r\f\v]
-# \w 匹配任何字母数字字符，它相当于[a-zA-Z0-9]
+# \w 匹配字母或数字或下划线或汉字，它相当于[a-zA-Z0-9]及其它
 # \W 匹配任何非字母数字字符，它相当于[^a-zA-Z0-9]
 # \b 匹配一个单词边界，也就是指单词和空格间的位置
 #     匹配单词边界（包括开始和结束），这里的“单词”，是指连续的字母，数字和下划线组成的字符串。注意
@@ -285,15 +285,15 @@ import re
 # a=re.search('\dblow','3blow')  #因为python 中没有 \d 的转义字符，所以可以匹配到
 # print(a.group())
 
-# ==》 总结： 建议使用原生字符的标准形式
+# ==》 总结： 建议使用原生字符的标准形式@@@@@@重要
 
 
 
-##正则表达式之分组
+##@@@@@正则表达式之分组
 #分组的意思是，你该匹配就匹配，如果加了分组，就会去已经匹配到的内容中去取定义的分组
 # 去已经提取到数据中再提取数据
 
-
+#@1）match 支持分组
 # 无分组
 # import re
 # origin="has dfuojqwlm88464"
@@ -307,6 +307,7 @@ import re
 # {}
 
 
+#有分组
 # import re
 # origin="has dfuojqwlm88464"
 # r = re.match("h(\w+)", origin)  # 里面的（）对匹配没有任何影响，只是进行分组而已
@@ -315,10 +316,14 @@ import re
 # print(r.groupdict()) # 获取模型中匹配到的分组结果
 # 输出：
 # has
-# ('as',)
+# ('as',)  ##匹配到的分组的部分，即从已经匹配到的结果中提取出分组的部分
 # {}
 
+#最基本的分组有两种方式，list形式 和 字典形式
+#此处因为没有定义分组的名字，即没有定义key,所以取字典时取不到结果；
 
+
+##分组
 # import re
 # origin="has dfuojqwlm88464"
 # r = re.match("h(?P<name>\w+)", origin)  # 里面的?P<name>对匹配没有任何影响，只是把分区取了个名字，叫key
@@ -332,6 +337,109 @@ import re
 # {'name': 'as'}
 
 ##所以对于分组来说，本质上就是取已经分组的内容中再去获取一点东西；
+
+
+##2)search  支持分组， 除了搜索方式为全部字符串搜索外，其它和match相同
+#无分组
+# import re
+# origin="ttpaboy a good guy"
+# r = re.search("a\w+", origin)
+# print(r.group())     # 获取匹配到的所有结果
+# print(r.groups())    # 获取模型中匹配到的分组结果
+# print(r.groupdict()) # 获取模型中匹配到的分组结果
+# 输出：
+# aboy
+# ()
+# {}
+
+#有分组：
+# import re
+# origin="ttpaboy a good guy"
+# r = re.search("a(?P<key1>\w+)", origin)
+# print(r.group())     # 获取匹配到的所有结果
+# print(r.groups())    # 获取模型中匹配到的分组结果
+# print(r.groupdict()) # 获取模型中匹配到的分组结果
+# 输出：
+# aboy
+# ('boy',)
+# {'key1': 'boy'}
+
+
+#3） findall 支持分组
+#无分组
+# import re
+# origin="has dfuojqhal wlm88464"
+# r = re.findall("h\w+", origin)
+# print(r)
+# 输出：
+# ['has', 'hal']
+
+#有分组：
+# import re
+# origin="has dfuojqhal wlm88464"
+# r = re.findall("(h\w+)", origin)
+# print(r)
+# 输出：  和上面没有分组是返回的相同；
+# ['has', 'hal']
+
+#有分组：
+# import re
+# origin="has dfuojqhal wlm88464"
+# r = re.findall("h(\w+)", origin) #匹配的时候使用h(\w+)去整体匹配，返回时只返回分组（）中的部分
+# print(r)
+# 输出：
+# ['as', 'al']
+
+##有分组--多个分组的情况， 切记，整体匹配时和分组无关；
+# import re
+# origin="hasaabc dfuojqhalaabc wlm88464"
+# r = re.findall("h(\w+)a(ab)c", origin)
+# print(r)
+# 输出：
+# [('as', 'ab'), ('al', 'ab')]
+
+
+#4） sub  都是整体匹配，并且整体替换，所以与分组无关；
+
+#5）split
+
+# 无分组
+# origin = "hello alex bcd alex lge alex acd 19"
+# r = re.split("alex", origin, 1)
+# print(r)
+# 输出：
+# ['hello ', ' bcd alex lge alex acd 19']  #输出中没有分隔符 alex
+
+# #有分组：
+# origin = "hello alex bcd alex lge alex acd 19"
+# r = re.split("(alex)", origin, 1)
+# print(r)
+# 输出：
+# ['hello ', 'alex', ' bcd alex lge alex acd 19']  #输出中有分隔符 alex
+
+#有分组：
+# origin = "hello alex bcd alex lge alex acd 19"
+# r = re.split("al(ex)", origin, 1)
+# print(r)
+# 输出：
+# ['hello ', 'ex', ' bcd alex lge alex acd 19']
+
+
+#有分组：@@重要，注意理解双层括号的情况
+# origin = "hello alex bcd alex lge alex acd 19"
+# r = re.split("(al(ex))", origin, 1)
+# print(r)
+# 输出：
+# ['hello ', 'alex', 'ex', ' bcd alex lge alex acd 19']
+#注意理解它的本质，就是取匹配到的结果中去取值，有几层括号就取几次值，从外向内匹配，逐个取值；
+
+# origin = "hello alex bcd alex lge alex acd 19"
+# r = re.split("(al(e(x)))", origin, 1)
+# print(r)
+# 输出：
+# ['hello ', 'alex', 'ex', 'x', ' bcd alex lge alex acd 19']
+
+#@@@@@@再次强调，python中正则的分组，就是取已经匹配到的结果中去取值；
 
 
 # @@@从网站上抄录过来的
@@ -489,3 +597,4 @@ import re
 # [a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+
 #
 # 常用正则表达式
+
