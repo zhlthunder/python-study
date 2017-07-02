@@ -189,7 +189,7 @@ id_db={
 # 220181993061418922 {'name': 'DaShanpao', 'age': 22, 'addr': 'Dongbei'}
 
 
-# ##循环一个字典 ，方法2
+# ##循环一个字典 ，方法2  ，效率高
 # for key in id_db:
 #     print(key)
 #     print(id_db[key])
