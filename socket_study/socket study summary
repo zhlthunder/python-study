@@ -43,3 +43,14 @@ SocketServer.BaseRequestHandler  the request handler class must define a new han
 requestHandler.handle()
 requesthandler.setup()
 baseserver.serve_forever(poll_interval=0.5)
+
+
+socket 编程中实例代码功能介绍：
+1. 客户端和服务器端都使用socket, 支持一对一的单次通信；
+2. 客户端和服务器端都使用socket, 支持一对一的多次通信；
+3. 客户端和服务器端都使用socket, 支持一对一的多次执行命令，类似ssh的简单功能；
+4. 客户端使用socket,服务器端都使用socketserver, 支持一对多的单次通信；
+4. 客户端使用socket,服务器端都使用socketserver, 支持一对多的多次通信或执行命令
+4. 客户端使用socket,服务器端都使用socketserver, 支持一对多的多线程的 ftp 功能，此代码在linux下实现，
+如果要在windows下使用，需要进行一定的修改；
+

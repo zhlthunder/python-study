@@ -6,6 +6,8 @@
 # 和 socket_client4_multi.py可以进行正常的通信，但socket_client4_multi.py 只进行一次通信；
 # 即socket_client4_multi.py 的功能太简单了，比socket_client3.py还简单；
 #即这个server 如果和 socket_client3.py， 第一次可以成功，但第二次就报错，因为下面的MyTCPHandler 只进行了单次的请求处理，没有应对多次的请求
+##对应多次处理的版本
+
 
 import SocketServer  ##只在python2.7中才用这个模块，切到pyhton3就会报错，待确认
 #定义一个类来处理客户端的请求
