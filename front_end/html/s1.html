@@ -86,16 +86,346 @@
 <!--<p>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>-->
 <!--<p>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>-->
 
+  <!--2>> 换行标签 <br/>-->
 <!--如果要换行，就在其中加入<br/>-->
 
 <!--<p>aaaaaaaaaaaaaaaaaaaaaa<br/>bbbbbbbbbbbbbbbbbbbbbbbbbbbb</p>-->
 
-<!--在div标签中包含p标签的方法：-->
+<!--标签的包含，比如在div标签中包含p标签的方法：-->
   <!--直接使用下面的方法，会出现p标签超出div标签的情况-->
-<div style="width:200px;border:1px solid red">
-    <p>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
-    <p>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
-</div>
+
+<!--<div style="width:200px;border:1px solid red">-->
+    <!--<p>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>-->
+    <!--<p>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>-->
+<!--</div>-->
+
+  <!--为了解决上面p标签超出div标签的问题，增加一个属性： word-break:break-all 就可以了-->
+  <br><br>
+
+<!--<div style="word-break:break-all;width:200px;border:1px solid red">-->
+    <!--<p>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>-->
+    <!--<p>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>-->
+<!--</div>-->
+
+   <!--3>> a标签-->
+
+<!--<a href="http://www.baidu.com">百度</a>-->
+
+  <!--如果要在新的窗口打开，使用target="_blank" 属性-->
+<!--<a href="http://www.baidu.com" target="_blank">百度</a>-->
+
+    <!--也可以跳转到本地的html文件去-->
+<!--<a href="s2.html" >s2</a>-->
+
+  <!--锚点功能：还有个功能，就是页面中锚的功能, 方式是 herf=#标签的ID-->
+  <!--<a href="#t2">看第二章</a>-->
+<!--<div style="height: 2000px;background-color: red;" id="t1">第一章</div>-->
+<!--<div style="height: 2000px;background-color: green;" id="t2">第二章</div>-->
+  <!--备注： 在html 中每一个标签可以有id,也可以没有id,但如果有id,就必须是唯一的， id重复时不会报错，但-->
+<!--使用时会有问题-->
+
+  <!--4>> image标签-->
+
+  <!--<img src="pic/test1.jpg" title="美女"  style="height:500px;width: 800px"/>-->
+
+  <!--5>>h系列 标题标签-->
+  <!--<h1>alex</h1>-->
+  <!--<h2>alex</h2>-->
+  <!--<h3>alex</h3>-->
+  <!--<h4>alex</h4>-->
+  <!--<h5>alex</h5>-->
+  <!--<h6>alex</h6>-->
+
+  <!--6>>select 标签：-->
+  <!--<select>-->
+      <!--<option>北京</option>-->
+      <!--<option>上海</option>-->
+      <!--<option>广州</option>-->
+  <!--</select>-->
+
+    <!--##如果要同时显示2个元素，使用size属性-->
+
+  <!--<select size="2">-->
+      <!--<option>北京</option>-->
+      <!--<option>上海</option>-->
+      <!--<option>广州</option>-->
+  <!--</select>-->
+
+   <!--修改默认选择项的方法，在对应要显示的选项下加上 selected="selected"-->
+
+  <!--<select>-->
+      <!--<option>北京</option>-->
+      <!--<option selected="selected">上海</option>-->
+      <!--<option>广州</option>-->
+  <!--</select>-->
+
+  <!--支持 按住control 多选的功能，增加 multiple="multiple"-->
+
+  <!--<select multiple="multiple">-->
+      <!--<option>北京</option>-->
+      <!--<option>上海</option>-->
+      <!--<option>广州</option>-->
+  <!--</select>-->
+
+  <!--支持二级分组的功能：-->
+  <!--<select>-->
+      <!--<optgroup label="河北省">-->
+          <!--<option>石家庄</option>-->
+          <!--<option>邯郸</option>-->
+      <!--</optgroup>-->
+      <!--<optgroup label="江苏省">-->
+          <!--<option>南京</option>-->
+          <!--<option>苏州</option>-->
+      <!--</optgroup>-->
+  <!--</select>-->
+
+  <!--一般在select 标签处可以定义id和style, 但在它下面的option里，我们一般不定义id;因为option永远和-->
+ <!--slect 一起使用，所有不用定义id来标识； 而在option里，我们可以定义value;-->
+  <!--使用value实际上在提交到后台时，使用的就是value的值；-->
+  <!--<select multiple="multiple">-->
+      <!--<option value="1">北京</option>-->
+      <!--<option value="2">上海</option>-->
+      <!--<option value="3">广州</option>-->
+  <!--</select>-->
+
+  <!--7>> input系列标签,都是自闭合-->
+     <!--复选框,可以选多个选项，即用于做复选的-->
+
+     <!--<input type="checkbox" />-->
+     <!--默认选中-->
+     <!--<input type="checkbox" checked="checked"/>-->
+
+      <!--单选框，即用于从多个选项中选择一个-->
+
+     <!--<input type="radio" />-->
+       <!--默认选中-->
+     <!--<input type="radio" checked="checked" />-->
+
+    <!--用例：-->
+    <!--input-radio标签，只有定义相同的name属性，才可以实现单选的功能；-->
+     <!--即所有的标签都可以定义name属性，但只有在radio中有特殊的功能；-->
+
+    <!--<p>男<input type="radio" name="gender"/></p>-->
+    <!--<p>女<input type="radio" name="gender" /></p>-->
+
+      <!--文本输入框-->
+
+     <!--<input type="text" />-->
+      <!--设置文本框的默认值,使用value属性；-->
+     <!--<input type="text" value="默认值" />-->
+
+      <!--密码输入框-->
+
+     <!--<input type="password" />-->
+
+     <!--下面的两个按钮的标签，如果在form标签里面，他们的功能不同，如果不在form标签中，他们的功能相同；-->
+      <!--按钮,只是一个按钮的功能，没有提交表单的功能；-->
+     <!--<input type="button" value="button" />-->
+          <!--按钮,有提交表单的功能；-->
+     <!--<input type="submit" value="submit" />-->
+
+   <!--<hr />-->
+
+   <!--8>> form标签-->
+  <!--一般情况下，在一个html 页面上，只有在form标签内部的内容才可以提交到后台；-->
+  <!--下面提交到 django_form 工程下的django 的后台中-->
+  <!--<form action="http://127.0.0.1:8000/django_form/">-->
+      <!--<div>-->
+          <!--主机名：<input name="host" type="text" />-->
+      <!--</div>-->
+      <!--<div>-->
+          <!--端口：<input name="port" type="text" />-->
+      <!--</div>-->
+      <!--<div>-->
+          <!--用户：<input name="user" type="text" />-->
+      <!--</div>-->
+      <!--<div>-->
+          <!--类型：<input name="type" type="text" />-->
+      <!--</div>-->
+      <!--<input type="submit" value="提交" />-->
+  <!--</form>-->
+
+  <!--提交到后台后，就会拿到类似下面的数据：-->
+  <!--{"host":***,"port":***,"user":***,"type":***}-->
+  <!--即如果要提交到后台，必须使用name属性，以键值对的方式提供，在后台无法识别id，id只在html中有意义-->
+  <!--提交后，后台收到的数据为：-->
+  <!--<QueryDict: {}>-->
+  <!--<QueryDict: {u'host': [u'aaaa'], u'type': [u'tttt'], u'port': [u'ppp'], u'user': [u'uuuu']}>-->
+  <!--如果不使用name 属性，后台就无法获取任何的数据，切记，一定要使用name属性；-->
+
+    <!--7>> input  file标签， 如果要提交到后台，也需要放到form标签中；-->
+     <!--<input type="file" />-->
+     <!--且如何想要向后台提交文件，需要在form标签中需要使用以下两个特殊的属性才可以提交成功-->
+     <!--enctype="multipart/form-data" method="post"-->
+<!--<form enctype="multipart/form-data" method="post">-->
+    <!--<input type="file" />-->
+<!--</form>-->
+
+    <!--9>> 多行文本标签-->
+
+     <!--<textarea></textarea>-->
+
+      <!--设置文本框的初始值-->
+     <!--<textarea>文本框中初始值</textarea>-->
+
+     <!--10>> label标签-->
+      <!--为了增加用户体验，让文本和某个选择标签绑定-->
+       <!--就是使用一个id属性和一个for属性，让lable和checkbox绑定，当我们点击婚否的时候就选中了checkbox-->
+      <!--<label for="cd1">婚否</label>-->
+      <!--<input id="cd1" type="checkbox" />-->
+
+      <!--11>> 列表标签  ul ol dl-->
+
+       <!--<ul>-->
+           <!--<li>111</li>-->
+           <!--<li>222</li>-->
+           <!--<li>333</li>-->
+       <!--</ul>-->
+
+       <!--##每个分项前面有序号-->
+       <!--<ol>-->
+           <!--<li>oooooo</li>-->
+           <!--<li>ppppp</li>-->
+           <!--<li>ddddd</li>-->
+       <!--</ol>-->
+
+      <!--<dl>-->
+          <!--<dt>标题1</dt>-->
+          <!--<dd>内容11</dd>-->
+          <!--<dd>内容12</dd>-->
+          <!--<dd>内容13</dd>-->
+          <!--<dt>标题2</dt>-->
+          <!--<dd>内容21</dd>-->
+          <!--<dd>内容22</dd>-->
+          <!--<dd>内容23</dd>-->
+      <!--</dl>-->
+
+  <!--12>> table标签-->
+  <!--完整写法：-->
+   <!--<table border="1">-->
+       <!--<thead>-->
+       <!--<tr>-->
+           <!--<th>第一列</th>-->
+           <!--<th>第二列</th>-->
+           <!--<th>第三列</th>-->
+       <!--</tr>-->
+       <!--</thead>-->
+       <!--<tbody>-->
+       <!--<tr>-->
+           <!--<td>h1</td>-->
+           <!--<td>h2</td>-->
+           <!--<td>h3</td>-->
+       <!--</tr>-->
+       <!--<tr>-->
+           <!--<td>hh1</td>-->
+           <!--<td>hh2</td>-->
+           <!--<td>hh3</td>-->
+       <!--</tr>-->
+       <!--<tr>-->
+           <!--<td>hhh1</td>-->
+           <!--<td>hhh2</td>-->
+           <!--<td>hhh3</td>-->
+       <!--</tr>-->
+       <!--</tbody>-->
+   <!--</table>-->
+
+  <!--合并单元格-->
+   <!--<table border="1">-->
+       <!--<thead>-->
+       <!--<tr>-->
+           <!--<th>第一列</th>-->
+           <!--<th>第二列</th>-->
+           <!--<th>第三列</th>-->
+       <!--</tr>-->
+       <!--</thead>-->
+       <!--<tbody>-->
+       <!--<tr>-->
+           <!--&lt;!&ndash;水平方向两个单元格合并&ndash;&gt;-->
+           <!--<td colspan="2">h1，h2</td>-->
+           <!--<td>h3</td>-->
+       <!--</tr>-->
+       <!--<tr>-->
+           <!--<td rowspan="2">hh1，hhh1</td>-->
+           <!--<td>hh2</td>-->
+           <!--<td>hh3</td>-->
+       <!--</tr>-->
+       <!--<tr>-->
+           <!--<td>hhh2</td>-->
+           <!--<td>hhh3</td>-->
+       <!--</tr>-->
+       <!--</tbody>-->
+   <!--</table>-->
+
+
+  <!--table标签的简写方式：省略 thead 和 tbody-->
+     <!--<table border="1">-->
+       <!--<tr>-->
+           <!--<th>第一列</th>-->
+           <!--<th>第二列</th>-->
+           <!--<th>第三列</th>-->
+       <!--</tr>-->
+        <!--<tr>-->
+           <!--&lt;!&ndash;水平方向两个单元格合并&ndash;&gt;-->
+           <!--<td colspan="2">h1，h2</td>-->
+           <!--<td>h3</td>-->
+       <!--</tr>-->
+       <!--<tr>-->
+           <!--<td rowspan="2">hh1，hhh1</td>-->
+           <!--<td>hh2</td>-->
+           <!--<td>hh3</td>-->
+       <!--</tr>-->
+       <!--<tr>-->
+           <!--<td>hhh2</td>-->
+           <!--<td>hhh3</td>-->
+       <!--</tr>-->
+   <!--</table>-->
+
+  <!--13> fieldset 标签-->
+  <!--<fieldset style="width:500px;height: 200px;">-->
+      <!--<legend>登陆</legend>默认值-->
+  <!--</fieldset>-->
+  <!-- -->
+  <!--<fieldset style="width:500px;height: 200px;">-->
+      <!--<legend>登陆</legend>-->
+  <!--</fieldset>-->
+
+<!--标签总结：-->
+ <!--1.所有的标签都可以定义id属性,style属性；name属性-->
+ <!--2. a标签的特有属性： target href-->
+ <!--3.一般在select 标签处可以定义id和style, 但在它下面的option里，我们一般不定义id;因为option永远和-->
+ <!--slect 一起使用，所有不用定义id来标识； 而在option里，我们可以定义value;-->
+
+<!--二次总结：-->
+<!--1.分为块级标签和内敛标签；-->
+   <!--块级：div，p ,h -->
+   <!--内敛标签： span  a label input form image-->
+<!--2.各种特殊符号-->
+   <!--&nbsk; 空格-->
+  <!--3. 需要掌握的标签：-->
+    <!--&#45;&#45;用户提交数据会用到的重要的标签；-->
+     <!--input-->
+     <!--select-->
+     <!--textarea-->
+     <!--form-->
+    <!--&#45;&#45;布局时要用到的特殊的标签：-->
+     <!--div span-->
+    <!--其他：-->
+     <!--a  img  table-->
+
+  <!--h,ul,li ol,dl,p,br,hr-->
+
+<!--4. 属性：-->
+  <!--公共属性： id,name(一般只有那些需要提交数据到后台的标签才需要定义，其它的标签都可以不用)，style,class-->
+  <!--input-text/password:  value=** 用于设置默认值  name=** 用于提交数据用的-->
+  <!--input&#45;&#45;button/submit: value=** 设置按钮中显示的内容-->
+  <!--input-checkbox:   checked=checked  表示默认选中； -->
+  <!--input-radio:  name属性有个特殊的作用，用于互斥选择用的；checked=checked  表示默认选中； -->
+  <!--select: selected=selected 表示默认显示项；-->
+      <!--option 里可以定义value属性，用来表示每个选项-->
+   <!--form 标签： 要提交的所有标签都需要放到form里面才可以提交-->
+       <!--actioin="url"  表示要提交到的地址；-->
+   <!--input-file  要上传文件时，需要在它所在的form标签中增加 enctype="multipart/form-data" method="post"-->
+   <!--textarea: 可以设置name属性用来向后台提交数据用的；-->
 
 </body>
 </html>

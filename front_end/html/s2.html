@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <div style="height:48px;background-color: pink;">头部</div>
+    <div style="background-color:#ddd;">
+        <div style="width:10%;height:500px;float: left;background-color: aqua;">左边内容</div>
+        <div style="width:90%;height:500px;float:left; background-color: antiquewhite;">
+            <h1>form表单提交</h1>
+            <form action="http://127.0.0.1:8000/django_form/" enctype="multipart/form-data" method="post">
+                <p>
+                    主机：<input type="text" name="host" />
+                    密码：<input type="password" name="pwd" />
+                </p>
+
+                <div style="background-color: rosybrown;color:white;">
+                    <h6>爱好</h6>
+                    篮球<input name="favor" type="checkbox" value="1" />
+                    足球<input name="favor" type="checkbox" value="2" />
+                    排球<input name="favor" type="checkbox" value="3" />
+                </div>
+
+                <div>
+                    <h6>性别</h6>
+                    男：<input name="gender" type="radio" value="1"/>
+                    女：<input name="gender" type="radio" value="0" />
+                </div>
+
+                <div>
+                    <h6>城市</h6>
+                    <select name="city">
+                        <option value="11">上海</option>
+                        <option value="22">北京</option>
+                    </select>
+                </div>
+
+                <div>
+                    <h6>多行文本</h6>
+                    <textarea name="memo"></textarea>
+                </div>
+
+                <div>
+                    <h6>上传文件</h6>
+                    <input  type="file" name="file_name"/>
+                </div>
+
+                <input type="submit" value="提交">
+            </form>
+
+        </div>
+    </div>
+
+
+
+</body>
+</html>
+
+<!--备注：-->
+<!--form 不写method时，默认以get方式提交的-->
+
+<!--django的打印：-->
+<!--<QueryDict: {u'city': [u'22'], u'gender': [u'1'], u'memo': [u'BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB'], u'pwd': [u'bbbb'], u'favor': [u'1', u'2'], u'host': [u'AAAAA']}>-->
+<!--<QueryDict: {}>-->
+<!--<MultiValueDict: {u'file_name': [<InMemoryUploadedFile: QQ鍥剧墖20170228151811.jpg (image/jpeg)>]}>-->
