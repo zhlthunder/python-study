@@ -1,47 +1,45 @@
 <head>
  <meta charset="UTF-8" />
  <title></title>
+
+    <!--引用样式文件（css文件）-->
  <link rel="stylesheet" href="CSS/commons.css" />
 
+    <!--在头部定义的全局样式（css样式）-->
  <style>
-  
   .bb{
   color:black;
   font-size:50px;
   }
- 
- 
  </style>
+
   </head>
  
  <body>
    <hr>
    <br/>
-   css define method 1: 使用style 定义在标签内部
-  
+   <!--css define method 1: 使用style 定义在标签内部-->
  <div style="color:red;font-size:30px;">标签内部的样式</div>
    <hr>
    <br />
  
-   css define method 2: 在头部使用style 标签进行定义，然后再引用
- 
+   <!--css define method 2: 在头部使用style 标签进行定义，然后再引用-->
   <div class="bb">头部定义标签的样式</div>
     <hr>
    <br />
- 
- 
-   css define method 3:在CSS文件中进行样式定义，然后再引用
+
+   <!--css define method 3:在CSS文件中进行样式定义，然后再引用-->
  <div class="cc" >引用样式文件中的样式</div>
    <hr>
    <br />
   
-  总结：method 1的优先级最高， 
-      而定义class的方式，如果一个标签中引用了多个样式，按它们在样式文件中的定义顺序，后面的覆盖前面的，说明如下：<br/>
-	   样式文件中定义如下： <br/>
-	      .cc{  ...} <br />
-          .ccc{ ....}  <br />
-		  
-		  <div class="cc ccc"></div>
-          说明：ccc会覆盖cc的样式（如果它们的样式中有重复的话） 
+  <!--总结：method 1的优先级最高， -->
+      <!--而定义class的方式，如果一个标签中引用了多个样式，按它们在样式文件中的定义顺序，后面的覆盖前面的，说明如下：<br/>-->
+	   <!--样式文件中定义如下： <br/>-->
+	      <!--.cc{  ...} <br />-->
+          <!--.ccc{ ....}  <br />-->
+		  <!-- -->
+		  <!--<div class="cc ccc"></div>-->
+          <!--说明：ccc会覆盖cc的样式（如果它们的样式中有重复的话） -->
  
  </body>

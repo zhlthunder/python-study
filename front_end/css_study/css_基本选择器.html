@@ -1,8 +1,8 @@
 <head>
  <meta charset="UTF-8" />
  <title></title>
+
  <style>
-  
   .bb{
   color:red;
   font-size:20px;
@@ -10,12 +10,16 @@
  
   a{
     color:red;
-	font-size:30px;}
+	font-size:30px;
+  }
+
   #c1{
      color:green;
-	 font-size:20px;}
+	 font-size:20px;
+  }
  
  </style>
+
   </head>
 
 
@@ -36,7 +40,7 @@
  <hr>
 2.标签选择器：<br>
  a{}  //为所有的a标签定义样式，其它标签类似用法 <br>
- 
+
  但对于input标签，有特殊的用法：<br>
   input[type='text']{}  //即为input标签中type=text的所有标签应用这个样式；<br>
  <hr>
@@ -48,17 +52,17 @@
 <hr>
 
 4.层级选择器，使用空格来标识层级，表示 谁下面的谁；<br>
-  
+
    <!--
-   <div class="c3"> 
+   <div class="c3">
    <a>
-     <div> 
+     <div>
 	  <span id="a1"> </span>
 	 </div>
    </a>
    <div>
    -->
-    
+
 	  对于上面的html标签(使用了注释，请查看源码)，可以用 .c3 a div #a1{} ,通过绝对路径访问到span标签并应用样式； <br><hr>
 5.组合选择器 <br>
   a,p{}  //为所有的a和p标签应用相同的样式；
