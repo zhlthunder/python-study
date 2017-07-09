@@ -1,0 +1,17 @@
+<!DOCTYPE html>  ##用于定义html 文档的类型，这是推荐的类型，其它还有很多别的类型；
+
+@@了解html的架构：
+<!DOCTYPE html>  ##定义html文档的类型
+<html>
+<head>
+##用于对这个html的相关设置
+</head>
+
+<body>
+</body>
+</html>
+
+
+常用标签， 分为 块级标签 和 行内标签；
+
+
