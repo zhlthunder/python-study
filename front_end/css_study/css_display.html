@@ -3,30 +3,33 @@
  <title></title>
 
  <style>
- 
- 
- 
+
  </style>
   </head>
   
   <body>
      <div > aaa </div>
-     <div style="display:none;"> aaa </div>
+     <!--下面这个标签不显示-->
+     <div style="display:none;"> bbb </div>
 	 <hr>
-	 
+
+       <!--下面两个span为行内标签，他们在一行显示-->
 	 <span style="background-color:red;">content</span>
-	  <span style="background-color:red;">content</span>
+     <span style="background-color:red;">content</span>
 	  <hr>
+         <!--下面第一个为行内标签，第二个为块级标签-->
 	  <span style="background-color:red;">content</span>
 	 <span style="background-color:red;display:block;">content</span>
 	 <hr>
+
+        <!--下面第一个为块级标签，第二个变为行内标签了-->
 	 <div style="background-color:green">content</div>
 	 <div style="background-color:green;display:inline;">content</div>
-	 
-	 <br><br><hr>
-  
-  display ֧�ֵ����ԣ�
-        none; block; inline;
 
-  <body>
- 
+	 <!--<br><br><hr>-->
+
+  </body>
+   <!--display:包含三种属性值：-->
+        <!--none;  # 将标签隐藏起来，不显示-->
+        <!--block;  #把内联标签变成了块级标签-->
+        <!--inline; #把块级标签变成了行内标签-->
