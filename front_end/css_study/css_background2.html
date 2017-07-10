@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        .box {
+    width: 512px; height: 382px;
+    background: #cd0000 url("picture/pic1.jpg") no-repeat;
+    /*background-position: right 40px bottom 20px;*/
+    /*background-position: left 100% top 100%;*/
+    /*background-position: left 0% top 0%;*/
+    /*background-position: left 0% top 100%;*/
+    /*background-position: left 100% top 0%;*/
+    /*background-position: left 256px top 191px;*/
+    /*background-position: left 0px top 191px;*/
+    /*background-position: left 256px top 0px;*/
+    /*background-position: 0px 0px;*/
+              /*再来看看background-position属性，它有两个参数，分别是水平方向移动的像素、竖直方向移动的像素，*/
+              /*都用负数表示。大图不动， div移动，也只能是向右、向下移动，只要记住这两个方向移动的像素都用负数表示就行了！*/
+    background-position: -50px -50px;
+
+            }
+    </style>
+</head>
+<body>
+<div class="box"></div>
+
+</body>
+</html>
+
+
+<!--参考网页-->
+<!--http://www.zhangxinxu.com/wordpress/2015/03/background-object-position-value-percent/-->
+<!--http://www.cnblogs.com/keyi/p/5864609.html-->
+<!--pic: 256*191-->
+
+<!--backgroud参数包括：-->
+<!--background-color:red;-->
+<!--background-image:url('image/5.jpg')-->
+<!--background-repeat:repeate-x,repeate-y,no-repeate-->
+<!--&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
+<!--上面三个参数合并起来的写法为：-->
+<!--background: #cd0000 url("picture/pic1.jpg") no-repeat-->
+
+<!--background-position:@@@-->
