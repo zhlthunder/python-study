@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+ <!--type1 :底层＋飘出的一层，通过调节飘出的一层的透明度，来看整体的显示效果-->
+<!--透明度：首先只有分层了，透明度才有意义；-->
+ <!--如果要分层，就需要使用postion:fixed就可以分层了-->
+   <!--opcity:的取值： 0.1~1-->
+<!--<div style="background-color: red;height: 2000px;"></div>-->
+<!--<div style="position:fixed;top:0;right:0px;bottom:0px;left:0px;background-color: black;opacity: 0.5;"></div>-->
+
+
+<!--type2: 飘出两层的情况-->
+   <!--z-index越大的越靠上层-->
+<div style="z-index:10;position:fixed;top:0;right:0px;bottom:0px;left:0px;background-color: black;color:white;">我是黑色</div>
+<div style="z-index:11;position:fixed;top:0;right:0px;bottom:0px;left:0px;background-color: red;opacity: 0.8;"></div>
+
+
+<!--备注：-->
+<!--不同的浏览器，控制透明度的参数不同：-->
+<!--chrome用 opacity-->
+<!--IE 用： filter:alpha(opacity=40)-->
+
+</body>
+</html>

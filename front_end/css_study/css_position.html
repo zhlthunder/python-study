@@ -3,26 +3,55 @@
  <title></title>
 
  <style>
- 
- 
- 
  </style>
   </head>
   
   <body>
-  <div  style="height:5000px;background-color:red;"> main</div>
-  <div style="position:fixed;bottom:20px;right:20px;">back_to_top</div>
-  
 
-  
-  
-  position:
-     fixed:�̶���
-	 absolute�����ԣ�
-	 relative����ԣ�
-	 
-	 Ĭ������£���ʹ��fixedʱ������ҳ���ֻ��һ�㣨������Ϊ��ɫ����һ�㣬��ʹ��fixed���л����һ�㣩
-	 ʹ��fixed�󣬾Ͷ������������ĸ����ԣ������趨����ڴ��ڵ�λ�ã�
 
-  <body>
- 
+   <!--type 1: postion:fixed功能介绍-->
+    <!--属性中只要有 position:fixed，就会脱离原来的文档，产生一个新的层，
+    即在背景层的基础上又飘出来一层-->
+     <!--css:全称是层叠样式表-->
+      <!--下面的参数中的 top bottom right left 都是相对于当前窗口的，和整个页面的长度无关,即
+         无论如何移动滚动条，总是固定在窗口的某个位置不变，所以称为fixed-->
+  <!--<div  style="height:5000px;background-color:red;"></div>-->
+  <!--<div style="position:fixed;top:0px;right:0px;">返回顶部</div>-->
+  <!--<div style="position:fixed;top:50%;left:50%;">返回顶部</div>-->
+  <!--<div style="position:fixed;top:50%;right:0px;">返回顶部</div>-->
+  <!--<div style="position:fixed;bottom:0px;right:0px;">返回顶部</div>-->
+  <!--<div style="position:fixed;bottom:40px;right:30px;">返回顶部</div>-->
+
+
+
+
+  <!--type2: postion:absolute 单独使用的时候，只能一次固定在窗口的某个位置，当移动滚动条时，它的位置就会发生-->
+    <!--变化,所以 absolute 一般不自己出现，一般和relative一起使用-->
+  <!--<div  style="height:5000px;background-color:red;"></div>-->
+   <!--<div style="position:absolute;bottom:40px;right:30px;">返回顶部</div>-->
+
+  <!--type3： absolute + relative-->
+     <!--首先，说明一点， position:relative 单独使用时不会产生任何效果，只有和absolute一起-->
+     <!--使用时才会产生效果；-->
+
+     <!--只使用absolute,不使用relative的情况：-->
+   <!--<div style="background-color: green;height: 400px;width: 500px;">-->
+    <!--<div style="position: absolute;bottom: 10px;right:10px;">定位</div>-->
+   <!--</div>-->
+    <!--<div  style="height:5000px;background-color:red;"></div>-->
+
+     <div style="position:relative;background-color: green;height: 400px;width: 500px;">
+    <div style="position: absolute;bottom: 10px;right:10px;">定位</div>
+   </div>
+    <div  style="height:5000px;background-color:red;"></div>
+    <!--总结：relative和absolute 组合使用时，absolute 会相对于relative 所在的父标签的右下角，而不是-->
+     <!--整个窗口的右下角了，切记-->
+
+   <!--总结：relative和absolute组合使用； fixed单独使用-->
+
+  </body>
+
+<!--position:-->
+  <!--fixed-->
+  <!--absolute-->
+  <!--relative-->
