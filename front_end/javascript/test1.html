@@ -1,0 +1,24 @@
+<!--2、JavaScript代码存在位置-->
+
+<!--HTML的head中-->
+<!--HTML的body代码块底部(推荐)-->
+<!--由于Html代码是从上到下执行，如果Head中的js代码耗时严重，就会导致用户长时间无法看到页面，如果放置在body代码块底部，-->
+<!--那么即使js代码耗时严重，也不会影响用户看到页面效果，只是js实现特效慢而已。-->
+
+<!--如果是js放在前面，js如果加载很慢的话，那么html页面就会一直无法显示，一直显示空白页，-->
+<!--就会影响用户体验-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="https://www.gstatic.com/og/_/js/k=og.og2.en_US.iF4jnkQuaf0.O/rt=j/t=zcms/m=def/exm=in,fot/d=1/ed=1/rs=AA2YrTv5-POC4Ks9GtGRdY2ywUWisqz7-Q"></script>
+<script>
+    alert('123');
+</script>
+</head>
+<body>
+
+</body>
+</html>

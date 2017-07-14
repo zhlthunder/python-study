@@ -1,0 +1,65 @@
+
+<!--http://www.cnblogs.com/wupeiqi/articles/5369773.html  相关博客-->
+<!--JavaScript-->
+
+<!--JavaScript是一门编程语言，浏览器内置了JavaScript语言的解释器，-->
+<!--所以在浏览器上按照JavaScript语言的规则编写相应代码之，浏览器可以解释并做出相应的处理。-->
+
+<!--1、JavaScript代码存在形式-->
+
+<!-- 方式一 -->
+<!--<script type"text/javascript" src="JS文件"></script>-->
+
+<!-- 方式二 -->
+<!--<script type"text/javascript">-->
+    <!--Js代码内容-->
+<!--</script>-->
+
+<!--2、JavaScript代码存在位置-->
+
+<!--HTML的head中-->
+<!--HTML的body代码块底部(推荐)-->
+<!--由于Html代码是从上到下执行，如果Head中的js代码耗时严重，就会导致用户长时间无法看到页面，-->
+<!--如果放置在body代码块底部，那么即使js代码耗时严重，也不会影响用户看到页面效果，只是js实现特效慢而已。-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+
+      <!--当浏览器遇到<script></script>后，会按照javascript的规则进行解析；-->
+
+    <!--方式1-->
+    <script>
+        //定义函数
+       function f1(){
+         alert("f1");
+       }
+        //执行函数
+        f1()
+    </script>
+
+    <!--方式2：-->
+    <!--引用文件-->
+    <script src="commons.js"></script>
+    <!--执行函数-->
+    <script>
+        f2();
+    </script>
+
+</head>
+<body>
+
+</body>
+</html>
+
+<!--#javascript 和 java 没有任何关系；-->
+<!--javascript作为一种编程语言，需要使用浏览器的内置引擎来解析和执行；-->
+<!--javascript 就是让我们前端的页面，或者说让我们的html动起来；-->
+<!--javascript就是用来让我们操作html标签或css样式的-->
+<!--我们平常泛指的js ，其实是 javascript+ dom;-->
+<!--dom: 是浏览器给我们提供的一个类库，也可以说就是javascript所操作的数据结构；-->
+
+<!--通过dom+ javascript,我们可以在页面上做所有的操作，而 jquery是对它们实现的功能的高度集成，提供方法让我们调用，-->
+<!--让开发更方便快捷；-->
