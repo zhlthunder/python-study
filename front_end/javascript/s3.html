@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+<script>
+
+//     type 1: 普通函数定义
+    function func1(arg){
+        console.log(arg);
+        return "zhl";
+    }
+    ret=func1(1234);
+    console.log(ret);
+
+//    输出：
+//    1234
+//    zhl
+
+//    type 2:匿名函数
+
+    var f=function(arg){
+        console.log(arg);
+        return "tony";
+    }
+    ret=f(456);
+    console.log(ret);
+
+//     输出：
+//    456
+//    tony
+
+
+//    type 3:自执行函数，一般用于我自定义js的类库；
+
+    (function(arg){
+        console.log(arg);
+    })(8888);
+//     输出： 8888
+
+
+//    js面向对象
+    function Foo(name,age) {
+        this.Name = name;
+        this.Age = age;
+        this.Func = function(arg){
+            return this.Name + arg;
+    }
+}
+
+var obj = new Foo('alex', 18);
+var ret = obj.Func("sb");
+console.log(ret);
+//    输出：alexsb
+
+
+</script>
+</body>
+</html>

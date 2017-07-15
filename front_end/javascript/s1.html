@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+  <!--javascript 声明变量-->
+
+  <script>
+//      定义全局变量
+      name1="jack";
+//      定义局部变量，这是默认的格式，所以以后创建变量时，默认情况下都要加var;
+      var name="tony";
+      console.log(name);
+      console.log(name1);
+//      输出的结果在浏览器的console窗口下
+
+  </script>
+</body>
+</html>
+
+<!--js注释相关：-->
+<!--js代码中的注释：-->
+<!--单行注释：  //-->
+<!--多行注释 /*  */-->
+
+<!--js代码的书写要求：-->
+<!--js的代码，推荐在每个语句的而后面都加上一个分号（;）-->
+<!--为什么要这样呢？ 因为以后业务上线时，前端的代码会被压缩成一行，所以如果没有分号进行分隔的话，-->
+<!--就会出现错误，所以我们在写js代码的时候：按特定的规则进行缩进，并在每句的后面都加上分号，切记！！-->
+
+
+<!--js中支持的数据类型： 数字，字符串，数组-->
+
+<!--js数据类型之数字-->
+<!--创建数字类型：-->
+var age=18
+var age=Number(18)
+
+<!--#将字符串转换成数字类型-->
+number("123")
+parseint("123")
+
+<!--下面我们在浏览器console端口中直接执行来进行学习：-->
+var age=18
+undefined
+console.log(age);
+18
+undefined
+typeof age;
+"number"
+
+<!--备注：typeof 用于查看变量的类型-->
+
+var age="18";
+undefined
+typeof age
+"string"
+//将字符串转换成数字类型
+var num=parseInt(age);
+undefined
+typeof num;
+"number"
+console.log(num);
+VM290:1 18
+undefined
+
+
+var age="12.3";
+undefined
+typeof age;
+"string"
+var num=parseFloat(age);
+undefined
+typeof(num);
+"number"
+console.log(num);
+12.3
+undefined
+var num2=parseInt(age);
+undefined
+console.log(num2);
+12
+undefined
+
+<!--即总共有两种方法： parseInt parseFloat-->
+
+<!--还支持一行定义多个变量的方式：-->
+var name="alex",age=12;
+undefined
+console.log(name,age);
+VM526:1 alex 12
+undefined
+
+
+<!--js数据类型之 字符串类型：-->
+<!--定义字符串：-->
+var name="tony";
+undefined
+typeof name;
+"string"
+
+<!--移除字符串空格的方法：-->
+var name="alex "
+undefined
+name;
+"alex "
+name.trim();
+"alex"
+
+var name=" alex ";
+undefined
+name;
+" alex "
+name.trimLeft();
+"alex "
+name.trimRight();
+" alex"
+
+
+<!--根据索引取值：-->
+var name="tony";
+undefined
+name.charAt(0);
+"t"
+name.charAt(1);
+"o"
+name.charAt(2);
+"n"
+
+
+<!--获取字符串子集的方法：-->
+name;
+"tony"
+name.substring(1,2);
+"o"
+name.substring(0,2);
+"to"
+name.substring(0,3);
+"ton"
+
+
+<!--获取字母在字符中的下标位置：-->
+name;
+"tony"
+name.indexOf('n');
+2
+name.indexOf('y');
+3
+name.indexOf('t');
+0
+
+<!--获取字符串的长度：-->
+name;
+"tony"
+name.length;
+4
+
+
+<!--js中布尔值：-->
+Boolean(1);
+true
+Boolean(0);
+false
+
+<!--另外,在js中，true和false都要小写；-->
+var a=true;
+undefined
+a
+true
+
+<!--js数据类型之数组  等价于 python中的列表类型；-->
+<!--创建数组的两种方法：-->
+var li=[11,22,33];
+undefined
+li
+(3) [11, 22, 33]
+var ll=Array(11,22,33);
+undefined
+ll
+(3) [11, 22, 33]
+typeof li;
+"object"
+typeof ll;
+"object"
+
+向数组中插入元素：
+var li=[11,22,33];
+undefined
+li
+(3) [11, 22, 33]
+<!--在数组的最后插入：-->
+li.push(88);
+4
+li;
+(4) [11, 22, 33, 88]
+<!--在数组的最前面插入：-->
+li.unshift("oo");
+5
+li
+(5) ["oo", 11, 22, 33, 88]
+
+li;
+(5) ["oo", 11, 22, 33, 88]
+<!--在指定位置插入元素，语法：splice(index,0,要插入的元素)-->
+li.splice(1,0,9999);
+[]
+li;
+(6) ["oo", 9999, 11, 22, 33, 88]
+
+移除元素：
+li;
+(6) ["oo", 9999, 11, 22, 33, 88]
+<!--移除最后一个元素并获取到-->
+var i=li.pop();
+undefined
+i
+88
+li
+(5) ["oo", 9999, 11, 22, 33]
+
+
+
+li;
+(5) ["oo", 9999, 11, 22, 33]
+<!--移除第一元素：-->
+var i=li.shift();
+undefined
+i;
+"oo"
+li;
+(4) [9999, 11, 22, 33]
+
+
+<!--移除指定个数的元素，语法： splice(start_index,要移除的元素的个数)-->
+li;
+(4) [9999, 11, 22, 33]
+li.splice(1,1);
+[11]
+li.splice(1,2);
+(2) [22, 33]
+
+<!--切片功能，语法： slice(开始索引，结束的索引) 大于等于开始索引，小于结束的索引，即“顾头不顾尾”-->
+var li=[11,22,33,44];
+undefined
+li.slice(0,2);
+(2) [11, 22]
+
+数组之间的联合功能：
+li;
+(4) [11, 22, 33, 44]
+var n=["alex"];
+undefined
+n;
+["alex"]
+var m=li.concat(n);
+undefined
+m;
+(5) [11, 22, 33, 44, "alex"]
+
+<!--反转功能：-->
+li;
+(4) [11, 22, 33, 44]
+li.reverse();
+(4) [44, 33, 22, 11]
+li;
+(4) [44, 33, 22, 11]
+
+<!--数组拼接成字符串：-->
+li;
+(4) [44, 33, 22, 11]
+var m=li.join("-");
+undefined
+m;
+"44-33-22-11"
+
+
+<!--js数据类型之字典，为构造出来的类型；-->
+<!--字典的创建方法如下，和python相同-->
+var dic={'k1':'v1'};
+undefined
+dic;
+Object {k1: "v1"}
+
+
+<!--js中的序列化和反序列化-->
+语法：
+JSON.stringify 对象转换序列化成字符串；
+JSON.parse 字符串反序列化成对象；
+
+dic;
+Object {k1: "v1"}
+typeof dic;
+"object"
+<!--对象序列化成字符串-->
+var s=JSON.stringify(dic);
+undefined
+s;
+"{"k1":"v1"}"
+typeof s;
+"string"
+<!--字符串串反序列化成对象-->
+var m=JSON.parse(s);
+undefined
+m;
+Object {k1: "v1"}
+typeof m;
+"object"
+
+两种特殊的数据类型：
+undefined
+
+undefined表示变量未定义值
+var tt;
+undefined
+var tt=11;
+undefined
+
+
+null
+null是一个特殊值
+
+var name=null;
+undefined
+name;
+"null"
+
+Boolean(null);
+false
+Boolean(undefined);
+false
+
+js中的两种for循环；
+
+<!--第一种for循环：-->
+var li=[11,22,33,44];
+undefined
+for(var item in li){
+<!--输出索引-->
+console.log(item);
+}
+0
+1
+2
+3
+undefined
+
+li;
+(4) [11, 22, 33, 44]
+for(var item in li){
+console.log(item,li[item]);
+}
+0 11
+1 22
+2 33
+3 44
+undefined
+
+var dic={'k1':11,'k2':22};
+undefined
+for(var item in dic){
+console.log(item);
+}
+k1
+k2
+undefined
+
+dic;
+Object {k1: 11, k2: 22}
+for(var item in dic){
+console.log(item,dic[item]);
+}
+k1 11
+k2 22
+undefined
+
+<!--总结：即这种循环，获取都是key,对于字典我们定义了key,对应数组，循环的就是下标；-->
+
+第二种循环：
+for(var i=0;i<5;i++){
+console.log(i);
+}
+0
+1
+2
+3
+4
+undefined
+
+li;
+(4) [11, 22, 33, 44]
+for(var i=0;i<li.length;i++){
+console.log(i,li[i]);
+}
+11
+22
+33
+44
+undefined
+
+<!--因为字典的key不是index,所以第二种循环方法不适用于字典；-->
+<!--总结：-->
+<!--数组：适用两种方法；-->
+<!--字典：只使用第一种方法；-->
+
+
+<!--js中while循环：-->
+while(true){
+  支持 continue 和break, 功能和python相同
+}
+
+js中条件语句：
+if-else语句：
+
+if(条件1){}
+else if(条件2){}
+else if(条件3){}
+else{}
+
+var name=123;
+if(name==123){
+}else if(name=456){
+}else{
+}
+
+switch(name){
+    case v1:
+        console.log("1111");
+        break;
+    case v2:
+        console.log("2222");
+        break;
+    default:
+        console.log("default");
+        break;
+}
+
+js中异常处理：
+try{
+
+}catch(e){ #出现异常时执行
+
+}finally{ #最终执行；
+
+}
+
+
+
