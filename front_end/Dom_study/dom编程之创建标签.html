@@ -13,8 +13,13 @@
 <!--如何想只执行自定义事件，不执行默认事件，只要让自定义事件返回 false,那么定义在自定事件后面的事件就都不执行了；-->
 <!--<a href="http://www.baidu.com" onclick="return AddElement2();">添加</a>-->
 
-<!--下面来实现添加标签的功能：-->
-<a href="http://www.baidu.com" onclick="return AddElement3();">添加</a>
+<!--下面来实现添加标签的功能，只能添加一次-->
+<!--<a href="http://www.baidu.com" onclick="return AddElement3();">添加</a>-->
+
+<!--支持多次添加标签的功能:-->
+<a href="http://www.baidu.com" onclick="return AddElement4();">添加</a>
+
+
 
 <script type="text/javascript">
    function AddElement1(){
@@ -33,13 +38,31 @@
 //    基于上面的功能，有一个实际的应用场景；
 //    在form表单提交时，如果用户输入满足要求时，再执行submit进行提交，如果用户输入不满足要求，就不可以进行提交；
 
+
+//   这个函数的功能只能添加一个input标签，不可以重复添加
     function AddElement3(){
 //         注意：此处双引号内部就不可以再用双引号了，要用单引号
         var nid=document.getElementById('container');
         var tag="<input type='text' />";
-        nid.innerHTML(tag);
+        nid.innerHTML=tag;
         return false;
+    }
 
+   function AddElement4(){
+       //       type 1:通过字符串的方式创建标签
+//        var nid=document.getElementById('container');
+//        var tag="<input type='text' /><br/>";
+//        nid.insertAdjacentHTML("beforeBegin",tag);
+
+//       type 2：通过对象的方式创建标签,这种方式推荐使用
+       var nid=document.getElementById('container');
+       var createobj=document.createElement('a');
+       createobj.href="http://www.baidu.com";
+       createobj.innerText="百度";
+//       console.log(createobj);
+       nid.appendChild(createobj);
+
+        return false;
     }
 
 </script>
