@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div id="container"></div>
+<!--这里的特殊之处在于： a标签有默认的事件，就是点击后会调整到href所定义的位置；-->
+<!--默认情况下是：先执行自定义事件，再执行默认事件；-->
+<!--<a href="http://www.baidu.com" onclick="AddElement1();">添加</a>-->
+
+<!--如何想只执行自定义事件，不执行默认事件，只要让自定义事件返回 false,那么定义在自定事件后面的事件就都不执行了；-->
+<!--<a href="http://www.baidu.com" onclick="return AddElement2();">添加</a>-->
+
+<!--下面来实现添加标签的功能：-->
+<a href="http://www.baidu.com" onclick="return AddElement3();">添加</a>
+
+<script type="text/javascript">
+   function AddElement1(){
+        alert('123');
+
+   }
+
+   function AddElement2(){
+        alert('123');
+//       当return false时，后面的事件就不执行了
+        return false;
+//       当return true时，后面的事件继续执行
+//        return true;
+   }
+
+//    基于上面的功能，有一个实际的应用场景；
+//    在form表单提交时，如果用户输入满足要求时，再执行submit进行提交，如果用户输入不满足要求，就不可以进行提交；
+
+    function AddElement3(){
+//         注意：此处双引号内部就不可以再用双引号了，要用单引号
+        var nid=document.getElementById('container');
+        var tag="<input type='text' />";
+        nid.innerHTML(tag);
+        return false;
+
+    }
+
+</script>
+
+</body>
+</html>

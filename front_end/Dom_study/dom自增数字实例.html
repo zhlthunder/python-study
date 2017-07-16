@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+<div id="num">1</div>
+ <!--为标签注册一个onclick事件-->
+<input type="button" value="+1" onclick="add();" />
+
+
+<script>
+    function add(){
+//        弹窗测试，确认事件注册是否成功；
+//        alert("123");
+        var vv=document.getElementById('num');
+        var num=vv.innerText;
+//        获取的是字符串，需要转换成数字才可以进行算术运算；
+        num=parseInt(num);
+        num+=1;
+        vv.innerText=num;
+    }
+
+</script>
+</body>
+</html>
+
+<!--总结：-->
+<!--涉及三个方面:-->
+<!--事件-->
+<!--选择器-->
+<!--内容的获取和修改-->

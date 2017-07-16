@@ -1,0 +1,71 @@
+<!--内容的获取和修改方法:-->
+<!--innerText 标签和标签中间的文本内容；-->
+<!--innerHTML 标签和标签中间的所有内容；-->
+<!--value: 用于获取用户输入或选择的值，主要有 input select textarea-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+<div id="n1">
+    alex
+    <h1>SB</h1>
+</div>
+
+<h1>下面的几种标签为特殊的标签，使用value属性获取标签的值</h1>
+<h3> <input type="button" onclick="GetValue();" value="获取值1"/></h3>
+<input type="text" id="n2" /> <br/>
+<hr>
+
+<h3> <input type="button" onclick="GetValue2();" value="获取值2"/></h3>
+<select id="n3">
+    <option value="1">上海</option>
+    <option value="2">北京</option>
+    <option value="3">广州</option>
+</select>
+<hr>
+<h3> <input type="button" onclick="GetValue3();" value="获取值3"/></h3>
+<textarea id="n4">affsadf</textarea>  <br/>
+
+<script type="text/javascript">
+    var text=document.getElementById('n1');
+//    console.log(text.innerText);
+//    输出：
+//    alex
+//    SB
+//    总结：即不管id=“n1” 标签中嵌套了多少的内存标签，我只取所有的内部文本和内部子标签中的文本内容
+
+//    而下面的innerHTML 就会获id=“n1” 标签中间的所有内容（包含文本和全部的子标签的内容）
+    console.log(text.innerHTML);
+//    输出：
+//    alex
+//    <h1>SB</h1>
+
+
+    function GetValue(){
+        var obj=document.getElementById('n2');
+        alert(obj.value);
+        obj.value="";
+    }
+
+    function GetValue2(){
+        var obj=document.getElementById('n3');
+        alert(obj.value);
+        obj.value=2;
+    }
+
+    function GetValue3(){
+        var obj=document.getElementById('n4');
+        alert(obj.value);
+        obj.value="zhuhonglei";
+    }
+</script>
+
+
+</body>
+</html>

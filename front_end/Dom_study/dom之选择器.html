@@ -1,0 +1,132 @@
+<!--dom: 可以理解成将整个html都封装到一个对象中，然后通过对象就可以访问到每个html元素；-->
+<!--document object module-->
+
+
+<!--相关博客: http://www.cnblogs.com/wupeiqi/articles/5369773.html-->
+<!--dom:-->
+<!--文档对象模型（Document Object Model，DOM）是一种用于HTML和XML文档的编程接口。它给文档提供了一种结构化的表示方法，-->
+<!--可以改变文档的内容和呈现方式。我们最为关心的是，DOM把网页和脚本以及其他的编程语言联系了起来。DOM属于浏览器，-->
+<!--而不是JavaScript语言规范里的规定的核心内容。-->
+
+<!--注：一般说的JS让页面动起来泛指JavaScript和Dom-->
+
+<!--分两步来执行；-->
+<!--找到标签，-->
+<!--执行操作-->
+<!--基本的选择器：-->
+<!--document.getElementById('id');  -->
+<!--document.getElementsByTagName('tagname');-->
+<!--document.getElementsByClassName('classname');-->
+<!--document.getElementsByName('name');-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+<div>
+    <div id="n1">c1</div>
+    <a>asfasfafd</a>
+</div>
+
+    <ul>
+        <li>123</li>
+        <li>123</li>
+        <li>123</li>
+        <li>123</li>
+        <li>123</li>
+        <li>123</li>
+    </ul>
+
+<div>
+    <div class="c1">1111</div>
+    <div class="c1">1111</div>
+    <div class="c1">1111</div>
+</div>
+
+<form>
+    <p>用户名：<input name="username" value="123" /></p>
+    <p>密码：<input name="pwd"  value="456"/></p>
+</form>
+
+
+<!--说明:下面的type可以不指定，可以默认指定，但如果写了，就必须写正确-->
+<script type="text/javascript">
+//    type 1:通过id选择到对应的标签, 因为id都是唯一的，所以默认获取的是一个元素；
+    var nid=document.getElementById('n1');
+//获取标签中的文本的值
+    console.log(nid.innerText);
+//为标签中的文本赋予新的值
+    nid.innerText="alex";
+
+//    type 2:通过标签名来选择对应的标签， 因为标签可以重复，所以默认获取的是一个数组，必须用循环来获取每个元素；
+// 获取所有的li标签，并存放到以数组中
+   var lis=document.getElementsByTagName('li');
+//  使用for循环遍历每个元素，并进行相应的处理
+    for(var i in lis){
+        var item=lis[i];
+        item.innerText=i;
+    }
+
+
+//    type 3: 通过classname 来选择对应的标签，因为classname可以重复，所以默认获取的是一个数组；
+    var lis2=document.getElementsByClassName('c1');
+    for(var i in lis2){
+        var item=lis2[i];
+        item.innerText=i;
+    }
+
+//    type 4:通过name选择标签，因为name 理论也是可以重复的，所以默认获取到的也是一个数组，但一般实际使用时，我们的name都是唯一，除了
+//特殊的用法，比如 input-radio, input-checkbox等
+//  因为一般我们使用时，name也都是不重复的，所以只需取第0个元素即可
+    var username=document.getElementsByName('username')[0];
+    var pwd=document.getElementsByName('pwd')[0];
+//对于像input这样自闭合的标签，获取它的值的方法是.value, 而不可以使用上面的innertext的方法
+    console.log(username.value,pwd.value);
+
+
+//    问题说明：
+       var lis=document.getElementsByTagName('li');
+//  使用for循环遍历每个元素，并进行相应的处理
+    for(var i in lis){
+        console.log(i);
+    }
+
+//上面这段代码在console中完整输出为：
+//0
+//1
+//2
+//3
+//4
+//5
+//length
+//item
+//namedItem
+//
+//    即我们只想要0,1，2,3，4，5, 但还多输出了 length,item,namedItem三项；
+//    怎么解决呢？那就换一种循环的方式：
+
+    for(var i=0;i<lis.length;i++){
+        console.log(i);
+    }
+
+//    这种方式的输出：
+//    0
+//    1
+//    2
+//    3
+//    4
+//    5
+//注意对比上面两种方式的差别
+
+</script>
+
+</body>
+
+
+
+

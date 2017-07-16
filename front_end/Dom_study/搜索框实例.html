@@ -1,0 +1,34 @@
+<!--onblur:元素失去焦点-->
+<!--onfocus:元素获得焦点-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<input type="text" id="search"  value="请输入关键字" onfocus="Focus();" onblur="Blur();"/>
+
+<script type="text/javascript">
+function Focus(){
+    var nid=document.getElementById('search');
+    var value=nid.value;
+    if(value=="请输入关键字"){
+        nid.value="";
+    }
+}
+
+function Blur(){
+    var nid=document.getElementById('search');
+    var value=nid.value;
+//    如果输入框中内容为空时
+    if(!value.trim()){
+        nid.value="请输入关键字";
+    }
+
+}
+
+</script>
+</body>
+</html>
