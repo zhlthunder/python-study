@@ -4,13 +4,60 @@
     <meta charset="UTF-8">
     <title></title>
 </head>
-<body
+<body>
 
-<div id="container"></div>
+<div id="container"  sb="xx" class="c1" style="font-size: 48px;color:red;" >asdfasfdasfd</div>
+<!--现在对上面的属性进行分析：-->
+<!--第一类： id属性，是div 标签对象的默认存在的属性，所以可以使用 obj.id获取，obj.id=** 来进行修改；-->
+<!--第二类：自定义的标签及其它不是div 标签对象的默认存在的属性，可以使用 setattribute,getattribute,deleteattribute来进行操作-->
+<!--注意，第二种方法是全能的，即对于对象的默认属性，比如id,也可以使用这种方法，所以这种方式万能的方法；-->
+<!--第三类：特殊属性class,支持两种方式进行操作： -->
+    <!--1）使用第二类的方法： setattribute('name','***')-->
+    <!--2) 使用第一类的方法：obj.className   ,即className 对应的就是class属性，切记；-->
+<!--第四类：特殊属性style 的操作方法：-->
+   <!--obj.style.fontSize=90px;   -->
+ <!--注意，对于像font-size ,background-color 这样的中间有“-”的属性，处理的方法是：-->
+      <!--font-size ==>  fontSize-->
+      <!--background-color ==> backgroundColor-->
+
+
+在console中的操作实例：
+
+var nid=document.getElementById("container");
+undefined
+nid
+<!--<div id=​"container" sb=​"xx" class=​"c1" style=​"font-size:​ 48px;​color:​red;​">​</div>​-->
+修改class的第一种方法
+nid.className="c2";
+"c2"
+nid
+<!--<div id=​"container" sb=​"xx" class=​"c2" style=​"font-size:​ 48px;​color:​red;​">​</div>​-->
+
+修改class的第二种方法：
+nid.setAttribute('class','oooo');
+undefined
+nid
+<!--<div id=​"container" sb=​"xx" class=​"oooo" style=​"font-size:​ 48px;​color:​red;​">​</div>​-->
+
+修改style属性值的方法：
+nid.style.fontSize="12px";
+"12px"
+nid
+<!--<div id=​"container" sb=​"xx" class=​"oooo" style=​"font-size:​ 12px;​ color:​ red;​">​</div>​-->
+
+nid.style.fontSize="120px";
+"120px"
+nid
+<!--<div id=​"container" sb=​"xx" class=​"oooo" style=​"font-size:​ 120px;​ color:​ red;​">​</div>​-->
+
+
+
 
 </body>
 </html>
 
+
+<!--属性相关的操作说明：-->
 <!--var nid=document.getElementById('container');-->
 <!--undefined-->
 <!--获取标签的id的值-->
@@ -24,3 +71,11 @@
 <!--为标签设置新的属性和属性值-->
 <!--nid.setAttribute('name','777');-->
 <!--undefined-->
+
+<!--总结：-->
+<!--有些属性，是对象的默认属性，那就可以通过 obj.属性名 来获取到，其它的属性，就不可以通过这种方法获取到；-->
+<!--就需要使用 obj.setattribute("属性名"，属性值) 来进行设置；-->
+<!--相关方法包括：-->
+<!--setattribute-->
+<!--getattribute-->
+<!--deleteattribute-->
