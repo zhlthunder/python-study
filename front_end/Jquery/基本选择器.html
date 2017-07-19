@@ -1,0 +1,49 @@
+<!--jquery之基本选择器-->
+<!--基本-->
+<!--#id-->
+<!--element-->
+<!--.class-->
+<!--*-->
+<!--selector1,selector2,selectorN-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+
+<p id="n1"></p>
+<div>11</div>
+<div>22</div>
+<div>33</div>
+<p class="c1"></p>
+
+<hr>
+<a>aaa</a>
+<span class="c2"></span>
+<p id="n2"></p>
+
+<hr>
+
+<!--引用jquery脚本文件；-->
+<script src="jquery-3.2.1.js"></script>
+<script type="text/javascript">
+//    $是jquery中的特殊的符号，就等于jquery,相当于一个对象；
+    $('#n1').text('123'); //获取id=n1的标签，并设置它的text为123；
+    $('div').text('xxxxx');//获取全部的div标签，并设置他们的text为“xxxxx”
+    $('.c1').text('hhhh'); //获取class为c1的全部标签，并设置他们的text为“hhhh”
+
+//    多选的方法,用逗号分隔每个选项；
+    $('a,.c2,#n2').text("FFFF");
+
+
+</script>
+</body>
+</html>
+
+<!--jquery的基本功能主要包含以下两步：-->
+<!--获取标签-->
+<!--修改资源-->

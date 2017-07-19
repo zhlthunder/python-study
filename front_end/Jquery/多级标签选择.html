@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+<div id="n3">
+    <div>
+        <div class="c3">
+            <span>
+                <a>fffff</a>
+            </span>
+        </div>
+    </div>
+    <span>tttt</span>
+</div>
+
+<script src="jquery-3.2.1.js"></script>
+<script type="text/javascript">
+//     $('#n3 div .c3 span a').text("aaaaaa"); //按照标签的路径逐级选择
+     $('#n3  a').text("aaaaaa"); //这个选择完成的功能和上面的完全一样，意识就是说，空格不是表示下一级，而是它下面的所有
+//       子元素，这里在div下面只有一个a标签，所以可以直接用 #n3 a 来定位到a标签，
+// 　　　　　切记：空格表示下面的所有标签，而不只是下一级标签；
+</script>
+
+
+</body>
+</html>

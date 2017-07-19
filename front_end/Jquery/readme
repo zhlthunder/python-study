@@ -1,0 +1,20 @@
+
+javascrpt是一种语言；
+dom ： 是将整个html整合成了对象，提供给js去使用，可以理解为 dom 提供了js操作的数据结构；
+jquery 是对 js 和 dom的整合，开发成了一种库，提高开发的效率，提供接口给用户调用；
+即可以把jquery 看做是python中的库；
+
+jquery官网：
+http://jquery.com/
+
+jquery 1.x 的低版本，主要是包含兼容IE低版本（IE6，IE7）浏览器的某些功能；
+jquery的高版本，就放弃了对IE低版本浏览器的兼容；
+
+但如何想要使用bootstrap等样式的话，要求jquery要使用2.x以上的版本；
+
+jquery-3.2.1.min.js  是线上使用的版本，是压缩后的；
+jquery-3.2.1.js 开发和看源码时使用的版本
+
+学习论坛：
+http://www.cnblogs.com/wupeiqi/articles/5369773.html
+http://www.php100.com/manual/jquery/
