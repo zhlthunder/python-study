@@ -1,0 +1,45 @@
+<!--其他功能-->
+
+<!--console.log()-->
+<!--alert()-->
+<!--confirm()-->
+
+<!--// URL和刷新-->
+<!--location.href-->
+<!--location.href = "url"  window.location.reload()-->
+
+<!--window.location.href;  //获取当前html的完整路径信息（下面的路径中有中文，所以显示有问题）-->
+<!--"file:///C:/Users/lin/PycharmProjects/python_study_1s/python_study-->
+<!--/git-zhl/p…%B9%8B%E5%AE%9A%E6%97%B6%E5%99%A8%E5%92%8C%E8%B7%91%E9%A9%AC%E7%81%AF.html"-->
+
+<!--window.location.href="http://www.baidu.com";  //设置一个新的URL，实现页面跳转-->
+
+<!--window.location.reload();  //页面刷新命令-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+<input type="button" value="上来呀" onmouseover="Myconfirm();" />
+
+<script type="text/javascript">
+    function Myconfirm(){
+//        confirm功能1：
+//       var ret=confirm();
+//         在对话框中选择确定时，返回true,选择取消时，返回false
+//        console.log(ret);
+
+//        confirm 功能2：在对话框中增加提示信息
+        var ret=confirm("你好吗？");
+        console.log(ret);
+
+    }
+
+</script>
+</body>
+</html>

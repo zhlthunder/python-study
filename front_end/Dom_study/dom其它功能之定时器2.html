@@ -1,0 +1,48 @@
+<!--// 定时器-->
+<!--setInterval("alert()",2000);   -->
+<!--clearInterval(obj)-->
+<!--setTimeout();   -->
+<!--clearTimeout(obj)-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>欢迎市长莅临指导</title>
+</head>
+<body>
+
+<input type="button" onclick="StopInterval();" value="停止" />
+
+<script type="text/javascript">
+//    定时器基本用法1：
+//    定时器的语法：setInterval("操作","时间间隔")
+//     下面实现的功能：每隔4秒弹出一次对话框
+//    setInterval("alert('123')",4000);
+
+//    定时器实例1：实现title的动态移动
+//      在创建定时器的时候，默认会返回一个句柄,且这是个全局变量；
+     obj1=setTimeout("Func()",2000);
+    function Func(){
+//         一个页面只有一个title,所以可以直接用.title来获取
+        var text=document.title;
+        var first=text.charAt(0);
+        var substring=text.substring(1,text.length);
+        var newtitle=substring+first;
+        document.title=newtitle;
+    }
+
+//    清除定时器的功能
+    function StopInterval(){
+    clearTimeout(obj1);
+}
+
+//    新的需求，setInterval()是以固定的周期一直执行，如果想1s后只执行一次然后就结束了；
+//    即我们想设置一种定时器，只让它在固定周期后执行一次，然后就不再执行了，就用到settimeout
+//    它的使用方式和setinterval完全相同，唯一的差别就是只执行一次；
+    
+
+
+</script>
+</body>
+</html>
