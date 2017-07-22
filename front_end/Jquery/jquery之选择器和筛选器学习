@@ -1,0 +1,450 @@
+http://www.php100.com/manual/jquery/
+
+parent > child
+在给定的父元素下匹配所有的子元素
+
+<form>
+  <label>Name:</label>
+  <input name="name" />
+  <fieldset>
+      <label>Newsletter:</label>
+      <input name="newsletter" />
+ </fieldset>
+</form>
+<input name="none" />
+
+$("form > input")
+
+输出：
+[ <input name="name" /> ]
+
+
+
+
+prev + next
+匹配所有紧接在 prev 元素后的 next 元素
+
+<form>
+  <label>Name:</label>
+  <input name="name" />
+  <fieldset>
+      <label>Newsletter:</label>
+      <input name="newsletter" />
+ </fieldset>
+</form>
+<input name="none" />
+
+$("label + input")
+输出：
+[ <input name="name" />, <input name="newsletter" /> ]
+
+
+prev ~ siblings
+匹配 prev 元素之后的所有 siblings 元素
+
+<form>
+  <label>Name:</label>
+  <input name="name" />
+  <fieldset>
+      <label>Newsletter:</label>
+      <input name="newsletter" />
+ </fieldset>
+</form>
+<input name="none" />
+
+$("form ~ input")
+
+输出：
+[ <input name="none" /> ]
+
+
+:first
+获取第一个元素
+
+<ul>
+    <li>list item 1</li>
+    <li>list item 2</li>
+    <li>list item 3</li>
+    <li>list item 4</li>
+    <li>list item 5</li>
+</ul>
+
+$('li:first');
+
+输出：
+[ <li>list item 1</li> ]
+
+
+:not(selector)
+去除所有与给定选择器匹配的元素
+
+<input name="apple" />
+<input name="flower" checked="checked" />
+
+$("input:not(:checked)")
+输出：
+[ <input name="apple" /> ]
+
+
+:even
+
+匹配所有索引值为偶数的元素，从 0 开始计数
+查找表格的1、3、5...行（即索引值0、2、4...）
+
+<table>
+  <tr><td>Header 1</td></tr>
+  <tr><td>Value 1</td></tr>
+  <tr><td>Value 2</td></tr>
+</table>
+
+$("tr:even")
+输出：
+[ <tr><td>Header 1</td></tr>, <tr><td>Value 2</td></tr> ]
+
+
+:odd
+
+匹配所有索引值为奇数的元素，从 0 开始计数
+
+查找表格的2、4、6行（即索引值1、3、5...）
+
+<table>
+  <tr><td>Header 1</td></tr>
+  <tr><td>Value 1</td></tr>
+  <tr><td>Value 2</td></tr>
+</table>
+
+$("tr:odd")
+
+[ <tr><td>Value 1</td></tr> ]
+
+
+:eq(index)
+匹配一个给定索引值的元素
+从 0 开始计数
+
+<table>
+  <tr><td>Header 1</td></tr>
+  <tr><td>Value 1</td></tr>
+  <tr><td>Value 2</td></tr>
+</table>
+
+$("tr:eq(1)")
+输出：
+[ <tr><td>Value 1</td></tr> ]
+
+:contains(text)
+匹配包含给定文本的元素
+
+<div>John Resig</div>
+<div>George Martin</div>
+<div>Malcom John Sinclair</div>
+<div>J. Ohn
+
+$("div:contains('John')")
+
+输出：
+[ <div>John Resig</div>, <div>Malcom John Sinclair</div> ]
+
+
+属性选择器：
+[attribute]
+匹配包含给定属性的元素。
+<div>
+  <p>Hello!</p>
+</div>
+<div id="test2"></div>
+
+$("div[id]")
+输出：
+[ <div id="test2"></div> ]
+
+
+
+[attribute=value]
+匹配给定的属性是某个特定值的元素
+
+<input type="checkbox" name="newsletter" value="Hot Fuzz" />
+<input type="checkbox" name="newsletter" value="Cold Fusion" />
+<input type="checkbox" name="accept" value="Evil Plans" />
+
+$("input[name='newsletter']").attr("checked", true);
+输出：
+[ <input type="checkbox" name="newsletter" value="Hot Fuzz" checked="true" />,
+<input type="checkbox" name="newsletter" value="Cold Fusion" checked="true" /> ]
+
+
+
+[attribute!=value]
+匹配所有不含有指定的属性，或者属性不等于特定值的元素。
+
+<input type="checkbox" name="newsletter" value="Hot Fuzz" />
+<input type="checkbox" name="newsletter" value="Cold Fusion" />
+<input type="checkbox" name="accept" value="Evil Plans" />
+
+$("input[name!='newsletter']").attr("checked", true);
+
+输出：
+[ <input type="checkbox" name="accept" value="Evil Plans" checked="true" /> ]
+
+
+[attribute^=value]
+匹配给定的属性是以某些值开始的元素
+
+[attribute$=value]
+匹配给定的属性是以某些值结尾的元素
+
+[attribute*=value]
+匹配给定的属性是以包含某些值的元素
+
+表单：
+:input
+匹配所有 input, textarea, select 和 button 元素
+
+<form>
+    <input type="button" value="Input Button"/>
+    <input type="checkbox" />
+
+    <input type="file" />
+    <input type="hidden" />
+    <input type="image" />
+
+    <input type="password" />
+    <input type="radio" />
+    <input type="reset" />
+
+    <input type="submit" />
+    <input type="text" />
+    <select><option>Option</option></select>
+
+    <textarea></textarea>
+    <button>Button</button>
+
+</form>
+
+$(":input")
+
+输出：
+[
+    <input type="button" value="Input Button"/>,
+    <input type="checkbox" />,
+
+    <input type="file" />,
+    <input type="hidden" />,
+    <input type="image" />,
+
+    <input type="password" />,
+    <input type="radio" />,
+    <input type="reset" />,
+
+    <input type="submit" />,
+    <input type="text" />,
+    <select><option>Option</option></select>,
+
+    <textarea></textarea>,
+    <button>Button</button>,
+ ]
+
+
+ :text
+ 匹配所有的单行文本框
+
+ <form>
+  <input type="text" />
+  <input type="checkbox" />
+  <input type="radio" />
+  <input type="image" />
+  <input type="file" />
+  <input type="submit" />
+  <input type="reset" />
+  <input type="password" />
+  <input type="button" />
+  <select><option/></select>
+  <textarea></textarea>
+  <button></button>
+</form>
+
+$(":text")
+输出：
+[ <input type="text" /> ]
+
+:password
+匹配所有密码框
+
+:radio
+匹配所有单选按钮
+
+:checkbox
+匹配所有复选框
+
+:submit
+匹配所有提交按钮
+
+
+:checked
+匹配所有选中的被选中元素(复选框、单选框等，select中的option)，对于select元素来说，获取选中推荐使用 :selected
+
+<form>
+  <input type="checkbox" name="newsletter" checked="checked" value="Daily" />
+  <input type="checkbox" name="newsletter" value="Weekly" />
+  <input type="checkbox" name="newsletter" checked="checked" value="Monthly" />
+</form>
+
+$("input:checked")
+输出：
+
+[ <input type="checkbox" name="newsletter" checked="checked" value="Daily" />,
+<input type="checkbox" name="newsletter" checked="checked" value="Monthly" /> ]
+
+
+
+:selected
+匹配所有选中的option元素
+
+<select>
+  <option value="1">Flowers</option>
+  <option value="2" selected="selected">Gardens</option>
+  <option value="3">Trees</option>
+</select>
+
+$("select option:selected")
+输出：
+[ <option value="2" selected="selected">Gardens</option> ]
+
+
+筛选器：
+eq(index|-index)
+获取当前链式操作中第N个jQuery对象，返回jQuery对象，当参数大于等于0时为正向选取，
+比如0代表第一个，1代表第二个。当参数为负数时为反向选取，比如-1为倒数第一个，具体可以看以下示例
+
+<p> This is just a test.</p> <p> So is this</p>
+$("p").eq(1)
+输出：
+[ <p> So is this</p> ]
+
+
+
+
+first()
+获取第一个元素
+
+<ul>
+    <li>list item 1</li>
+    <li>list item 2</li>
+    <li>list item 3</li>
+    <li>list item 4</li>
+    <li>list item 5</li>
+</ul>
+
+$('li').first()
+输出：
+[ <li>list item 1</li> ]
+
+
+last()
+
+获取最后个元素
+
+<ul>
+    <li>list item 1</li>
+    <li>list item 2</li>
+    <li>list item 3</li>
+    <li>list item 4</li>
+    <li>list item 5</li>
+</ul>
+
+$('li').last()
+
+输出：
+[ <li>list item 5</li> ]
+
+
+hasClass(class)
+检查当前的元素是否含有某个特定的类，如果有，则返回true。
+
+
+children([expr])
+取得一个包含匹配的元素集合中每一个元素的所有子元素的元素集合。
+查找DIV中的每个子元素。
+
+<div class="c1">
+    <div></div>
+    <a></a>
+    <div>
+        <span></span>
+    </div>
+
+</div>
+
+$('.c1').children()
+注意，上面的span不是它的孩子；
+
+
+find(expr|obj|ele)
+搜索所有与指定表达式匹配的元素。这个函数是找出正在处理的元素的后代元素的好方法。
+所有搜索都依靠jQuery表达式来完成。这个表达式可以使用CSS1-3的选择器语法来写。
+
+<p><span>Hello</span>, how are you?</p>
+$("p").find("span")
+输出：
+[ <span>Hello</span> ]
+
+
+next([expr])
+取得一个包含匹配的元素集合中每一个元素紧邻的后面同辈元素的元素集合。
+<div class="c1">
+    <div></div>
+    <a></a>
+    <div>
+        <span></span>
+    </div>
+
+</div>
+<p></p>
+
+$('.c1').next()  // 当前标签的下一个
+输出：
+<p></p>
+
+
+<div class="c1">
+    <div></div>
+    <a></a>
+    <div>
+        <span></span>
+    </div>
+
+</div>
+<p></p>
+<input />
+<p></p>
+
+$('.c1').nextAll()  //当前标签的下面所有的标签
+输出：
+<p></p>
+<input />
+<p></p>
+
+
+$('.c1').prev()  //当前标签的前一个标签
+$('.c1').prevall()  //当前标签的前面所有的标签
+
+$('.c1').siblings()  //找到他同一级别的所有的兄弟
+
+$('.c1').parent() //找父标签
+
+
+
+
+筛选器中必须要会的方法：
+eq()
+first()
+last()
+children()
+find()
+next()
+nextall()
+parent()
+prev()
+prevall()
+siblings()
