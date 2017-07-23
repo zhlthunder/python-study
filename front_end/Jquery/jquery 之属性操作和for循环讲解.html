@@ -117,6 +117,7 @@
 //        }
 
 //        实现方法2：考虑到上的循环实现起来比较繁琐，所有jquery中封装了一个新的循环的语法：
+//          说明： each前面的是这个循环的列表，each就是用来循环这个列表的；
 
             $('table :checkbox').each(function(){
                 //没有checkbox都会执行该函数体；
@@ -132,9 +133,43 @@
             })
 
 
-
-
     }
+
+//    jquery中for循环的补充：另外一种用法：
+    var userlist=[11,22,33,44];
+    $.each(userlist,function(i,item){
+        console.log(i,item);
+    })
+// 输出：
+//0 11
+//1 22
+//2 33
+//3 44
+// 即支持输出元素和下标；
+
+        var userlist2={'k1':'v1','k2':'v2'};
+    $.each(userlist2,function(i,item){
+        console.log(i,item);
+    })
+
+//    输出：
+//    k1 v1
+//    k2 v2
+
+//    总结1：
+//    在for循环中，
+//   使用 function(item)  ，来获取下标；对于列表，下标是默认的index,对于字典，下标就是key值；
+//    使用 function(i,item),来获取下标和值；对于列表，获取的就是默认index+列表元素；对于字典，获取的就是key+value;
+
+//     总结2：
+//    jQuery 中的for 循环包括两种：
+//     1.$.each(待循环的list,function(i,item){...  //i代表索引，item代表元素})
+//       这种适用于待循环的元素 已经存在了一个元素集合，比如一个列表或字典；
+//     2. 待循环的list.each(function(){... //内部是用$(this)访问每个元素})
+//        这种适用于待循环的元素 需要通过选择器来获取的
+
+
+
 </script>
 </body>
 </html>
