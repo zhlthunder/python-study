@@ -13,16 +13,92 @@
     <!--$('li:eq(0)') ==> $('li').eq(0)-->
 
 <!--操作-->
+    <!--属性-->
+    <!--css-->
+    <!--文档处理-->
+    <!--事件-->
+    <!--AJAX-->
+    <!--Jquery扩展-->
+    <!--其它-->
+    <!-- -->
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title></title>
+    <style>
+        .tab-box .box-menu{
+            background-color: #ddd;
+            border:1px solid #dddddd;
+            height: 33px;
+            line-height: 33px;
+        }
+
+        .box-menu a{
+            border-right: 1px solid #667474;
+            padding: 7px;
+        }
+
+        .tab-box .box-body{
+            border:1px solid #bbbbbb;
+            height: 100px;
+        }
+        .hidden{
+            display: none;
+        }
+        .current{
+            background-color: black;
+            background-color: white;
+            border-top:2px solid red;
+            border-bottom:1px solid white;
+
+        }
+    </style>
 </head>
 <body>
 
+<!--最关键的步骤就是要让每个菜单和内容间建立一一对应的关系；-->
+<!--正好就可以利用标签的自定义属性，通过自定义的属性来在两个标签之间建立绑定关系；-->
 
+<div class="tab-box">
+    <div class="box-menu">
+        <!--此处写所有的菜单-->
+         <!--为每个标签建立一个自定义属性，然后让内容的标签定义一个id，它的内容等于自定义属性的值-->
+        <a alex="c1" onclick="ChangeTab(this);" class="current" >菜单一</a>
+        <a alex="c2" onclick="ChangeTab(this);">菜单二</a>
+        <a alex="c3" onclick="ChangeTab(this);">菜单三</a>
+
+    </div>
+    <div class="box-body">
+        <!--此处写所有的内容-->
+        <div id="c1" >内容一</div>
+        <div id="c2" class="hidden">内容二</div>
+        <div id="c3" class="hidden">内容三</div>
+    </div>
+</div>
+
+<script src="jquery-3.2.1.js"></script>
+<script>
+    function ChangeTab(ths){
+//        控制菜单的颜色，注意这种组合的用法，当前菜单增加current,它的兄弟移除current,
+//                这种组合的写法非常有用，切记；
+        $(ths).addClass('current').siblings().removeClass('current');
+        //获取当前点击的标签
+//        获取当前标签的属性的alex对应的值,比如为xx
+//        $('#xx') 显示，让它的兄弟隐藏起来
+        var contentid=$(ths).attr('alex')
+//        注意，这里contentid是一个变量，所以不可以使用$(#contentid),因为这里面不可以
+//        使用变量，必须先进行字符串的拼接才可以
+        var temp="#"+contentid;
+        $(temp).removeClass('hidden').siblings().addClass('hidden');
+
+    }
+</script>
 
 </body>
 </html>
+
+<!--关键点：-->
+<!--获取当前标签的属性值：-->
+<!--attr('alex')-->

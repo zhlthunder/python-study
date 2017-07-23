@@ -1,0 +1,140 @@
+<!--jquery 之属性操作学习：-->
+
+<!--attr后面接两个参数时，用于设置属性：-->
+<!--$('#c1').attr('alex','sb');-->
+<!--<div id="c1" alex="sb">内容一</div>-->
+
+<!--attr后面只接一个参数时，用于获取属性对应的值；-->
+<!--$('#c1').attr('alex');-->
+<!--"sb"-->
+
+<!--attr的特殊情况及总结-->
+  <!--标签中所有的属性都适用，除了checkbox/radio 的checked属性，在老版本的jquery中使用有问题（即使用-->
+    <!--attr('checked','checked') ，第一次生效，第二次就无效了，但也只在版本的jquery 中有问题，在新版本中验证没有问题了）-->
+    <!--对于这个可能的缺陷，就引入了一个新的修改命令 :prop, 专门用来解决checked的问题；-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+  <!--第一个例子-->
+<input id="c1" type="checkbox"/>
+<input id="c2" type="checkbox" checked="checked"/>
+
+  <br>
+  <br>
+  <hr>
+
+
+
+  <!--第二个例子-->
+  <input type="button" value="全选" onclick="Selectall();"  />
+  <input type="button" value="取消" onclick="Clearall();" />
+  <input type="button" value="反选" onclick="Reverse();" />
+
+<div>
+    <table border="2px">
+        <tr>
+            <td> <input  type="checkbox"  /></td>
+            <td>123</td>
+            <td>123</td>
+        </tr>
+        <tr>
+            <td> <input  type="checkbox"  /></td>
+            <td>123</td>
+            <td>123</td>
+        </tr>
+        <tr>
+            <td> <input  type="checkbox"  /></td>
+            <td>123</td>
+            <td>123</td>
+        </tr>
+        <tr>
+            <td> <input  type="checkbox"  /></td>
+            <td>123</td>
+            <td>123</td>
+        </tr>
+
+    </table>
+
+</div>
+
+
+<script src="jquery-3.2.1.js"></script>
+<script>
+
+//   第一个例子： 下面在console中执行命令进行学习：
+//     1.添加属性值：
+//      $('#c1').attr('checked','checked');  为c1标签添加checked属性，它就被选中了；
+
+//       2.获取属性值：
+//    $('#c1').attr('checked')
+//        "checked"
+
+//        3.删除属性值：
+//    $('#c1').removeAttr('checked');
+//说明：在老版本的jquery中， 对于为标签增加checked属性，只有第一次生效，第二次执行就无效了，但新版本的jquery中
+//    已经修改了这个问题，切记
+
+//    对于这个可能的缺陷，就引入了一个新的修改命令 :prop, 专门用来解决checked的问题；
+
+//    $('#c1').prop('checked',true);  表示选中；
+//    $('#c1').prop('checked',false); 表示不选中；
+
+
+//    第二个例子：
+
+    function Selectall(){
+//        方法1：
+//        $("table input[type='checkbox']").prop('checked',true);
+//          简写的方法：
+        $('table :checkbox').prop('checked',true);
+    }
+
+    function Clearall(){
+        $('table :checkbox').prop('checked',false);
+    }
+
+//   #反选的时候，如果对每个进行循环，选中的就把他取消，没选中的就重新选中，不可以像上面的选中和取消那样的处理方法了
+    function Reverse(){
+
+//        实现方法1：
+//        按以前js 中的方法实现如下,虽然在console窗口中有报错，但可以实现功能，已经验证了：
+//        var checkboxlist=$('table :checkbox');
+//        for(var i in checkboxlist){
+//            var ele=checkboxlist[i];
+//            //检查是否已经选中，如果已经选中，就取消，如果未选中，就选中；
+//            var ischecked=$(ele).prop('checked');
+//            console.log(ischecked);
+//            if(ischecked){
+//                $(ele).prop('checked',false);
+//            }else{
+//                $(ele).prop('checked',true);
+//            }
+//        }
+
+//        实现方法2：考虑到上的循环实现起来比较繁琐，所有jquery中封装了一个新的循环的语法：
+
+            $('table :checkbox').each(function(){
+                //没有checkbox都会执行该函数体；
+//                重要：此处又引入一个this,用于表示当前被循环的元素，此处就是当前被循环的checkbox;
+                var ischecked=$(this).prop('checked');
+
+                if(ischecked){
+                    $(this).prop('checked',false);}
+                else{
+                    $(this).prop('checked',true);
+                }
+
+            })
+
+
+
+
+    }
+</script>
+</body>
+</html>
