@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        .go-top{
+            position: fixed;
+            right:0px;
+            bottom:0px;
+            height: 100px;
+            width:100px;
+        }
+        .hide{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div style="height: 2000px;background-color: #dddddd;">
+    顶部
+     <!--备注：如果没有 overflow: auto，下面的p标签就会超出div-->
+    <div id="id1" style="height: 500px;background-color: red;overflow: auto;">
+        <p>d</p>
+        <p>d</p>
+        <p>d</p>
+        <p>d</p>
+        <p>d</p>
+        <p>d</p>
+        <p>d</p>
+        <p>d</p>
+        <p>d</p>
+        <p>d</p>
+        <p>d</p>
+        <p>d</p>
+        <p>d</p>
+        <p>d</p>
+        <p>d</p>
+        <p>d</p>
+        <p>d</p>
+    </div>
+
+    <!--对于上面的窗口，执行 $('#id1').scrollTop(0); 命令，也可以返回到窗口的顶部；-->
+    <!--但这个用法比较少-->
+
+</div>
+<div class="go-top hide">
+    <a onclick="GoTop();">返回顶部</a>
+</div>
+
+
+<script src="jquery-3.2.1.js"></script>
+<script>
+
+    function GoTop(){
+        $(window).scrollTop(0);
+    }
+
+
+//    现在要实现一个附加的功能，就是默认情况下，返回顶部标签不显示，当移动窗口一段距离（比如100px）
+//    后才显示 返回顶部标签；
+//    要实现这个功能，就需要为窗口注册一个事件，即为窗口注册一个onscroll 移动鼠标的事件，
+//     这个事件和之前为标签注册的onclick事件相似
+    window.onscroll=function(){
+//        调试命令，当移动鼠标时，就会打印如下的内容
+//        console.log(123);
+
+//        现在来实现 返回顶部动态显示
+        //先获取当前的scrolltop
+        var currentTop=$(window).scrollTop();
+        console.log(currentTop);
+        if(currentTop>100){
+            $('.go-top').removeClass('hide');
+            }
+        else{
+            $('.go-top').addClass('hide');
+        }
+
+        }
+
+</script>
+</body>
+</html>

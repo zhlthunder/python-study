@@ -22,3 +22,46 @@ http://www.php100.com/manual/jquery/
 
 
 
+
+jquery 之属性操作补充：
+<div id='nid'></div>
+$('#nid').toggleClass('hide')  第一次执行后：
+<div id='nid' class='hide'></div>
+$('#nid').toggleClass('hide')  执行第二次后：
+<div id='nid'></div>
+
+即toggleClass（）的功能就是有这个class时就删除，没有时就删除；
+
+
+jquery 之属性文本操作：
+
+html()  --> 对应js中的html   //获取标签和标签之间的所有的内容；
+text() --> 对应js中的text  //获取标签和标签之间的文本
+val()  -->对应js中的value // 专门用于 input系列，select,textarea, 即专门用来获取值的；
+
+上面的三个方法， 可以有1个参数或没有参数；
+没有参数：用于获取
+一个参数；用于设置
+
+
+<div id='nid'>asdfa<a>ppp</a></div>
+
+执行：$('#nid').html()   ，得到： asdfa<a>ppp</a>
+
+执行：$('#nid').text()   ，得到： asdfappp   //即只获取文本；
+
+而val()  用于获取input  textarea 等标签中输入的值或select标签中选中的值；
+
+
+jquery 之 css:
+之前修改css的jquery方法是：$('#nid').addClass('cla'), 即通过直接添加class的方法来修改css样式；
+.cla{
+}
+<div id='nid'></div>
+
+而现在要讲的css的方法，专门是用来修改 标签的style="**" 中的选项的,即修改类似“color:red;font-size:17px;”
+ 中的key:value；
+<div id='nid' style="color:red;font-size:17px;"></div>
+操作的方法：
+$('#nid').css('color','red');  //就是在style中增加一个  color:red 的属性：值 ；
+
