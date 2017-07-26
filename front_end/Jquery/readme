@@ -65,3 +65,113 @@ jquery 之 css:
 操作的方法：
 $('#nid').css('color','red');  //就是在style中增加一个  color:red 的属性：值 ；
 
+
+
+
+jquery操作总结：
+    属性
+
+
+    css
+       ---位置：
+         offset([coordinates])  ：指的是某一个标签在整个页面中，离左上角的位置坐标；
+         position() ： 只某一个标签相对于它的父标签的位置坐标；
+
+       ---尺寸：（都是用来计算标签自己的尺寸大小的）
+            height([val|fn])  标签自己的高度
+            width([val|fn])   标签自己的宽度
+              下面的四个指的是包含或不包含边框等，不常用；
+            innerHeight()
+            innerWidth()
+            outerHeight([soptions])
+            outerWidth([options])
+
+
+
+    文档处理
+     主要就是在某个标签前面加一个标签，或在它的后面加一个标签；或在这个标签里面的前面加一个标签或在这个标签的里面
+     的后面加一个标签；
+
+     内部插入
+    append(content|fn)  在某个标签的内部的后面追加内容
+              <div id="nid">xxx</div>
+              $('#nid').append('<a>ff</a>');
+              结果为：<div id="nid">xxx'<a>ff</a></div>
+
+     prepend(content|fn) 在某个标签的内部的前面追加内容
+                   <div id="nid">xxx</div>
+              $('#nid').prepend('<a>ff</a>');
+              结果为：<div id="nid"><a>ff</a>xxx</div>
+     外部插入：
+    after(content|fn)
+    <div id="nid">xxx</div>  ==》<div id="nid">xxx</div><a>ff</a>
+
+    before(content|fn)
+     <div id="nid">xxx</div>  ==》<a>ff</a><div id="nid">xxx</div>
+
+
+    appendTo(content)
+
+    <div id="n1"><a>ff</a><div>
+    <div id="nid">xxx</div>
+
+     $('#n1').appendTo('#nid')
+    结果为： <div id="nid">xxx<div id="n1"><a>ff</a><div></div>
+
+    prependTo(content) 类似；
+
+     删除
+    empty()
+    <div id="nid">xxx</div>
+    $('#nid').empty()
+    结果：<div id="nid"></div>
+
+    remove([expr])
+    <div id="nid">xxx</div>
+    $('#nid').remove()
+    删除整个标签及和绑定在这个标签上的事件；
+
+    detach([expr])
+    <div id="nid">xxx</div> 且这个标签绑定了事件；
+    var ret=$('#nid').detach()
+    执行detach时会返回一个值，包含这个标签的所有内容
+    如果再执行append方法时：
+    $('#container').append(ret)   绑定的事件依然有效
+
+
+    复制
+    clone([Even[,deepEven]])
+
+
+
+    事件
+      支持的事件：
+      事件
+        blur([[data],fn])
+        change([[data],fn])
+        click([[data],fn])
+        dblclick([[data],fn])
+        error([[data],fn])
+        focus([[data],fn])
+        focusin([data],fn)
+        focusout([data],fn)
+        keydown([[data],fn])
+        keypress([[data],fn])
+        keyup([[data],fn])
+        mousedown([[data],fn])
+        mouseenter([[data],fn])
+        mouseleave([[data],fn])
+        mousemove([[data],fn])
+        mouseout([[data],fn])
+        mouseover([[data],fn])
+        mouseup([[data],fn])
+        resize([[data],fn])
+        scroll([[data],fn])
+        select([[data],fn])
+        submit([[data],fn])
+        unload([[data],fn])
+
+
+    AJAX
+    Jquery扩展
+    其它

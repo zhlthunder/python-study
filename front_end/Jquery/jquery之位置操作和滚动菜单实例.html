@@ -1,0 +1,247 @@
+<!--这个功能也要是一个 通过监听滑轮事件-->
+<!--菜单和内容要一一对应-->
+
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+
+        body{
+            margin: 0px;
+        }
+        img {
+            border: 0;
+        }
+        ul{
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+        .clearfix:after {
+            content: ".";
+            display: block;
+            height: 0;
+            clear: both;
+            visibility: hidden;
+        }
+
+        .wrap{
+            width: 980px;
+            margin: 0 auto;
+        }
+        
+        .pg-header{
+            background-color: #303a40;
+            -webkit-box-shadow: 0 2px 5px rgba(0,0,0,.2);
+            -moz-box-shadow: 0 2px 5px rgba(0,0,0,.2);
+            box-shadow: 0 2px 5px rgba(0,0,0,.2);
+        }
+        .pg-header .logo{
+            float: left;
+            padding:5px 10px 5px 0px;
+        }
+        .pg-header .logo img{
+            vertical-align: middle;
+            width: 110px;
+            height: 40px;
+
+        }
+        .pg-header .nav{
+            line-height: 50px;
+        }
+        .pg-header .nav ul li{
+            float: left;
+        }
+        .pg-header .nav ul li a{
+            display: block;
+            color: #ccc;
+            padding: 0 20px;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .pg-header .nav ul li a:hover{
+            color: #fff;
+            background-color: #425a66;
+        }
+        .pg-body{
+
+        }
+        .pg-body .catalog{
+            position: absolute;
+            top:60px;
+            width: 200px;
+            background-color: #fafafa;
+            bottom: 0px;
+        }
+        /*此处如果写成 .pg-body .catalog.fixed就无法生效，待排查一下*/
+        .pg-body .catalog.fixed{
+            position: fixed;
+            top:10px;
+        }
+
+        .pg-body .catalog .catalog-item.active{
+            color: #fff;
+            background-color: #425a66;
+        }
+
+        .pg-body .content{
+            position: absolute;
+            top:60px;
+            width: 700px;
+            margin-left: 210px;
+            background-color: #fafafa;
+            overflow: auto;
+        }
+        .pg-body .content .section{
+            height: 500px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="pg-header">
+        <div class="wrap clearfix">
+            <div class="logo">
+                <a href="#">
+                    <img src="http://core.pc.lietou-static.com/revs/images/common/logo_7012c4a4.pn">
+                </a>
+            </div>
+            <div class="nav">
+                <ul>
+                    <li>
+                        <a  href="#">首页</a>
+                    </li>
+                    <li>
+                        <a  href="#">功能一</a>
+                    </li>
+                    <li>
+                        <a  href="#">功能二</a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+    <div class="pg-body">
+        <div class="wrap">
+            <div class="catalog">
+                <div class="catalog-item" auto-to="function1"><a>第1张</a></div>
+                <div class="catalog-item" auto-to="function2"><a>第2张</a></div>
+                <div class="catalog-item" auto-to="function3"><a>第3张</a></div>
+            </div>
+            <div class="content">
+                <div menu="function1" class="section">
+                    <h1>第一章</h1>
+                </div>
+                <div menu="function2" class="section">
+                    <h1>第二章</h1>
+                </div>
+                <div menu="function3" class="section">
+                    <h1>第三章</h1>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script type="text/javascript" src="jquery-3.2.1.js"></script>
+    <script type="text/javascript">
+
+//        第一种方法：
+//       为窗体注册一个监听滑轮滚动的事件
+        window.onscroll=function(){
+//            滑轮滚动的距离
+            var ws=$(window).scrollTop();
+            //固定左侧标签的方法
+            if(ws>50){
+                    $('.catalog').addClass('fixed');
+                }else{
+                    $('.catalog').removeClass('fixed');
+                }
+
+//              获取所有的content下的章节的标签，并循环每个章节的标签，$(this)就代指每个章节标签
+            $('.content').children().each(function(){
+                var offs=$(this).offset();
+                var offTop=offs.top;
+//               准确的筛选条件应该是：
+//                 当前标签离页面顶部的高度< 滚动的距离；
+//                  当前标签离页面顶部的高度+当前标签的高度>滚动条的距离；
+//                 即当同时满足这两个条件时，滚动条移动的距离才处于当前章节标签的范围之内，即此时应该高亮显示当前的章节标签
+                 var total=offTop+$(this).height();
+                if(ws>offTop && ws<total){
+                    //  下面来解决第三章显示不了的问题，即当第三章高度不能占满整个窗口时，就无法被显示
+//                    解决办法：判断滑轮是否到了底部，如果到了底部，就把第三章加粗即可
+//                     整个html页面的高度=window的高度+滑轮滚动的总距离， 这个等式是满足的
+//                      滑轮滚动的高度： $(windows).scrollTop;
+//                       window的高度:$(window).height;
+//                        文档的高度：$(document).height;
+                    if($(window).scrollTop()+$(window).height() ==$(document).height()){
+                        $('.catalog').children(':last').css("font-size", '48px').siblings().css("font-size", '12px');
+                    }else {
+                        var mm = $(this).attr('menu');
+//                    期望的字符串为： 'div[auto-to="mm"]'，下面进行字符串的拼接
+                        var target = 'div[auto-to="' + mm + '"]';
+                        $('.catalog').children(target).css("font-size", '48px').siblings().css("font-size", '12px');
+                    }
+                }
+            });
+        };
+
+
+//        第二种实现方法：
+//        $(function(){
+//            Init();
+//        });
+//        function Init(){
+//            $(window).scroll(function() {
+//                var scrollTop = $(window).scrollTop();
+//                if(scrollTop > 50){
+//                    $('.catalog').addClass('fixed');
+//                }else{
+//                    $('.catalog').removeClass('fixed');
+//                }
+//                $('.content').children().each(function(){
+//                    var offSet = $(this).offset();
+//                    var offTop = offSet.top - scrollTop;
+//                    var height = $(this).height();
+//
+//                    if(offTop<=0 && offTop> -height){
+//                        //去除其他
+//                        //添加自己
+//                        var docHeight = $(document).height();
+//                        var winHeight = $(window).height();
+//
+//                        if(docHeight == winHeight+scrollTop)
+//                        {
+//                            $('.catalog').find('div:last-child').addClass('active').siblings().removeClass('active');
+//                        }else{
+//                            var target = $(this).attr('menu');
+//                            $('.catalog').find('div[auto-to="'+target+'"]').addClass('active').siblings().removeClass('active');
+//                        }
+//
+//
+//                    }
+//                });
+//
+//            });
+//
+//
+//        }
+
+    </script>
+</body>
+</html>
+
+
+
+<!--总结-->
+<!--高度：-->
+<!--$(window).height() 窗口的高度-->
+<!--$(document).height()  整个html的高度-->
+<!--$('#nid').height()  某个标签的高度-->
+
+<!--$(window).scrollTop()  窗口滑轮滑动的距离-->
+<!--$('#nid').scrollTop()  标签内部滑轮滑动的距离-->
+

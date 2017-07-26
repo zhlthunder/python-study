@@ -1,0 +1,88 @@
+<!--dom中绑定事件有两种方式：-->
+<!--<div onclick="func();"></div>-->
+<!--window.onscroll=function(){-->
+<!--}-->
+<!--这种绑定方式不好的是，如果有很多的标签需要绑定时，就会很繁琐-->
+<!--此时就引出了jquery中的事件，是更高级的封装，功能更高效-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<input type="button" value="添加" onclick="addcontent();">
+   <div>
+       <ul>
+           <li>1</li>
+           <li>2</li>
+           <li>3</li>
+           <li>4</li>
+           <li>5</li>
+           <li>6</li>
+           <li>7</li>
+       </ul>
+   </div>
+
+
+
+<script src="jquery-3.2.1.js"></script>
+<script>
+//    需求：要为所有的li绑定事件，
+//     最基本的jquery 事件绑定的方法
+//   1）第一种实现方法，要在全部html资源加载完整后才执行的
+//    $('li').click(function(){
+//        var tt=$(this).text();
+//        alert(tt);
+//    })
+
+//     上面的js的代码，要在所有的html代码及需要加装的资源都下载完成后才会执行，但经常
+//    图片下载会比较慢，影响js代码的执行，此处引入另外一种方式：即当前文档树结构准备完毕后
+//    就可以去执行js代码，即对于那些需要下载图片资源的标签，在图片没有下载之前，而展示图片的
+//框准备好之后，就可以执行js代码了， 即当前文档的结构已经准备好了，在内容加载之间，就自动执行
+//    js代码，
+// 实现方法1：
+//    $(document).ready(function(){})
+//    实现方法2：
+//    $(fucntion(){}）
+
+//   2）第二种实现方法：文档结构准备完毕后就执行js代码
+    $(function(){
+//        $('li').click(function(){
+//        var tt=$(this).text();
+//        alert(tt);
+//    });
+
+
+        //     新的问题，如果我们现在的需求是，需要动态的增加li标签，那么对于新增加的li标签，
+//     就不具有click事件，因为其他的li的事件是在之前被绑定好了的，如果新增加的标签也
+//    想有click事件，就需要单独绑定，很麻烦，有好的解决办法吗？
+//
+//
+// 实现方法3：使用代理的方法：效率更高
+        $('ul').delegate('li','click',function(){
+            var tt=$(this).text();
+            alert(tt);
+        })
+
+
+
+
+    })
+
+//
+
+
+    function addcontent(){
+        $('ul').append('<li>8</li>');
+    }
+
+
+
+</script>
+
+
+</body>
+</html>
