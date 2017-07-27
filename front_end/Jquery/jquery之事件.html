@@ -45,15 +45,28 @@
 //    js代码，
 // 实现方法1：
 //    $(document).ready(function(){})
-//    实现方法2：
+// 实现方法2：
 //    $(fucntion(){}）
 
 //   2）第二种实现方法：文档结构准备完毕后就执行js代码
     $(function(){
+//        最基本的jquery事件绑定
 //        $('li').click(function(){
 //        var tt=$(this).text();
 //        alert(tt);
 //    });
+
+//        相似的绑定方法2：此方法实现的功能和上面的完全相同
+//        $('li').bind('click',function(){
+//            var temp=$(this).text();
+//            alert(temp);
+//        })
+
+//        总结：即上面的两种方法是，一次性全部绑定上了，但下面的deleage却是什么时候执行什么时候绑定上去；
+
+
+//        对应的移除绑定的事件的方法是：
+//        $('li:last').unbind('click');
 
 
         //     新的问题，如果我们现在的需求是，需要动态的增加li标签，那么对于新增加的li标签，
@@ -67,7 +80,8 @@
             alert(tt);
         })
 
-
+//      对应的去除绑定的方法为：
+//        $('ul').undelegate()
 
 
     })
@@ -86,3 +100,20 @@
 
 </body>
 </html>
+
+
+
+
+<!--事件部分的总结：-->
+<!--$(document).ready(function(){})-->
+<!--$(function(){})-->
+
+<!--$('li').click(function(){})-->
+<!--$('li').bind('click',function(){})-->
+<!--unbind()-->
+
+<!--$('ul').delegate('li','click',function(){})-->
+<!--undelegate-->
+
+
+
