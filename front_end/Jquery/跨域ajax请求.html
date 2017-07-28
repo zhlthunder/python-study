@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<input type="button" value="获取节目" onclick="getdata();" />
+<div id="nn">
+</div>
+
+
+
+<script src="jquery-3.2.1.js"></script>
+<script>
+    function getdata(){
+
+//     跨域需要使用jsonp
+
+        $.ajax({
+        url:"http://www.jxntv.cn/data/jmd-jxtv2.html",
+        data:{},
+        type:'GET',
+        dataType:'jsonp',
+        jsonp:'callback',
+        jsonpCallback:'list',  //规范的做法是，客户端发送函数名为##，服务器端用客户发送来的函数名封装数据后回给客气，但江西卫视没有
+//            按标准来做，它的返回的封装固定用list,这不是标准的做法；
+        success:function(arg){
+            console.log(arg);
+//            数据处理：
+        var ret=arg.data;
+            $.each(ret,function(k,v){
+                var dd= v.week;
+                var temp='<h2>'+dd+'</h2>';
+                $('#nn').append(temp);
+
+                var program= v.list;
+                $.each(program,function(kk,vv){
+                    var nname=vv.name;
+                    var llink=vv.link;
+                    var ttemp='<a href="'+llink+'">'+nname+'</a></br>';
+                    $('#nn').append(ttemp);
+
+                })
+
+            })
+
+
+        },
+        error: function () {
+
+        },
+        })
+    }
+
+</script>
+
+</body>
+</html>
+
+

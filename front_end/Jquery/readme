@@ -173,5 +173,30 @@ jquery操作总结：
 
 
     AJAX
+      按照传统的form表单的处理方式，只要一提交，整个页面就要刷新一次，如果想要提交表单且不刷新页面，就要使用ajax;
+      ajax: 异步的javascript和xml;(asychnous javascript和 xml)
+
+      但ajax不是jquery的东西，是对DOM 和 javascript的上层封装；
+
+     ajax 跨域需要使用jsonp
+         客户端：
+         发送格式：jsonp
+         函数名：比如为aa
+
+         服务端：
+           返回一个函数，样式为 ：   aa(内容。。。。)
+            即返回一个以客户端发送的函数名封装的集合的样式；
+
+
+           总结：
+            1.请求的方法：
+               发送ajax请求 $.ajax({...})
+               还可以使用 $.get({..}) == $.ajax({.. type:get,})
+                           $.post({..}) == $.ajax({.. type:post,})
+
+            2.本域： 请求后直接返回；
+              跨域： 请求时，先指定类型，指定函数名， 返回时需要将 内容封装到函数名里面；
+
+
     Jquery扩展
     其它

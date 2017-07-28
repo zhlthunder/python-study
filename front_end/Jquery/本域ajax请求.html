@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+<input id="n1" type="text" name="pp" />
+<input type="button" value="提交" onclick="submitdata();" />
+
+<!--点击提交后，在浏览器的调试窗口的network页面下可以看到网络通信的信息；-->
+<!--form data为：kk:123-->
+<!--点击提交后，在django的页面获取的信息为：-->
+<!--[28/Jul/2017 20:39:51] "POST /django_form/ HTTP/1.1" 200 2-->
+<!--<QueryDict: {u'kk': [u'123']}>-->
+<!--<QueryDict: {}>-->
+<!--<MultiValueDict: {}>-->
+
+
+<form action="####" method="post">
+    <p><input type="text" name="user"  /></p>
+    <p><input type="password" name="pwd"  /></p>
+     <input type="submit" />
+</form>
+
+<!--备注：前端的检测，比如判断输入是否为空，就是通过javascript来进行检测的，之前已经说明了；-->
+<!--但对于后端的检测，比如在注册的表单下，判断用户名是否存在，肯定是要将输入的用户名发送到后台进行检测的，-->
+<!--即就是通过ajax来进行的；-->
+
+
+<script src="jquery-3.2.1.js"></script>
+<script>
+    function submitdata(){
+        var inpval=$('#n1').val();
+        var inpname=$('#n1').attr('name');
+//        console.log(inpval,inpname);
+
+        $.ajax({
+            //本域的请求的步骤：我们发送data到后台，后台发送 “ok”给我，被arg接收到，本域的请求都是这么做的；
+
+            url:"http://127.0.0.1:8000/django_form/",
+            data:{'kk':123, inpname:inpval},  //??inpname 没有被替换成pp，待确认原因
+            type:'POST',
+            success: function (arg) { //arg参数就是用来接收从服务器端返回的数据；
+                    //当请求完成后自动调用
+                console.log(arg);
+
+//                执行这个命令，在console中提示如下的错误：
+//                XMLHttpRequest cannot load http://127.0.0.1:8000/django_form/. No 'Access-Control-Allow-Origin'
+//                // header is present on the requested resource. Origin 'null' is therefore not allowed access.
+//                这个错误时跨域的问题，默认是不允许跨域的，所有访问是会报错
+//                但这个ajax请求默认已经实现了；
+
+            },
+            error:function(){
+                //当请求发生错误时自动执行
+            }
+        })
+    }
+</script>
+
+</body>
+</html>
+
+

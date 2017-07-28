@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<div style="border:1px solid #dddddd;width:600px;position:absolute;">
+<div style="border:3px solid indianred;width:600px;position:absolute;">
     <div id="title" style="background-color: black;height:40px; color:white;">标题</div>
     <div style="height:300px;">内容</div>
 </div>
@@ -16,12 +16,15 @@
 
     $(function(){
         $('#title').mouseover(function(){
-            $(this).css('cursor','move').mousedown(function(e){  //.keydown（function(e)） 用来获取按下的哪个按键；此处的e是个event,是封装了当前事件中的所有参数
+            $(this).css('cursor','move').mousedown(function(e){
+            //。mousedown(e)用来获取鼠标相关所有信息，比如位置坐标等
+            //  .keydown（function(e)） 用来获取按下的哪个按键；
+            // 此处的e是个event,是封装了当前事件中的所有参数
                 var _event=e||window.event;   //用于兼容浏览器的，有的浏览器不支持e，需要用event
                 //获取鼠标的当前坐标
                 var old_x=_event.clientX;
                 var old_y=_event.clientY;
-
+                //获取窗口标签的当前坐标
                 var parent_left=$(this).parent().offset().left;
                 var parent_top=$(this).parent().offset().top;
 
@@ -35,10 +38,7 @@
 
                     $(this).parent().css('left',x+'px');
                     $(this).parent().css('top',y+'px');
-
-
                 })
-
 
             }).mouseup(function(){
                 $(this).unbind('mousemove');
