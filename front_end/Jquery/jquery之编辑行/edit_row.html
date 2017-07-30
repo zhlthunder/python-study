@@ -9,8 +9,24 @@
 
 <!--4.当前行进入编辑模式：-->
  <!--rowintoedit(tr)  //tr是当前行的选择器-->
+   <!--1）是否需要编辑，比如此处的checkbox所在列不需要编辑-->
+   <!--2） 类型的定义；-->
+       <!--普通内容&ndash;&gt;  input 标签；-->
+        <!--<td>123</td> &ndash;&gt;  t=$(xx）.text()-->
+        <!--创建input 标签，并且将标签的值设置为t;$(xxx).val(t)-->
 
+       <!--选择 &#45;&#45;》 select;-->
+        <!--select的数据源从哪里去拿？-->
+          <!--可以在js中设置一个全局变量，全局变量：可以是数据库写到js中的，也可以用ajax请求获取到的；-->
+             <!--STATUS_DICT={-->
+             <!--1:"在线"；-->
+             <!--1:"下线"；-->
+                <!--}-->
 
+<!--5.退出编辑模式：-->
+ <!--现在每个td里面为input或select标签，-->
+    <!--input: 获取它的值，然后再设置text;-->
+    <!--select:获取它的值，然后设置text;-->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -29,7 +45,8 @@
 <a><input type="button" value="全选" onclick="Selectall('#edit_mode','#tb1');"/></a>
 <a><input type="button" value="反选" onclick="Reverse('#edit_mode','#tb1');" /></a>
 <a><input type="button" value="取消" onclick="deleteall('#edit_mode','#tb1');" /></a>
-<a><input  id="edit_mode" class="edit-mode" type="button" value="进入编辑模式" onclick="EditMode(this,'#tb1')" /></a>
+<!--<a><input  id="edit_mode" class="edit-mode" type="button" value="进入编辑模式" onclick="EditMode(this,'#tb1')" /></a>-->
+<a><input  id="edit_mode" class="edit-mode" type="button" value="进入编辑模式" onclick="EditMode(this)" /></a>
  </div>
 <br>
 
@@ -47,21 +64,21 @@
         <tbody id="tb1">
         <tr>
             <td> <input  type="checkbox"  /></td>
-            <td >v1</td>
+            <td edit="true" >v1</td>
             <td>v11</td>
-            <td>上线</td>
+            <td edit="true" edit-type="select" sel-val="1" global-key="STATUS">online</td>
         </tr>
         <tr>
             <td> <input  type="checkbox"  /></td>
-            <td >v2</td>
+            <td edit="true" >v2</td>
             <td>v11</td>
-            <td>下线</td>
+            <td edit="true" edit-type="select" sel-val="2" global-key="STATUS">offline</td>
         </tr>
         <tr>
             <td> <input  type="checkbox"  /></td>
-            <td >v3</td>
+            <td edit="true" >v3</td>
             <td>v11</td>
-            <td>上线</td>
+            <td edit="true" edit-type="select" sel-val="1" global-key="STATUS">online</td>
         </tr>
         </tbody>
     </table>
