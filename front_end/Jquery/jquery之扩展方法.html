@@ -1,0 +1,77 @@
+
+<!--我们可以自定义jquery的扩展方法；-->
+
+<!--插件机制-->
+<!--jQuery.fn.extend(object)-->
+<!--jQuery.extend(object)-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+<input type="checkbox">
+<input type="radio" checked="checked">
+
+<script src="jquery-3.2.1.js"></script>
+<!--//这个这个extent.js是在jquery之上的扩展，所有必须先引入jquery，再引入extent.js文件-->
+<script src="extent.js"></script>
+<script>
+//     扩展方法1：不带选择器
+    //先自定义方法,下面定义了两个方法
+jQuery.extend({
+      checktt: function() {
+        return "checking";
+      },
+      checktt2: function() {
+        return "checking2";
+      }
+    });
+
+//    调用自定义的方法：
+    ret=$.checktt();
+    alert(ret);
+
+
+//    扩展方法2：带选择器
+//自定义方法
+ jQuery.fn.extend({
+      tony: function() {
+        return "ssss";
+      },
+    });
+  //调用方法：
+    var ret=$('#id').tony();
+    alert(ret);
+
+
+
+//     上面例子中的 #id没有用到，下面介绍个完整的例子
+//定义方法：
+jQuery.fn.extend({
+  check: function() {
+    return this.each(function() { this.checked = true; });
+  },
+  uncheck: function() {
+    return this.each(function() { this.checked = false; });
+  }
+});
+
+//    调用自定义的方法，修改checkbox和 radio的checked选项；
+    $("input[type=checkbox]").check();
+    $("input[type=radio]").uncheck();
+
+//但如果以后去使用jquery的扩展方法时，一般都会将自定义方法定义到一个js文件中，这样就可以全局调用了
+//比如我们定义到一个extent.js 文件；
+
+//扩展方法3： 使用扩展js文件的方式
+ var tt= $.test();
+    alert(tt);
+
+</script>
+
+</body>
+</html>
