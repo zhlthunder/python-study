@@ -50,11 +50,7 @@ function CreateSelect(attrs,csses,option_dict,item_key,item_value,current_val){
 }
 
 
-function MultiSelect(ths){
-    var changeval=$(ths).val();
-    //console.log(changeval);
-    $(ths).parent().attr('sel-val',changeval);
-}
+
 
 function Selectall(mode,tb){
     if ($(mode).hasClass('editing')) {
@@ -171,7 +167,13 @@ function RowIntoEdit(xtr){
 
 
 function EditMode(ths){
+    if($(ths).hasClass('editing')){
+        $(ths).removeClass('editing');
+        $(ths).css('background-color','#a9a3a3');
+    }else{
     $(ths).addClass('editing');
+     $(ths).css('background-color','red');
+        }
 }
 
 function RowOutEdit(xtr){

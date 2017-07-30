@@ -45,7 +45,6 @@
 <a><input type="button" value="全选" onclick="Selectall('#edit_mode','#tb1');"/></a>
 <a><input type="button" value="反选" onclick="Reverse('#edit_mode','#tb1');" /></a>
 <a><input type="button" value="取消" onclick="deleteall('#edit_mode','#tb1');" /></a>
-<!--<a><input  id="edit_mode" class="edit-mode" type="button" value="进入编辑模式" onclick="EditMode(this,'#tb1')" /></a>-->
 <a><input  id="edit_mode" class="edit-mode" type="button" value="进入编辑模式" onclick="EditMode(this)" /></a>
  </div>
 <br>
@@ -86,6 +85,38 @@
 <script src="jquery-3.2.1.js"></script>
 <script src="edit_row.js"></script>
 
+<script>
+//    监听是否已经按下control键
+    window.globalCtrlKeyPress=false;
+    window.onkeydown=function(event){
+//        console.log(event.keyCode);  //用来获取每个按键的编码；
+        if(event && event.keyCode==17){
+            window.globalCtrlKeyPress=true;
+        }
+    };
+    window.onkeyup=function(event){
+        if(event && event.keyCode==17){
+            window.globalCtrlKeyPress=false;
+        }
+    };
+
+//按下ctrl键时，可以批量修改当前行后的所有行
+
+function MultiSelect(ths){
+    if(window.globalCtrlKeyPress){
+        var index=$(ths).parent().index();
+        var value=$(ths).val();
+        $(ths).parent().parent().nextAll().find("td input[type='checkbox']:checked").each(function(){
+            $(this).parent().parent().children().eq(index).children().val(value);
+        });
+    }else{
+    var changeval=$(ths).val();
+    //console.log(changeval);
+    $(ths).parent().attr('sel-val',changeval);
+        }
+}
+
+</script>
 </div>
 </body>
 </html>
