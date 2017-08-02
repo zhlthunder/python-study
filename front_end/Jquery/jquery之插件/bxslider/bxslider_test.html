@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+     <!--import jquery file -->
+    <script src="jquery-3.2.1.js"></script>
+    <!-- bxSlider Javascript file -->
+    <script src="jquery.bxslider/jquery.bxslider.min.js"></script>
+    <!-- bxSlider CSS file -->
+    <link href="jquery.bxslider/jquery.bxslider.css" rel="stylesheet" />
+
+</head>
+<body>
+
+        <ul class="bxslider">
+          <li><img src="images/pic1.jpg" style="height:400px;width:800px" /></li>
+          <li><img src="images/pic2.jpg" style="height:400px;width:800px" /></li>
+          <li><img src="images/pic3.jpg" style="height:400px;width:800px" /></li>
+          <li><img src="images/pic4.jpg" style="height:400px;width:800px"/></li>
+        </ul>
+
+<script>
+        $(document).ready(function(){
+          $('.bxslider').bxSlider();
+        });
+
+</script>
+</body>
+</html>
