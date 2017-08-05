@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <!--引用bootstrap样式-->
+    <link href="bootstrap-3.3.7-dist/css/bootstrap.css" rel="stylesheet" />
+    <style>
+        .c1:after{
+            content:"SB";
+        }
+
+        .c2:before{
+            content:"SB";
+        }
+
+        .c3:before{
+            /*使用字体文件中图标对应的unicode，这样就可以添加对应的图标到特定的位置,此处只举个例子，*/
+            /*此处不可以调用*/
+            content:"\u8766";
+        }
+
+
+    </style>
+</head>
+<body>
+<div class="c1">jackson</div>
+<!--页面的显示为：jacksonSB， 且 SB不可以被选中； 即content定义的值自动追加到jackson后面；-->
+
+<div class="c2">james</div>
+<!--页面显示为SBjames,且 SB不可以被选中； 即content定义的值自动追加到james前面；-->
+
+<!--引起bootstrap中email图标对应的样式，就会自动调用这个图标了，注意此处的用法-->
+<div class="glyphicon-envelope">tony</div>
+</body>
+</html>

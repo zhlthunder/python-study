@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        .c2{
+            background-color:red;
+        }
+
+        /*下面通过伪类的方法，来代替下面的最好追加的clear:both的div,效果相同，这样的写法更通用；*/
+        .c2:after{
+            content:".";
+            clear:both;
+            /*用来隐藏上面的".",但上面如果没有“.”,这个伪类就不起作用；*/
+            visibility: hidden;
+        }
+
+        /*更通用的写法是，写一个通用的样式，可以被所有的标签调用*/
+        .clearfix:after{
+            content:".";
+            clear:both;
+            visibility: hidden;
+        }
+
+        .c3{
+            background-color:red;
+        }
+
+        .c4{
+            background-color:red;
+        }
+    </style>
+</head>
+<body>
+
+ <div class="c2">
+     <div style="float: left;">123</div>
+     <div style="float: left;">456</div>
+     <!--如果要显示父标签的背景颜色，需要加上下面的这个div:-->
+     <!--<div style="clear:both;"></div>-->
+ </div>
+
+ <!--更通用的调用方法：-->
+<hr>
+<div class="c3 clearfix">
+     <div style="float: left;">123</div>
+     <div style="float: left;">456</div>
+ </div>
+
+<hr>
+<div class="c4 clearfix">
+     <div style="float: left;">123</div>
+     <div style="float: left;">456</div>
+ </div>
+
+</body>
+</html>

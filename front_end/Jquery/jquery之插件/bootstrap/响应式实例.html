@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+
+    <style>
+   /*下面就是使用css的关键字 @media ,是基于屏幕的大小进行的动态响应，也是最常用的； */
+    /*完整的写法*/
+    /*@media screen and (min-width: 768px) {*/
+        /*.lead {*/
+            /*background-color: red;*/
+               /*}*/
+    /*}*/
+    /*简写的方法：*/
+   @media (min-width: 768px) {
+        .lead {
+            background-color: red;
+               }
+    }
+
+     /*同时设定上限和下限的方法：  */
+   /*@media screen and (min-width: 768px) and (max-width: 900px) {*/
+        /*.lead {*/
+            /*background-color: red;*/
+               /*}*/
+    /*}*/
+
+    /*设定上限的方法；*/
+           /*@media screen and (max-width: 800px) {*/
+        /*.lead {*/
+            /*background-color: red;*/
+               /*}*/
+    /*}*/
+
+
+    </style>
+</head>
+<body>
+<div class="lead">
+    aaaaaaaaaaaaaaaaaaaaa
+</div>
+
+
+</body>
+</html>

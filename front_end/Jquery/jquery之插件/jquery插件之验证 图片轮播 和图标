@@ -1,4 +1,4 @@
-1.验证插件
+                    1.验证插件
 主要注意两点：
 1）获取用户输入的内容并使用正则表达式进行检测；
 2）如何return false，则标签自带的事件就不会执行了；
@@ -77,5 +77,54 @@ https://jqueryui.com/
 jquery easyui
 http://www.jeasyui.com/download/index.php
 
+4）重点介绍
 bootstrap
-http://www.bootcss.com/
+http://v3.bootcss.com/
+
+---bootstrap是用于构建响应式网站的前端框架；
+---bootstrap的代码结构： 包括 css和js代码；
+
+bootstrap2的代码包括： css imag(用抠洞的方式来显示图标)  js
+bootstrap3的代码包括：css font（将图标做成字体库） js
+cs代码中的.map文件，用于给 长的样式序列做映射，比如 div .c1.c2。。。 即样式很长，做映射后，可以节约存储空间；
+js代码中的npm.js 是编译时才会用到；
+
+小结：
+bootstrap可以构建前台和后台；
+bootstrap是响应式的；
+bootstrap2和3的代码文件的差异；
+
+
+
+a)响应式功能：
+根据页面的宽度动态决定显示的样式，比如下面的代码就是实现这个功能的；
+下面的代码的意思是，页面的宽度大于768px才使用下面的样式；
+@media (min-width: 768px) {
+  .lead {
+    font-size: 21px;
+  }
+
+b） css内容补充之伪类；
+1》》》
+比如我们现在要写网页了，我们需要引用 bootstrap的 js css font文件；
+比如：css中有如下的定义：
+.add;after{
+content:"\u9987"}
+
+如果我们的代码是
+<div class="add">aaaa</div>   ,那执行的结果是 content的内容（普通的文本或特殊图标）会被自动追加到aaaa的后面；
+之所以可以实现这个功能，就是因为 伪类 after  具有这种特殊的功能；
+.glyphicon-envelope:before {
+  content: "\2709";
+}
+
+2709对应的是email的图标；
+当我们引用glyphicon-envelope 样式后，会自动追加一个email的图标；
+
+2》》》
+伪类应用2： 制作一个通用的clear：both的方法，解决子标签float的问题；
+        .clearfix:after{
+            content:".";
+            clear:both;
+            visibility: hidden;
+        }
