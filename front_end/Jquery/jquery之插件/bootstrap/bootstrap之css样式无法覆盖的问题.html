@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+         /*比如c1是bootstrap中定义的样式*/
+        /*.c1{*/
+            /*color:red;*/
+        /*}*/
+
+         /*但在bootstrap中定义的样式中增加了一个 ！import,表示优先级最高；*/
+         /*这样即使在后面定义了c2,但还是无法替代c1定义的样式，*/
+         .c1{
+            color:red !important;
+        }
+
+        /*.c2{*/
+            /*color:green;*/
+        /*}*/
+
+        /*如果要替换，必须在c2中也使用这个关键字：*/
+         .c2{
+            color:green !important;
+        }
+
+    </style>
+</head>
+<body>
+
+<!--如果是这么写，那肯定是c2生效；-->
+<div class="c1 c2">test</div>
+</body>
+</html>

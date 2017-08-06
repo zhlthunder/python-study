@@ -8,7 +8,9 @@
             display: none;
         }
         .icon{
+            /*遗留问题，下面的背景图片还有问题，待继续调试*/
             background:url(row.jpg) no-repeat;
+            /*background-color:red;*/
             background-position: -40px -385px;
             width:16px;
             height:16px;
@@ -88,16 +90,16 @@
             $(window).scroll(function(){
 //                当滚动滑轮时，执行函数体
 //                获取当前滑轮滚动的高度
-              var top=$(window).scrolltop();
+              var top=$(window).scrollTop();
                 if(top>0){
+//                    console.log("test");
 //                    展示返回顶部
-                    $('.back').removeClass('.hide');
+                    $('.back').removeClass('hide');
                 }else{
-                    $('.back').addClass('.hide');
+                    $('.back').addClass('hide');
                 }
             });
         });
-
     </script>
 
 </body>
