@@ -1,0 +1,23 @@
+
+
+参考：http://blog.csdn.net/qq_36482772/article/details/53458400
+利用控制台创建数据库db文件：
+1)进入python交互命令行后，依次执行：
+import sqlite3
+conn=sqlite3.connect("mysql01.db");  //如果存在就连接，如果不存在就创建一个新的数据库；
+conn.close()
+
+
+sqlite-jdbc 驱动下载相关：
+http://blog.csdn.net/ale2012/article/details/51163029
+
+数据表操作命令：
+create table category(
+  model_name TEXT,
+  qty TEXT
+);
+
+insert into category values('python',3);
+insert into category values('php',2);
+
+SELECT  ROWID,* from category;

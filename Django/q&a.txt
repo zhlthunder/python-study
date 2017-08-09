@@ -1,0 +1,4 @@
+
+1.TypeError: view must be a callable or a list/tuple in the case of include().
+ 
+解决：django 1.10版本改了写法了。首先要在引入view模块，其次后面URL设置里views.hello不要加引号了
