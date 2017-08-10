@@ -1,4 +1,5 @@
-    <!DOCTYPE html>  
+   {%  load staticfiles %}
+    <!DOCTYPE html>
     <html>  
         <head>  
             <meta charset="utf-8">  
@@ -55,18 +56,20 @@
             <div class="container-fluid">  
                 <!--header section -->  
                 <div class="navbar-header">  
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">  
-                    <span class="sr-only">Toggle navigation</span>  
-                    <span class="icon-bar"></span>  
-                    <span class="icon-bar"></span>  
-                    <span class="icon-bar"></span>  
-                    </button>  
-                    <a class="navbar-brand" href="#">Brand Name</a>  
-                </div>  
+{#                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">  #}
+{#                    <span class="sr-only">Toggle navigation</span>  #}
+{#                    <span class="icon-bar"></span>  #}
+{#                    <span class="icon-bar"></span>  #}
+{#                    <span class="icon-bar"></span>  #}
+                    </button>
+                    <a class="navbar-brand"  href="/monitor/">Asset</a>
+                    <a class="navbar-brand" href="#">Dashboard</a>
+                    <a class="navbar-brand" href="#">Monitor</a>
+                </div>
                 <!-- menu section -->  
                 <div class="collapse navbar-collapse navbar-ex1-collapse">  
                     <ul class="nav navbar-nav navbar-right">  
-                        <li><a href="# ">Home</a></li>  
+                        <li><a href="#">Home</a></li>
                         <li><a href="/regist/">regist</a></li>  
                         <li><a href="#">Products</a></li>  
                         <li><a href="#">Blog</a></li>  
