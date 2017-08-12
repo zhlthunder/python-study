@@ -22,3 +22,7 @@ DATABASES = {
 1）在settings的INSTALLED_APPS  中增加 'app01';
 2）执行 python manage.py makemigrations app01,切记： 如果只使用python manage.py makemigrations 会返回：No changes detected，即没有创建数据表；
 3）执行 python manage.py migrate 完成数据表的创建；
+
+3.创建完数据库后，紧接着创建admin用户；
+python manage.py createsuperuser  
+如果没有数据库，直接创建超级用户会提示失败，因为超级用户也是要存在数据库中的。

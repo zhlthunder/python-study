@@ -1,0 +1,88 @@
+{%extends 'index.html'%}
+{%block page-content%}
+<br />
+<br />
+<br />
+<br />
+<br />
+
+
+Disk_feature_list:
+<table class="table" border=2>
+<th>bw_num_r</th> 
+<th>bw_idp_r</th> 
+<th>bw_r_spec</th> 
+<th>bw_num_w</th>
+<th>bw_idp_w</th>
+<th>bw_w_spec</th>
+<th>io_num_r</th>
+<th>io_idp_r</th>
+<th>iops_r_spec</th>
+<th>io_num_w</th>
+<th>io_idp_w</th>
+<th>iops_w_spec</th>
+<th>disk_cache</th>
+<th>t_date</th>
+<th>d_model</th>
+<th>d_vendor</th>
+<th>d_capacity</th>
+<th>d_firmware</th>
+<th>d_inch</th>
+<th>d_interface</th>
+<th>d_medium</th>
+<th>d_sector</th>
+<th>d_rotarate</th>
+<th>d_speed</th>
+<th>rd_model</th>
+<th>rd_firmware</th>
+<th>vol_type</th>
+<th>seq_r_bw</th>
+<th>seq_w_bw</th>
+<th>rand_r_iops</th>
+<th>rand_w_iops</th>
+
+{% for line in disk_info%}
+{% if forloop.counter0|divisibleby:2%}
+        <tr class="warning">
+{%else%}
+        <tr class="success">
+{%endif%}
+
+   <td>{{line.bw_num_r}}</td>
+   <td>{{line.bw_idp_r}}</td>
+   <td>{{line.bw_r_spec}}</td>
+   <td>{{line.bw_num_w}}</td>
+   <td>{{line.bw_idp_w}}</td>
+   <td>{{line.bw_w_spec}}</td>
+   <td>{{line.io_num_r}}</td>
+   <td>{{line.io_idp_r}}</td>
+   <td>{{line.iops_r_spec}}</td>
+   <td>{{line.io_num_w}}</td>
+   <td>{{line.io_idp_w}}</td>
+   <td>{{line.iops_w_spec}}</td>
+   <td>{{line.disk_cache}}</td>
+   <td>{{line.t_date}}</td>
+   <td>{{line.d_model}}</td>
+   <td>{{line.d_vendor}}</td>
+   <td>{{line.d_capacity}}</td>
+   <td>{{line.d_firmware}}</td>
+   <td>{{line.d_inch}}</td>
+   <td>{{line.d_interface}}</td>
+   <td>{{line.d_medium}}</td>
+   <td>{{line.d_sector}}</td>
+   <td>{{line.d_rotarate}}</td>
+   <td>{{line.d_speed}}</td>
+   <td>{{line.rd_model}}</td>
+   <td>{{line.rd_firmware}}</td>
+   <td>{{line.vol_type}}</td>
+   <td>{{line.seq_r_bw}}</td>
+   <td>{{line.seq_w_bw}}</td>
+   <td>{{line.rand_r_iops}}</td>
+   <td>{{line.rand_w_iops}}</td>
+</tr>
+{%endfor%}
+</table>
+
+
+<a href="/monitor/1/">Back</a>
+{%endblock%}

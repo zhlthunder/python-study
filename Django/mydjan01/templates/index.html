@@ -1,112 +1,103 @@
-   {%  load staticfiles %}
-    <!DOCTYPE html>
-    <html>  
-        <head>  
-            <meta charset="utf-8">  
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-            <title>Web Monitor</title>  
-      
-         <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	<link href="/static/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
-      
-            <style media="screen">  
-                .navbar {  
-                 background-image: linear-gradient(#54B4EB, #2FA4E7 60%, #1D9CE5);  
-                 background-repeat: no-repeat;  
-                 border-bottom: 1px solid #178ACC;  
-                 box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.1);  
-                 border-radius: 0px;  
-                }  
-      
-                .navbar-default {  
-                 background-color: #2FA4E7;  
-                 border-color: #1995DC;  
-                }  
-      
-                .navbar-default .navbar-brand,  
-                .navbar-default .navbar-brand:hover,  
-                .navbar-default .navbar-brand:focus ,  
-                .navbar-default .navbar-nav > li > a {  
-                 color: #FFF;  
-                }  
-      
-                .navbar-default .navbar-nav > li > a:hover,  
-                .navbar-default .navbar-nav > li > a:focus {  
-                 color: #FFF;  
-                 background-color: #178ACC;  
-                }  
-      
-                .navbar-default .navbar-toggle:hover,  
-                .navbar-default .navbar-toggle:focus {  
-                background-color: #178ACC;  
-                }  
-      
-                .navbar-default .navbar-toggle {  
-                border-color: #178ACC;  
-                }  
-      
-                .navbar-default .navbar-toggle .icon-bar {  
-                background-color: #FFF;  
-                }  
-            </style>  
-        </head>  
-        <body>  
-      
-        <nav class="navbar navbar-default" role="navigation">  
-            <div class="container-fluid">  
-                <!--header section -->  
-                <div class="navbar-header">  
-{#                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">  #}
-{#                    <span class="sr-only">Toggle navigation</span>  #}
-{#                    <span class="icon-bar"></span>  #}
-{#                    <span class="icon-bar"></span>  #}
-{#                    <span class="icon-bar"></span>  #}
-                    </button>
-                    <a class="navbar-brand"  href="/monitor/">Asset</a>
-                    <a class="navbar-brand" href="#">Dashboard</a>
-                    <a class="navbar-brand" href="#">Monitor</a>
-                </div>
-                <!-- menu section -->  
-                <div class="collapse navbar-collapse navbar-ex1-collapse">  
-                    <ul class="nav navbar-nav navbar-right">  
-                        <li><a href="#">Home</a></li>
-                        <li><a href="/regist/">regist</a></li>  
-                        <li><a href="#">Products</a></li>  
-                        <li><a href="#">Blog</a></li>  
-                        <li><a href="#">Support</a></li>  
-                    </ul>  
-                </div>  
-            </div>  
-        </nav> 
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Monitor System</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author" content="">
 
 
-<div class="container">
+
+
+	<!-- Le styles -->
+	<link href="/static/bootstrap/css/bootstrap.css" rel="stylesheet">
+	<link href="/static/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+
+
+
+
+	<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+	<!--[if lt IE 9]>
+		<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+</head>
+<body>
+	<div class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container">
+				<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</a>
+				<div class="nav-collapse">
+					<ul class="nav">
+					        <!-- because "dashboard is home page,so, href=/"-->
+						<li><a href="/">Dashboard</a></li>
+						<!--<li><a href="/host_manager/">Host Manager</a></li>-->
+						<li><a href="/monitor/1/">Disk_Feature_Query</a></li>
+						<li><a href="/asset/">Asset</a></li>
+						<li><a href="/admin/">Admin</a></li>
+						<li><a href="/logout/">Logout</a></li>
+					</ul>
+
+
+
+
+				</div><!--/.nav-collapse -->
+			</div>
+		</div>
+	</div>
+	<!--  in order to create home template page, two step: 1)(no define id is also ok)start point: define id=*** 2) start point: define block  3)end point: define endblock -->
+	<div class="container" id='page-content'>
+
+              {% block page-content %}
+              <!--in order to keep backgroup, so we change the start block point-->
+
 		<!-- Main hero unit for a primary marketing message or call to action -->
 		<div class="hero-unit clearfix">
+
  <div class="pull-left span5">
-  <h4>webdesigner</h4>
-  <p>A one stop resource for web designers and developers</p>
-  <p><a class="btn btn-primary btn-large">Explore our articles</a></p>
+  <h3>Welcome to Monitor System</h3>
  </div>
  <div class="pull-right">
-  <form class="well" method="POST">
+  <form class="well" action="/login/" method="post">
    <label>Username</label>
-   <input type="text" class="span3" placeholder="Type your username">
+   <input type="text" name="username" class="span3" placeholder="Type your username">
    <label>Password</label>
-   <input type="password" class="span3" placeholder="Type your password">
+   <input type="password" name="password" class="span3" placeholder="Type your password">
    <label class="checkbox">
     <input type="checkbox">Remember me
    </label>
    <button type="submit" class="btn">Log me in</button>
+
+{% if login_err %}
+{{login_err}}
+{%endif%}
+
+
   </form>
  </div>
+
+{%endblock%}
+
 </div>
 
-
-	<footer>
+		<footer>
 			<p>? Company 2012</p>
 		</footer>
+	</div> <!-- /container -->
 
-          
-        </body>  
-    </html>  
+
+
+
+	<!-- Le javascript
+	================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="http://code.jquery.com/jquery.min.js"></script>
+	<script src="/static/bootstrap/js/bootstrap.js"></script>
+</body>
+</html>
+

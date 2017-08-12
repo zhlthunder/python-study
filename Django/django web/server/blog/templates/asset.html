@@ -1,0 +1,43 @@
+{%extends 'index.html'%}
+{%block page-content%}
+<br /><br />
+<br /><br />
+
+
+
+{% if ss%}
+<table class="table" border=2>
+<th>Name</th> 
+<th>ip_addr</th>
+<th>cpu</th>
+<th>memory</th>
+<th>ethernet</th>
+<th>disk</th>
+<th>raid_card</th>
+
+{% for line in ss%}
+{% if forloop.counter0|divisibleby:2%}
+        <tr class="warning">
+{%else%}
+        <tr class="success">
+{%endif%}
+
+   <td>{{line.name}}</td>
+   <td>{{line.ip_addr}}</td>
+   <td>{{line.cpu}}</td>
+   <td>{{line.memory}}</td>
+   <td>{{line.ethernet}}</td>
+   <td>{{line.disk}}</td>
+   <td>{{line.raid}}</td>
+</tr>
+{%endfor%}
+</table>
+
+{%else%}
+ <p> empty table, so do not dispaly anything</p>
+
+{%endif%}
+
+
+
+{%endblock%}

@@ -1,20 +1,83 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
-
-<ul>
-{% for line in books %}
-<li>{{ line.title }}</li>
-<li>{{ line.author }}</li>
-<li>{{ line.time }}</li>
-{% endfor %}
-</ul>
+{%extends 'index.html'%}
+{%block page-content%}
+<br /><br />
+<br /><br />
 
 
 
-</body>
-</html>
+{% if books%}
+<table class="table" border=2>
+<th>Title</th>
+<th>Author</th>
+<th>Time</th>
+
+
+{% for line in books%}
+{% if forloop.counter0|divisibleby:2%}
+        <tr class="warning">
+{%else%}
+        <tr class="success">
+{%endif%}
+
+   <td>{{line.title}}</td>
+   <td>{{line.author}}</td>
+   <td>{{line.time}}</td>
+
+</tr>
+{%endfor%}
+</table>
+
+{%else%}
+ <p> empty table, so do not dispaly anything</p>
+
+{%endif%}
+
+
+
+title:<input id="n1" type="text" name="title" />
+author:<input id="n2" type="text" name="author" />
+time:<input id="n3" type="text" name="time" />
+<input type="button" value="submit" onclick="submitdata();" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg"/>
+
+
+
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      upload successfully!!
+    </div>
+  </div>
+</div>
+
+<script src="/static/bootstrap/js/jquery-3.2.1.js"></script>
+<script>
+    function submitdata(){
+        var inv1=$('#n1').val();
+        var inp1 =$('#n1').attr('name');
+        var inv2=$('#n2').val();
+        var inp2 =$('#n2').attr('name');
+        var inv3=$('#n3').val();
+        var inp3 =$('#n3').attr('name');
+{#        console.log(inp1,inp2,inp3);#}
+
+        $.ajax({
+
+            url:"http://127.0.0.1:8000/upload/",
+            data:{ inp1:inv1,inp2:inv2,inp3:inv3},
+            type:'POST',
+            success: function (arg) {
+
+{#                console.log(arg);#}
+{#                alert("upload successfully!!")#}
+
+            },
+            error:function(){
+
+            }
+        })
+    }
+</script>
+
+
+
+{%endblock%}
