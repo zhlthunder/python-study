@@ -21,6 +21,12 @@ from app1.views import *
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^index/', index),
     url(r'^$', index),
+    url(r'^login/$',login),
+    url(r'^logout/$',logout),
+    url(r'^host_manager/$',host_manager),
+    url(r'^dashboard/$',dashboard),
+    url(r'^asset/$',asset),
+    url(r'^monitor/$',monitor),
+
 ]

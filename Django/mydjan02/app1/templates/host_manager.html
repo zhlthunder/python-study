@@ -1,0 +1,24 @@
+{#继承主页面的方法如下：#}
+{#{% extends 'index.html'%}#}
+{#{% block page-content %}#}
+{# 此页面自己的内容#}
+{#{% endblock %}#}
+
+
+{% extends 'index.html'%}
+{% block page-content %}
+    <br>
+    <br>
+    <br>
+ <h4> this is ServerManager page!!</h4>
+
+    {% for ip in ip_list %}
+        {{ ip.hostname }}
+        {{ ip.ip }}
+        {{ ip.port }}
+        {{ ip.os }}
+        <br>
+    {% endfor %}
+
+
+{% endblock %}

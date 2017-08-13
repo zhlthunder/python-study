@@ -1,5 +1,5 @@
 
-
+sqlite3数据库，使用命令行方式创建及调试的方法
 参考：http://blog.csdn.net/qq_36482772/article/details/53458400
 利用控制台创建数据库db文件：
 1)进入python交互命令行后，依次执行：
@@ -21,3 +21,47 @@ insert into category values('python',3);
 insert into category values('php',2);
 
 SELECT  ROWID,* from category;
+
+
+sqlite3创建的正常的方法如下：
+sqlite3 数据库配置相关：
+
+1.配置Django项目中文件
+
+　　①setting.py文件
+　　找到DATABASES项，更改为：
+DATABASES = {
+　 'default': {
+　 'ENGINE': 'django.db.backends.sqlite3',
+　 'NAME': os.path.join(BASE_DIR, 'blogDB.db'),
+}
+}
+
+以上内容，ENGINE表示使用SQLite3数据库，NAME表示创建了一个名字为blogDB.db的数据库。
+
+②models.py文件
+　　models文件应该在你创建的app目录下，我创建了一个blog的app应用，所以在我的blog目录下（如果没有需要自己创建）
+更改models.py文件内容为： 比如定义用户自己的数据包结构；
+
+2.将table同步到数据库
+
+1）在settings的INSTALLED_APPS  中增加 'app01';
+2）执行 python manage.py makemigrations app01,切记： 如果只使用python manage.py makemigrations 会返回：No changes detected，即没有创建数据表；
+3）执行 python manage.py migrate 完成数据表的创建；
+
+3.创建完数据库后，紧接着创建admin用户；
+python manage.py createsuperuser  
+如果没有数据库，直接创建超级用户会提示失败，因为超级用户也是要存在数据库中的。
+
+4.如果新加入数据表的话，需要依次执行：
+python manage.py makemigrations app01
+python manage.py migrate
+
+命令执行时，提示信息显示已经创建成功了新的数据表了；
+
+在pycharm 的database插件处，需要选中数据库后，右击选择sychronize,就会立即显示
+显示新增加的数据表；如果点击标题栏中的刷新，好像没有作用；
+
+remark:对于新创建的表，也可以通过在admin.py中注册新添加的表后，然后再web上就可以立即看到了。
+
+

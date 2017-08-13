@@ -14,14 +14,13 @@
 	<!-- Le styles -->
 	<link href="/app1/static/bootstrap/css/bootstrap.css" rel="stylesheet">
 	<link href="/app1/static/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+  <style>
+      .hero-unit-modify {
+          background-color:#d9d9d9 !important;
+          height:650px !important;
+      }
+  </style>
 
-
-
-
-	<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-	<!--[if lt IE 9]>
-		<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
-	<![endif]-->
 </head>
 <body>
 	<div class="navbar navbar-fixed-top">
@@ -34,17 +33,22 @@
 				</a>
 				<div class="nav-collapse">
 					<ul class="nav">
+
+{#                            注意，使用 / 表示转导网站的主页面#}
 					        <!-- because "dashboard is home page,so, href=/"-->
-						<li><a href="/">Dashboard</a></li>
-						<!--<li><a href="/host_manager/">Host Manager</a></li>-->
-						<li><a href="/monitor/1/">Disk_Feature_Query</a></li>
+
+
+						<li><a style="background-color:darkgrey;color:white;">AUTO MNT SYSTEM</a></li>
+						<li><a href="/dashboard/">Dashboard</a></li>
+						<li><a href="/host_manager/">Host Manager</a></li>
+						<li><a href="/monitor/">Monitor</a></li>
 						<li><a href="/asset/">Asset</a></li>
-						<li><a href="/admin/">Admin</a></li>
-						<li><a href="/logout/">Logout</a></li>
+
 					</ul>
 
                     <ul class="nav pull-right">
-{#                      <li><a href="#">Link</a></li>#}
+{#                        获取后台的变量，在前台显示已登录的用户的用户名#}
+                      <li><a href="#">{{ user.username}}</a></li>
                       <li class="divider-vertical"></li>
                       <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Configuration <b class="caret"></b></a>
@@ -53,7 +57,7 @@
                           <li><a href="#">Another action</a></li>
                           <li><a href="#">Something else here</a></li>
                           <li class="divider"></li>
-                          <li><a href="#">Logout</a></li>
+                          <li><a href="/logout/">Logout</a></li>
                         </ul>
                       </li>
                     </ul>
@@ -63,20 +67,28 @@
 			</div>
 		</div>
 	</div>
-	<!--  in order to create home template page, two step: 1)(no define id is also ok)start point: define id=*** 2) start point: define block  3)end point: define endblock -->
-	<div class="container" id='page-content'>
 
-              {% block page-content %}
+
+	<div class="container">
+
               <!--in order to keep backgroup, so we change the start block point-->
 
 		<!-- Main hero unit for a primary marketing message or call to action -->
-		<div class="hero-unit clearfix">
+		<div class="hero-unit clearfix hero-unit-modify">
+            {#    页面继承相关配置：#}
+{#    关键字： block ### ;  endblock;#}
+{#    解释：在其它的页面，屏蔽 block ## 和 enblock之间的内容，其它的部分都完全继承；从这个意义上讲，可以定义多组block ## 和 enblock，#}
+{#    只要一一对应就可以了#}
+
+              {% block page-content %}
 
  <div class="pull-left span5">
   <h3>Welcome to Monitor System</h3>
  </div>
  <div class="pull-right">
+{#    定义form表单，需要指定提交到哪里（server），提交的方式，因为要提交用户名及密码，所有需要用post的方式#}
   <form class="well" action="/login/" method="post">
+{#    下面要为用户名及密码指定name的变量名，这样后台才可以根据name的属性值，使用get方法获取前台传过来的值#}
    <label>Username</label>
    <input type="text" name="username" class="span3" placeholder="Type your username">
    <label>Password</label>
@@ -85,11 +97,8 @@
     <input type="checkbox">Remember me
    </label>
    <button type="submit" class="btn">Log me in</button>
-
-{% if login_err %}
-{{login_err}}
-{%endif%}
-
+{#  此处直接调用后台发送过来的变量#}
+  {{ login_error }}
 
   </form>
  </div>
@@ -102,14 +111,7 @@
 			<p>? Company 2012</p>
 		</footer>
 	</div> <!-- /container -->
-
-
-
-
-	<!-- Le javascript
-	================================================== -->
-	<!-- Placed at the end of the document so the pages load faster -->
-	<script src="http://code.jquery.com/jquery.min.js"></script>
+    <script src="/app1/static/bootstrap/js/jquery-min.js"></script>
 	<script src="/app1/static/bootstrap/js/bootstrap.js"></script>
 </body>
 </html>

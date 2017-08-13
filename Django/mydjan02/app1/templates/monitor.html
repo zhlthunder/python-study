@@ -1,0 +1,82 @@
+{#继承主页面的方法如下：#}
+{#{% extends 'index.html'%}#}
+{#{% block page-content %}#}
+{# 此页面自己的内容#}
+{#{% endblock %}#}
+
+
+
+{% extends 'index.html'%}
+{% block page-content %}
+    <br>
+    <br>
+    <br>
+ <h4>this is Monitor page!!</h4>
+{#    方式1：#}
+{#    使用下面的变量直接输出后台传过来的变量名，就可以显示字典的信息#}
+{#    {{ name_dic }}#}
+
+{#    方式2： 文本方式显示#}
+{#    {% for k,v in name_dic.items %}#}
+{#        {{ k }}:{{ v }}<br>#}
+{#    {% endfor %}#}
+
+{#    方式3： table方式显示#}
+{#    <table border="1px;">#}
+{#        {% for k,v in name_dic.items %}#}
+{#       <tr>#}
+{#       <td>{{ k }}</td>#}
+{#       <td>{{ v }}</td>#}
+{##}
+{#       </tr>#}
+{#    {% endfor %}#}
+{#   </table>#}
+
+{#    方式4：使用bootstrap的table样式：#}
+        <table class="table">
+        <tr>
+            <th>item1</th>
+            <th>item2</th>
+        </tr>
+        {% for k,v in name_dic.items %}
+       <tr class="success">
+       <td>{{ k }}</td>
+       <td>{{ v }}</td>
+
+       </tr>
+    {% endfor %}
+   </table>
+
+       <br>
+       <br>
+       <br>
+
+
+{#    说明：下面使用 {% if %} {% else %} {% endif %} 来判断是否为空字典，如果未空就不显示，否则即使是空字典，也会显示表头的#}
+
+{#{{ name_dicc }}#}
+
+    {% if name_dicc %}
+
+            <table class="table">
+        <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Sex</th>
+            <th>Job</th>
+        </tr>
+{#             注意，要访问字典的元素，必须要使用.items，否则就会报错#}
+          {% for k,v in name_dicc.items %}
+        <tr class="success">
+            <td>{{ k }}</td>
+            {% for i in v %}
+                <td>{{ i }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+   </table>
+  {% else %}
+     <p> empty table, so do not display table</p>
+    {% endif %}
+
+{% endblock %}
