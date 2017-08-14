@@ -61,6 +61,7 @@ def monitor(req):
         'alex':[29,'M','Engineer'],
         'tony':[39,'M','SecurityGuard'],
         'jack':[19,'F','Teacher'],
+        'jerry':[29,'F','IT engineer'],
     }
 
     return render_to_response('monitor.html',{'user':req.user,'name_dic':name_dic,'name_dicc':name_dicc});

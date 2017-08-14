@@ -38,6 +38,7 @@
             <th>item1</th>
             <th>item2</th>
         </tr>
+        {#             注意，要访问字典的元素，必须要使用.items，否则就会报错#}
         {% for k,v in name_dic.items %}
        <tr class="success">
        <td>{{ k }}</td>
@@ -65,14 +66,21 @@
             <th>Sex</th>
             <th>Job</th>
         </tr>
-{#             注意，要访问字典的元素，必须要使用.items，否则就会报错#}
+
           {% for k,v in name_dicc.items %}
-        <tr class="success">
-            <td>{{ k }}</td>
-            {% for i in v %}
-                <td>{{ i }}</td>
-            {% endfor %}
-        </tr>
+{#              下面引入forloop.counter0来记录循环到第几行，并用所处的行，来控制不同的行应用不同的样式#}
+{#            forloop.counter0 ：表示从0开始计数的行数  #}
+{#            forloop.counter ：表示从1开始计数的行数  #}
+           {% if forloop.counter0|divisibleby:2 %}
+                <tr class="success">
+            {% else %}
+                 <tr class="warning">
+             {% endif %}
+                  <td>{{ k }}</td>
+                  {% for i in v %}
+                   <td>{{ i }}</td>
+                  {% endfor %}
+                  </tr>
         {% endfor %}
    </table>
   {% else %}
