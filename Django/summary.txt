@@ -65,3 +65,25 @@ python manage.py migrate
 remark:对于新创建的表，也可以通过在admin.py中注册新添加的表后，然后再web上就可以立即看到了。
 
 
+
+
+3. settings.py中数据相关的配置说明：
+# 低版本的django中database的定义比较完整，说明如下：
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',  #其中的sqlite3可以替换成 mysql,oracel,postgresql_psycopg2
+#         'NAME': os.path.join(BASE_DIR, 'mydb.sqlite3'), # sqlite3:使用path to database file； 其它的数据库：只写数据库的名称即可
+#    the following settings are not used with sqlite3:
+#   'USER':'###'
+#   'PASSWORD':'###'
+#   'HOST':''  empty for localhost
+#   'PORT':''  empty for default setting
+#  }
+# }
+
+4. 如何在admin web无法显示表中没行的详细信息，只显示一个个对象的话，
+需要在models中为每个class增加一个函数：
+  def __unicode__(self): # used to display name infor at admin web
+        return self.title
+增加完成后，直接刷新web就可以生效了。
+
