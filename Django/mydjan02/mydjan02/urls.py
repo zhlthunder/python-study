@@ -28,5 +28,6 @@ urlpatterns = [
     url(r'^dashboard/$',dashboard),
     url(r'^asset/$',asset),
     url(r'^monitor/$',monitor),
+    # url(r'^accounts/login/$', 'django.contrib.auth.views.login',{'template_name': 'index.html'}), ##for login_required
 
 ]

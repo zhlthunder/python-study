@@ -9,7 +9,12 @@ from models import *
 class BookAdmin(admin.ModelAdmin):
     search_fields = ('title',) ##define search box for Book table
     list_filter = ('title','publication_date',) ##define filter box for Book table
-    date_hierarchy = 'publication_date'  ##sorted by time
+    date_hierarchy = 'publication_date'  ##collection with **
+    # ordering = ('publication_date',)  ##sorted by **  small to big
+    ordering = ('-publication_date',)  ##sorted by **  big to small
+    list_display = ('title','publication_date') ## choose the column to been display at admin table
+
+#if you want to know more application ,just double click on modeladmin,you will find all related method 
 
 
 #after register, user table can be seen at admin web site;

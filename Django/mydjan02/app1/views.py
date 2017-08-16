@@ -8,6 +8,7 @@ from django.shortcuts import render_to_response
 # 导入django自带的认知模块，用于登录用户的账号认知
 from django.contrib import auth
 from models import *
+from django.contrib.auth.decorators import login_required
 
 
 
@@ -24,9 +25,9 @@ def login(req):
     username=req.POST.get('username');
     password=req.POST.get('password');
     # 调用django自带的认证模块，对输入的用户名及密码进行验证，如果认证成功，则返回登录的用户的信息使用（就相当于查询账户信息数据库进行确认）
-    user=auth.authenticate(username=username,password=password);
+    user=auth.authenticate(username=username,password=password); #如果认证失败，user中返回的为空，如果成功，则不为空
     if user is not None:
-        # 认知成功后进行用户的登录
+        # 认知成功后进行用户的登录,会在session中记录用户的登录信息，
         auth.login(req,user);
         # 此处使用重定向的方法转到另一个url;
         return HttpResponseRedirect("/dashboard/");
@@ -42,14 +43,17 @@ def logout(req):
     # return HttpResponse("User [%s] logout successfully"% temp_user);
     return HttpResponseRedirect("/");
 
+@login_required
 def dashboard(req):
     return render_to_response('dashboard.html',{'user':req.user});
 
+@login_required
 def host_manager(req):
     ip_list=IP.objects.all();
     print ip_list;
     return render_to_response('host_manager.html',{'user':req.user,'ip_list':ip_list});
 
+@login_required
 def monitor(req):
     # 在前端页面显示字典列表
     name_dic={
@@ -64,9 +68,15 @@ def monitor(req):
         'jerry':[29,'F','IT engineer'],
     }
 
-    return render_to_response('monitor.html',{'user':req.user,'name_dic':name_dic,'name_dicc':name_dicc});
+    book_list=Book.objects.all()
 
+    return render_to_response('monitor.html',
+                              {'user':req.user,
+                               'name_dic':name_dic,
+                               'name_dicc':name_dicc,
+                               'book_list':book_list});
 
+@login_required
 def asset(req):
     return render_to_response('asset.html',{'user':req.user});
 

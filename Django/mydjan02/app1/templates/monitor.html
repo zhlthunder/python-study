@@ -87,4 +87,37 @@
      <p> empty table, so do not display table</p>
     {% endif %}
 
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+
+     <table class="table">
+     <th>Name</th>
+     <th>Author</th>
+     <th>Publisher</th>
+     <th>Publication_date</th>
+    {% for book in book_list %}
+      <tr>
+      <td>{{ book.title }}</td>
+{#      <td>{{ book.authors }}</td>#}
+{#      <td>{{ book.authors.values }}</td>#}
+      <td>{% for author in book.authors.values %}{{ author.first_name }}{% endfor %}</td>
+      <td>{{ book.publisher }}</td>  {% print book %}
+      <td>{{ book.publication_date }}</td>
+      </tr>
+
+    {% endfor %}
+    </table>
+
+ <br/>
+ <br/>
+ <br/>
+ <br/>
+ <br/>
+
+
+
+
 {% endblock %}

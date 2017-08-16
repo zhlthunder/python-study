@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app1', #related with user models
+    'debugtools',
 
 ]
 
@@ -65,6 +66,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+            ],
+            'builtins': [                                     # Add this section
+                "debugtools.templatetags.debugtools_tags",   # Add this line
             ],
         },
     },

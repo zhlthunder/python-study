@@ -1,0 +1,11 @@
+
+1.TypeError: view must be a callable or a list/tuple in the case of include().
+ 
+解决：django 1.10版本改了写法了。首先要在引入view模块，其次后面URL设置里views.hello不要加引号了
+
+2.setting.py中的MIDDLEWARE中的
+ 'django.middleware.csrf.CsrfViewMiddleware',
+ 如果不禁用，在使用python内置的认知模块进行登录认证时，即提交用户名及密码后，会提示如下报错：
+ CSRF verification failed.
+ 原因：在进行登录认证时，会涉及到跨站访问（app1和django自己的认证网站）
+ 在django中，一个app就对应的website,所以这就涉及了跨站访问了
