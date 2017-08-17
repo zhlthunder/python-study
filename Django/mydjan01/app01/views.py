@@ -25,6 +25,7 @@ def upload(req):
     aa=req.POST.get('inp2');
     ttime=req.POST.get('inp3');
     # print tt,aa,ttime;
-    dic={'title':tt,'author':aa,'time':ttime};
-    Book.objects.create(**dic);
+    # dic={'title':tt,'author':aa,'time':ttime};
+    p=Book(title=tt,author=aa ,time=ttime)
+    p.save()
     return HttpResponse("ok");

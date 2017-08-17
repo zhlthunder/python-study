@@ -237,8 +237,22 @@ https://github.com/edoburu/django-debugtools
 @@@
 使用装饰器实现页面认证
 http://blog.csdn.net/feng88724/article/details/7262514
-1)导入：
+1)导入：在views.py中导入如下模块：
 from django.contrib.auth.decorators import login_required
-2）在每个视图前增加：
+并在每个视图前增加：
 @login_required
-3）
+
+2）在urls.py中：
+导入模块：
+from django.contrib.auth.views import login,logout_then_login
+增加一个url:
+   url(r'^accounts/login/$',login,{'template_name':'index.html'})
+ 重要：
+   因为django的认证系统内部使用了关键字模块 login，所有我们自己定义视图函数时，就不可以用login,否则就会报错；
+   因为我一开始使用了，所以后来把 login 修改为account_login， 并修改相关的前台页面及 url等等；
+   这点非常重要，切记；
+
+ 3）另外关于自动认知模块：@login_required
+ 在主页和 登录页面前不要加，否则会进入死循环中；
+
+

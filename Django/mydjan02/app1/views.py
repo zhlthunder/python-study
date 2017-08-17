@@ -18,7 +18,7 @@ def index(req):
     return render_to_response('index.html');
 
 
-def login(req):
+def account_login(req):
     # 打印前台通过post方法提交过来的所有信息
     # print req.POST;
     # 获取post提交信息中的用户名及密码

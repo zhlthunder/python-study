@@ -58,12 +58,18 @@ time:<input id="n3" type="text" name="time" />
         var inp2 =$('#n2').attr('name');
         var inv3=$('#n3').val();
         var inp3 =$('#n3').attr('name');
-{#        console.log(inp1,inp2,inp3);#}
+        console.log(inp1,inp2,inp3);
+
+        var data = {};
+        data[inp1]=inv1;
+        data[inp2]=inv2;
+        data[inp3]=inv3;
+
 
         $.ajax({
 
             url:"http://127.0.0.1:8000/upload/",
-            data:{ inp1:inv1,inp2:inv2,inp3:inv3},
+            data:data,
             type:'POST',
             success: function (arg) {
 
@@ -81,3 +87,5 @@ time:<input id="n3" type="text" name="time" />
 
 
 {%endblock%}
+
+

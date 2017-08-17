@@ -87,7 +87,7 @@
  </div>
  <div class="pull-right">
 {#    定义form表单，需要指定提交到哪里（server），提交的方式，因为要提交用户名及密码，所有需要用post的方式#}
-  <form class="well" action="/login/" method="post">
+  <form class="well" action="/account_login/" method="post">
 {#    下面要为用户名及密码指定name的变量名，这样后台才可以根据name的属性值，使用get方法获取前台传过来的值#}
    <label>Username</label>
    <input type="text" name="username" class="span3" placeholder="Type your username">

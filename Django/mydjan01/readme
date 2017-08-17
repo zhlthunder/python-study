@@ -1,0 +1,3 @@
+1.
+{#ajax key为变量时不可以传递的问题：#}
+{#http://blog.csdn.net/darry_zhao/article/details/52791624#}
