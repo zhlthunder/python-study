@@ -73,12 +73,12 @@ time:<input id="n3" type="text" name="time" />
             type:'POST',
             success: function (arg) {
 
-{#                console.log(arg);#}
-{#                alert("upload successfully!!")#}
+                console.log(arg);
+                console.log("success");
 
             },
             error:function(){
-
+                console.log("fail");
             }
         })
     }

@@ -21,11 +21,10 @@ def asset(req):
 
 def upload(req):
     print req.POST;
-    tt=req.POST.get('inp1');
-    aa=req.POST.get('inp2');
-    ttime=req.POST.get('inp3');
-    # print tt,aa,ttime;
-    # dic={'title':tt,'author':aa,'time':ttime};
-    p=Book(title=tt,author=aa ,time=ttime)
-    p.save()
-    return HttpResponse("ok");
+    aauthor=req.POST.get('author');
+    ttime=req.POST.get('time',);
+    ttile=req.POST.get('title',);
+    print aauthor,ttime,ttile
+    Book.objects.create(author=aauthor,time=ttime,title=ttile)  ##write to database
+
+    return HttpResponse("ok");  ##"ok "  will be return to ajax "arg"

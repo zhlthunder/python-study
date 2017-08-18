@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="DataSourceManagerImpl" format="xml" hash="4211480453">
-    <data-source source="LOCAL" name="SQLite -" uuid="c1f9063a-dde0-4fd8-b3c6-c5a7308d6f0c">
+  <component name="DataSourceManagerImpl" format="xml" hash="837169332">
+    <data-source source="LOCAL" name="SQLite -" uuid="13228a63-1812-4fd9-8003-52fbaf781656">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
       <jdbc-url>jdbc:sqlite:C:\Users\lin\PycharmProjects\python_study_1s\python_study\git-zhl\python-study\Django\mydjan01\myDB.db</jdbc-url>
       <libraries>
         <library>
-          <url>file://$PROJECT_DIR$/../pycharm db plugin driver/sqlite-jdbc-3.16.1.jar</url>
+          <url>file://$PROJECT_DIR$/Django/pycharm db plugin driver/sqlite-jdbc-3.16.1.jar</url>
         </library>
       </libraries>
     </data-source>
