@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+</head>
+<body>
+<h3>引用普通变量：</h3>
+{{ title }} <br>
+{{ id }}
+<hr>
+<h3>引用字典变量：</h3>
+<h1>hello {{ user }}</h1>
+<li>name:{{ user.name }}</li>
+<li>age:{{ user.age }}</li>
+<li>sex:{{ user.sex }}</li>
+<br>
+<hr>
+<h3>引用对象变量：</h3>
+<li>name:{{ person.name }}</li>
+<li>age:{{ person.age }}</li>
+<li>sex:{{ person.sex }}</li>
+<div>{{ person.name }} say:{{ person.say }}</div>
+
+<br>
+<hr>
+<h3>引用列表变量：</h3>
+{{ book_list }}
+<br>
+{{ book_list.0 }}<br>
+{{ book_list.1 }}<br>
+{{ book_list.2 }}<br>
+{{ book_list.3 }}<br>
+
+
+</body>
+</html>

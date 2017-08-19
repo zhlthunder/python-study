@@ -1,0 +1,72 @@
+1.django安装
+下载源码，解压， python setup.py install
+验证安装成功的方法 ： 进入python交互模式，import django
+如果可以导入成功，表示安装成功；
+django.VERSION 可以查看django的版本；
+C:\Users\lin\PycharmProjects\python_study_1s\python_study\git-zhl\python-study>python2
+Python 2.7.13 (v2.7.13:a06454b1afa1, Dec 17 2016, 20:53:40) [MSC v.1500 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import django
+>>> django.VERSION
+(1, 11, 3, u'final', 0)
+
+2.
+创建django工程
+1）django-admin.py startproject csvt01
+创建应用
+2）django-admin.py startapp blog
+3）在settings.py中的INSTALLED_APPS 中加入blog
+4）配置一个url, vi urls.py
+url(r'blog/index/$','blog.views.index')
+5)配置对应的views 函数；vi views.py
+from django.httpimport HttpResponse
+def index(req):
+   return HttpResponse("ok")
+6)运行server,通过配置的url去访问对应的视图函数了。
+python manage.py runserver
+
+
+3.django视图和URL配置
+1)url.py中配置：
+from blog.views import *
+引用：   url(r'^blog/index/$', index),
+
+2)url.py中定义的规则：
+  a)url地址中包含正则表达式；
+   url(r'^blog/index/\d{2}/$', index),
+   访问方法：http://127.0.0.1:8000/blog/index/12/
+
+  b)url地址中包含分组（变量名，变量的值）
+    url(r'^blog/test/(?P<id>\d{2})/$', test),  在url中可以用分组的形式定义变量
+       分组的名称为id, 分组的值为\d{2}  ，即将 id=##传递给视图函数。
+       在视图函数中，必须也有id这个参数，id必须和url中的分组名称id相同；这个变量也可以作为参数返回给前台；
+       def test(req,id):
+           return render_to_response('index.html',{'id':id})
+
+  c)url地址中包含分组（不设定分组的名字）
+  url(r'^blog/ttt/(\d{2})/$', ttt),
+  这样视图函数中参数的名字就可以随意命名了，此处用parm;
+  def ttt(req,parm):
+    return render_to_response('index.html',{'id':parm})
+
+    注意：请注意r'^blog/index/\d{2}/$' 和 r'^blog/ttt/(\d{2})/$'的差异，
+      前者没有分组，就不会向后台视图传递参数；
+      后者有分组，会向后台传递参数；
+
+4）创建并加装模板文件
+  创建templates文件夹，在下面创建html模板文件，在vies.py中的配置：
+  from django.shortcuts import render_to_response
+
+  def index(req):
+    return render_to_response('index.html',{})
+5）模板变量：
+   由{{}}组成，里面放入模板变量名即可；
+    return render_to_response('index.html',{'title':'csvt','user':'jack'})
+      第一个参数为模板文件； 第二个{}里面为要传递到前台的数据，以key1:value1，key2:value2...的实现提供，
+       但key的名称就可以直接在模板文件中引用了。
+
+    总结：
+    模板文件中可以接收  普通的变量；字典；列表；对象(可以使用对象的属性和方法)等；
+
+
+6）模板标签使用：
