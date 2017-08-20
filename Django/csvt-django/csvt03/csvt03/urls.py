@@ -1,4 +1,4 @@
-"""csvt02 URL Configuration
+"""csvt03 URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/1.11/topics/http/urls/
@@ -16,13 +16,8 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from blog.views import *
-# admin.autodiscover()
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^index/', index),
-    url(r'^show_author/', show_author),
-    url(r'^show_book/', show_book),
-    url(r'^blog/register/', register),
-    url(r'^blog/regis/', regis),
+    url(r'^register/$', register),
 ]

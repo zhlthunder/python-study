@@ -43,3 +43,10 @@ class Book(models.Model):
         return self.name
 
 
+##related with file upload
+class User(models.Model):
+    username=models.CharField(max_length=40)
+    headImg=models.FileField(upload_to='./upload/')
+
+    def __unicode__(self):
+        return self.username

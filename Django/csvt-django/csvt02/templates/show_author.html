@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+{{ authors }}
+<hr>
+
+{% for author in authors %}
+    <li>{{ author.name }}:
+{#      通过多对对的反向关系方法book_set查询每个作者有几本书#}
+    {% for book in author.book_set.all %}
+       {{ book }},
+    {% endfor %}
+    </li> <br>
+{% endfor %}
+
+
+</body>
+</html>

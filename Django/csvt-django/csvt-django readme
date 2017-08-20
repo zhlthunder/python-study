@@ -303,7 +303,84 @@ b1.authors.filter(name__exact='ben')
 <QuerySet [<Book: python book2>]>
 
 
-10）
+10）django表单初步
 
 
+表单提交，在views.py中的配置步骤
+from django import forms
 
+#create form 对象
+class UserForm(forms.Form):
+    name=forms.CharField()
+
+def register(req):
+    //当我们在输入框中输入内容时，就是执行post方法
+    if req.method=='POST':  判断提交方法为 POST
+        form=UserForm(req.POST)  将提交的数据绑定到form上
+        if form.is_valid():  验证数据是否有效，在前端可以验证，如果不输入数据直接提交的话，会提示报错信息
+            print(form.cleaned_data) 获取提交的数据，并打印
+            return HttpResponse("ok")
+    //第一次访问/blog/register/页面时，使用的是get方法  ，此时创建一个form对象，并渲染到模板中去；
+    else:
+        form=UserForm()
+        return render_to_response('register.html',{'form':form})
+
+
+11）django文件上传相关：
+ headImg=forms.FileField()
+ 文件上传时form的定义要求：
+ <form method="post" enctype="multipart/form-data">
+ 且views中绑定时要追加一个req.FILES
+
+class PersonForm(forms.Form):
+    username=forms.CharField()
+    headImg=forms.FileField()
+
+def regis(req):
+    if req.method=='POST':
+        uf=PersonForm(req.POST,req.FILES)
+        if uf.is_valid():
+            print(uf.cleaned_data['username'])
+            print(uf.cleaned_data['headImg'].name)
+            print(uf.cleaned_data['headImg'].size)
+            下面就是读取文件并保存到本地
+            fp=file(uf.cleaned_data['headImg'].name,'wb')
+            data=uf.cleaned_data['headImg'].read()
+            fp.write(data)
+            fp.close()
+
+文件上传的第二种方式：
+先在models.py中定义数据类型：
+##related with file upload
+class User(models.Model):
+    username=models.CharField(max_length=40)
+    headImg=models.FileField(upload_to='./upload/')
+
+    def __unicode__(self):
+        return self.username
+
+进行数据库的同步后，并将这个数据表注册到admin.py中，就可以在admin界面下看到User表了，可以进行文件的上传了，上传后的文件在upload
+文件夹下，数据库中保存的是文件的路径名：upload/upload.jpg，而文件保存在对应的路径下；
+所以，请注意此处数据库中存储的信息；
+
+文件上传的第三种方式：
+将表单上传的文件直接保存到数据库中；
+需要定义models,
+并在views.py中定义表单对象；
+
+def register(req):
+    if req.method=='POST':
+        uf=UserForm(req.POST,req.FILES)
+        if uf.is_valid():
+          通过表单获取数据后，并写入到数据中；
+            username=uf.cleaned_data['username']
+            headImg=uf.cleaned_data['headImg']
+            user=User()
+            user.username=username
+            user.headImg=headImg
+            user.save()
+            return HttpResponse('OK')
+
+12）django 会话cookie
+http协议是没有记忆的协议，即两个页面之间没有任何关系；
+现在就是要通过会话功能，把一个页面的状态传递到另一个页面中；
