@@ -9,3 +9,15 @@
  CSRF verification failed.
  原因：在进行登录认证时，会涉及到跨站访问（app1和django自己的认证网站）
  在django中，一个app就对应的website,所以这就涉及了跨站访问了
+
+ 3.sqlite数据表中已经有数据的情况，此时如果增加一个数据项，进行数据库同步时，会报错：
+ C:\Users\lin\PycharmProjects\python_study_1s\python_study\git-zhl\python-study\Django\csvt-django\csvt02>python2 manage.py makemigrations blog
+You are trying to add a non-nullable field 'age' to employee without a default; we can't do that (the database needs something to populate existing rows).
+Please select a fix:
+ 1) Provide a one-off default now (will be set on all existing rows with a null value for this column)
+ 2) Quit, and let me add a default in models.py
+
+解决版本：
+为新增加的数据项设置一个默认值即可；
+   age=models.CharField(max_length=20,default=None)
+

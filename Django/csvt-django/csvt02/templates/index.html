@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>test_models</title>
+</head>
+<body>
+{#<h1>hello django</h1>#}
+
+{{ emps }}
+<hr>
+{% for emp in emps %}
+    <li>{{ emp.name }},{{ emp.age }}</li>
+
+{% endfor %}
+
+
+</body>
+</html>

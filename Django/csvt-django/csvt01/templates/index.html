@@ -33,5 +33,43 @@
 {{ book_list.3 }}<br>
 
 
+
+<h3>模板标签--if</h3>
+{% if user %}
+    <li>name:{{ user.name }}</li>
+{% else %}
+    用户不存在
+{% endif %}
+
+<hr>
+<h3>模板标签--for 循环列表</h3>
+{% for book in book_list %}
+    <li>{{ book }}<br></li>
+{% endfor %}
+<hr>
+
+<h3>模板标签--for 循环字典1:只取出key值</h3>
+{% for k in user %}
+    <li>{{ k }}</li>
+{% endfor %}
+<hr>
+
+<h3>模板标签--for 循环字典2:取出key和value值</h3>
+{% for k,v in user.items %}
+    <li>{{ k }}:{{ v }}</li>
+{% endfor %}
+<hr>
+
+<h3>模板标签--for 循环字典2:取出key和value值</h3>
+{% for k,v in user.items %}
+    <li>{{ forloop.counter }}.{{ k }}:{{ v }}</li>
+{% endfor %}
+<hr>
+
+<h3>模板标签--for 循环字典2:取出key和value值</h3>
+{% for k,v in user.items %}
+    <li>{{ forloop.counter0 }}.{{ k }}:{{ v }}</li>
+{% endfor %}
+<hr>
 </body>
 </html>

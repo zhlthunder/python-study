@@ -70,3 +70,240 @@ from blog.views import *
 
 
 6）模板标签使用：
+if:
+{% if user %}
+    <li>name:{{ user.name }}</li>
+{% else %}
+    用户不存在
+{% endif %}
+
+
+for:
+<h3>模板标签--for 循环列表</h3>
+{% for book in book_list %}
+    <li>{{ book }}<br></li>
+{% endfor %}
+<hr>
+
+<h3>模板标签--for 循环字典1:只取出key值</h3>
+{% for k in user %}
+    <li>{{ k }}</li>
+{% endfor %}
+<hr>
+
+<h3>模板标签--for 循环字典2:取出key和value值</h3>
+{% for k,v in user.items %}
+    <li>{{ k }}:{{ v }}</li>
+{% endfor %}
+<hr>
+
+<h3>模板标签--for 循环字典2:取出key和value值</h3>
+{% for k,v in user.items %}
+    <li>{{ forloop.counter }}.{{ k }}:{{ v }}</li>
+{% endfor %}
+<hr>
+
+<h3>模板标签--for 循环字典2:取出key和value值</h3>
+{% for k,v in user.items %}
+    <li>{{ forloop.counter0 }}.{{ k }}:{{ v }}</li>
+{% endfor %}
+
+7)定义模型
+django中通过ORM(对象关系模型来操作数据库的)
+
+service mysqld start 启动数据库
+安装MYSQL-python包，确保 MySQLdb可以导入
+settings.py 中的DATABASE相关的配置选项的配置，并将blog加入到INSTALLED_app中；
+在models定义表数据结构
+执行 python manage.py makemigrations
+python manage.py migrate
+ 老的版本django用：python manage.py sync
+
+
+交互模式下操作数据库：
+插入数据项方法1：
+>>> emp=Employee()
+>>> from blog.models import *
+>>> emp=Employee()
+>>> emp.name='tony'
+>>> emp.age=22
+>>> emp.save()
+
+插入数据项方法2：
+>>> emp=Employee(name='alex',age=33)
+>>> emp.save()
+
+插入数据项方法3： 只执行一条命令，通过调用类的管理器方法来创建记录
+>>> Employee.objects.create(name='jerry',age=24)
+<Employee: Employee object>
+
+
+查询命令：
+>>> emp=Employee.objects.all()
+>>> emp
+<QuerySet [<Employee: Employee object>, <Employee: Employee object>, <Employee: Employee object>, <Employee: Employee object>, <Employee: Employee object>]>
+
+>>> emp[0]
+<Employee: Employee object>
+>>> emp[0].id
+1
+>>> emp[0].name
+u'jack'
+>>>
+
+如何要显示各个对象的名字，以便方便区分的话，需要修改models定义的数据表的类，增加一个方法：
+    def __unicode__(self):
+        return self.name
+
+退出交互器再重新登录后：
+>>> from blog.models import *
+>>> emp=Employee.objects.all()
+>>> emp
+<QuerySet [<Employee: jack>, <Employee: tony>, <Employee: alex>, <Employee: jerry>, <Employee: summer>]>
+>>>
+
+查询数据并返回前台的方法：
+def index(req):
+    emps=Employee.objects.all()
+    return render_to_response('index.html',{'emps':emps})
+
+8）
+django中model对象之间的关系分为以下三种：
+多对一关系模型：  many to one
+多对多关系模型；  many to many
+一对一关系模型    one to one
+
+多对一对象关系：
+定义方法：
+class Entry(models.Model):
+    name=models.CharField(max_length=30)
+
+
+class Blog(models.Model):
+    name=models.CharField(max_length=30)
+    entry=models.ForeignKey(Entry)  //many to one定义语句，括号内为one项对应的类名
+    所谓many to one,指的时多个 blog对应一个entry;  多（block） 对一（entry）
+
+同步完数据库后，在交互模式下为数据表添加数据：
+>>> from blog.models import *
+>>> entry1=Entry.objects.create(name='alen')
+>>> entry2=Entry.objects.create(name='max')
+>>> blog1=Blog.objects.create(name='alen_blog',entry=entry1)
+>>> blog1
+<Blog: alen_blog>
+>>>
+>>> blog1.name
+'alen_blog'
+>>> blog1.entry   //通过many查询one
+<Entry: alen>
+
+>>> entry1.blog_set.all()  //通过one反向查询many
+<QuerySet [<Blog: alen_blog>]>
+
+结构是： one的对象名.many的表名_set.all()
+
+8）django后台管理相关：
+settings.py中的installed_app中启用：  'django.contrib.admin',
+urls.py中：
+from django.contrib import admin
+admin.autodiscover()  此项也可以不要
+url(r'^admin/', admin.site.urls),
+
+9)sqlite3 数据库命令行调试命令：
+sqlite3 mydb.sqlite3
+.help 查询帮助信息
+.tables  查询数据库中所有的表
+select * from blog_user; 查询 blog_user表中的数据；
+.schema * 显示数据表数据项定义
+
+
+10）多对多的关系模型；
+引入一个经典的模型，书和作者（一本书可以有多个作者，一个作者可以写多本书）
+class Author(models.Model):
+    name=models.CharField(max_length=20)
+
+
+class Book(models.Model):
+    name=models.CharField(max_length=30)
+    authors=models.ManyToManyField(Author)  //定义多对多的关系
+
+ 进行数据库的同步后，会生成三张表： author book book_author
+ 在交互模式下进行操作：
+>>> from blog.models import *
+>>> Author.objects.create(name='alen')
+<Author: alen>
+>>> Author.objects.create(name='ben')
+<Author: ben>
+>>> Author.objects.create(name='carl')
+<Author: carl>
+>>> Author.objects.create(name='max')
+<Author: max>
+
+>>> b1=Book()
+>>> b1.name='python book1'
+>>> b1.save()
+>>> aa=Author.objects.get(name='alen')
+>>> b1.authors.add(aa)
+
+>>> authors=Author.objects.all()
+>>> authors
+<QuerySet [<Author: alen>, <Author: ben>, <Author: carl>, <Author: max>]>
+>>> b1.authors.add(authors[1])
+>>> b1.save()
+
+>>> b1.authors.all()
+<QuerySet [<Author: alen>, <Author: ben>]>
+
+>>> b1.authors.all()
+<QuerySet [<Author: alen>, <Author: ben>]>
+>>> b1.authors.add(authors[2])
+>>> b1.authors.add(authors[3])
+>>> b1.authors.all()
+<QuerySet [<Author: alen>, <Author: ben>, <Author: carl>, <Author: max>]>
+
+移除的方法：
+>>> b1.authors.remove(authors[0])
+>>> b1.authors.all()
+<QuerySet [<Author: ben>, <Author: carl>, <Author: max>]>
+
+>>> b1.authors.filter(name__exact='ben')
+<QuerySet [<Author: ben>]>
+
+
+总结：可以把下面的authors可以看成一个objects的选项；
+可以对多对多字段执行增加，删除，查询，过滤等方法；
+b1.authors.remove(authors[0])
+b1.authors.add(authors[2])
+b1.authors.all()
+b1.authors.filter(name__exact='ben')
+
+反向操作的方法：
+>>> aa
+<Author: alen>
+>>> aa.book_set.all()  //反向查询
+<QuerySet []>
+>>> b1
+<Book: python book1>
+>>> aa.book_set.add(b1)  //反向添加已经存在的book对象；
+>>> aa.book_set.all()
+<QuerySet [<Book: python book1>]>
+
+>>> aa.book_set.create(name='python book2')  //反向创建一个book元素
+<Book: python book2>
+>>> aa.book_set.all()
+<QuerySet [<Book: python book1>, <Book: python book2>]>
+>>> Book.objects.all()
+<QuerySet [<Book: python book1>, <Book: python book2>]>
+
+>>> books=Book.objects.all()
+>>> books
+<QuerySet [<Book: python book1>, <Book: python book2>]>
+>>> aa.book_set.remove(books[0])  //反向移除
+>>> aa.book_set.all()
+<QuerySet [<Book: python book2>]>
+
+
+10）
+
+
+
