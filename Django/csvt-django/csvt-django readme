@@ -388,3 +388,4 @@ http协议是没有记忆的协议，即两个页面之间没有任何关系；
 cookie是保存在客户端，存在安全性的问题，这时就提出一个新的方法，就是session的方法，是将敏感信息存放在服务器端，更安全；
 
 13）session:
+http://blog.csdn.net/erjian666/article/details/53781387
