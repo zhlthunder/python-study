@@ -1,0 +1,45 @@
+视频课程：
+51cto
+自定义web框架基础实战视频课程（银角大王）   武沛齐
+
+cnblog homepage: http://www.cnblogs.com/wupeiqi/articles/4938499.html
+
+1.自定义web框架之socket和WSGI
+http://www.cnblogs.com/wupeiqi/articles/5237672.html
+http请求是短链接；
+socket client---socket server  (请求--答复--结束)
+对于我们常用的socket，可以hold这个链路，可以一直传输数据，且一直知道用户是谁；
+但http是无状态的协议；客户端发请求，服务器端答复，然后就断链了。
+
+web框架本质：
+众所周知，对于所有的Web应用，本质上其实就是一个socket服务端，用户的浏览器其实就是一个socket客户端。
+
+pyhton中的web框架分为两种：
+1）自己写socket,自己处理请求： 比如我们自己写的这个（index.py）， 还有就是tornado也是  例子：index.py
+2）基于WSGI,自己处理情况： 其它web框架，比如django，..都是基于wsgi之上的web框架；  例子：wsgi_demo.py
+
+备注：wsgi本质上就是socket处理，全称是 web server gateway interface (web服务网关接口)，内部就是一个socket服务器
+上面两类web框架的区别就是，一种是自己写web框架，一种是使用wsgi提供的功能；
+tornado:支持两种方式，可以自己写socket,也可以配置使用wsgi的socket;
+
+上述通过socket来实现了其本质，而对于真实开发中的python web程序来说，一般会分为两部分：服务器程序和应用程序。
+服务器程序负责对socket服务器进行封装，并在请求到来时，对请求的各种数据进行整理。应用程序则负责具体的逻辑处理。
+为了方便应用程序的开发，就出现了众多的Web框架，例如：Django、Flask、web.py 等。不同的框架有不同的开发方式，
+但是无论如何，开发出的应用程序都要和服务器程序配合，才能为用户提供服务。这样，服务器程序就需要为不同的框架
+提供不同的支持。这样混乱的局面无论对于服务器还是框架，都是不好的。对服务器来说，需要支持各种不同框架，对框架来说，
+只有支持它的服务器才能被开发出的应用使用。这时候，标准化就变得尤为重要。我们可以设立一个标准，只要服务器程序支持这个标准，
+框架也支持这个标准，那么他们就可以配合使用。一旦标准确定，双方各自实现。这样，服务器可以支持更多支持标准的框架，框架也可以使用更多支持标准的服务器。
+
+WSGI（Web Server Gateway Interface）是一种规范，它定义了使用python编写的web app与web server之间接口格式，实现web app与web server间的解耦。
+
+python标准库提供的独立WSGI服务器称为wsgiref。
+
+2.自定义web框架之路由系统
+
+tornado:
+client-->框架{socket（接收请求并封装请求）-->处理请求的部分（处理并返回给客户端）}
+
+django:
+client-->wsgi-->框架{处理请求的部分（处理并返回给WSGI在返回给客户端）}
+
+为了简单起见，我们基于WSGI来定义自己的web框架：
