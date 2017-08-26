@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+ <h1>index</h1>
+<li>11</li>
+<li>11</li>
+<li>11</li>
+<li>11</li>
+<li>11</li>
+<li>11</li>
+<li>11</li>
+@{alex}
+
+<h1>{{name}}</h1>
+<h1>{{age}}</h1>
+<h1>{{current_time}}</h1>
+<hr>
+
+{% for item in user_list%}
+ <li>{{item}}</li>
+{% endfor %}
+
+<hr>
+{% if num==1 %}
+<li>11111</li>
+{% else %}
+<li>2222</li>
+{%endif%}
+
+
+</body>
+</html>

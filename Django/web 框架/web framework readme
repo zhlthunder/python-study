@@ -43,3 +43,28 @@ django:
 client-->wsgi-->框架{处理请求的部分（处理并返回给WSGI在返回给客户端）}
 
 为了简单起见，我们基于WSGI来定义自己的web框架：
+
+
+3.MVC 和MTV
+
+web请求流程如下：  //所有的web框架，无论是什么语言的框架，处理流程都是相同的。
+客户端发出请求--->WSGI-->web框架{
+                             1.url匹配模块
+                             2.请求处理函数模块             //a.处理请求模块
+                                2.1 从数据库中获取数据；    //b.数据库模块
+                                2.2 从模板文件中获取*.html文件   //c.模板模块
+                                2.3通过模板引擎，将2.1渲染到2.2中，获得最终的字符串，返回给客户端
+                             }
+下面依据上面的a,b,c三个模块，对我们的代码进行组织归类，根据归类后文件夹的命名不同，就得出两种常用的web框架，MVC和MTV；
+
+备注：
+在pycharm中，使用new--python package,就可以进行正常的模块导入；
+如果是使用new--directory，就无法进行模块的导入， 请注意  pyhthon package 和 directory的区别；
+
+框架：self_framework_MVC 可以运行起来，但访问url没有直接返回页面，而是返回了一个文件；待继续排查原因；
+
+Models      Views    Controllers    ==》MVC框架
+处理数据库   视图模板  请求处理模块
+
+Models      Template    Views    ==》MTV框架
+处理数据库   视图模板  请求处理模块
