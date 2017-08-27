@@ -1,0 +1,42 @@
+来源：
+bootstrap从入门到精通视频教程
+张诚
+
+学习网站：
+http://v3.bootcss.com/
+
+1.在首页寻找 基本模板 和实例精选，可以找到对应的范例；
+使用bootstrap 需要加载的三个文件：
+<link href="bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">   //在head中加载
+
+下面两个在body底部加载
+<script src="bootstrap-3.3.7-dist/js/jquery-3.2.1.js"></script>
+<script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+
+
+2.bootstrap 组件
+在 http://v3.bootcss.com/components/ 上，找到想要使用的组件的图片，复制图标下面的对应的名称，比如为“glyphicon glyphicon-eur”
+然后再html中使用这个：
+ <span class="glyphicon glyphicon-eur"></span>
+就可以在页面上显示该组件了；
+所有的组件，使用方法都完全相同；
+总结：
+boostrap组件使用方法：
+1）找到需要使用的组件的图片，拷贝它对应的名称；
+2）在html中指定class属性值等于这个名称即可应用这个组件了；
+
+3.按钮组件 （bootstrap首页，选择全局样式--右侧菜单中显示中选择按钮）
+
+
+
+
+
+
+
+
+
+
+
+
+
+
