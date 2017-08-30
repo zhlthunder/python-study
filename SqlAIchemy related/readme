@@ -1,0 +1,23 @@
+视频来源：
+51cto  跟alex 学python-那就来开发个堡垒机吧
+
+
+blog:
+http://www.cnblogs.com/alex3714/articles/5248247.html
+
+
+SqlAlchemy ORM　　
+SQLAlchemy是Python编程语言下的一款ORM框架，该框架建立在数据库API之上，使用关系对象映射进行数据库操作，
+简言之便是：将对象转换成SQL，然后使用数据API执行SQL并获取执行结果
+
+SqlAlchemy [sql ai ke mi]
+ORM:对象关系映射  object relation mapping
+
+--使用sqlite3的方法：
+http://www.jianshu.com/p/61bcd016bc6b
+在当前目录下执行如下命令，创建一个sqlite3数据库；
+1)进入python交互命令行后，依次执行：
+import sqlite3
+conn=sqlite3.connect("mysql01.db");  //如果存在就连接，如果不存在就创建一个新的数据库；
+conn.close()
+
