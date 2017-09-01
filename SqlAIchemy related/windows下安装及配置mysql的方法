@@ -1,0 +1,101 @@
+主要参考两个博客：
+http://www.cnblogs.com/wangjunyan/p/5183366.html
+http://blog.csdn.net/seetheworld518/article/details/45895821
+
+http://blog.csdn.net/u014520039/article/details/50949672
+
+今天以zip模式在windows10 64位环境下安装mysql5.7，到最后一步提示mysql服务无法启动。
+
+安装步骤如下：
+
+1.配置环境变量
+
+我的电脑->属性->高级->环境变量->path
+
+如:C:\Program Files\MySQL\MySQL Server 5.6\bin
+
+注意是追加，不要覆盖
+
+2.修改my-default.ini
+
+在其中修改或添加配置：
+
+[mysqld]
+
+basedir=C:\Program Files\MySQL\MySQL Server 5.6（mysql所在目录）
+
+datadir=C:\Program Files\MySQL\MySQL Server 5.6\data （mysql所在目录\data）
+
+3.以管理员身份运行cmd（win10右键左下角开始按钮选择以管理员身份运行cmd即可）
+
+以管理员身份运行cmd（一定要用管理员身份运行，不然权限不够），
+
+输入：cd C:\Program Files\MySQL\MySQL Server 5.6\bin 进入mysql的bin文件夹(不管有没有配置过环境变量，也要进入bin文件夹，否则之后启动服务仍然会报错误2)
+
+输入mysqld -install(如果不用管理员身份运行，将会因为权限不够而出现错误：Install/Remove of the Service Denied!)
+
+安装成功
+
+4.运行mysqld  --initialize（标题问题所在，若没有init则不存在data目录，自然无法启动成功）
+
+5.安装成功后就要启动服务了，继续在cmd中输入:net start mysql,服务启动成功！
+
+服务启动成功之后，就可以登录了，输入mysql -u root -p（第一次登录没有密码，直接按回车过）,登录成功！
+
+remark:
+可以通过命令mysqladmin -u root -p password来设置密码，如果想退出的话，输入exit回车即可（注：直接关闭cmd窗口是不能退出的，必须通过exit命令退出）。
+
+
+问题处理：
+问题1：
+解决初次登录MySQL出现ERROR 1045 (28000):Access denied for user 'root'@'localhost'问题
+
+成功启动MySQL服务器后，网上很多帖子表示用命令行：mysql -uroot -p 回车，然后无视密码输入再回车，就可以成功登录。
+
+然而，我在使用mysql-50.7.11版本，win10下运行时，并不成功，报错：ERROR 1045 (28000): Access denied for user 'root'@'localhost' (using password: NO)。
+
+
+解决过程如下：(%MYSQL_HOME%表示MySQL解压根目录)
+
+1、结束所有的MySQL进程，包括mysql.exe 和mysqld.exe
+
+
+2、命令行进入%MYSQL_HOME%\bin目录，输入mysqld --skip-grant-tables
+
+此时命令行已无法再输入，另开一个命令行窗口。
+
+
+3、命令行输入：mysql，即可登录数据库
+
+
+4、此时要做的是修改密码，命令行输入：update mysql.user set authentication_string=password('123qwe') where user='root' and Host ='localhost‘;
+
+即可修改成功。值得注意的是，密码名不叫password 而是坑爹的authentication_string!
+
+此时再在任务管理器结束所有的MySQL进程，包括mysql.exe 和mysqld.exe,重新打开命令行窗口，启动mysql服务器，即可用新密码登录。
+
+
+5、在登录，输入命令行，有个错误提示：ERROR 1820 (HY000): You must reset your password using ALTER USER statement before executing this statement. 它是在提示我们要重置密码。
+
+回到%MSQL_HOME%\bin，输入下面的命令：mysqladmin -u root -p password(此处就是password单词，不是密码)，然后根据返回的提示，先输入旧密码，然后输入新密码，确认即可。
+
+Enter password: xxxxxx
+New password: xxxxxx
+Confirm new password: xxxxxx
+
+这样就可以用新密码登录啦。
+
+
+问题2：
+ Mysql net start mysql启动,提示发生系统错误 5 拒绝访问 解决之道
+ 为什么会出现这个问题呢？经过一番思考找到原因了，是因为当前用户的操作权限太低了，出了问题
+ 解决办法：以管理员身份运行cmd即可；
+
+ 问题3：
+ mysql 安装提示 缺失*.dll文件
+ 解决办法： 下载 DirectX_V3.5_XiTongZhiJia.zip ，安装后，执行修复即可；
+
+ 问题4：
+ mysql 安装报错 无法正常启动 0xc000007b
+ 解决办法：未知，可能是DirectX_V3.5_XiTongZhiJia.zip，也可能是cmd权限问题，也可能是安装 vcredist_x64.exe的问题，最终的解决原因未知，
+ 好像突然就好了。
