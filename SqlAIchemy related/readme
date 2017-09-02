@@ -1,6 +1,14 @@
 视频来源：
 51cto  跟alex 学python-那就来开发个堡垒机吧
 
+--使用sqlite3的方法回顾：
+http://www.jianshu.com/p/61bcd016bc6b
+在当前目录下执行如下命令，创建一个sqlite3数据库；
+1)进入python交互命令行后，依次执行：
+import sqlite3
+conn=sqlite3.connect("mysql01.db");  //如果存在就连接，如果不存在就创建一个新的数据库；
+conn.close()
+
 
 blog:
 http://www.cnblogs.com/alex3714/articles/5248247.html
@@ -13,11 +21,33 @@ SQLAlchemy是Python编程语言下的一款ORM框架，该框架建立在数据库API之上，使用关系对
 SqlAlchemy [sql ai ke mi]
 ORM:对象关系映射  object relation mapping
 
---使用sqlite3的方法：
-http://www.jianshu.com/p/61bcd016bc6b
-在当前目录下执行如下命令，创建一个sqlite3数据库；
-1)进入python交互命令行后，依次执行：
-import sqlite3
-conn=sqlite3.connect("mysql01.db");  //如果存在就连接，如果不存在就创建一个新的数据库；
-conn.close()
 
+sqlaichemy是建立在数据库api之上，对原生sql语句进行封装；
+将sql语句转换成对象，那我们就只需要基于对象进行操作，sqlaichemy完成 对象到sql语句的映射，进而操作数据库；
+
+ 对象--sql语句--数据库api（包括 mysqldb及其它...）--数据库
+
+
+
+ 外键关联:
+ 指的就是两个表之间有关系；
+ A one to many relationship places a foreign key on the child table referencing the parent.relationship()
+ is then specified on the parent, as referencing a collection of items represented by the child
+
+ 说明： sqlaichemy不支持表的自动的动态添加，如果要添加，只能删除原来的表后重新创建
+
+ Q&a: 执行desc group会报错，需要使用desc mydb.group;  推荐 group是内置的字段；
+ mysql> desc group;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'group' at line 1
+mysql> desc group;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'group' at line 1
+mysql> desc mydb.group;
++-------+-------------+------+-----+---------+----------------+
+| Field | Type        | Null | Key | Default | Extra          |
++-------+-------------+------+-----+---------+----------------+
+| id    | int(11)     | NO   | PRI | NULL    | auto_increment |
+| name  | varchar(64) | NO   | UNI | NULL    |                |
++-------+-------------+------+-----+---------+----------------+
+2 rows in set (0.00 sec)
+
+mysql>
