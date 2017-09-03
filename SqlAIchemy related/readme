@@ -16,6 +16,12 @@ http://www.cnblogs.com/alex3714/articles/5248247.html
 堡垒机实例：
 http://www.cnblogs.com/alex3714/articles/5286889.html
 
+问题：
+python脚本的开头一定要加上# -*- coding: utf-8 -*-，否则即使是在注释中有中文，也会报错，切记；
+
+windows下补全方法：
+http://shashanzhao.com/archives/891.html
+
 
 SqlAlchemy ORM　　
 SQLAlchemy是Python编程语言下的一款ORM框架，该框架建立在数据库API之上，使用关系对象映射进行数据库操作，
