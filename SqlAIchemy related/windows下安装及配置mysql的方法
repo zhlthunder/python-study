@@ -99,3 +99,68 @@ Confirm new password: xxxxxx
  mysql 安装报错 无法正常启动 0xc000007b
  解决办法：未知，可能是DirectX_V3.5_XiTongZhiJia.zip，也可能是cmd权限问题，也可能是安装 vcredist_x64.exe的问题，最终的解决原因未知，
  好像突然就好了。
+
+
+ 问题5：
+ net start mysql发生系统错误2 ,找不到指定文件？
+ 解决方法：
+ cd到mysql的bin目录下，依次执行如下命令就可以了；
+  msyqld --remove   //关闭服务
+      mysqld -install    //启动服务
+      net start mysql     //启动
+
+ 解决办法来源：http://bbs.csdn.net/topics/391812886，完整的描述信息如下：
+
+ 你可以参考一下这个：
+
+1.开始在用msyql的配置文件，复制一个出来，并在里面加上了
+[mysqld] 下加上了
+basedir=D:/mysql-5.1.6
+datadir=D:/mysql-5.1.6/data
+ 修改名称为 my.ini并放到C盘windows下。
+然后cmd输入：(当然首先要在path里设置指到mysql的bin 目录)
+C:\Documents and Settings\bob>mysqld --install MySQL
+ 提示：Service successfully installed.
+--》
+C:\Documents and Settings\bob>net start mysql
+提示：
+发生系统错误 2。
+
+系统找不到指定的文件。
+
+2，经过几次试验并查看资料应该这样：
+  1.根据my-small.ini文件复制出来后 放到windows下，名称该为my.ini，并在里面加上
+ [WinMySQLAdmin]
+Server=D:/mysql-5.1.6/bin/mysqld.exe
+   在[mysqld]
+找你个添加：
+basedir=D:/mysql-5.1.6
+datadir=D:/mysql-5.1.6/data
+
+  2.然后cmd 转到相应目录下，(前面直接操作就是因为不转到msyql目录下,它会默认安装到c:下)
+    msyqld --remove   //关闭服务
+      mysqld -install    //启动服务
+      net start mysql     //启动
+      mysqlshow -u root mysql  //可以查看表
+mysql -u root -p  //可以以root身份登录
+还有一点没有验证的：
+c:\windows目录优先级>c盘根目录>mysql目录，当然如果另外指定除外。这是在默认情况下。
+
+
+sql 查询问题及解决办法： （相关博客：http://wangzhichao.blog.51cto.com/2643325/1773740）
+mysql> select * from hosts inner join mydb.group on hosts.group_id=mydb.group.id group by mydb.group.name;   #执行此命令报错
+ERROR 1055 (42000): Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'mydb.hosts.id' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> select * from hosts inner join mydb.group on hosts.group_id=mydb.group.id group by mydb.group.name;
+ERROR 1055 (42000): Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'mydb.hosts.id' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> set @@sql_mode='STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from hosts inner join mydb.group on hosts.group_id=mydb.group.id group by mydb.group.name;
++----+-----------+-----------+------+----------+----+------+
+| id | hostname  | ip_addr   | port | group_id | id | name |
++----+-----------+-----------+------+----------+----+------+
+|  3 | centos    | 10.1.1.1  |   22 |        1 |  1 | g1   |
+|  2 | ubuntu    | 111.1.1.1 |   22 |        2 |  2 | g2   |
+|  1 | localhost | 127.0.0.1 |   22 |        3 |  3 | g3   |
++----+-----------+-----------+------+----------+----+------+
+3 rows in set (0.00 sec)

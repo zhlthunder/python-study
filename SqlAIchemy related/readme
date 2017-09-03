@@ -13,6 +13,9 @@ conn.close()
 blog:
 http://www.cnblogs.com/alex3714/articles/5248247.html
 
+堡垒机实例：
+http://www.cnblogs.com/alex3714/articles/5286889.html
+
 
 SqlAlchemy ORM　　
 SQLAlchemy是Python编程语言下的一款ORM框架，该框架建立在数据库API之上，使用关系对象映射进行数据库操作，
@@ -51,3 +54,120 @@ mysql> desc mydb.group;
 2 rows in set (0.00 sec)
 
 mysql>
+
+
+原生sql join查询的方法：
+几个Join的区别 http://stackoverflow.com/questions/38549/difference-between-inner-and-outer-joins
+
+    INNER JOIN: Returns all rows when there is at least one match in BOTH tables
+    LEFT JOIN: Return all rows from the left table, and the matched rows from the right table
+    RIGHT JOIN: Return all rows from the right table, and the matched rows from the left table
+
+Suppose you have two tables, with a single column each, and data as follows:
+
+A    B
+-    -
+1    3
+2    4
+3    5
+4    6
+
+Note that (1,2) are unique to A, (3,4) are common, and (5,6) are unique to B.
+
+Inner join
+
+An inner join using either of the equivalent queries gives the intersection of the two tables, i.e. the two rows they have in common.
+
+select * from a INNER JOIN b on a.a = b.b; 或
+select a.*,b.*  from a,b where a.a = b.b;
+
+a | b
+--+--
+3 | 3
+4 | 4
+
+
+Left outer join
+
+A left outer join will give all rows in A, plus any common rows in B.
+
+select * from a LEFT OUTER JOIN b on a.a = b.b;
+select a.*,b.*  from a,b where a.a = b.b(+);
+
+a |  b
+--+-----
+1 | null
+2 | null
+3 |    3
+4 |    4
+
+Right outer join
+
+A right outer join will give all rows in B, plus any common rows in A.
+
+select * from a RIGHT OUTER JOIN b on a.a = b.b;
+select a.*,b.*  from a,b where a.a(+) = b.b;
+
+a    |  b
+-----+----
+3    |  3
+4    |  4
+null |  5
+null |  6
+
+
+插入记录的sql语句：
+mysql> insert into hosts(hostname,ip_addr) values('test','1.1.1.1');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into mydb.group(name) values('g4');
+Query OK, 1 row affected (0.02 sec)
+
+
+分组原生sql 命令：
+mysql> select Count(*),mydb.group.name from hosts inner join mydb.group on hosts.group_id=mydb.group.id group by mydb.group.name;
++----------+------+
+| Count(*) | name |
++----------+------+
+|        1 | g1   |
+|        1 | g2   |
+|        1 | g3   |
++----------+------+
+3 rows in set (0.00 sec)
+
+
+
+update hosts set groupd_id=3 where id=4;  更新某个字段内容的命令
+
+
+
+
+@@@many to many 的模型的创建及关联查询等；
+需求：一个组可以包含多条主机，一个主机也可以属于多个组
+比如：
+host表：name, ip , user,password..等等很多字段；
+group表：name, administrator,premit..等等很多字段
+host和group中主机的所属关系如下
+h1 g1
+h1 g2
+h2 g1
+
+如果仅仅用两张表来存储信息，就依然会存在信息重复存储的问题；
+解决办法：引入第三张表，此时的表的设计如下：
+Host表：
+h1
+h2
+h3
+Group表：
+g1
+g2
+g3
+
+HosttoGroup表：表结构大概如下进行设计
+id host_id   group_id
+1    1           1
+1    1           2
+1    2           1
+
+
+
