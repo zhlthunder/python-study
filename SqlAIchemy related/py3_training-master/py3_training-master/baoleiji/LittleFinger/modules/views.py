@@ -13,9 +13,13 @@ def auth():
     '''
     count = 0
     while count <3:
-        username = input("\033[32;1mUsername:\033[0m").strip()
+        # print "tttttt"
+        # username = input("\033[32;1mUsername:\033[0m").strip()
+        username = raw_input("please input you username-->:").strip()
+        print "testttttt"
         if len(username) ==0:continue
-        password = input("\033[32;1mPassword:\033[0m").strip()
+        # password = input("\033[32;1mPassword:\033[0m").strip()
+        password = raw_input("please input your password-->:").strip()
         if len(password) ==0:continue
         user_obj = session.query(models.UserProfile).filter(models.UserProfile.username==username,
                                                             models.UserProfile.password==password).first()
@@ -62,7 +66,9 @@ def start_session(argvs):
             for index,group in enumerate(user.groups):
                 print('\033[32;1m%s.\t%s (%s)\033[0m' %(index,group.name,  len(group.bind_hosts)) )
 
-            choice = input("[%s]:" % user.username).strip()
+            # choice = input("[%s]:" % user.username).strip()
+            choice = raw_input("[%s]:" % user.username).strip()
+
             if len(choice) == 0:continue
             if choice == 'z':
                 print("------ Group: ungroupped hosts ------" )
@@ -87,7 +93,8 @@ def start_session(argvs):
 
                     #host selection
                     while not exit_flag:
-                        user_option = input("[(b)back, (q)quit, select host to login]:").strip()
+                        # user_option = input("[(b)back, (q)quit, select host to login]:").strip()
+                        user_option = raw_input("[(b)back, (q)quit, select host to login]:").strip()
                         if len(user_option)==0:continue
                         if user_option == 'b':break
                         if user_option == 'q':

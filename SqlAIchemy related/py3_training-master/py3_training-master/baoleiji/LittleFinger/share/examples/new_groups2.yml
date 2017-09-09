@@ -1,15 +1,22 @@
 
-bj_group:
-  #bind_hosts:
-  #  - h1
-  #  - h2
+test1:
+#  bind_hosts:
+#    - h1
   user_profiles:
     - alex
 
-sh_group:
+test2:
+#  bind_hosts:
+#    - h1
+#    - ubuntu test
   user_profiles:
-    - jack
     - alex
-    - rain
+    - jack
+
+#sh_group:
+#  user_profiles:
+#    - jack
+#    - alex
+#    - rain
 
 
