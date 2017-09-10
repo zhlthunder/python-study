@@ -1,0 +1,30 @@
+1.
+
+相关网页： http://cache.baiducontent.com/c?m=9f65cb4a8c8507ed4fece7631046893b4c4380146d96864968d4e414c42246064565e5bd2c261105d1d82f2747f41802bded602571507be9dad58f4dddb89129248233712d5cd04e509848f598067ad620e11db5ef4ea6e7ae76c4f8c5d3ae14049e04452ddca1dc&p=8c759a45d6c21fb30be296291c5f8e&newp=9b71c54ad6c340e70be2966f5854a5231610db2151d7da116b82c825d7331b001c3bbfb423241406d9c47c6704a94f5be0fa3279320723a3dda5c91d9fb4c57479c0&user=baidu&fm=sc&query=pycharm+unresolved+reference&qid=8ad1c5e30000d356&p1=1
+问题描述:pycharm中的模块名下显示红色波浪线，并提示如下信息：
+Unresolved reference 'ERROR_CODE_INPUT_ERROR' less... (Ctrl+F1)
+This inspection detects names that should resolve but don't. Due to dynamic dispatch and duck typing, this is possible in a limited but useful number of cases. Top-level and class-level items are supported better than instance items.
+
+
+pycharm显示无法引用到的这些类，即使这些类都在工程中，看看文件上方的import会发现对应的模块import不成功。
+
+分析
+
+既然这些类都在工程中，那么import不成功就是因为路径没对应，事实上是pycharm默认该项目的根目录为source目录，所以import使用绝对路径而不是相对路径的话，
+就会从项目的根目录中查找，而不是我们希望的其中的/src目录，所以import不成功。
+
+解决方法
+
+    改成相对路径
+    from ...package import *
+    第一个.表示当前目录，后面的每一个’.’表示上一层目录。用相对目录可以保证import成功，但是不建议这种写法，因为如果当前这个文件要移动到其他包的话，就要改很多地方了，当然，使用相对路径表示可以随意更改包名，只要保证
+
+    在pycharm中设置source路径
+
+    file–>setting–>project:server–>project structure
+
+    将放package的文件夹设置为source，这样import的模块类等，就是通过这些source文件夹作为根路径来查找，也就是在这些source文件夹中查找import的东西。
+
+
+==》最终解决办法：
+在project structure下，将当前工程的根目录设置为 source目录； 就解决这个问题了。
