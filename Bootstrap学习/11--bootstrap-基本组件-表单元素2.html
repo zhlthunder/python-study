@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Starter Template for Bootstrap</title>
+    <link href="bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
+  </head>
+  <body>
+
+  <!--静态控件-->
+
+<!--如果需要在表单中将一行纯文本和 label 元素放置于同一行，为 <p> 元素添加 .form-control-static 类即可。-->
+
+  <form class="form-horizontal">
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Email</label>
+    <div class="col-sm-10">
+      <p class="form-control-static">email@example.com</p>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword" class="col-sm-2 control-label">Password</label>
+    <div class="col-sm-10">
+      <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+    </div>
+  </div>
+</form>
+
+
+  <!--焦点状态-->
+
+<!--我们将某些表单控件的默认 outline 样式移除，然后对 :focus 状态赋予 box-shadow 属性。-->
+<br/>
+<br/>
+<br/>
+  <form role="form">
+    <input class="form-control"  />
+  </form>
+<br/>
+<br/>
+<br/>
+<!--禁用状态-->
+
+<!--为输入框设置 disabled 属性可以禁止其与用户有任何交互（焦点、输入等）。被禁用的输入框颜色更浅，并且还添加了 not-allowed 鼠标状态。-->
+  <form role="form">
+    <input class="form-control" disabled  />
+  </form>
+
+  <!--只读状态-->
+
+<!--为输入框设置 readonly 属性可以禁止用户修改输入框中的内容。处于只读状态的输入框颜色更浅（就像被禁用的输入框一样），但是仍然保留标准的鼠标状态。-->
+  <br/>
+<br/>
+<br/>
+  <form role="form">
+    <input class="form-control" readonly value="UI大叔"  />
+  </form>
+
+
+    <script src="bootstrap-3.3.7-dist/js/jquery-3.2.1.js"></script>
+    <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+  </body>
+</html>
+
+
+<!--标签的四大属性：name id class style-->
+<!--如果一个页面中有两个form,需要为他们取不同的name，这样在后台才可以区分他们-->

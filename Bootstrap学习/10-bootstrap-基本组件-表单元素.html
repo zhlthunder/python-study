@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Starter Template for Bootstrap</title>
+    <link href="bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
+  </head>
+  <body>
+   <h3>type1:</h3>
+   <form role="form">
+     <input type="datetime" />
+   </form>
+   <br/>
+   <br/>
+   <br/>
+     <h3>type2:</h3>
+      <!--form-control 可以将对话框修饰为圆角-->
+   <form role="form">
+     <input type="datetime" class="form-control" />
+   </form>
+
+   <br/>
+   <br/>
+   <form role="form" style="width: 400px;">
+     <input type="datetime" class="form-control" />
+     <input type="url"/>
+     <!--#此处必须输入完整的网址才可以提交；-->
+     <input type="submit"/>
+   </form>
+   <br>
+   <br>
+   <br>
+
+   <h3>特定的input type类型，必须输入指定的类型才可以提交，否则会提示报错，且无法提交</h3>
+
+      <form role="form" >
+   <h3>此处必须输入完整的网址才可以提交,否则无法提交，且会弹出提示信息</h3>
+     <input type="url"/> <br/>
+    <h3>只支持数字的输入</h3>
+     <input type="number"/><br/>
+     <h3>只支持email地址的输入</h3>
+     <input type="email"/><br/>
+        <h3>支持颜色的输入</h3>
+     <input type="color"/><br/>
+
+     <input type="submit"/>
+   </form>
+
+
+    <script src="bootstrap-3.3.7-dist/js/jquery-3.2.1.js"></script>
+    <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+  </body>
+</html>
