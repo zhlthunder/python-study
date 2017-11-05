@@ -14,8 +14,8 @@ def auth():
     count = 0
     while count <3:
         # print "tttttt"
-        # username = input("\033[32;1mUsername:\033[0m").strip()
-        username = raw_input("please input you username-->:").strip()
+        # username = input("\033[32;1mUsername:\033[0m").strip()  # for python3
+        username = raw_input("please input you username-->:").strip()  # for python2
         print "testttttt"
         if len(username) ==0:continue
         # password = input("\033[32;1mPassword:\033[0m").strip()

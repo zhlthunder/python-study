@@ -1,3 +1,4 @@
+#_*_coding:utf-8_*_
 # Copyright (C) 2003-2007  Robey Pointer <robeypointer@gmail.com>
 #
 # This file is part of paramiko.
@@ -82,6 +83,7 @@ def posix_shell(chan,user_obj,bind_host_obj,cmd_caches,log_recording):
                                           )
                     cmd_caches.append(log_item)
                     cmd = ''
+
 
                     if len(cmd_caches)>=10:
                         log_recording(user_obj,bind_host_obj,cmd_caches)

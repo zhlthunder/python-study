@@ -18,8 +18,11 @@ def help_msg():
 
 def excute_from_command_line(argvs):
     if len(argvs) < 2:
+        # print(argvs)
+        # print(argvs[0])
         help_msg()
         exit()
     if argvs[1] not in action_registers.actions:
+        print(argvs)
         utils.print_err("Command [%s] does not exist!" % argvs[1], quit=True)
     action_registers.actions[argvs[1]](argvs[1:])
