@@ -62,6 +62,10 @@ class Asset(models.Model):
 
 
 class Server(models.Model):
+    #此处只能用onetone，不可以用foreignkey,如果用foreignkey,就会存在一个asset表中的元素对应多个server表中的元素，
+    #因为使用foreignkey时创建的是一个选择列表，无法实现互斥选择。
+    #此处的onetoone只能限制 server表和asset表中的元素是一对一的；即无法限制到别的表，比如网络设备表和asset的对应关系，
+    #即这种设计本身，无法规避，同一个asset同时对应server 表和network 表的可能的性，需要有别的互斥机制才可以；
     asset = models.OneToOneField('Asset')
     sub_assset_type_choices = (
         (0,'PC服务器'),
@@ -130,7 +134,8 @@ class NetworkDevice(models.Model):
     #sn = models.CharField(u'SN号',max_length=128,unique=True)
     #manufactory = models.CharField(verbose_name=u'制造商',max_length=128,null=True, blank=True)
     model = models.CharField(u'型号',max_length=128,null=True, blank=True )
-    firmware = models.ForeignKey('Software',blank=True,null=True)
+    # firmware = models.ForeignKey('Software',blank=True,null=True)
+    firmware = models.CharField(blank=True,null=True,max_length=128)
     port_num = models.SmallIntegerField(u'端口个数',null=True, blank=True )
     device_detail = models.TextField(u'设置详细配置',null=True, blank=True )
 

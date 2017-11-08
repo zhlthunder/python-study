@@ -1,0 +1,16 @@
+ github api:
+https://api.github.com/
+
+http的 get 为幂等操作， 意思是，所有时候获取的信息是一样的。
+
+
+
+oauth 的例子：
+在https://www.processon.com/login 网站上，使用QQ号登陆时调整到如下的界面下：
+https://graph.qq.com/oauth/show?which=Login&display=pc&client_id=100485241&response_type=token&scope=all&redirect_uri=http://www.processon.com/qq.jsp
+
+==》
+client_id=100485241  代表processon 网站
+redirect_uri=http://www.processon.com/qq.jsp   是认证成功后跳转到的网站
+
+通过qq认证成功后，会返回一个认证成功的信息，并且返回到presson网站；
