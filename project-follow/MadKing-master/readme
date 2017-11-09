@@ -1,0 +1,10 @@
+windows  mysql 的用户名及密码： 123456
+
+使用python2 进行编译；
+
+python2 manage.py makemigrations
+python2 manage.py migrate
+
+name:zhl
+zhl@163.com
+pw:zhl123456

@@ -148,7 +148,7 @@ def asset_detail(request, asset_id):
 
 @login_required
 def get_dashboard_data(request):
-    '''返回主页面数据'''
+
 
     dashboard_data = AssetDashboard(request)
     dashboard_data.searilize_page()
