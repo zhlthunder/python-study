@@ -8,3 +8,17 @@ python2 manage.py migrate
 name:zhl
 zhl@163.com
 pw:zhl123456
+
+
+
+//反向关联，调用的方法举例如下：
+ inlines = [ServerInline,CPUInline,RAMInline,DiskInline,NICInline]
+
+ class DiskInline(admin.TabularInline):
+    model = models.Disk
+    exclude = ('memo',)
+    readonly_fields = ['create_date']
+
+
+
+//summary:

@@ -30,3 +30,42 @@ pycharmÏÔÊ¾ÎŞ·¨ÒıÓÃµ½µÄÕâĞ©Àà£¬¼´Ê¹ÕâĞ©Àà¶¼ÔÚ¹¤³ÌÖĞ£¬¿´¿´ÎÄ¼şÉÏ·½µÄimport»á·¢ÏÖ¶
 
 ==¡·×îÖÕ½â¾ö°ì·¨£º
 ÔÚproject structureÏÂ£¬½«µ±Ç°¹¤³ÌµÄ¸ùÄ¿Â¼ÉèÖÃÎª sourceÄ¿Â¼£» ¾Í½â¾öÕâ¸öÎÊÌâÁË¡£
+
+
+
+@@@@
+ ½â¾ödjango ±àÂë´íÎóµÄÍ¨ÓÃ·½·¨£»
+
+¹À¼ÆÕâ¸öÎÊÌâÊÇ2.7µÄÎÊÌâ3.0ºÃÏñ¾ÍÍ³Ò»utf±àÂëÁË
+
+±¨´í´úÂë£º
+
+python :ascii codec can't decode byte 0xe8 in posi
+
+µ±djangoÖĞ±¨Õâ¸ö´íÎóµÄÊ±ºò£¬Èç¹ûÓĞ±È½ÏÏêÏ¸µÄÎÄ¼şÂ·¾¶»¹ºÃËµ¾Í¿ÉÒÔÕë¶ÔÕâ¸öÎÄ¼ş½øĞĞ±àÂë´¦Àí¡£µ«ÊÇÈç¹û±¨´íÖĞÃ»ÓĞÎÄ¼şÂ·¾¶ÄÇ¿Ï¶¨Òª·èµô¡£
+
+Õë¶ÔÃ»ÓĞ¾ßÌåµÄÎÄ¼şÂ·¾¶½â¾ö°ì·¨£º
+
+ÔÚÕâ¸öµØ·½Ôö¼Ó´úÂë£¬manage.py
+
+#!/usr/bin/env python
+import os
+import sys
+
+if __name__ == "__main__":
+    #ÖØĞÂ¼ÓÔØsys
+    reload(sys)     //ĞÂÔö¼ÓµÄ
+    #ÉèÖÃ±àÂëÎªutf-8
+    sys.setdefaultencoding('utf-8')  //ĞÂÔö¼ÓµÄ
+
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "cmdbs.settings")
+    from django.core.management import execute_from_command_line
+    execute_from_command_line(sys.argv)
+
+
+   ÕâÑùÖ±½ÓÔÚÈë¿Ú¸ü¸Ä¾ÍOKÁË
+
+ÄÇÃ´ÎªÊ²Ã´ÒªÖØĞÂ¼ÓÔØ£¬¶øÖ±½ÓÒıÓÃ¹ıÀ´Ôò²»ÄÜµ÷ÓÃ¸Ãº¯ÊıÄØ£¿
+
+ ÒòÎªsetdefaultencodingº¯ÊıÔÚ±»ÏµÍ³µ÷ÓÃºó±»É¾³ıÁË£¬ËùÒÔÍ¨¹ıimportÒıÓÃ½øÀ´Ê±ÆäÊµÒÑ¾­Ã»ÓĞÁË£¬
+ ËùÒÔ±ØĞëreloadÒ»´ÎsysÄ£¿é£¬ÕâÑùsetdefaultencoding²Å»áÎª¿ÉÓÃ£¬²ÅÄÜÔÚ´úÂëÀïĞŞ¸Ä½âÊÍÆ÷µ±Ç°µÄ×Ö·û±àÂë¡£

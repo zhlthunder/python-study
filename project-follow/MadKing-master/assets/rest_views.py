@@ -31,12 +31,13 @@ class ServerViewSet(viewsets.ModelViewSet):
 
 
 
-@api_view(['GET', 'POST'])
+@api_view(['GET', 'POST'])  #定义了权限，比如如果删除get方法，再执行获取时就会提示 无权限；
 @permission_classes((permissions.AllowAny,))
 def AssetList(request):
     if request.method == 'GET':
         asset_list = models.Asset.objects.all()
         serializer = AssetSerializer(asset_list,many=True)
+        # print serializer.data
         return Response(serializer.data)
 
     elif request.method == 'POST':
