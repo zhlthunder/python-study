@@ -16,7 +16,7 @@ def index(request):
     return render(request, 'index.html')
 
 
-@csrf_exempt
+@csrf_exempt  #免除csrf,解决csrf验证的问题；
 @utils.token_required
 def asset_report(request):
     print(request.GET)

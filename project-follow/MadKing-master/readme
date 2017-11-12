@@ -22,3 +22,53 @@ pw:zhl123456
 
 
 //summary:
+1.创建project，比如叫 madking
+2.创建app, 比如 assets,
+3.创建表结构：自定义用户，资产的各个表；
+4.restful 配置：
+    定义好表现层，即定义序列化类，单独一个模块 serializers.py；
+    定义好视图，rest_views.py
+    定义好urls, rest_urls.py
+
+
+直接在调试PC机上运行 madkingclient时，报如下的错误：
+1.ImportError: No module named win32com  ，通过pycharm安装失败，通过下载pywin32-218.win-amd64-py2.7.exe 后手动安装就解决了；
+2.再执行时报如下的错误：
+ImportError: No module named wmi
+在pycharm中 安装 WMI 后即可以解决；
+
+
+之后，就可以正常执行客户端信息采集脚本了。
+
+
+补充知识：
+python 自动的url库的用法，也是爬虫的实现方法；
+import urllib
+import urllib2
+上面的两个是两个不同的版本，支持的功能也不同，具体的差异需要再查一下；
+
+爬网页的方法：
+a=urllib2.Request("http://www.baidu.com")
+res=urllib2.urlopen(a)
+res.read() 就可以获取已经下的页面了；
+
+也可以使用本地的url做实验，比如： http://localhost:9000/api/users/1/?format=json
+
+a=urllib2.Request("http://localhost:9000/api/users/1/?format=json")
+res=urllib2.urlopen(a)
+data=res.read()
+import json
+data=json.loads(data)
+data['email'] 可以获取到对应的值了
+
+到此，继续扩展一下，如何通过命令行 实现 get 或post的方法向后台提交内容，
+get的方法,直接采用字符串拼接的方法，类似于 “?format=json“的方法；
+重点介绍post的方法的实现：
+比如我们使用post的方法创建用户，实现如下：
+arg={"name":"jack","email":"jack@126.com","is_admin":"true"}
+encoded_data=urllib.urlencode(arg)
+a=urllib2.Request("http://localhost:9000/api/users/")
+res=urllib2.urlopen(url=a,data=encoded_data)
+执行后，会报403的错误，这是因为csrf跨站访问限制的问题，这里先不用关心，但从django的日志中看到如下的信息：
+[12/Nov/2017 14:49:28] "POST /api/users/ HTTP/1.1" 403 58
+即，已经实现了通过post的方法提交请求了，我们的需求实现了。

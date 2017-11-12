@@ -4,7 +4,7 @@ import os
 BaseDir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 Params = {
-    "server": "192.168.1.38",
+    "server": "192.168.0.106",  #客户端的ip需要手动配置一下
     "port":9000,
     'request_timeout':30,
     "urls":{

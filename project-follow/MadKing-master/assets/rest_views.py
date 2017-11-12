@@ -9,6 +9,8 @@ from rest_framework.decorators import api_view,permission_classes
 from rest_framework.response import Response
 from assets import models
 
+
+#下面每个视图的格式是固定的，且queryset 和serializer_class 命名也是固定的。
 class UserViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
@@ -31,8 +33,8 @@ class ServerViewSet(viewsets.ModelViewSet):
 
 
 
-@api_view(['GET', 'POST'])  #定义了权限，比如如果删除get方法，再执行获取时就会提示 无权限；
-@permission_classes((permissions.AllowAny,))
+@api_view(['GET', 'POST'])  #定义了支持的方法类型，比如如果删除get方法，再执行获取时就会提示 无权限；
+@permission_classes((permissions.AllowAny,)) ##定义了用户权限控制
 def AssetList(request):
     if request.method == 'GET':
         asset_list = models.Asset.objects.all()
