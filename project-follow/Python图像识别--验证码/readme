@@ -1,0 +1,14 @@
+# reference url: http://www.cnblogs.com/TTyb/p/5996847.html
+
+ python图像识别--验证码
+
+1、pip3 install pyocr
+
+2、pip3 install pillow or easy_install Pillow
+
+3、安装tesseract-ocr：http://jaist.dl.sourceforge.net/project/tesseract-ocr-alt/tesseract-ocr-setup-3.02.02.exe，安装在C:\Program Files\下
+  //此步骤可以考虑省略，实际使用源码包进行安装的 （pytesseract-0.1.7）
+
+4、要求python默认安装在C盘
+
+5、找到 pytesseract.py 更改 tesseract_cmd = 'C:/Program Files/Tesseract-OCR/tesseract.exe'  //没找到 pytesseract.py ，此步没执行；
