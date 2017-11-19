@@ -12,3 +12,28 @@
 4、要求python默认安装在C盘
 
 5、找到 pytesseract.py 更改 tesseract_cmd = 'C:/Program Files/Tesseract-OCR/tesseract.exe'  //没找到 pytesseract.py ，此步没执行；
+
+
+
+url 2:http://www.cnblogs.com/alex3714/articles/6662365.html
+字体库相关介绍：http://blog.csdn.net/lankecms/article/details/38784217
+
+1. 生成随机验证码 python code 实现2.py
+2. 如何应用到你的django项目中
+整个验证码的流程如下
+
+    用户访问登录页面，你的后台程序在给用户返回登录页面时，同时生成了验证码图片
+    用户输入账户信息和验证码数字，提交表单
+    后台判断用户输入的验证码和你生成的图片信息是否一致，如果一致，就代表验证码是没有问题的
+
+问题就卡在第3步，你在第1步生成验证码并返回给用户后，由于一会用户还需要把这个验证码提交过来，你在后台就需要拿用户输入的和你之前生成 的验证码进行对比是否相等，
+
+所以你必须在生成验证码的同时，把验证码存下来，存到哪？ 必然是缓存，这样直接在存的同时加个超时时间 ， 就可以限定验证码有效期了。
+
+那存入缓存时的key是设置成什么呢？为了保证验证码的安全，我采取了以下设计
+
+
+
+
+web cache:http://blog.csdn.net/u011510825/article/details/50394875  待follow
+http://m.blog.csdn.net/baidu_35085676/article/details/75240465

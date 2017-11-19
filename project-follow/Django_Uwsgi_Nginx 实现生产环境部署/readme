@@ -1,0 +1,70 @@
+url:http://www.cnblogs.com/alex3714/p/6538374.html
+
+本节内容
+
+
+
+uwsgi 介绍
+
+uwsgi安装使用
+
+nginx安装配置
+
+django with nginx
+
+如何在生产上部署Django?
+Django的部署可以有很多方式，采用nginx+uwsgi的方式是其中比较常见的一种方式。
+
+uwsgi介绍
+
+uWSGI是一个Web服务器，它实现了WSGI协议、uwsgi、http等协议。Nginx中HttpUwsgiModule的作用是与uWSGI服务器进行交换。
+
+要注意 WSGI / uwsgi / uWSGI 这三个概念的区分。
+
+    WSGI是一种Web服务器网关接口。它是一个Web服务器（如nginx，uWSGI等服务器）与web应用（如用Flask框架写的程序）通信的一种规范。
+    uwsgi是一种线路协议而不是通信协议，在此常用于在uWSGI服务器与其他网络服务器的数据通信。
+    而uWSGI是实现了uwsgi和WSGI两种协议的Web服务器。
+    uwsgi协议是一个uWSGI服务器自有的协议，它用于定义传输信息的类型（type of information），每一个uwsgi packet前4byte为传输信息类型描述，它与WSGI相比是两样东西。
+
+uWSGI的主要特点如下
+
+    超快的性能
+    低内存占用（实测为apache2的mod_wsgi的一半左右）
+    多app管理（终于不用冥思苦想下个app用哪个端口比较好了-.-）
+    详尽的日志功能（可以用来分析app性能和瓶颈）
+    高度可定制（内存大小限制，服务一定次数后重启等）
+
+总而言之uwgi是个部署用的好东东，正如uWSGI作者所吹嘘的：
+
+If you are searching for a simple wsgi-only server, uWSGI is not for you, but if you are building a real (production-ready) app that need to be rock-solid,
+fast and easy to distribute/optimize for various load-average, you will pathetically and morbidly fall in love (we hope) with uWSGI.
+
+
+Uwsgi 安装使用
+
+# Install the latest stable release:
+pip install uwsgi
+# ... or if you want to install the latest LTS (long term support) release,
+pip install https://projects.unbit.it/downloads/uwsgi-lts.tar.gz
+
+==>
+在windows下安装时报错，原因说明：
+uwsgi并没有适合Windows的安装版本。
+
+os.uname()这个function在Windows版本中是没有的，所以Windows中uwsgi目前应该是无法安装的。
+
+Python（python3.4.3）的文档中明确说明os.uname()只适用于Unix，并不适用于Windows，想安装uwsgi还是使用Linux吧。
+
+==》后续在linux环境下继续摸索完善
+
+基本测试
+
+Create a file called test.py:
+
+# test.py
+def application(env, start_response):
+    start_response('200 OK', [('Content-Type','text/html')])
+    return [b"Hello World"] # python3
+    #return ["Hello World"] # python2
+
+
