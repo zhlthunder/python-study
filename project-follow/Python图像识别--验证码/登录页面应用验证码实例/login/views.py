@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+#author:zhl
+
 from django.shortcuts import render,HttpResponseRedirect
 from django.contrib import auth
 from django.contrib.auth.views import login
@@ -46,6 +49,6 @@ def acc_login(request):
                 err_msg["error"] = 'Wrong username or password!'
 
         else:
-            err_msg['error'] = "ÑéÖ¤Âë´íÎó!"
+            err_msg['error'] = "éªŒè¯ç é”™è¯¯!"
 
     return render(request,'login.html',{"filename":random_filename, "today_str":today_str, "error":err_msg})
