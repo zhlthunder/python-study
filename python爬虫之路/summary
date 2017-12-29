@@ -1,0 +1,13 @@
+课程来源： 51cto  “python 网络爬虫工程师系列培训课程” 作者  韦玮
+
+section 1: python 基础
+1）下载及安装python :
+从python的官网下载windows 版本的python  exe安装文件,比如：Windows x86-64 executable installer 或Windows x86 executable installer
+安装时选择 “custome install”, optional install 处选择 pip 和 tck** 两项， 并选中自动配置环境变量及安装路径即可；
+
+2）通过whl文件安装python模块的方法：
+搜索 “lfd python” 后进入https://www.lfd.uci.edu/~gohlke/pythonlibs/ 网站下载对应的whl文件后，
+ 使用 pip install **.whl 方式进行安装；
+
+3）
+
