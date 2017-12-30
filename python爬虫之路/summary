@@ -10,4 +10,74 @@ section 1: python 基础
  使用 pip install **.whl 方式进行安装；
 
 3）
+如何查看模块功能及如何安装模块
+
+执行pip list 可以查看当前有哪些模块：
+E:\zhl_working\mypython\Scripts>pip.exe list
+DEPRECATION: The default format will switch to columns in the future. You can use --format=(legacy|columns) (or define a format=(legacy|columns) in your pip.conf under the [list] section) to disable this warning.
+pip (9.0.1)
+setuptools (28.8.0)
+xlrd (1.1.0)
+XlsxWriter (1.0.2)
+
+查看模块帮助信息的方法：
+进入python交互模式
+help()  进入帮助模式
+xlrd  直接输入模块名，就可以查看到模块的所有帮助信息，应用实例等；
+或直接执行 help(xlrd) ，可以查看到帮助信息；
+
+
+
+section2: 网络爬虫
+1）网络爬虫是什么？
+网络爬虫就是自动从互联网中定向或不定向地采集信息的一种程序；
+网络爬虫有很多种类型，常用的有 通用网络爬虫，聚焦网络爬虫等；
+
+2）网络爬虫能做什么事情？
+通用的网络爬虫可以应用在搜索引擎中，能自动去采集信息；
+聚焦的网络爬虫，可以搜索信息，并进行信息的筛选等；
+常用的应用：
+搜索引擎
+采集金融数据
+采集商品数据
+自动过滤广告
+采集竞争对手的客户数据
+采集行业相关数据，进行数据分析等
+
+
+3）网络爬虫工作原理
+
+通用网络爬虫：
+获取初始的URL---爬取页面并获取新的URL（将已获取的地址放入已爬列表中）--读取新的URL-->判断是否满足结束条件，不满足再循环进行；
+
+聚焦网络爬虫：
+。。。。
+
+
+4）正则表达式
+
+a)什么是正则表达式
+世界上的信息很多，我们可以通过一些表达式进行信息的过滤，得到我们所关注的信息；
+正则表达式就是一种进行数据筛选的表达式；
+
+b)原子
+原子 是正则表达式中的最基本的组成单位，每个正则表达式中至少要包含一个原子。常见的原子类型：
+普通字符作为原子
+非打印字符作为原子
+通用字符作为原子
+原子表
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
