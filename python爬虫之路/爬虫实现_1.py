@@ -4,8 +4,9 @@
 
 ##最简单的爬虫的实现代码
 # import urllib.request
-# data=urllib.request.urlopen("https://www.csdn.net/").read() ##读取到的是一个文件，需要用read读取
-# print(data)
+# data=urllib.request.urlopen("https://www.csdn.net/").read().decode("utf-8","ignore")     ##读取到的是一个文件，需要用read读取
+# print(len(data))
+
 
 ##从网页中提取QQ群
 # import urllib.request
@@ -27,7 +28,7 @@
 
 
 
-##作业：从指定完整提取出版社信息，并写入文件中
+##作业：从指定网站提取出版社信息，并写入文件中
 import urllib.request
 import re
 import xlsxwriter
@@ -47,5 +48,10 @@ for a in range(len(ret)):
     ws.write(a,b,c)
 wb1.close()
 print("文件合并完成")
+
+
+# 备注：
+# 只要执行print(len(data)) 长度满足要求，就说明已经爬正常了
+#但执行 print(data) 或 write(data) 可能会出现报错，但已经爬取成功了，只是文件打印和写入时提示的编码错误，请知晓。
 
 
