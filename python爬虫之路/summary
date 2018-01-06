@@ -68,6 +68,17 @@ b)原子
 原子表
 
 
+1.重要，关于网页编码格式的问题，困扰了很久，详细对策请参考：
+http://blog.csdn.net/hfut_jf/article/details/51276110
+
+2.charset=gb2312"，必须用gbk编码的方式去读取
+参考：http://cache.baiducontent.com/c?m=9d78d513d9841df409b0c2295b41863b4f03d7237c8a90027ea48449e0735b30506692ac2652574287d27d1716af3f4beb803c65377237b7eadf893a8ce6c47f7e9f2745214fda5612a25fb8cb37739671cd0cbeb81996eabb74c4b9d2a2dd1e44cb23537897f0fa015c03ca1eb24970b8e0c215494810cbee3b65e858073e9e5057b636a2bc262947dff9871a0a813dd1120c8aff6bed6b05b564f55e4d7853a03bed5f173b73bb1372b4036e58ccac00b37d25153ee508f5e290e8bc55da8bac62c3a48ab2299263edc7e0fd74&p=986dc54ad6c340bc0be296661c4483&newp=cb39c54ad6c340f634a9c7710f0886231610db2151d7d1136b82c825d7331b001c3bbfb423251200d5ce776702a9485febf0317935012ba3dda5c91d9fb4c57479d14b70&user=baidu&fm=sc&query=UnicodeDecodeError%3A+%27utf-8%27+codec+can%27t+decode+byte+0xd0+in+position+192%3A+invalid+continuation+byte&qid=c57c55f30007aca3&p1=2
+
+3. 待研究的网页： 爬虫中自动实现判断网页是否压缩的方法
+https://www.crifan.com/compress_html_in_urllib2_open_then_decompress_returned_gzip_data_in_python/
+
+
+
 
 
 
