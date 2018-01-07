@@ -77,6 +77,10 @@ http://blog.csdn.net/hfut_jf/article/details/51276110
 3. 待研究的网页： 爬虫中自动实现判断网页是否压缩的方法
 https://www.crifan.com/compress_html_in_urllib2_open_then_decompress_returned_gzip_data_in_python/
 
+4.总结：使用urllib爬取网页时遇到 报错或 下载下来的是乱码的话，和两个有关系：
+1）解码的格式和html的编码格式不一致；
+2）网页采用压缩的格式进行传输，需要先解压才可以。
+
 
 
 
