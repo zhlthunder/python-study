@@ -1,0 +1,137 @@
+scrapy初识：
+开发Python爬虫有很多种方式，从程序的复杂程度的角度来说，可以分为：爬虫项目和爬虫文件。
+相信有些朋友玩过python和urllib模块，一般我们可以用该模块写一些爬虫文件，实现起来非常方便，但
+做大型姓名的时候，会发现效率不是太好，并且程序的稳定性也不是太好。
+scrapy是一个python的爬虫框架，使用scrapy可以提高开发效率，并且非常适合做一些大型爬虫项目；
+简单来说，urllib库更适合写爬虫文件，scrapy更适合做爬虫项目；
+scrapy可看做一个半成品的爬虫项目，很多底层的细节，scrapy已经帮我们实现了，这样我们就可以集中
+关注业务逻辑就可以了。
+
+
+scrapy安装方法：
+scrapy推荐的安装步骤：
+0.开个vpn或采用下载到本地安装  //下载安装即可
+1.首先，升级pip: python -m pip install --upgrade pip (建议网络安装)  //升级pip，很多情况下，pip经常需要升级
+执行时提示如下错误：
+Fatal error in launcher: Unable to create process using '"'
+参考q&a;
+
+Installing collected packages: pip
+  Found existing installation: pip 9.0.1
+    Uninstalling pip-9.0.1:
+      Successfully uninstalled pip-9.0.1
+Successfully installed pip-9.0.2
+
+
+2.安装wheel (建议网络安装) //pip install wheel,也可以用pycharm来安装；
+3.安装lxml(下载安装)
+//百度搜索 lfd python，打开https://www.baidu.com/link?url=aqGottvxPtgEsRCBNmWXT9751ODvDQxeq1rlBTkCyJjoOmhSaC0d5qrTBj4SZ64Qqa9tqW4M2Dsv91lxbNAjWa&wd=&eqid=f81b5daf0000cf3d000000035aaccafc
+然后搜索lxml并下载即可，下载lxml?4.2.0?cp36?cp36m?win_amd64.whl 这个包（cp36 代表我python的版本是3.6， amd64表示windows是64bit）
+一定要完全匹配，否则会安装失败的；
+安装：
+pip install **.whl
+C:\Users\lin\PycharmProjects\python_study_1s\python_study\git-zhl\python-study\python爬虫之路\scrapy框架\scrapy安装>pip install lxml-4.2.0-cp36-cp36m-win32.whl
+Processing c:\users\lin\pycharmprojects\python_study_1s\python_study\git-zhl\python-study\python爬虫之路\scrapy框架\scrapy安装\lxml-4.2.0-cp36-cp36m-win32.whl
+Installing collected packages: lxml
+Successfully installed lxml-4.2.0
+
+4.安装twisted(下载安装)
+方法同上
+
+5.pip install scrapy 或 pin install scrapy==1.1.0rc3(建议网络安装)
+
+C:\Users\lin\PycharmProjects\python_study_1s\python_study\git-zhl\python-study\python爬虫之路\scrapy框架\scrapy安装>pip install scrapy
+Collecting scrapy
+  Downloading Scrapy-1.5.0-py2.py3-none-any.whl (251kB)
+    100% |████████████████████████████████| 256kB 344kB/s
+Collecting cssselect>=0.9 (from scrapy)
+  Downloading cssselect-1.0.3-py2.py3-none-any.whl
+Collecting pyOpenSSL (from scrapy)
+  Downloading pyOpenSSL-17.5.0-py2.py3-none-any.whl (53kB)
+    100% |████████████████████████████████| 61kB 24kB/s
+Collecting service-identity (from scrapy)
+  Downloading service_identity-17.0.0-py2.py3-none-any.whl
+Requirement already satisfied: six>=1.5.2 in c:\python3\lib\site-packages (from scrapy)
+Requirement already satisfied: lxml in c:\python3\lib\site-packages (from scrapy)
+Requirement already satisfied: Twisted>=13.1.0 in c:\python3\lib\site-packages (from scrapy)
+Collecting queuelib (from scrapy)
+  Downloading queuelib-1.5.0-py2.py3-none-any.whl
+Collecting parsel>=1.1 (from scrapy)
+  Downloading parsel-1.4.0-py2.py3-none-any.whl
+Collecting w3lib>=1.17.0 (from scrapy)
+  Downloading w3lib-1.19.0-py2.py3-none-any.whl
+Collecting PyDispatcher>=2.0.5 (from scrapy)
+  Downloading PyDispatcher-2.0.5.tar.gz
+Collecting cryptography>=2.1.4 (from pyOpenSSL->scrapy)
+  Downloading cryptography-2.1.4-cp36-cp36m-win32.whl (1.1MB)
+    100% |████████████████████████████████| 1.1MB 79kB/s
+Collecting pyasn1-modules (from service-identity->scrapy)
+  Downloading pyasn1_modules-0.2.1-py2.py3-none-any.whl (60kB)
+    100% |████████████████████████████████| 61kB 37kB/s
+Requirement already satisfied: attrs in c:\python3\lib\site-packages (from service-identity->scrapy)
+Requirement already satisfied: pyasn1 in c:\python3\lib\site-packages (from service-identity->scrapy)
+Requirement already satisfied: incremental>=16.10.1 in c:\python3\lib\site-packages (from Twisted>=13.1.0->scrapy)
+Requirement already satisfied: Automat>=0.3.0 in c:\python3\lib\site-packages (from Twisted>=13.1.0->scrapy)
+Requirement already satisfied: constantly>=15.1 in c:\python3\lib\site-packages (from Twisted>=13.1.0->scrapy)
+Requirement already satisfied: hyperlink>=17.1.1 in c:\python3\lib\site-packages (from Twisted>=13.1.0->scrapy)
+Requirement already satisfied: zope.interface>=4.0.2 in c:\python3\lib\site-packages (from Twisted>=13.1.0->scrapy)
+Requirement already satisfied: asn1crypto>=0.21.0 in c:\python3\lib\site-packages (from cryptography>=2.1.4->pyOpenSSL->scrapy)
+Requirement already satisfied: cffi>=1.7; platform_python_implementation != "PyPy" in c:\python3\lib\site-packages (from cryptography>=2.1.4->pyOpenSSL->scrapy)
+Requirement already satisfied: idna>=2.1 in c:\python3\lib\site-packages (from cryptography>=2.1.4->pyOpenSSL->scrapy)
+Requirement already satisfied: setuptools in c:\python3\lib\site-packages (from zope.interface>=4.0.2->Twisted>=13.1.0->scrapy)
+Requirement already satisfied: pycparser in c:\python3\lib\site-packages (from cffi>=1.7; platform_python_implementation != "PyPy"->cryptography>=2.1.4->pyOpenSSL->scrapy)
+Building wheels for collected packages: PyDispatcher
+  Running setup.py bdist_wheel for PyDispatcher ... done
+  Stored in directory: C:\Users\lin\AppData\Local\pip\Cache\wheels\86\02\a1\5857c77600a28813aaf0f66d4e4568f50c9f133277a4122411
+Successfully built PyDispatcher
+Installing collected packages: cssselect, cryptography, pyOpenSSL, pyasn1-modules, service-identity, queuelib, w3lib, parsel, PyDispatcher, scrapy
+  Found existing installation: cryptography 2.1.3
+    Uninstalling cryptography-2.1.3:
+      Successfully uninstalled cryptography-2.1.3
+Successfully installed PyDispatcher-2.0.5 cryptography-2.1.4 cssselect-1.0.3 parsel-1.4.0 pyOpenSSL-17.5.0 pyasn1-modules-0.2.1 queuelib-1.5.0 scrapy-1.5.0 service-identity-17.0.0 w3lib-1.19.0
+
+
+
+总结安装step:
+1.升级pip
+python3 -m pip install --upgrade pip
+2.
+pip install wheel
+3.
+pip install lxml-4.2.0-cp36-cp36m-win32.whl
+4.
+pip install Twisted-17.9.0-cp36-cp36m-win32.whl
+5.
+pip install scrapy
+
+
+安装完成后确认是否成功：
+C:\Users\lin\PycharmProjects\python_study_1s\python_study\git-zhl\python-study\python爬虫之路\scrapy框架\scrapy安装>scrapy
+:0: UserWarning: You do not have a working installation of the service_identity module: 'cannot import name 'opentype''.  Please install it from <https://pypi.python.org/pypi/service_identity> and make sure all of its dependencies are satisfied.  Without the service_identity module, Twisted can perform only rudimentary TLS client hostname verification.  Many valid certificate/hostname mappings may be rejected.
+Scrapy 1.5.0 - no active project
+
+Usage:
+  scrapy <command> [options] [args]
+
+Available commands:
+  bench         Run quick benchmark test
+  fetch         Fetch a URL using the Scrapy downloader
+  genspider     Generate new spider using pre-defined templates
+  runspider     Run a self-contained spider (without creating a project)
+  settings      Get settings values
+  shell         Interactive scraping console
+  startproject  Create new project
+  version       Print Scrapy version
+  view          Open URL in browser, as seen by Scrapy
+
+  [ more ]      More commands available when run from project directory
+
+Use "scrapy <command> -h" to see more info about a command
+
+
+
+
+
+
+
+

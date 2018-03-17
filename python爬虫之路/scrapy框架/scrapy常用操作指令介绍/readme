@@ -1,0 +1,82 @@
+
+
+scrapy 常见指令介绍：
+
+全局指令：
+C:\Users\lin\PycharmProjects\python_study_1s\python_study\git-zhl\python-study\python爬虫之路\scrapy框架\scrapy安装>scrapy -h
+:0: UserWarning: You do not have a working installation of the service_identity module: 'cannot import name 'opentype''.  Please install it from <https://pypi.python.org/pypi/service_identity> and make sure all of its dependencies are satisfied.  Without the service_identity module, Twisted can perform only rudimentary TLS client hostname verification.  Many valid certificate/hostname mappings may be rejected.
+Scrapy 1.5.0 - no active project
+
+Usage:
+  scrapy <command> [options] [args]
+
+Available commands:
+  bench         Run quick benchmark test  //硬件测试指令，可以在爬虫项目里或项目外执行；
+  fetch         Fetch a URL using the Scrapy downloader //下载某个网页
+  genspider     Generate new spider using pre-defined templates //基于爬虫模板创建爬虫文件
+  runspider     Run a self-contained spider (without creating a project)//运行一个爬虫
+  settings      Get settings values//获取配置信息
+  shell         Interactive scraping console //交互页面
+  startproject  Create new project //创建一个爬虫项目
+  version       Print Scrapy version //查看版本信息
+  view          Open URL in browser, as seen by Scrapy //打开一个URL，在浏览器中显示
+
+  [ more ]      More commands available when run from project directory
+
+Use "scrapy <command> -h" to see more info about a command
+
+
+进入要创建工程的目录下，执行如下的命令创建爬虫项目：
+C:\Users\lin\PycharmProjects\python_study_1s\python_study\git-zhl\python-study\python爬虫之路\scrapy框架\scrapy常用操作指令介绍>scrapy  startproject test01
+:0: UserWarning: You do not have a working installation of the service_identity module: 'cannot import name 'opentype''.  Please install it from <https://pypi.python.org/pypi/service_identity> and make sure all of its dependencies are satisfied.  Without the service_identity module, Twisted can perform only rudimentary TLS client hostname verification.  Many valid certificate/hostname mappings may be rejected.
+New Scrapy project 'test01', using template directory 'c:\\python3\\lib\\site-packages\\scrapy\\templates\\project', created in:
+    C:\Users\lin\PycharmProjects\python_study_1s\python_study\git-zhl\python-study\python爬虫之路\scrapy框架\scrapy常用操作指令介绍\test01
+
+You can start your first spider with:
+    cd test01
+    scrapy genspider example example.com
+
+
+项目文件介绍：
+test01 是核心目录文件
+spiders: 为爬虫文件夹
+ items.py  数据结构定义，类似于django中的models.py
+ pipelines.py 数据处理
+ middlewares.py 中间件配置相关 ，比如代理IP池的配置；
+ settings.py 配置信息，常用的一个是 ROBOTSTXT_OBEY协议是否遵守的设置
+ remark: ROBOTSTXT_OBEY 协议，是互联网行业通用的一个关于爬虫的国际协议，要求网站都遵循这个协议，而有一些网站，为了不想让你爬，它就设置不遵守这个
+ 协议，如果你想爬这个网站，必须要修改这个选项为NO 才可以成功爬取；
+
+
+项目文件的工作流程：
+
+items.py（需要爬取的目标） ---爬虫文件（蜘蛛）----pipeline.py (数据处理)
+
+
+项目指令（进入爬虫项目后查询帮助信息）
+C:\Users\lin\PycharmProjects\python_study_1s\python_study\git-zhl\python-study\python爬虫之路\scrapy框架\scrapy常用操作指令介绍>cd test01
+
+C:\Users\lin\PycharmProjects\python_study_1s\python_study\git-zhl\python-study\python爬虫之路\scrapy框架\scrapy常用操作指令介绍\test01>scrapy -h
+:0: UserWarning: You do not have a working installation of the service_identity module: 'cannot import name 'opentype''.  Please install it from <https://pypi.python.org/pypi/service_identity> and make sure all of its dependencies are satisfied.  Without the service_identity module, Twisted can perform only rudimentary TLS client hostname verification.  Many valid certificate/hostname mappings may be rejected.
+Scrapy 1.5.0 - project: test01
+
+Usage:
+  scrapy <command> [options] [args]
+
+Available commands:
+  bench         Run quick benchmark test
+  check         Check spider contracts   //项目指令，
+  crawl         Run a spider
+  edit          Edit spider
+  fetch         Fetch a URL using the Scrapy downloader
+  genspider     Generate new spider using pre-defined templates
+  list          List available spiders
+  parse         Parse URL (using its spider) and print the results
+  runspider     Run a self-contained spider (without creating a project)
+  settings      Get settings values
+  shell         Interactive scraping console
+  startproject  Create new project
+  version       Print Scrapy version
+  view          Open URL in browser, as seen by Scrapy
+
+Use "scrapy <command> -h" to see more info about a command
