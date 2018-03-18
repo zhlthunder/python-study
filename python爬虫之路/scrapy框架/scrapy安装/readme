@@ -130,7 +130,12 @@ Use "scrapy <command> -h" to see more info about a command
 
 
 
+重要：
+通过上面的安装步骤安装完scrapy后，打开pycharm后，在已安装的模块中无法看到scrapy模块及其它相关的模块，且在脚本中导入scrapy时也提示找不到，解决
+办法请参考：
+https://www.cnblogs.com/llssx/p/8378832.html
 
+方法就是：在pycharm中重新添加一次 安装scrapy等模块所使用python的完整路径，如果之前已经有，那就删除后，重新添加（即采用上述博客中的方法1）
 
 
 

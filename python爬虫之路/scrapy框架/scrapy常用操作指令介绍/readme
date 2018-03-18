@@ -65,7 +65,7 @@ Usage:
 
 Available commands:
   bench         Run quick benchmark test
-  check         Check spider contracts   //项目指令，
+  check         Check spider contracts
   crawl         Run a spider
   edit          Edit spider
   fetch         Fetch a URL using the Scrapy downloader
@@ -80,3 +80,265 @@ Available commands:
   view          Open URL in browser, as seen by Scrapy
 
 Use "scrapy <command> -h" to see more info about a command
+
+
+fetch: 获取一个网址，显示网址爬取的过程；
+
+C:\Users\lin\PycharmProjects\python_study_1s\python_study\git-zhl\python-study\python爬虫之路\scrapy框架\scrapy常用操作指令介绍\test01>scrapy fetch http://www.baidu.com
+:0: UserWarning: You do not have a working installation of the service_identity module: 'cannot import name 'opentype''.  Please install it from <https://pypi.python.org/pypi/service_identity> and make sure all of its dependencies are satisfied.  Without the service_identity module, Twisted can perform only rudimentary TLS client hostname verification.  Many valid certificate/hostname mappings may be rejected.
+2018-03-17 21:17:12 [scrapy.utils.log] INFO: Scrapy 1.5.0 started (bot: test01)
+2018-03-17 21:17:12 [scrapy.utils.log] INFO: Versions: lxml 4.2.0.0, libxml2 2.9.7, cssselect 1.0.3, parsel 1.4.0, w3lib 1.19.0, Twisted 17.9.0, Python 3.6.0 (v3.6.0:41df79263a11, Dec 23 2016, 07:18:10) [MSC v.1900 32 bit (Intel)], pyOpenSSL 17.5.0 (OpenSSL 1.1.0g  2 Nov 2017), cryptography 2.1.4, Platform Windows-10-10.0.14393-SP0
+2018-03-17 21:17:12 [scrapy.crawler] INFO: Overridden settings: {'BOT_NAME': 'test01', 'NEWSPIDER_MODULE': 'test01.spiders', 'ROBOTSTXT_OBEY': True, 'SPIDER_MODULES': ['test01.spiders']}
+2018-03-17 21:17:12 [scrapy.middleware] INFO: Enabled extensions:
+['scrapy.extensions.corestats.CoreStats',
+ 'scrapy.extensions.telnet.TelnetConsole',
+ 'scrapy.extensions.logstats.LogStats']
+2018-03-17 21:17:13 [scrapy.middleware] INFO: Enabled downloader middlewares:
+['scrapy.downloadermiddlewares.robotstxt.RobotsTxtMiddleware',
+ 'scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware',
+ 'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware',
+ 'scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware',
+ 'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware',
+ 'scrapy.downloadermiddlewares.retry.RetryMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware',
+ 'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.RedirectMiddleware',
+ 'scrapy.downloadermiddlewares.cookies.CookiesMiddleware',
+ 'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware',
+ 'scrapy.downloadermiddlewares.stats.DownloaderStats']
+2018-03-17 21:17:13 [scrapy.middleware] INFO: Enabled spider middlewares:
+['scrapy.spidermiddlewares.httperror.HttpErrorMiddleware',
+ 'scrapy.spidermiddlewares.offsite.OffsiteMiddleware',
+ 'scrapy.spidermiddlewares.referer.RefererMiddleware',
+ 'scrapy.spidermiddlewares.urllength.UrlLengthMiddleware',
+ 'scrapy.spidermiddlewares.depth.DepthMiddleware']
+2018-03-17 21:17:13 [scrapy.middleware] INFO: Enabled item pipelines:
+[]
+2018-03-17 21:17:13 [scrapy.core.engine] INFO: Spider opened
+2018-03-17 21:17:13 [scrapy.extensions.logstats] INFO: Crawled 0 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+2018-03-17 21:17:13 [scrapy.extensions.telnet] DEBUG: Telnet console listening on 127.0.0.1:6023
+2018-03-17 21:17:13 [scrapy.core.engine] DEBUG: Crawled (200) <GET http://www.baidu.com/robots.txt> (referer: None)
+2018-03-17 21:17:13 [scrapy.downloadermiddlewares.robotstxt] DEBUG: Forbidden by robots.txt: <GET http://www.baidu.com>
+2018-03-17 21:17:13 [scrapy.core.engine] INFO: Closing spider (finished)
+2018-03-17 21:17:13 [scrapy.statscollectors] INFO: Dumping Scrapy stats:
+{'downloader/exception_count': 1,
+ 'downloader/exception_type_count/scrapy.exceptions.IgnoreRequest': 1,
+ 'downloader/request_bytes': 222,
+ 'downloader/request_count': 1,
+ 'downloader/request_method_count/GET': 1,
+ 'downloader/response_bytes': 677,
+ 'downloader/response_count': 1,
+ 'downloader/response_status_count/200': 1,
+ 'finish_reason': 'finished',
+ 'finish_time': datetime.datetime(2018, 3, 17, 13, 17, 13, 922868),
+ 'log_count/DEBUG': 3,
+ 'log_count/INFO': 7,
+ 'response_received_count': 1,
+ 'scheduler/dequeued': 1,
+ 'scheduler/dequeued/memory': 1,
+ 'scheduler/enqueued': 1,
+ 'scheduler/enqueued/memory': 1,
+ 'start_time': datetime.datetime(2018, 3, 17, 13, 17, 13, 370498)}
+2018-03-17 21:17:13 [scrapy.core.engine] INFO: Spider closed (finished)
+
+
+runspider：不依赖于项目，直接运行爬虫文件
+
+编辑一个单独的爬虫文件，spider_file_single.py，并运行：
+C:\Users\lin\PycharmProjects\python_study_1s\python_study\git-zhl\python-study\python爬虫之路\scrapy框架\scrapy常用操作指令介绍>scrapy runspider spider_file_single.py
+:0: UserWarning: You do not have a working installation of the service_identity module: 'cannot import name 'opentype''.  Please install it from <https://pypi.python.org/pypi/service_identity> and make sure all of its dependencies are satisfied.  Without the service_identity module, Twisted can perform only rudimentary TLS client hostname verification.  Many valid certificate/hostname mappings may be rejected.
+2018-03-18 07:24:45 [scrapy.utils.log] INFO: Scrapy 1.5.0 started (bot: scrapybot)
+2018-03-18 07:24:45 [scrapy.utils.log] INFO: Versions: lxml 4.2.0.0, libxml2 2.9.7, cssselect 1.0.3, parsel 1.4.0, w3lib 1.19.0, Twisted 17.9.0, Python 3.6.0 (v3.6.0:41df79263a11, Dec 23 2016, 07:18:10) [MSC v.1900 32 bit (Intel)], pyOpenSSL 17.5.0 (OpenSSL 1.1.0g  2 Nov 2017), cryptography 2.1.4, Platform Windows-10-10.0.14393-SP0
+2018-03-18 07:24:45 [scrapy.crawler] INFO: Overridden settings: {'SPIDER_LOADER_WARN_ONLY': True}
+2018-03-18 07:24:45 [scrapy.middleware] INFO: Enabled extensions:
+['scrapy.extensions.corestats.CoreStats',
+ 'scrapy.extensions.telnet.TelnetConsole',
+ 'scrapy.extensions.logstats.LogStats']
+2018-03-18 07:24:45 [scrapy.middleware] INFO: Enabled downloader middlewares:
+['scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware',
+ 'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware',
+ 'scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware',
+ 'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware',
+ 'scrapy.downloadermiddlewares.retry.RetryMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware',
+ 'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.RedirectMiddleware',
+ 'scrapy.downloadermiddlewares.cookies.CookiesMiddleware',
+ 'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware',
+ 'scrapy.downloadermiddlewares.stats.DownloaderStats']
+2018-03-18 07:24:46 [scrapy.middleware] INFO: Enabled spider middlewares:
+['scrapy.spidermiddlewares.httperror.HttpErrorMiddleware',
+ 'scrapy.spidermiddlewares.offsite.OffsiteMiddleware',
+ 'scrapy.spidermiddlewares.referer.RefererMiddleware',
+ 'scrapy.spidermiddlewares.urllength.UrlLengthMiddleware',
+ 'scrapy.spidermiddlewares.depth.DepthMiddleware']
+2018-03-18 07:24:46 [scrapy.middleware] INFO: Enabled item pipelines:
+[]
+2018-03-18 07:24:46 [scrapy.core.engine] INFO: Spider opened
+2018-03-18 07:24:46 [scrapy.extensions.logstats] INFO: Crawled 0 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+2018-03-18 07:24:46 [scrapy.extensions.telnet] DEBUG: Telnet console listening on 127.0.0.1:6023
+2018-03-18 07:24:46 [scrapy.core.engine] DEBUG: Crawled (200) <GET http://www.baidu.com> (referer: None)
+2018-03-18 07:24:46 [scrapy.core.engine] INFO: Closing spider (finished)
+2018-03-18 07:24:46 [scrapy.statscollectors] INFO: Dumping Scrapy stats:
+{'downloader/request_bytes': 212,
+ 'downloader/request_count': 1,
+ 'downloader/request_method_count/GET': 1,
+ 'downloader/response_bytes': 1476,
+ 'downloader/response_count': 1,
+ 'downloader/response_status_count/200': 1,
+ 'finish_reason': 'finished',
+ 'finish_time': datetime.datetime(2018, 3, 17, 23, 24, 46, 280324),
+ 'log_count/DEBUG': 2,
+ 'log_count/INFO': 7,
+ 'response_received_count': 1,
+ 'scheduler/dequeued': 1,
+ 'scheduler/dequeued/memory': 1,
+ 'scheduler/enqueued': 1,
+ 'scheduler/enqueued/memory': 1,
+ 'start_time': datetime.datetime(2018, 3, 17, 23, 24, 46, 44318)}
+2018-03-18 07:24:46 [scrapy.core.engine] INFO: Spider closed (finished)
+
+
+settings 用于修改项目下的配置文件的信息，用法如下：
+比如settings配置文件中有如下的信息：
+BOT_NAME = 'test01'
+
+C:\Users\lin\PycharmProjects\python_study_1s\python_study\git-zhl\python-study\python爬虫之路\scrapy框架\scrapy常用操作指令介绍\test01>scrapy settings --get BOT_NAME
+:0: UserWarning: You do not have a working installation of the service_identity module: 'cannot import name 'opentype''.  Please install it from <https://pypi.python.org/pypi/service_identity> and make sure all of its dependencies are satisfied.  Without the service_identity module, Twisted can perform only rudimentary TLS client hostname verification.  Many valid certificate/hostname mappings may be rejected.
+test01
+
+上面执行时抛的warnig 信息，后续考虑解决；
+参考https://stackoverflow.com/questions/24089484/python-no-module-named-service-identity 中的方法无法解
+scrapy shell http://www.baidu.com 进入交互模式
+
+scrapy version 查看版本信息；
+
+scrapy view http://news.163.com   直接下载网页，并自动打开浏览器，并显示；
+当执行scrapy view http://www.baidu.com时，没有打开浏览器，从日志中发现：
+2018-03-18 08:08:58 [scrapy.downloadermiddlewares.robotstxt] DEBUG: Forbidden by robots.txt: <GET http://www.baidu.com>
+即是因为协议的问题，没有下载成功；
+
+
+
+测试电脑硬件爬取性能：
+C:\Users\lin\PycharmProjects\python_study_1s\python_study\git-zhl\python-study\python爬虫之路\scrapy框架\scrapy常用操作指令介绍\test01>scrapy bench
+:0: UserWarning: You do not have a working installation of the service_identity module: 'cannot import name 'opentype''.  Please install it from <https://pypi.python.org/pypi/service_identity> and make sure all of its dependencies are satisfied.  Without the service_identity module, Twisted can perform only rudimentary TLS client hostname verification.  Many valid certificate/hostname mappings may be rejected.
+2018-03-18 08:10:30 [scrapy.utils.log] INFO: Scrapy 1.5.0 started (bot: test01)
+2018-03-18 08:10:30 [scrapy.utils.log] INFO: Versions: lxml 4.2.0.0, libxml2 2.9.7, cssselect 1.0.3, parsel 1.4.0, w3lib 1.19.0, Twisted 17.9.0, Python 3.6.0 (v3.6.0:41df79263a11, Dec 23 2016, 07:18:10) [MSC v.1900 32 bit (Intel)], pyOpenSSL 17.5.0 (OpenSSL 1.1.0g  2 Nov 2017), cryptography 2.1.4, Platform Windows-10-10.0.14393-SP0
+:0: UserWarning: You do not have a working installation of the service_identity module: 'cannot import name 'opentype''.  Please install it from <https://pypi.python.org/pypi/service_identity> and make sure all of its dependencies are satisfied.  Without the service_identity module, Twisted can perform only rudimentary TLS client hostname verification.  Many valid certificate/hostname mappings may be rejected.
+2018-03-18 08:10:32 [scrapy.crawler] INFO: Overridden settings: {'BOT_NAME': 'test01', 'CLOSESPIDER_TIMEOUT': 10, 'LOGSTATS_INTERVAL': 1, 'LOG_LEVEL': 'INFO', 'NEWSPIDER_MODULE': 'test01.spiders', 'ROBOTSTXT_OBEY': True, 'SPIDER_MODULES': ['test01.spiders']}
+2018-03-18 08:10:32 [scrapy.middleware] INFO: Enabled extensions:
+['scrapy.extensions.corestats.CoreStats',
+ 'scrapy.extensions.telnet.TelnetConsole',
+ 'scrapy.extensions.closespider.CloseSpider',
+ 'scrapy.extensions.logstats.LogStats']
+2018-03-18 08:10:33 [scrapy.middleware] INFO: Enabled downloader middlewares:
+['scrapy.downloadermiddlewares.robotstxt.RobotsTxtMiddleware',
+ 'scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware',
+ 'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware',
+ 'scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware',
+ 'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware',
+ 'scrapy.downloadermiddlewares.retry.RetryMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware',
+ 'scrapy.downloadermiddlewares.httpcompression.HttpCompressionMiddleware',
+ 'scrapy.downloadermiddlewares.redirect.RedirectMiddleware',
+ 'scrapy.downloadermiddlewares.cookies.CookiesMiddleware',
+ 'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware',
+ 'scrapy.downloadermiddlewares.stats.DownloaderStats']
+2018-03-18 08:10:33 [scrapy.middleware] INFO: Enabled spider middlewares:
+['scrapy.spidermiddlewares.httperror.HttpErrorMiddleware',
+ 'scrapy.spidermiddlewares.offsite.OffsiteMiddleware',
+ 'scrapy.spidermiddlewares.referer.RefererMiddleware',
+ 'scrapy.spidermiddlewares.urllength.UrlLengthMiddleware',
+ 'scrapy.spidermiddlewares.depth.DepthMiddleware']
+2018-03-18 08:10:33 [scrapy.middleware] INFO: Enabled item pipelines:
+[]
+2018-03-18 08:10:33 [scrapy.core.engine] INFO: Spider opened
+2018-03-18 08:10:33 [scrapy.extensions.logstats] INFO: Crawled 0 pages (at 0 pages/min), scraped 0 items (at 0 items/min)
+2018-03-18 08:10:34 [scrapy.extensions.logstats] INFO: Crawled 39 pages (at 2340 pages/min), scraped 0 items (at 0 items/min)
+2018-03-18 08:10:35 [scrapy.extensions.logstats] INFO: Crawled 71 pages (at 1920 pages/min), scraped 0 items (at 0 items/min)
+2018-03-18 08:10:36 [scrapy.extensions.logstats] INFO: Crawled 95 pages (at 1440 pages/min), scraped 0 items (at 0 items/min)
+2018-03-18 08:10:37 [scrapy.extensions.logstats] INFO: Crawled 127 pages (at 1920 pages/min), scraped 0 items (at 0 items/min)
+2018-03-18 08:10:38 [scrapy.extensions.logstats] INFO: Crawled 151 pages (at 1440 pages/min), scraped 0 items (at 0 items/min)
+2018-03-18 08:10:39 [scrapy.extensions.logstats] INFO: Crawled 183 pages (at 1920 pages/min), scraped 0 items (at 0 items/min)
+2018-03-18 08:10:40 [scrapy.extensions.logstats] INFO: Crawled 207 pages (at 1440 pages/min), scraped 0 items (at 0 items/min)
+2018-03-18 08:10:41 [scrapy.extensions.logstats] INFO: Crawled 231 pages (at 1440 pages/min), scraped 0 items (at 0 items/min)
+2018-03-18 08:10:42 [scrapy.extensions.logstats] INFO: Crawled 255 pages (at 1440 pages/min), scraped 0 items (at 0 items/min)
+2018-03-18 08:10:43 [scrapy.core.engine] INFO: Closing spider (closespider_timeout)
+2018-03-18 08:10:43 [scrapy.extensions.logstats] INFO: Crawled 279 pages (at 1440 pages/min), scraped 0 items (at 0 items/min)
+2018-03-18 08:10:44 [scrapy.extensions.logstats] INFO: Crawled 295 pages (at 960 pages/min), scraped 0 items (at 0 items/min)
+2018-03-18 08:10:44 [scrapy.statscollectors] INFO: Dumping Scrapy stats:
+{'downloader/request_bytes': 109521,
+ 'downloader/request_count': 295,
+ 'downloader/request_method_count/GET': 295,
+ 'downloader/response_bytes': 687403,
+ 'downloader/response_count': 295,
+ 'downloader/response_status_count/200': 295,
+ 'finish_reason': 'closespider_timeout',
+ 'finish_time': datetime.datetime(2018, 3, 18, 0, 10, 44, 829947),
+ 'log_count/INFO': 18,
+ 'request_depth_max': 11,
+ 'response_received_count': 295,
+ 'scheduler/dequeued': 294,
+ 'scheduler/dequeued/memory': 294,
+ 'scheduler/enqueued': 5881,
+ 'scheduler/enqueued/memory': 5881,
+ 'start_time': datetime.datetime(2018, 3, 18, 0, 10, 33, 553422)}
+2018-03-18 08:10:44 [scrapy.core.engine] INFO: Spider closed (closespider_timeout)
+
+
+创建爬虫文件，可以依据模板创建爬虫文件；
+
+C:\Users\lin\PycharmProjects\python_study_1s\python_study\git-zhl\python-study\python爬虫之路\scrapy框架\scrapy常用操作指令介绍\test01>scrapy genspider -l
+:0: UserWarning: You do not have a working installation of the service_identity module: 'cannot import name 'opentype''.  Please install it from <https://pypi.python.org/pypi/service_identity> and make sure all of its dependencies are satisfied.  Without the service_identity module, Twisted can perform only rudimentary TLS client hostname verification.  Many valid certificate/hostname mappings may be rejected.
+Available templates:
+  basic
+  crawl   //做自动爬虫的
+  csvfeed  //爬取csv格式的文件
+  xmlfeed   //爬取xml格式的文件
+
+  C:\Users\lin\PycharmProjects\python_study_1s\python_study\git-zhl\python-study\python爬虫之路\scrapy框架>scrapy genspider -t basic single_spider02 iqianyue.com
+:0: UserWarning: You do not have a working installation of the service_identity module: 'cannot import name 'opentype''.  Please install it from <https://pypi.python.org/pypi/service_identity> and make sure all of its dependencies are satisfied.  Without the service_identity module, Twisted can perform only rudimentary TLS client hostname verification.  Many valid certificate/hostname mappings may be rejected.
+Created spider 'single_spider02' using template 'basic'
+
+
+scrapy check 命令，以合同的方式对爬虫文件进行测试；执行时报如下的错误，待继续排查：
+C:\Users\lin\PycharmProjects\python_study_1s\python_study\git-zhl\python-study\python爬虫之路\scrapy框架\scrapy常用操作指令介绍\test01>scrapy check single_spider02.py
+:0: UserWarning: You do not have a working installation of the service_identity module: 'cannot import name 'opentype''.  Please install it from <https://pypi.python.org/pypi/service_identity> and make sure all of its dependencies are satisfied.  Without the service_identity module, Twisted can perform only rudimentary TLS client hostname verification.  Many valid certificate/hostname mappings may be rejected.
+Traceback (most recent call last):
+  File "c:\python3\lib\site-packages\scrapy\spiderloader.py", line 69, in load
+    return self._spiders[spider_name]
+KeyError: 'single_spider02.py'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "c:\python3\lib\runpy.py", line 193, in _run_module_as_main
+    "__main__", mod_spec)
+  File "c:\python3\lib\runpy.py", line 85, in _run_code
+    exec(code, run_globals)
+  File "C:\python3\Scripts\scrapy.exe\__main__.py", line 9, in <module>
+  File "c:\python3\lib\site-packages\scrapy\cmdline.py", line 150, in execute
+    _run_print_help(parser, _run_command, cmd, args, opts)
+  File "c:\python3\lib\site-packages\scrapy\cmdline.py", line 90, in _run_print_help
+    func(*a, **kw)
+  File "c:\python3\lib\site-packages\scrapy\cmdline.py", line 157, in _run_command
+    cmd.run(args, opts)
+  File "c:\python3\lib\site-packages\scrapy\commands\check.py", line 72, in run
+    spidercls = spider_loader.load(spidername)
+  File "c:\python3\lib\site-packages\scrapy\spiderloader.py", line 71, in load
+    raise KeyError("Spider not found: {}".format(spider_name))
+KeyError: 'Spider not found: single_spider02.py'
+
+
+
+
+
+
+
+
+
+
+
+
+

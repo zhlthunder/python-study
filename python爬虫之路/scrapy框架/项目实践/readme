@@ -1,0 +1,116 @@
+任务：当当网商品爬取实战
+
+1.先找一个路径，执行scrapy startproject dangdang 创建一个项目；
+2.cd到项目的目录下，执行创建爬虫文件的目录，这样就会在spiders的子文件夹下生产一个爬虫文件，记住，不需要进入spiders目录下执行这个创建命令，切记；
+C:\Users\lin\PycharmProjects\python_study_1s\python_study\git-zhl\python-study\python爬虫之路\scrapy框架\项目实践\dangdang>scrapy genspider -t basic dd dangdang.com
+:0: UserWarning: You do not have a working installation of the service_identity module: 'cannot import name 'opentype''.  Please install it from <https://pypi.python.org/pypi/service_identity> and make sure all of its dependencies are satisfied.  Without the service_identity module, Twisted can perform only rudimentary TLS client hostname verification.  Many valid certificate/hostname mappings may be rejected.
+Created spider 'dd' using template 'basic' in module:
+  dangdang.spiders.dd
+
+
+3.项目配置步骤：
+1）在items.py 下定义需要获取及存储的数据类型
+ title=scrapy.Field()
+    link=scrapy.Field()
+    comment=scrapy.Field()
+
+2）编辑dd.py 爬虫文件；
+  start_url :为第一个要爬取的url
+
+3)执行爬虫的方法：
+直接在项目的根目录下，执行 scrapy crawl dd （--nolog） （对应的爬虫文件名为dd.py）
+
+二次测试执行：
+C:\Users\lin\PycharmProjects\python_study_1s\python_study\git-zhl\python-study\python爬虫之路\scrapy框架\项目实践\dangdang>scrapy crawl dd  --nolog
+:0: UserWarning: You do not have a working installation of the service_identity module: 'cannot import name 'opentype''.  Please install it from <https://pypi.python.org/pypi/service_identity> and make sure all of its dependencies are satisfied.  Without the service_identity module, Twisted can perform only rudimentary TLS client hostname verification.  Many valid certificate/hostname mappings may be rejected.
+ 茵曼小清新文艺范绣花立领棒球服女短款百搭外套外搭修身夹克【1863042155】:http://product.dangdang.com/1448279356.html:224条评论
+ Lily2018春新款女装系腰带修身西装时尚显瘦黑色西装外套118129C2903:http://product.dangdang.com/1254692567.html:6条评论
+ 裂帛女装2018春装新款刺绣立体铆钉上衣水洗长袖牛仔短外套女:http://product.dangdang.com/1253617497.html:0条评论
+ Amii极简chic通勤ins套装2018春新双排扣西装外套:http://product.dangdang.com/1299737467.html:0条评论
+ 初语 2018年春季 撞色绣花连帽宽松卫衣开衫中长款休闲外套女:http://product.dangdang.com/1063697469.html:0条评论
+ 【春装新品 支持礼品卡】妖精的口袋Y春装2018新休闲宽松棉质牛仔短外套短款女:http://product.dangdang.com/1116800898.html:6条评论
+ 【支持礼品卡】森宿Y短款休闲外套春装2018新款文艺做旧水洗牛仔外套女:http://product.dangdang.com/1001035277.html:5条评论
+ 【3.19-3.23春心萌动，全场1折起买3再免1，赶紧加购吧！】森马夹克女秋季新款女装港味短款外套韩版立领学生上衣白:http://product.dangdang.com/1312117295.html:27条评论
+ 【3.19-3.23春心萌动，全场1折起买3再免1，赶紧加购吧！】森马夹克外套女秋新款韩版运动棒球服立领短款上衣学生刺:http://product.dangdang.com/1317344995.html:13条评论
+ 裂帛女装2017冬装新款连帽刺绣长袖休闲外套百搭款直筒卫衣:http://product.dangdang.com/1434411691.html:41条评论
+ 茵曼2018春装新款文艺范字母印花长袖连帽衫卫衣女宽松套头衫上衣【1881082274】:http://product.dangdang.com/1494394491.html:77条评论
+ 海贝2018春装新款女 OL气质西装领长袖双排扣收腰中长款风衣外套:http://product.dangdang.com/1295706968.html:4条评论
+ Lagogo/拉谷谷春新款圆领亮片休闲短款牛仔夹克:http://product.dangdang.com/1048776248.html:13条评论
+ 裂帛女装2018秋冬新款圆领刺绣长袖显瘦套头卫衣:http://product.dangdang.com/1269062997.html:34条评论
+ 【下单立减100元 仅限今日】2018新款毛呢外套女春秋韩版学生短款宽松学院风百搭秋季褂子bf潮:http://product.dangdang.com/1440291495.html:70条评论
+ 初语2017春季新款百搭宽松薄款短外套翻领字母印绣章线条感外套女:http://product.dangdang.com/1058470869.html:0条评论
+ zdorzi卓多姿纯色时尚百搭翻领中长风衣外套女832558:http://product.dangdang.com/1494130157.html:0条评论
+ 冬季新款女冬装中长款毛呢大衣外套:http://product.dangdang.com/1009244858.html:11条评论
+ 美特斯邦威棉衣女士百搭中长款棒球衫休闲棉袄立领棉服保暖时尚:http://product.dangdang.com/1456334652.html:31条评论
+ 茉蒂菲莉 牛仔衣 女士连帽文艺范长袖磨破春季新款韩版上衣女式休闲潮外套宽松学生时尚女装:http://product.dangdang.com/1319902968.html:29条评论
+ 初语2017秋冬季新款连帽卫衣短外套女宽松百搭撞色外套学院BF风:http://product.dangdang.com/1419967550.html:2条评论
+ Amii[极简主义]运动风 连帽卫衣女装 2017秋新款趣味标语印花上衣:http://product.dangdang.com/1175647167.html:10条评论
+ Lily2018春新款女装帅气中长款军绿风衣系腰修身风衣118129C1905:http://product.dangdang.com/1264307167.html:4条评论
+ 美特斯邦威女多彩防水斗篷234821:http://product.dangdang.com/1105991424.html:10条评论
+ Amii柔软细腻 100%羊毛双面呢大衣 小个子翻领a字中长毛呢外套女:http://product.dangdang.com/1140370367.html:7条评论
+ 海贝2018春装新款女卡其色复古刺绣双排扣收腰系带中长款风衣外套:http://product.dangdang.com/1295709268.html:0条评论
+ BRIOSO 2017春装新款格纹开身款连衣裙 欧美风全棉格子风衣外套 修身显瘦百搭裙子 WG58995-2:http://product.dangdang.com/1013614537.html:22条评论
+ 【2件8折/3件7折 支持礼品卡】妖精的口袋猫王和少女春秋装欧美复古学院印花七分袖短外套女:http://product.dangdang.com/1458664095.html:18条评论
+ 【满299减200 春装上新】香衣宠儿 2018春季新品女装短外套女 韩版学生连帽外套小西装休闲百搭 2255-180:http://product.dangdang.com/1267488468.html:1条评论
+ zdorzi卓多姿纯色甜美气质小香风皮衣短外套女832107:http://product.dangdang.com/1490267357.html:0条评论
+ 新款韩版宽松百搭花朵刺绣加绒加厚羊羔绒牛仔外套棉衣女:http://product.dangdang.com/1471488650.html:32条评论
+ 茉蒂菲莉 牛仔衣 女士连帽文艺范儿长袖磨破春季新款韩版上衣女式休闲潮外套宽松学生时尚女装:http://product.dangdang.com/1317680168.html:30条评论
+ 【春装新品 支持礼品卡】妖精的口袋Y春装2018新款宽松休闲重工短外套中长款女 预售:http://product.dangdang.com/1114646098.html:9条评论
+ Lily2018春新款女装商务通勤黑色马夹中长款西装马夹118129C0901:http://product.dangdang.com/1264304967.html:1条评论
+ 【杜鹃同款】对白个性磨毛短外套女新款纯色长袖牛仔外套:http://product.dangdang.com/1393218657.html:26条评论
+ RANJU 然聚2018女装春夏季新品新款立领松紧收腰长袖碎花雪纺连衣裙中长款百褶打底裙:http://product.dangdang.com/1436061737.html:73条评论
+ 【满299减200 春装上新】香衣宠儿 2018春季新品大码女装双排扣气质简约风衣长袖中长款修身风衣外套 2117-1:http://product.dangdang.com/1267108668.html:0条评论
+ 烟花烫 2018春装新款女装气质修身绣花毛呢中长款大衣外套 代薰:http://product.dangdang.com/1197396796.html:1条评论
+ 坦博尔 羽绒服女秋冬新款 三合一户外冲锋衣女 时尚运动休闲鸭绒内胆女士冲锋衣 TB7362:http://product.dangdang.com/1109512320.html:1条评论
+ 针织外套春秋纯色百搭:http://product.dangdang.com/1339501491.html:197条评论
+ 2018秋新款女长袖欧美宽松披肩薄外套时尚针织开衫披风大码女装:http://product.dangdang.com/1195333870.html:0条评论
+ 烟花烫 2018春装新款女装时尚百搭蕾丝拼接短款上衣外套 沧海:http://product.dangdang.com/1394366496.html:0条评论
+ 【下单立减100元 仅限今日】【超划算】防晒衣女中长款防紫外线2018夏季新款韩版宽松沙滩服薄款长袖外套:http://product.dangdang.com/1208593395.html:166条评论
+ 白领公社 牛仔衣 女春季新款韩版宽松大码牛仔外套女中长款字母上风学生衣衫女士百搭长袖牛仔外套:http://product.dangdang.com/1064312690.html:26条评论
+ 2018时尚秋冬新款休闲中长款长袖外套女士连帽上衣大码女装:http://product.dangdang.com/1169633067.html:5条评论
+ 实拍2016新款东大门韩版套头收腰牛仔衣套头外套 女:http://product.dangdang.com/1452267766.html:0条评论
+ 颜域品牌女装2018春季装新款休闲时尚条纹两件套圆领宽松运动套装:http://product.dangdang.com/1068794869.html:0条评论
+ 哆哆何伊2017春秋潮流新款韩版短款宽松牛仔衣撞色连帽学生牛仔外套女:http://product.dangdang.com/1129681898.html:0条评论
+
+
+上面是在pipelines中直接打印获取到的数据，如果要将数据写入数据库，可以在pipeline中实现；
+ 对应数据库，可以安装mysql,也可使用集成的软件，比如phpstudy,内部集成了mysql和php的服务。
+访问windows数据库的方法：mysql -uroot -p  （password: 123456）
+在mydb数据库下，创建一个新的数据表用于存储上面获取的数据信息；
+
+创建数据库：
+mysql> create database dangdang DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+Query OK, 1 row affected (0.00 sec)
+
+执行下面的sql语句，创建一个数据表goods
+mysql> create table goods(id int(32) auto_increment primary key,title varchar(100),link varchar(100) unique,comment varchar(100))；
+
+
+说明： id字段是自增的，为主键； link字段不可以重复；
+
+此处使用pymysql 来连接数据库（https://www.cnblogs.com/wt11/p/6141225.html）；
+代码执行时，提示：UnicodeEncodeError: 'latin-1' codec can't encode characters in position 47-75: ordinal not in range(256)， 且数据没有写入到
+数据库中，原因是：连接数据时没有指定编码格式导致的。
+前：conn=pymysql.connect(host="127.0.0.1",user="root",passwd="123456",db="dangdang")
+后：conn=pymysql.connect(host="127.0.0.1",user="root",passwd="123456",db="dangdang",use_unicode=True,charset="utf8")
+
+
+用pymysql模块对MySQL进行操作，执行insert语句以后没有报错，检查数据库却发现信息没有插入，将语句复制到MySQL中又能正常执行。
+
+上网查了一下是自动提交的问题，在语句末尾加上‘COMMIT’就正常了。
+conn.commit(), 必须加上这一句，否则代码执行没有任何错误，就是数据库中没有数据，切记，排查了很久！！！！！！！！！！！
+
+
+另外一种连接数据库的方法：
+  conn= MySQLdb.connect(
+        host='localhost',
+        port = 3306,
+        user='root',
+        passwd='root',
+        db ='xx',
+        use_unicode=True,
+        charset="utf8"
+        )
+    cur = conn.cursor()
+    cur.execute("set names utf8")
+

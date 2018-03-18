@@ -20,5 +20,27 @@ python2 -m pip install --upgrade pip
 
 使用以上命令有可能会报错，是因为网络问题，需要FQ即可解决
 
-2.
+2.运行scrapy fetch url_address时提示如下的错误：
+ModuleNotFoundError: No module named 'win32api'
 
+
+
+
+Python是没有自带访问windows系统API的库的，需要下载。库的名称叫pywin32，可以从网上直接下载。
+
+以下链接地址可以下载：http://sourceforge.net/projects/pywin32/files%2Fpywin32/   （下载适合你的Python版本）
+
+运行以下代码如果出现ImportError: No module named win32api 或者出现 ImportError: No module named win32con，说明你的库没有安装好。
+
+介绍这个库里面最重要的两个模块：win32api和win32con。win32api顾名思义，就是用python对win32的本地api进行了封装；win32con个人理解为win32constant，即win32的常量定义。
+
+有了以上这两个模块我们就可以来一个win32版本的Python Helloworld了。
+
+    import win32api
+    import win32con
+    win32api.MessageBox(win32con.NULL, 'Python 你好！', '你好', win32con.MB_OK)
+
+运行一下，是不是看到消息框，嘿嘿，就这么简单。
+
+
+解决方法： 根据python的位数，决定安装pywin32-221.win32-py3.6.exe 或pywin32-221.win-amd64-py3.6.exe，直接双击安装即可解决问题；
