@@ -1,0 +1,3 @@
+dangdang: 是当当网的商品爬虫实战；
+taoyun_login: scrapy模拟登陆实战； 需要使用fiddler 抓包获取真正的URL地址；
+进入项目目录下，执行scrapy crawl login 运行爬虫；
