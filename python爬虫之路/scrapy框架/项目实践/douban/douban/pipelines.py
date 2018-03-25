@@ -6,7 +6,6 @@
 # See: https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 
 
-class BaidunewsPipeline(object):
+class DoubanPipeline(object):
     def process_item(self, item, spider):
-        print(item["title"])
         return item

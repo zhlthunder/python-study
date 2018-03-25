@@ -7,6 +7,7 @@
 
 from scrapy import signals
 
+
 import random
 from scrapy.downloadermiddlewares.useragent import UserAgentMiddleware
 
@@ -44,13 +45,7 @@ class RotateUserAgentMiddleware(UserAgentMiddleware):
        ]
 
 
-
-
-
-
-
-
-class BaidunewsSpiderMiddleware(object):
+class DoubanSpiderMiddleware(object):
     # Not all methods need to be defined. If a method is not defined,
     # scrapy acts as if the spider middleware does not modify the
     # passed objects.
@@ -98,7 +93,7 @@ class BaidunewsSpiderMiddleware(object):
         spider.logger.info('Spider opened: %s' % spider.name)
 
 
-class BaidunewsDownloaderMiddleware(object):
+class DoubanDownloaderMiddleware(object):
     # Not all methods need to be defined. If a method is not defined,
     # scrapy acts as if the downloader middleware does not modify the
     # passed objects.

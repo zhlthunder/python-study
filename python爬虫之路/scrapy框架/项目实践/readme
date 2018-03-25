@@ -114,3 +114,6 @@ conn.commit(), ±ØĞë¼ÓÉÏÕâÒ»¾ä£¬·ñÔò´úÂëÖ´ĞĞÃ»ÓĞÈÎºÎ´íÎó£¬¾ÍÊÇÊı¾İ¿âÖĞÃ»ÓĞÊı¾İ£¬Ç
     cur = conn.cursor()
     cur.execute("set names utf8")
 
+
+
+
