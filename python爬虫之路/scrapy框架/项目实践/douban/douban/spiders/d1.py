@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import scrapy
 from scrapy.http import Request,FormRequest
-
+import urllib.request
 
 class D1Spider(scrapy.Spider):
     name = 'd1'
@@ -11,20 +11,33 @@ class D1Spider(scrapy.Spider):
     #编写start_requests()方法，第一次会默认调取该方法中的请求，即此时start_urls就不是第一个爬取的URL，第一个爬取的URL在下面的函数中定义
     def start_requests(self):
         ##单次追加header的方法
-        # return [Request("https://accounts.douban.com/login",meta={"cookiejar":1},callback=self.parse,headers={'User-Agent': "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.1 (KHTML, like Gecko) Chrome/22.0.1207.1 Safari/537.1"})]
-
-        return [Request("https://accounts.douban.com/login",meta={"cookiejar":1},callback=self.parse)]
+        return [Request("https://accounts.douban.com/login",meta={"cookiejar":1},callback=self.parse,headers={'User-Agent': "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.1 (KHTML, like Gecko) Chrome/22.0.1207.1 Safari/537.1"})]
+        # return [Request("https://accounts.douban.com/login",meta={"cookiejar":1},callback=self.parse)]
 #"cookiejar":1  表示开启cookie
 
     def parse(self, response):
         #判读是否有验证码
+        captcha=response.xpath("//img[@id='captcha_image']/@src").extract()
 
-        #设置要传递的post信息，此时没有验证码,只需定义用户名及密码
-        data={
+        if len(captcha)>0:
+            print("此时有验证码")
+            #将验证码存储到本地
+            localpath="D:/thunder/yzm/captcha.png"
+            urllib.request.urlretrieve(captcha[0],filename=localpath)
+            captcha_val=input("请到D:\thunder\yzm\captcha.png中确认验证码：")
+            data={
+            "captcha-solution":captcha_val,
             "redir":"https://www.douban.com/people/175906194/",
-            "form_email":"zhlthunder",
+            "form_email":"zhlthunder@163.com",
             "form_password":"zhl040702246",
-        }
+            }
+        else:
+        #设置要传递的post信息，此时没有验证码,只需定义用户名及密码
+            data={
+                "redir":"https://www.douban.com/people/175906194/",
+                "form_email":"zhlthunder@163.com",
+                "form_password":"zhl040702246",
+            }
         print("登录中。。。")
         return [FormRequest.from_response(response,
                                           ##设置cookie信息

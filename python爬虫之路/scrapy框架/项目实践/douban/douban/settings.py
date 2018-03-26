@@ -56,10 +56,10 @@ ROBOTSTXT_OBEY = False
 #    'douban.middlewares.DoubanDownloaderMiddleware': 543,
 #}
 
-DOWNLOADER_MIDDLEWARES = {
-    'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware':None,
-    'douban.middlewares.RotateUserAgentMiddleware':400,
-}
+# DOWNLOADER_MIDDLEWARES = {
+#     'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware':None,
+#     'douban.middlewares.RotateUserAgentMiddleware':400,
+# }
 
 # Enable or disable extensions
 # See https://doc.scrapy.org/en/latest/topics/extensions.html

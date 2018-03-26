@@ -38,3 +38,5 @@ downlaod_project:https://blog.csdn.net/u013398398/article/details/53676515
 
 
 douban: 豆瓣网登录爬虫与验证码自动识别
+说明：刚开始登陆的时候没有验证码，多登陆几次后，就会提示要输入验证码了
+
