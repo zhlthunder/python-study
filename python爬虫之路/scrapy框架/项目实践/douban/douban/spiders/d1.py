@@ -2,6 +2,7 @@
 import scrapy
 from scrapy.http import Request,FormRequest
 import urllib.request
+import os
 
 class D1Spider(scrapy.Spider):
     name = 'd1'
@@ -24,7 +25,18 @@ class D1Spider(scrapy.Spider):
             #将验证码存储到本地
             localpath="D:/thunder/yzm/captcha.png"
             urllib.request.urlretrieve(captcha[0],filename=localpath)
+
+            ##方法1：手动输入验证码
             captcha_val=input("请到D:\thunder\yzm\captcha.png中确认验证码：")
+
+            ##方法2：调用云打码API来识别验证码，因为没有注册，所以这个代码无法执行
+            # cmd="c:/python27/python.exe C:\Users\lin\PycharmProjects\python_study_1s\python_study\git-zhl\python-study\python爬虫之路\scrapy框架\项目实践\douban\云打码api\Python调用示例\Python调用示例\YDMPython2.x.py"
+            # ret=os.popen(cmd)
+            # captcha_val=ret.read()
+
+            ##方法3，自己写python代码实现验证码的识别
+
+
             data={
             "captcha-solution":captcha_val,
             "redir":"https://www.douban.com/people/175906194/",
@@ -54,17 +66,3 @@ class D1Spider(scrapy.Spider):
         print(title)
 
 
-
-        # data=response.body
-        # fh.write(data)
-    #     fh.close()
-    #     ##这里是登录成功的页面，而我们要访问的是个人中心，所以需要再提交一个请求，且是登录状态下
-    #     print(response.xpath("/html/head/title/text()").extract())
-    #     yield Request("http://edu.iqianyue.com/index_user_index.html",callback=self.next2,meta={"cookiejar":True})
-    #     #"cookiejar":True 表示要保持登陆状态
-    # def next2(self,response):
-    #     fh=open("2st_page.html",'wb')
-    #     data=response.body
-    #     fh.write(data)
-    #     fh.close()
-    #     print(response.xpath("/html/head/title/text()").extract())

@@ -39,4 +39,22 @@ downlaod_project:https://blog.csdn.net/u013398398/article/details/53676515
 
 douban: 豆瓣网登录爬虫与验证码自动识别
 说明：刚开始登陆的时候没有验证码，多登陆几次后，就会提示要输入验证码了
+验证码的识别分为手动输入验证码和自动输入（通过API自动识别验证码和自己编程实现验证码识别）
+
+API 自动识别：即使用别人的接口来实现自动识别的功能。
+可以采用云打码来做，
+http://www.yundama.com/apidoc/YDM_ErrorCode.html
+注册的时候，需要注册 用户账户 和开发者账户，  用户账户需要充钱， 开发者账户可以接收一定的返现；
+注册成功后，可以 “添加新软件”，需要命名一个软件软件名，提交之后，就获得了软件的  软件代码和通信秘钥。
+
+点击开发文档，--》根据开发语言下载demo,选择python调用接口程序；
+当注册账户之后，只需对demo程序（YDMPython2.x.py）进行一定的修改，然后在程序中调用即可；
+
+
+运行api的方法：
+  c:/python27/python.exe C:\Users\lin\PycharmProjects\python_study_1s\python_study\git-zhl\python-study\python爬虫之路\scrapy框架\项目实践\douban\云打码api\Python调用示例\Python调用示例\YDMPython2.x.py
+  这样就可以把验证码识别出来了。
+  所以，如果我们要自动识别，只要在代码中执行一下这条系统命令即可完成验证码的自动识别了。
+
+python验证码识别请参考：http://www.cnblogs.com/qqandfqr/p/7866650.html
 
