@@ -58,3 +58,15 @@ http://www.yundama.com/apidoc/YDM_ErrorCode.html
 
 python验证码识别请参考：http://www.cnblogs.com/qqandfqr/p/7866650.html
 
+
+为python安装matplotlib模块
+https://www.cnblogs.com/-1307/p/6529269.html
+
+cv2 安装：
+https://pypi.python.org/pypi/opencv-python#downloads
+下载对应版本后，pip install **.whl安装成功
+
+
+
+升级pip命令：python -m pip install --upgrade pip
+
