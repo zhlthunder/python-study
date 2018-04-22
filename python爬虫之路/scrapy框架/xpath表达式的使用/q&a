@@ -1,0 +1,40 @@
+
+lxml中etree中无法导入的问题，
+#参考 https://segmentfault.com/q/1010000013317531
+
+# 备注：.升级pip:python3 -m pip install --upgrade pip
+#解决方法：
+# https://blog.csdn.net/m0_37462572/article/details/79102157
+# 使用python3.6时安装好lxml时按照许多网上的教程来引入会发现etree没被引入进来
+# 解决办法： lxml版本从4.2.1 回退到 3.7.3，使用pip直接回退就可以了。
+# pip install lxml==3.7.3
+经验证回退之后也没有改善；
+
+用网上的其它方法，下载对应版本的.whl文件后，确认还是无法改善。
+
+最终尝试的方法说明如下：
+参考的url:    https://www.qnjslm.com/ITHelp/883.html
+
+Python3.5以上版本lxml导入etree报错Unresolved reference
+
+在python中安装了lxml-4.2.1，在使用时发现导入etree时IDE中报错Unresolved reference
+
+其实发现，不影响使用，可以正常运行，对于我这种要刨根问底的人不搞明白怎么能罢休了，要保证代码不红
+
+就研究了下源码，通过源码中可以发现，html中继承了etree
+进入 C:\python3\Lib\site-packages\lxml后查看etree.cp36-win32.pyd的源码如下：
+
+那么我们使用的时候就得变换下了：如下使用,
+
+哎谁让etree是二进制文件了，希望下一个版本会有好的改善，通过github看源码，发现是cpython写的编译成的二进制文件，如果对见红有恐惧的，就使用如下方式解决吧
+
+from lxml import html
+
+html.etree.HTML("")
+
+
+总结一下：（总共有如下的两种方法：）
+1.虽然from lxml import etree 是红色，但可以正常使用；
+2. 使用下面的替代方法：
+from lxml import html
+html.etree.HTML("")
