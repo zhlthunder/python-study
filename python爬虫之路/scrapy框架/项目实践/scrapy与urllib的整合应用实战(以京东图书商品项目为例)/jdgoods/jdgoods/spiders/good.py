@@ -119,4 +119,14 @@ class GoodSpider(scrapy.Spider):
         pd2=pd[1]
         print(pd1)
         print(pd2)
-        ##图书名
+        ##图书名：经过分析，前三个为热卖图书，需要跳过，即从下标为四的地方开始抓取
+        bookname=response.xpath("//div[@class='p-name']/a/em/text()").extract()
+        print(bookname[0])
+        ##价格：价格在源码中没有，需用通过抓包分析来获得
+        
+
+
+
+
+
+
