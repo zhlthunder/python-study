@@ -1,0 +1,34 @@
+学习博客：https://blog.csdn.net/u011054333/article/details/70151857
+https://www.cnblogs.com/pyspark/articles/8626919.html  ##配置flask debug模式的方法
+
+Flask是一个Python编写的Web 微框架，让我们可以使用Python语言快速实现一个网站或Web服务。本文参考自Flask官方文档，大部分代码引用自官方文档。
+
+
+补充：
+
+
+HTTP方法
+如果需要处理具体的HTTP方法，在Flask中也很容易，使用route装饰器的methods参数设置即可。
+
+from flask import request
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        do_the_login()
+    else:
+        show_the_login_form()
+
+
+静态文件
+Web程序中常常需要处理静态文件，在Flask中需要使用url_for函数并指定static端点名和文件名。在下面的例子中，实际的文件应放在static/文件夹下。
+
+url_for('static', filename='style.css')
+
+
+日志输出
+Flask 为我们预配置了一个 Logger，我们可以直接在程序中使用。这个Logger是一个标准的Python Logger，所以我们可以向标准Logger那样配置它，详情可以参考官方文档或者我的文章Python 日志输出。
+
+app.logger.debug('A value for debugging')
+app.logger.warning('A warning occurred (%d apples)', 42)
+app.logger.error('An error occurred')
