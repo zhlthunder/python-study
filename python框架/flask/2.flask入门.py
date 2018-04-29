@@ -8,7 +8,7 @@
 #安装
 # pip3 install flask
 
-#类似wsgi的模块: flask中使用的wsgi为 werkzeug
+#: flask中使用的类似wsgi的模块为 werkzeug
 #说明：web框架中的WSGI，本质上就是完成socket的创建用的。
 
 # 使用 werkzeug实现的一个简单server(也就是socket服务器端);
@@ -80,7 +80,7 @@ def hello_world():
 if __name__ == '__main__':
     #监听用户请求
     #如果有用户请求到来，则执行app的__cal__方法
-    ##__cal__方法其实是整个请求的入口，在这个方法中把请求的数据进行封装，把请求中URL拿来进行路由映射，并执行视图函数，获取视图函数的返回值后给客户
+    ##__call__方法其实是整个请求的入口，在这个方法中把请求的数据进行封装，把请求中URL拿来进行路由映射，并执行视图函数，获取视图函数的返回值后给客户
         # app.__call__()
     app.run()
 

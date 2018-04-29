@@ -7,7 +7,7 @@
 ##装饰器基础
 
 
-#之前我们学习的装饰如下:
+#之前我们学习的装饰器如下:
 def wrapper(func):
     def inner(*args,**kwargs):
         return func(*args,**kwargs)
@@ -85,7 +85,7 @@ obj=Mydic()  ##这样实例化后，就具有 obj.modify=True
 ##上面的用法在flask中会用到
 
 
-##补充强度： 配置文件或全局变量，需要大写
+##补充强调： 配置文件或全局变量，需要大写
 
 
 ##python主流web框架介绍

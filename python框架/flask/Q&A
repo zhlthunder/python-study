@@ -1,0 +1,15 @@
+builtins.RuntimeError
+RuntimeError: The session is unavailable because no secret key was set.  Set the secret_key on the application to something unique and secret.
+
+==>https://blog.csdn.net/u010006643/article/details/43526979
+在flask项目中，Session, Cookies以及一些第三方扩展都会用到SECRET_KEY值，这是一个比较重要的配置值。
+
+在使用flask时，我产生了这个错误：the session is unavailable because no secret key was set. Set the secret_key on the application to something unique and secret
+
+解决方法是在flask项目开头加入设置SECRET_KEY。
+app = Flask(__name__)
+app.config['SECRET_KEY'] = '123456'
+# or
+app.secret_key = '123456'
+# or
+app.config.update(SECRET_KEY='123456')
