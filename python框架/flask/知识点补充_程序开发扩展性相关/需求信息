@@ -1,0 +1,26 @@
+"""
+需求举例：
+     CPU占用率90%，发送报警：邮件，短信，微信
+     数据库操作： 可能使用的数据库包括： MySQL DB2....
+     数据缓存： memcache,redis
+
+如何开发代码，才可以让程序具有扩展性
+
+有一个开发规范叫 “开放封闭原则”
+封闭： 程序的源代码是封闭，尽量不要经常改动源代码；
+开放：配置文件是开发的，可以随意修改
+
+"""
+
+import settings
+import importlib
+
+def send_msgs(msg):
+    for path in settings.MSG_LIST:
+        m,c=path.rsplit('.',maxsplit=1)
+        md=importlib.import_module(m) ##导入模块
+        cls=getattr(md,c)   ##找到类
+        obj=cls()   ##实例化
+        obj.send(msg)
+
+##此处非常重要，根据字符串导入模块，然后使用反射获取类名
