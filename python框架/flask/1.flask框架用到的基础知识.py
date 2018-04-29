@@ -92,6 +92,7 @@ obj=Mydic()  ##这样实例化后，就具有 obj.modify=True
 ##介绍flask和django,tornado的区别；
 #django 是个重武器，内部包含了非常多的组件：ORM,Form,ModelForm,缓存，Session,中间件，信号等， 适用于大项目
 #Flash 短小精悍，内部没有太多的组件，但第三方组件非常丰富。 即flask能缩能伸，可定制性很强。 适用于小项目，大项目
+        # 路由比较特殊，是基于装饰器来实现的，但究其本质还是通过add_url_rule实现的。
 ##tornado 异步非阻塞，通过一个线程来执行一千个请求，性能更强
 #bottle: 比flask更简洁，但线上应用很少，第三方组件少
 #web.py: 和bottle的情况类似，应用较少

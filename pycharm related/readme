@@ -8,4 +8,12 @@ https://blog.csdn.net/u012343179/article/details/76168432
     从而保持全局解释器的干净整洁，使其只作为创建（更多）虚拟环境的源。使用虚拟环境还有个好处，那就是不需要管理员权限。
 
     目前我的配置是Anaconda+PyCharm的组合。Anaconda是一个包含300多种最受欢迎的科学、工程、数学和数据分析的Python软件组合包，
-    当需要安装新的包时可以先采用conda的方式进行安装，如果conda找不到相应的包，那我们可以采用pip的方式，具体可以参考Anaconda环境和包的管理。PyCharm是JetBrain公司出品的Python IDE，其功能非常强大，支持许多常用的框架以及版本控制系统。
+    当需要安装新的包时可以先采用conda的方式进行安装，如果conda找不到相应的包，那我们可以采用pip的方式，具体可以参考Anaconda环境和包的管理。
+    PyCharm是JetBrain公司出品的Python IDE，其功能非常强大，支持许多常用的框架以及版本控制系统。
+
+pycharm: 配置相关： https://blog.csdn.net/pipisorry/article/details/39909057
+
+
+pycharm快捷键：
+多行缩进  选中后按tab
+多行取消缩进  选中后shift+tab
