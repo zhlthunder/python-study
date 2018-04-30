@@ -2,8 +2,12 @@
 # -*- coding: utf-8 -*-
 #author:zhl
 
-##sample 1
+
+
+
 from flask import Flask,render_template,request,redirect,session,url_for
+import functools
+
 app = Flask(__name__)
 app.debug=True
 app.secret_key = '123456'
@@ -16,6 +20,7 @@ USERS={
 
 
 def verify(func):
+    @functools.wraps(func)  ##加上这个后，删除endpoint,在执行就不会报错了，即函数名没有变化，就不会出现重名的问题了
     def inner(*args,**kwargs):
         user=session.get('user_info')
         if not user:
@@ -24,21 +29,9 @@ def verify(func):
         return func(*args,**kwargs)
     return inner
 
-"""
-说明：如果登录验证的装饰器放到路由装饰器的上面，会导致路由添加也被阻止了，所有需要放到路由装饰器的下面；
-但放到路由装饰器的下面，执行时会报如下的错误：
-AssertionError: View function mapping is overwriting an existing endpoint function: inner
-原因说明：
-默认不指定endpoint时，endpoint=函数名；
-index和detail 被同一个装饰器装饰时，都会被替换成inner函数，即存在两个相同函数名inner,所有会报错
-
-解决对策：
-为每个被装饰的函数指定endpoint
-
-"""
 
 
-@app.route('/detail/<int:nid>',methods=['GET'],endpoint='n2')
+@app.route('/detail/<int:nid>',methods=['GET'])
 @verify
 def detail(nid):
     info=USERS.get(nid)
@@ -49,13 +42,11 @@ def detail(nid):
 @app.route('/index',methods=['GET'],endpoint='n1')
 @verify
 def index():
-    #     url=url_for('l1')
-    #     return redirect(url)
     return render_template('index.html',user_dict=USERS)
 
 
 
-@app.route('/login',methods=['GET','POST'],endpoint='l1')
+@app.route('/login',methods=['GET','POST'])
 def login():
     if request.method=='GET':
         return render_template("login.html")

@@ -4,9 +4,10 @@
 
 from .base import Base
 class Email(Base):
-    def __init__(self,msg):
+    def __init__(self):
         ##邮箱相关的初始化代码
-        self.msg=msg
+        pass
 
-    def send(self):
-        print("send email"+self.msg)
+
+    def send(self,msg):
+        print("send email: "+msg)

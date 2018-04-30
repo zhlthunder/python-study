@@ -4,9 +4,9 @@
 
 from .base import Base
 class message(Base):
-    def __init__(self,msg):
+    def __init__(self):
         ##短信相关的初始化代码
-        self.msg=msg
+        pass
 
-    def send(self):
-        print("send message"+self.msg)
+    def send(self,msg):
+        print("send message: "+msg)

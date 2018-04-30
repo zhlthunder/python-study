@@ -28,7 +28,8 @@
 
 ##进阶的实现方法： 这样做的好处，代码之间没有耦合
 from flask import Flask,request
-from utils.message import send_msgs
+from utils.message import send_msgs   ##通过这种方法，导入 utils/message下面的__init__.py中的函数，非常重要，注意理解
+import os,sys
 
 app = Flask(__name__)
 app.debug=True
@@ -41,8 +42,11 @@ def index():
     if data=='xyy':
         ##发送报警: 短信/邮件
         send_msgs("zhl")
+        # pass
 
     return 'Hello World!'
 
 if __name__ == '__main__':
+    sys.path.append(os.path.abspath(__file__))
+    # print(sys.path)
     app.run()
