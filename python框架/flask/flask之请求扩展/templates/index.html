@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<h1>用户列表</h1>
+<table>
+    <!--下面如果用 user_dict.items会报错，因为传到jinjia2模板中的是一个对象而不是一个字典-->
+    {% for k,v in user_dict.items() %}
+    <tr>
+        <td>{{k}}</td>
+         <!--支持的访问方式包括：{{v.name}} {{v['name']}} {{v.get('name')}}-->
+        <td>{{v.name}} </td>
+        <td><a href="/detail/{{k}}">查看详细</a></td>
+        <td></td>
+    </tr>
+    {% endfor %}
+</table>
+</body>
+</html>

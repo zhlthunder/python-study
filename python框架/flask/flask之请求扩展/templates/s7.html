@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+{{ff("六六")}}<br/>
+{{ff("六六")|safe}}
+
+
+ {% macro xx(name, type='text', value='') %}
+        <input type="{{ type }}" name="{{ name }}1" value="{{ value }}">
+        <input type="{{ type }}" name="{{ name }}2" value="{{ value }}">
+        <input type="{{ type }}" name="{{ name }}3" value="{{ value }}">
+        <input type="{{ type }}" name="{{ name }}4" value="{{ value }}">
+    {% endmacro %}
+ {{xx('n')}}
+
+</body>
+</html>
