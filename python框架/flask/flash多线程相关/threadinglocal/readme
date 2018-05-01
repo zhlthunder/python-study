@@ -1,0 +1,5 @@
+python中多线程必须采用措施来进行数据一致性的保护。
+
+方法1： 比如采用加锁的方式来实现， 即 对共享数据的修改，采用加锁和解锁的方式；
+方法2： 请求到来时，创建一个副本，专门服务于这个对象，在python中就是threadinglocal,参考http://www.cnblogs.com/wupeiqi/articles/8202353.html
+

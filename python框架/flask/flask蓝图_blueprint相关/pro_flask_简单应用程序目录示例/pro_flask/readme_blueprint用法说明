@@ -1,0 +1,17 @@
+1.批量修改url
+account = Blueprint('account', __name__,url_prefix="/acc")
+#url_prefix="/acc"  用于对这个蓝图下面的所有URL 统一加个前缀； 即访问方式变更：/account--》/acc/account
+
+2.模板路径/静态文件路径
+account = Blueprint('account', __name__,url_prefix="/acc",template_folder='tpls')
+#url_prefix="/acc"  用于对这个蓝图下面的所有URL 统一加个前缀； 即访问方式变更：/account--》/acc/account##template_folder='tpls'
+ 定义这个蓝图下专用的templates,以实现templates的分离，但有个优先级的问题，如果templates和tpls中都有相同的模块，优先寻找templates中的
+
+3.请求扩展相关：
+    在__init__中使用，针对全站所有的app都适用；
+    在蓝图中使用时，只针对这个蓝图中的url适用，别的url不适用。   用户认证的代码，可以在蓝图中实现，这样只要在登录以外的视图函数中实现即可，登录函数不需要实现。
+     也就避免了使用黑名单了。
+
+
+4. 重要：
+蓝图对象的名称和蓝图中视图函数的名称一定不可以相同，否则就会报错，切记；

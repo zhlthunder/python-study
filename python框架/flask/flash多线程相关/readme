@@ -1,0 +1,22 @@
+
+flask上下文管理：
+http://www.cnblogs.com/wupeiqi/articles/8202353.html
+
+threadinglocal对象，用于为每个线程开辟一块空间来保存它独有的数据
+
+源码（request）
+情况1： 单进程单线程  基于全局变量来做
+情况2： 单进程多线程  基于threading.local来做
+情况3： 单进程单线程(多个协程)    ： 多个协程共享一个线程，使用threadinglocal做不到。
+
+决定：
+想法1：不支持协程，避免情况3的问题；
+想法2： 支持：自定义类似于threadinglocal对象（支持协程）
+
+自定义threadinglocal对象
+
+ps:
+ 两种初始化方法：
+         self.storage={}
+        object.__setattr__(self, '__storage__', {})
+ 对象.xx 会自动调用__setattr__ 方法
