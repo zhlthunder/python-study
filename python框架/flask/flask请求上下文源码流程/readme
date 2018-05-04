@@ -1,0 +1,117 @@
+flask中请求处理的大概的流程是：
+源码内部定义了3个类来处理请求，
+请求到来后，environ中包含了请求相关的全部的原始信息，可能是一个字符串；
+先调用一个方法，把字符串转换成 类的请求对象， 再调用一个方法把请求对象存放到local中；
+然后接受请求，通过路由进入视图函数处理，在视图函数处理过程中调用存放在local中的对象，当请求处理完成返回后，
+会删除local中存放的请求对象。 这样一次处理过程结束；
+
+请求进来之后，先执行flask的__call__方法；
+
+
+请求处理流程简析：
+
+a)请求进来之前，先执行 _request_ctx_stack = LocalStack() ，执行LocalStack实例化；
+  def __init__(self):
+        self._local = Local()
+    再进一步执行Local的实例化，执行它的init方法：
+        def __init__(self):
+        object.__setattr__(self, '__storage__', {})
+        object.__setattr__(self, '__ident_func__', get_ident)
+
+        请注意，此处的 Local() 和我们之前在threadinglocal中完成的功能类似
+
+
+b)请求到来-->Flask类 __call__方法 （1.内部调用Flask类的request_context 方法）-->实例化一个RequestContext类的对象（1.1 __init__方法）
+在__init__方法中的如下代码中，完成请求字符串转为请求对象的操作
+        if request is None:
+            request = app.request_class(environ)
+
+然后在flask的request_class方法调用的是另一request类来完成请求的封装的操作
+#: The class that is used for request objects.  See :class:`~flask.Request`
+    #: for more information.
+    request_class = Request
+
+ 调试打印：（请求封装前后）
+         print(environ)
+        print(ctx)
+输出：
+        {'wsgi.version': (1, 0), 'wsgi.url_scheme': 'http', 'wsgi.input': <_io.BufferedReader name=1036>, 'wsgi.errors':
+         <_io.TextIOWrapper name='<stderr>' mode='w' encoding='GBK'>, 'wsgi.multithread': False, 'wsgi.multiprocess': False,
+         'wsgi.run_once': False, 'werkzeug.server.shutdown': <function WSGIRequestHandler.make_environ.<locals>.shutdown_server at 0x05DBEB28>,
+         'SERVER_SOFTWARE': 'Werkzeug/0.12.2', 'REQUEST_METHOD': 'GET', 'SCRIPT_NAME': '', 'PATH_INFO': '/', 'QUERY_STRING': '',
+          'REMOTE_ADDR': '127.0.0.1', 'REMOTE_PORT': 56315, 'SERVER_NAME': '127.0.0.1', 'SERVER_PORT': '5000', 'SERVER_PROTOCOL': 'HTTP/1.1',
+           'HTTP_HOST': '127.0.0.1:5000', 'HTTP_CONNECTION': 'keep-alive', 'HTTP_CACHE_CONTROL': 'max-age=0', 'HTTP_UPGRADE_INSECURE_REQUESTS': '1',
+           'HTTP_USER_AGENT': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36',
+            'HTTP_ACCEPT': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8', 'HTTP_ACCEPT_ENCODING':
+             'gzip, deflate, br', 'HTTP_ACCEPT_LANGUAGE': 'zh-CN,zh;q=0.9', 'werkzeug.request': <Request 'http://127.0.0.1:5000/' [GET]>}
+<RequestContext 'http://127.0.0.1:5000/' [GET] of s1>
+
+
+        print(type(environ))
+        print(type(ctx))
+        输出：
+        <class 'dict'>
+<class 'flask.ctx.RequestContext'>
+
+ 然后再执行： ctx.push() ，进入查看，主要看下面这行
+  _request_ctx_stack.push(self)  //self是RequestContext 对象，其中包含了请求相关的所有信息
+  而_request_ctx_stack是LocalStack类的对象，即执行了这个类的push方法，将请求相关的信息都存入local中（每个线程或每个协程都是独立的）
+
+  最终：
+      ##name='stack'
+        #value=[]
+        #写入后的字典如下：
+        #{
+        #唯一标识：{
+        #   stack:[]
+        # }
+        #append 请求相关的信息之后：
+          #{
+        #唯一标识：{
+        #   stack:[requestcontext对象 ctx]
+        # }
+
+
+  先看请求执行完成之后清场的操作：#将自己存放在local中的数据移除掉
+          finally:
+            if self.should_ignore_error(error):
+                error = None
+            ctx.auto_pop(error)   //这个就是将请求相关的信息从local中移除
+
+
+  现在再来看请求处理的过程：
+  先按照使用的步骤，我们导入request,然后就可以执行print(request.method)了，这个request从哪里来的呢？
+  我们来看下它的源码；
+  直接点击request定位到：
+  request = LocalProxy(partial(_lookup_req_object, 'request'))
+  说明：partial(_lookup_req_object, 'request') 是偏函数的一个用法，即先把'request' 参数封装到_lookup_req_object函数中，即先封装一个参数进去
+
+  即request = LocalProxy(函数） ，即这是一个实例化的对象，且函数中已经使用partial封装了一个参数进去。
+        下面就是   LocalProxy的init方法；
+      def __init__(self, local, name=None):
+        #参数传递信息local=partial(_lookup_req_object, 'request')
+        object.__setattr__(self, '_LocalProxy__local', local)
+        object.__setattr__(self, '__name__', name)
+        if callable(local) and not hasattr(local, '__release_local__'):
+            # "local" is a callable that is not an instance of Local or
+            # LocalManager: mark it as a wrapped function.
+            object.__setattr__(self, '__wrapped__', local)
+
+
+
+ 调用request时的操作过程的解析：
+ request = LocalProxy(partial(_lookup_req_object, 'request'))
+#上面这句解析：
+# request = LocalProxy(函数）
+#当视图中执行print(request)时，
+     # 执行 LocalProxy的__str__方法，这个方法比较复杂，可以先理解为就是执行LocalProxy 中传递的函数，即执行 partial(_lookup_req_object, 'request')
+     #这个函数执行过程如下：
+    #  def _lookup_req_object(name): ##name='request‘
+    # top = _request_ctx_stack.top   # 这句相当于从requestcontext对象中获取之前存入的request对象
+    # if top is None:
+    #     raise RuntimeError(_request_ctx_err_msg)
+    # return getattr(top, name)  #从requestcontext对象 获取 'request'对应的方法
+
+    #再举例，当执行print(request.method)时，
+    # 因为是request.method,即执行 LocalProxy的__getattr__方法，也要执行的_get_current_object() 方法，这个方法比较复杂，可以先理解为就是执行LocalProxy 中传递的函数，即执行 partial(_lookup_req_object, 'request')
+    #完成到的功能也是从这句相当于从requestcontext对象中获取之前存入的request对象 ，然后再执行getattr(self._get_current_object(), name)从中获取method方法：
