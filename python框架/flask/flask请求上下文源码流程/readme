@@ -115,3 +115,97 @@ b)请求到来-->Flask类 __call__方法 （1.内部调用Flask类的request_context 方法）-->
     #再举例，当执行print(request.method)时，
     # 因为是request.method,即执行 LocalProxy的__getattr__方法，也要执行的_get_current_object() 方法，这个方法比较复杂，可以先理解为就是执行LocalProxy 中传递的函数，即执行 partial(_lookup_req_object, 'request')
     #完成到的功能也是从这句相当于从requestcontext对象中获取之前存入的request对象 ，然后再执行getattr(self._get_current_object(), name)从中获取method方法：
+
+
+    flask 请求 之上下文源码总结：
+    1）threading local和flack自定义的local() 对象；threading local: 是基于线程的数据保存， flask 源码实现的local(),是支持协程的数据保护
+    2)
+     请求到来：
+        ctx 封装到requestcontext(request,session)中，
+        并把ctx存放到local中
+     执行视图时：
+        导入request
+        print(request) -->执行LocalPorxy对象的__str__方法
+        request.method  -->执行LocalPorxy对象的__getattr__方法
+        ......
+           这些方法的内部，都会调用 _lookup_req_object  这个函数， 这个函数就是取local() 中将requestcontext获取到，再去requestcontext中获取request或session
+
+     执行结束：
+        ctx.auto_pop(), 最终把ctx从local中移除；
+
+
+  flask上下管理回顾：
+   与django相比是两种不同的实现方式；
+     django/tornado是通过传参数的形式，怎么理解呢？ django中请求到来之后，包含请求信息的request通过函数之间的传递到达视图函数，然后进行处理的
+     flask是通过上下文管理，它中对request的管理是通过上下文管理来实现的
+
+     上下文管理：
+         1)threading local与local()  : 实现数据隔离的方式
+           threading.local是为每一个线程开辟一个空间存储数据；
+           flask源码中实现了一个local()类， 创建一个字典来保存数据，字典的key使用greenlet获取的标识，即是支持协程的。
+
+        2）请求刚进来时
+              把request和session 相关的所有数据封装到了requestcontext对象中，并把这个对象添加到local()中 ，通过localstack将对象添加到local对象中
+
+           使用（调用request）
+             比如调用此类的方法， request.method, print（request）, request+xxx 会执行localproxy中对应的方法
+             内部就是执行一个内嵌函数，这个函数会从local中获取requestcontext对象，并从中获取request或session等
+
+           请求终止
+              通过localstack的pop方法将local中的值移除；
+
+
+
+加上应用上下文后的请求流程如下：
+
+1.请求到来到的时候，有人来访问了
+      实例化了两个对象
+        #将请求相关的数据environ封装到了request_context对象中
+        # ctx.app  当前app的名称
+        # ctx.request： Request对象（封装请求相关的东西）
+        # ctx.session  #此时session是空的
+          #_request_ctx_stack.local{
+          #  唯一标识：{
+          #    “stack”:[ctx,]}   //"stack"是固定的
+          # }
+
+       #app_ctx=创建AppContext（self）对象
+     #里面包含：
+     #app_ctx.app 当前app对象
+     # app.g  为请求刚进来时，创建的一个空的对象，用于存储一个请求周期中需要存取的值
+
+           #_app_ctx_stack.local{
+          #  唯一标识：{
+          #    “stack”:[app_ctx,]}   //"stack"是固定的
+          # }
+
+
+2.使用时：
+  from flask import request,session,g,current_app
+  当执行print(request,session,g,current_app),都会执行响应localproxy对象的__str__方法，
+  request = LocalProxy(partial(_lookup_req_object, 'request'))
+  session = LocalProxy(partial(_lookup_req_object, 'session'))
+
+  current_app = LocalProxy(_find_app)
+g = LocalProxy(partial(_lookup_app_object, 'g'))
+
+3.终止时：
+全部pop掉
+
+
+问题1： 多线程到来时是如何处理的？
+      确切地说，请求到来之前，已经创建了两个local()对象，
+      当多个用户来访问时，比如启动的是多线程来处理多个用户请求，
+      始终使用这两个local对象，增加的只是基于唯一标识的字典
+          #_request_ctx_stack.local{
+          #  唯一标识：{
+          #    “stack”:[ctx,]}   //"stack"是固定的
+          # }
+                    #  唯一标识：{
+          #    “stack”:[ctx,]}   //"stack"是固定的
+          # }
+          }
+
+问题2： 为啥用“stack”:[ctx,] ，而不是“stack”:ctx
+因为flask的local中保存数据时，使用列表创建出来的栈
+

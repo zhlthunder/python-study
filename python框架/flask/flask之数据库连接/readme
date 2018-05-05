@@ -1,0 +1,15 @@
+
+工作中使用python操作数据库的方法：
+    如果使用Django: 使用ORM 操作数据库：  ORM为关系对象模型，即类对应表，字段对应数据表中的列 ，这种模型在内部会调用pymql或MySQLdb
+
+    如果使用其它的，比如flask和tornado:
+                     方法1： 原生SQL
+                            pymysql (用于python2和3)
+                            MySQLdb（只用于python2）
+                            两个模块只是导入的模块名不用，用法完全一样
+                     方法2： SQLAchemy(另一种ORM，和django的ORM类似)，这种模型在内部会调用pymql或MySQLdb
+
+    总结： 所有python的所有框架，本质上都是在调用pymql或MySQLdb操作数据库的
+
+    参考博客： http://www.cnblogs.com/wupeiqi/articles/8184686.html
+
