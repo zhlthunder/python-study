@@ -1,0 +1,47 @@
+主要涉及：
+
+flask-session
+wtforms
+sqlachemy
+
+
+内容回顾：
+1.flask:
+
+ 配置文件
+ 路由匹配
+ 视图函数 请求相关&响应
+ cookie&session
+ 模板语言 jinja2
+ 请求扩展
+ 闪现
+ 蓝图
+ 多app应用
+ 中间件
+
+2.上下文管理：
+ -threading.local
+ -上下文分类：
+     请求上下文:requestcontext对象（request session）
+     应用上下文:appcontext 对象 （app(current_app), g）
+
+ -具体实现的细节：
+   requestcontext对象 通过localstack 添加到local中；
+   导入的request是localproxy对象--》通过偏函数调用localstack对象--》local
+   requestcontext对象的auto_pop再 通过localstack 的pop 移除数据；
+
+   ps:永远只有2个local对象；
+
+
+  --多app应用：
+   根据字符串进行app的分发；
+
+ 3. 信号：
+ 使用的是bliker这个组件来实现；
+
+ 需要关注整个的请求流程
+
+
+ from uuid import uuid4
+ 执行uuid4()就可以获取随机字符串；
+str(uuid4())  得到的就是随机字符串；

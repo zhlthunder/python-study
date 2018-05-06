@@ -209,3 +209,158 @@ g = LocalProxy(partial(_lookup_app_object, 'g'))
 问题2： 为啥用“stack”:[ctx,] ，而不是“stack”:ctx
 因为flask的local中保存数据时，使用列表创建出来的栈
 
+
+多app应用的方法：
+from werkzeug.wsgi import  DispatcherMiddleware
+from werkzeug.serving import run_simple
+from flask import Flask,current_app
+
+app1=Flask('app01')
+app2=Flask('app02')
+
+
+
+@app1.route('/index')
+def index():
+    print(current_app)
+    return 'app01'
+
+@app2.route('/index2')
+def index2():
+    print(current_app)
+    return 'app02'
+
+#www.baidu.com/index  app1
+#www.baidu.com/sec/index  app2
+dm=DispatcherMiddleware(app1,{
+    '/sec':app2
+})
+
+if __name__ == '__main__':
+    run_simple('localhost',5000,dm,)
+
+web访问多app应用时，上下文管理是如何实现的？
+和单app完全相同，栈里面存放的还是一个唯一标识
+
+多app应用时，请求的流程如下：
+只是在上面的流程之前，先进行了一次app的分发，其它的流程和单个app完全相同，因为local中还是根据线程来进行存储的。
+
+补充：
+继续上面的问题2，为什么要使用栈？  主要用途： 离线脚本
+  写离线脚本时，且使用嵌套的方式时才会出现保存多个对象的情况。
+  如果写web程序或web运行环境，栈中用于保存一条数据。
+  当我们在写离线的测试脚本获取app信息时，可能会存在多个app上下文嵌套的情况。--但这种情况很少用。
+
+  from flask import Flask,current_app,globals,_app_ctx_stack
+
+app1=Flask('app01')
+app1.debug=True
+##如果app中存储了数据库的用户名，密码，数据库等信息， 在下面就可以获取到，然后建立数据库的连接
+
+app2=Flask('app02')
+app2.debug=False
+
+with app1.app_context():  #相当于执行 with AppContext(self): 会自动执行它的__enter__方法，最终也是执行 _app_ctx_stack.push(self)，即自动执行了压栈的操作
+        ##实例化对象： app_ctx=AppContext
+        ##里面包含：
+        #  app_ctx.app
+        #  app_ctx.g
+    #既然上面已经完成了压栈的操作，我现在直接打印出来看看
+    print(_app_ctx_stack._local.__storage__)
+    #输出： {<greenlet.greenlet object at 0x06240B20>: {'stack': [<flask.ctx.AppContext object at 0x059F4E50>]}}
+    print(type(current_app)) #这是返回app对象
+    print(current_app.config)
+    print(current_app.config['DEBUG'])
+
+    ##且上面的操作执行完成之后，就会执行pop操作
+
+with app2.app_context():
+    print(_app_ctx_stack._local.__storage__)
+
+
+print("------------------------------")
+
+
+##所以如果并排写两个with,那就是一个一个处理，local始终只有一个对象
+#但如果用下面的方法来写的话：
+
+with app1.app_context():
+    print(_app_ctx_stack._local.__storage__)  #此时栈中存放的是app1,且app1是最后的一个，执行top时获取的就是它 ；
+    #{<greenlet.greenlet object at 0x05C70B20>: {'stack': [<flask.ctx.AppContext object at 0x05D7E050>]}}
+    with app2.app_context():
+        print(_app_ctx_stack._local.__storage__)#此时栈中存放了app1,app2
+        #{<greenlet.greenlet object at 0x05C70B20>: {'stack': [<flask.ctx.AppContext object at 0x05D7E050>, <flask.ctx.AppContext object at 0x05D7E0D0>]}}
+        print(current_app.config['DEBUG'])
+        #重要：在这个代码块中执行top操作时，获取的也是自己,即获取的是app2，发生错乱
+    ##当上面的代码块执行结束后，会pop掉app2,这样栈中最后一个还是app1,不影响下面对app1的获取操作（非常重要，这就是为什么要使用栈的原因，这也就回答了readme中问题2）
+    ##！！只有这种情况才会出现这样的应用场景， 如果写网站的话，栈中同时只会有一个对象@@@
+    print(current_app.config['DEBUG'])
+
+
+最终总结：
+1.threading.local (哪里还用到threading.local?  DButils中也用到)， 自定义local()
+2.上下文：
+  -请求：
+     - request：用户请求信息
+     - session：保存用户会话信息
+  -应用：
+     - app :当前应用对象的信息
+     - g： 每个请求周期都会创建的一个用于在请求周期内传递值的一个容器
+3. 多app应用& 蓝图
+蓝图：是在app之后通过代理进行分发
+多app:就是基于多个app进行分发
+
+4.栈？
+
+5.面向对象补充的内容：
+ - 封装： 支持对象的直接封装，比如下面的Foo和Bar的 __init__就是完成的封装
+          也支持嵌套封装，在Base中的__init__中封装的是别的类的对象（很常用）
+   class Foo:
+       def __init__(self):
+            self.name=123
+            self.age='asdf'
+   class Bar:
+        def __init__(self):
+             self.xxx=123
+
+   class Base:
+        def __init__(self):
+        self.f=Foo()
+        self.xx=Bar()
+
+ --某个值+（）
+ 函数/方法：执行函数或方法
+ 类：实例化
+ 对象：执行类的__call__方法
+
+ --面向对象中双下划线的方法：
+ __new__
+ __init__
+ __call__
+ __setattr__
+ __str__
+ __getattr__
+ __delattr__
+ __enter__
+ __exit__
+ __add__
+ ......
+
+ 可以参考： flask中 localproxy中都用到
+
+
+ --强制调用私有字段：
+    私有字段在派生类中无法使用，切记；；
+
+
+ 6.源码的流程需要搞清楚；
+  ps:自定义堆和栈
+    栈：类似弹夹，后进先出
+    堆：先进先出
+
+
+
+  信号：
+
+
+

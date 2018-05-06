@@ -1,0 +1,26 @@
+metaclass 作用：用来指定当前类由谁来创建（默认由type创建）
+
+refer:http://www.cnblogs.com/wupeiqi/articles/8202357.html  （待继续熟悉）
+
+使用metaclass：
+
+python3的用法：
+class Foo(metaclass=type):  ##指定当前的这个类由type创建
+    pass
+
+python2中的用法：
+class Foo(object):
+    __metaclass__=type
+
+类的继承：
+class Foo(metaclass=type):
+    pass
+
+class Bar(Foo)： #说明：如果一个类的基类是使用metaclass创建的，那这个类的在实例化的时候也要用metaclass来创建
+    pass
+
+
+
+
+问题：flask多线程
+和客户端请求无关，是取决于服务端如何配置的，即如果服务器配置了多线程，当多个客户请求到来时，会进行并发的

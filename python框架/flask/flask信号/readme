@@ -1,0 +1,60 @@
+refer:http://www.cnblogs.com/wupeiqi/articles/8249576.html
+
+Flask框架中的信号基于blinker，其主要就是让开发者可是在flask请求过程中定制一些用户行为。
+
+pip3 install blinker
+
+flask中信号的使用：
+1.定义信号： flask内部已经定义完
+2.自定义函数，并注册  signals.request_started.connect(func)  #将自定义函数注册到信号中
+3.触发信号： ##触发信号调用的是send方法：比如 signals.request_started.send()
+
+
+
+
+
+第一步：定义信好，
+ 下面是flask支持的所有的内置信号
+
+request_started = _signals.signal('request-started')                # 请求到来前执行
+request_finished = _signals.signal('request-finished')              # 请求结束后执行
+
+before_render_template = _signals.signal('before-render-template')  # 模板渲染前执行
+template_rendered = _signals.signal('template-rendered')            # 模板渲染后执行
+
+got_request_exception = _signals.signal('got-request-exception')    # 请求执行出现异常时执行
+
+request_tearing_down = _signals.signal('request-tearing-down')      # 请求执行完毕后自动执行（无论成功与否）
+appcontext_tearing_down = _signals.signal('appcontext-tearing-down')# 请求上下文执行完毕后自动执行（无论成功与否）
+
+appcontext_pushed = _signals.signal('appcontext-pushed')            # 请求上下文push时执行
+appcontext_popped = _signals.signal('appcontext-popped')            # 请求上下文pop时执行
+message_flashed = _signals.signal('message-flashed')                # 调用flask在其中添加数据时，自动触发
+
+from flask import signals  ##点击signal中可以查看到源码中定义的所有的信号
+
+
+通过信号来继续总结flask中请求的执行整个流程：(源码查看方法： app.wsgi_app 进入这个请求入口)
+   a. before_first_request
+   b. ##触发request_started 信号
+   c. before_request (封装在preprocess_request 里)
+   d.模板渲染：
+     #执行视图函数,，如果视图函数中调用了render时，代码如下：
+
+              #before_render_template.send(app, template=template, context=context)   ##模板渲染前信号
+              #      rv = template.render(context) #模板渲染
+              #      template_rendered.send(app, template=template, context=context)   ##模板渲染后信号
+               #   返回渲染的值
+   e.执行 after_request   （在finalize_request--》process_response）
+   f 并执行 session.save_session（在finalize_request--》process_response）
+   g. request_finished.send(self, response=response)  ##此处又触发了另一个信号   (在finalize_request中)
+       如果上述过程出错，就执行：
+               got_request_exception.send(self, exception=e)  ##请求异常信号触发 （在handle_exception中）
+   h. 请求处理完成后：
+      request_tearing_down  （在auto_pop--》pop--》do_teardown_request中）
+
+总结：
+flask请求扩展和 flask信号完成的功能类似，执行的顺序如上所述。
+两种的一个区别：
+信号：只能执行，不能终止
+请求扩展： 有返回值时可以终止
