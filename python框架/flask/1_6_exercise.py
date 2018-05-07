@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 #author:zhl
 
+#remark: 1~6 内容的练习
+
 from flask import Flask,request,render_template,redirect,session,url_for
 
 USERS={

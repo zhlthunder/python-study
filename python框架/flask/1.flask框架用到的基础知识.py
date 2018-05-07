@@ -56,6 +56,9 @@ def route(option):
 @route({'path':'/index'})
 def index(request):
     pass
+
+
+
 ##经过上面装饰器执行后,url_map变为： url_map={'/index':index}
 ##即通过这种装饰器，实际上就生成了一个路由关系，当用户访问/index时，会自动执行index函数，这就是
 # flask中路由的原理
