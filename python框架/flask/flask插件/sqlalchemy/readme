@@ -1,0 +1,20 @@
+类：对应表
+对象：对应行
+字段：对应列
+
+sqlalchemy orm 框架：
+目标： 类/对象操作 --》 SQL-->通过Mysqldb 或pymysql 模块执行SQL语句
+
+refer:http://www.cnblogs.com/wupeiqi/articles/8259356.html
+
+engine-->执行类--》转换成SQL--》 connecting pool  --》mysql 或pymysql
+
+pip3 install sqlalchemy
+
+
+
+ORM:
+1.创建表
+
+
+2.操作表
