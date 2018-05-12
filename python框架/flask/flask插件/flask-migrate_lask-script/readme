@@ -1,0 +1,43 @@
+install: pip3 install flask-migrate
+
+"""
+执行验证：
+C:\Users\lin\PycharmProjects\python_study_1s\python_study\git-zhl\python-study\python框架\flask\flask插件\flask-migrate\sansa>python3 manage.py db init
+Creating directory C:\Users\lin\PycharmProjects\python_study_1s\python_study\git-zhl\python-study\python框架\flask\flask插件\flask-migrate\sansa\migrations ... done
+Creating directory C:\Users\lin\PycharmProjects\python_study_1s\python_study\git-zhl\python-study\python框架\flask\flask插件\flask-migrate\sansa\migrations\versions ... done
+Generating C:\Users\lin\PycharmProjects\python_study_1s\python_study\git-zhl\python-study\python框架\flask\flask插件\flask-migrate\sansa\migrations\alembic.ini ... done
+Generating C:\Users\lin\PycharmProjects\python_study_1s\python_study\git-zhl\python-study\python框架\flask\flask插件\flask-migrate\sansa\migrations\env.py ... done
+Generating C:\Users\lin\PycharmProjects\python_study_1s\python_study\git-zhl\python-study\python框架\flask\flask插件\flask-migrate\sansa\migrations\README ... done
+Generating C:\Users\lin\PycharmProjects\python_study_1s\python_study\git-zhl\python-study\python框架\flask\flask插件\flask-migrate\sansa\migrations\script.py.mako ... done
+Please edit configuration/connection/logging settings in 'C:\\Users\\lin\\PycharmProjects\\python_study_1s\\python_study\\git-zhl\\python-study\\python框架\\flask\\flask插件\\flask-migrate\\sansa\\migrations\\alembic.ini' before proceeding.
+
+执行之后，出现了一个migrations目录
+"""
+C:\Users\lin\PycharmProjects\python_study_1s\python_study\git-zhl\python-study\python框架\flask\flask插件\flask-migrate\sansa>python3 manage.py db migrate
+C:\python3\lib\site-packages\pymysql\cursors.py:166: Warning: (1366, "Incorrect string value: '\\xD6\\xD0\\xB9\\xFA\\xB1\\xEA...' for column 'VARIABLE_VALUE' at row 480")
+  result = self._query(query)
+INFO  [alembic.runtime.migration] Context impl MySQLImpl.
+INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+INFO  [alembic.autogenerate.compare] Detected added table 'users'
+Generating C:\Users\lin\PycharmProjects\python_study_1s\python_study\git-zhl\python-study\python框架\flask\flask插件\flask-migrate\sansa\migrations\versions\99bb6bbb5e28_.py ... done
+
+C:\Users\lin\PycharmProjects\python_study_1s\python_study\git-zhl\python-study\python框架\flask\flask插件\flask-migrate\sansa>python3 manage.py db upgrade
+C:\python3\lib\site-packages\pymysql\cursors.py:166: Warning: (1366, "Incorrect string value: '\\xD6\\xD0\\xB9\\xFA\\xB1\\xEA...' for column 'VARIABLE_VALUE' at row 480")
+  result = self._query(query)
+INFO  [alembic.runtime.migration] Context impl MySQLImpl.
+INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+INFO  [alembic.runtime.migration] Running upgrade  -> 99bb6bbb5e28, empty message
+
+通过上面的三个命令后，已经创建了数据表了。
+
+总结一下使用manage.py操作数据表的方法：
+1.第一次创建时，依次执行：
+python manage.py db init
+python manage.py db migrate
+python manage.py db upgrade
+即可创建数据表；
+
+2.如果表结构变更，只需执行：
+python manage.py db migrate
+python manage.py db upgrade
+即可变更表结构， 且如果之前表中已经有数据，则数据还在，只是变更的那个列受到影响（重要，切记！！！！！！！！！！！！！）
