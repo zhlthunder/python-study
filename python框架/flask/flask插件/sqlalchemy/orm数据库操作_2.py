@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 #author:zhl
 
+##和 orm操作数据库_1.py 功能完整一样，可以忽略此脚本
+
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
 from models import *

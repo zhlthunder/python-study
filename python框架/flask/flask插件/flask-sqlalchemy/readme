@@ -1,0 +1,27 @@
+refer:  http://www.cnblogs.com/wanghl1011/category/1182205.html
+
+C:\Users\lin>pip3 install flask_sqlalchemy
+Collecting flask_sqlalchemy
+  Downloading https://files.pythonhosted.org/packages/a1/44/294fb7f6bf49cc7224417cd0637018db9fee0729b4fe166e43e2bbb1f1c8/Flask_SQLAlchemy-2.3.2-py2.py3-none-any.whl
+Requirement already satisfied: SQLAlchemy>=0.8.0 in c:\python3\lib\site-packages (from flask_sqlalchemy) (1.2.7)
+Requirement already satisfied: Flask>=0.10 in c:\python3\lib\site-packages (from flask_sqlalchemy) (0.12.2)
+Requirement already satisfied: itsdangerous>=0.21 in c:\python3\lib\site-packages (from Flask>=0.10->flask_sqlalchemy) (0.24)
+Requirement already satisfied: Werkzeug>=0.7 in c:\python3\lib\site-packages (from Flask>=0.10->flask_sqlalchemy) (0.12.2)
+Requirement already satisfied: click>=2.0 in c:\python3\lib\site-packages (from Flask>=0.10->flask_sqlalchemy) (6.7)
+Requirement already satisfied: Jinja2>=2.4 in c:\python3\lib\site-packages (from Flask>=0.10->flask_sqlalchemy) (2.9.6)
+Requirement already satisfied: MarkupSafe>=0.23 in c:\python3\lib\site-packages (from Jinja2>=2.4->Flask>=0.10->flask_sqlalchemy) (1.0)
+Installing collected packages: flask-sqlalchemy
+Successfully installed flask-sqlalchemy-2.3.2
+
+Flask的flask-sqlalchemy
+flask-sqlalchemy是Flask和SQLAlchemy的管理者
+
+- db = SQLAlchemy()
+　　- 包含配置
+　　- 包含ORM基类
+　　- 包含create_all
+　　- engine
+　　- 创建连接
+
+@@##重要：
+使用flask搭建项目是，可以借用sansa项目的组织架构

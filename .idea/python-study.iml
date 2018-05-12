@@ -4,7 +4,7 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/SqlAIchemy related/py3_training-master/py3_training-master/Baoleiji/LittleFinger" isTestSource="false" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.6.0 (C:\python3\python3.exe) (3)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.6.0 (C:\python3\python3.exe)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>

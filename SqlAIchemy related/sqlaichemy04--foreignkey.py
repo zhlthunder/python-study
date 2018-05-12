@@ -38,7 +38,7 @@ class Group(Base):
     # hosts=relationship("Host") #单向relationship内嵌
 
 
-Base.metadata.create_all(engine) #创建所有表结构
+# Base.metadata.create_all(engine) #创建所有表结构
 
 
 if __name__ == '__main__':
@@ -71,10 +71,10 @@ if __name__ == '__main__':
 
 
     ##执行join关联查询的方法，类似下面原生sql join类似的功能
-    # objs=session.query(Host).join(Host.group).all()  #这个命令，相当于inner join，返回3条记录，
+    objs=session.query(Host).join(Host.group).all()  #这个命令，相当于inner join，返回3条记录，
     #注意理解此处的语法， 查询Host表，并关联查询Group表（通过Host.group映射的）,也可以直接用join(Group)来关联Group表；
     # objs=session.query(Host).join(Group).all()
-    # print("-->:",objs)
+    print("-->:",objs)
 
     #适用group_by，进行分组聚合
     ##对一张表进行分类聚合
@@ -83,8 +83,8 @@ if __name__ == '__main__':
     #直接使用下面的这条命令的all()返回结果时会报错，推测和sqlaichemy无关，将all() 修改为filter（Group.name）就没有报错了，
     # 使用all()报错的问题，待后续继续排查
     # objj=session.query(Host,func.count(Group.name)).join(Host.group).group_by(Group.name).all()
-    objj=session.query(Host,func.count(Group.name)).join(Host.group).group_by(Group.name).filter(Group.name)
-    print("-->:",objj)
+    # objj=session.query(Host,func.count(Group.name)).join(Host.group).group_by(Group.name).filter(Group.name)
+    # print("-->:",objj)
 
 
 

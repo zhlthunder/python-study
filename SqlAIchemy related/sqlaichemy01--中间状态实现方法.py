@@ -133,9 +133,9 @@ conn = engine.connect()
 # sql = select([user.c.name]).order_by(user.c.name)
 
 #type5:按用户名排序后输出所有记录的所有列
-sql = select([user]).order_by(user.c.name)
-
-result = conn.execute(sql)
-print result.fetchall()
+# sql = select([user]).order_by(user.c.name)
+#
+# result = conn.execute(sql)
+# print result.fetchall()
 # conn.close()
 

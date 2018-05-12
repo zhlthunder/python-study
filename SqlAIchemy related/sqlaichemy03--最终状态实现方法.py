@@ -51,7 +51,7 @@ session = Session()
 # ret = session.query(User).filter(User.name.in_(['sb','bb'])).all()
 # print ret
 
-# ret = session.query(User.name.label('name_label')).all()  ##此处的name_label功能没有验证，待验证???
+# ret = session.query(User.name.label('name_label')).all()  ##重命名 name --》 name_label
 # print ret,type(ret)
 
 # ret = session.query(User).order_by(User.id).all()
