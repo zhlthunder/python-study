@@ -48,7 +48,7 @@ if __name__ == '__main__':
 方法2：在后端使用Markup 对要传递的字符串进行格式化，范例如下：
 Markup("<input type='text' value='%s' />"%(arg))
 
-备注：不采取上面的措施时，前端看到的信息如下；
+备注：不采取上面的措施时，前端看到的信息如下，而没有解析成一个input框
  <input type='text' value='六六' />
 
 """

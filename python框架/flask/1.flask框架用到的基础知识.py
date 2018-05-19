@@ -67,8 +67,8 @@ def index(request):
 ##补充2：
 # session&cookie原理
 ##session相当于一个大字典
-#当客户端来请求的时候，会带着一个随机字符串过来，服务器端会根据这个随机字符串作为key创建一个字典，并将
-# 用户的数据存储在内存中，当用户请求结束时，将数据写入数据库中
+#当客户端来请求的时候，如果是新用户，，服务器端为用户创建一个随机字符串来辨识这个用户，并在内存中创建一个字典，
+# 用于存储会话数据，当用户请求结束时，将数据写入数据库中，并将随机字符串写入cookie中返回给客户端；
 #类似于这样：
 {
     'asdfadf':{'name':'jack','age':12},
@@ -81,9 +81,9 @@ def index(request):
 ##OOP相关，有下面的一个用法
 class Mydic(dict):
     def __init__(self,*args,**kwargs):
-        super(Mydic,self).__init__(*args,**kwargs)
+        super(Mydic,self).__init__(*args,**kwargs)  ##用于继承父类的__init__方法
         self['modify']=True
-obj=Mydic()  ##这样实例化后，就具有 obj.modify=True
+obj=Mydic()  ##这样实例化后，就具有 obj.modify=True   ## 这个知识在session处会用到，用来表示这个特殊的字典是否被修改过
 
 ##上面的用法在flask中会用到
 

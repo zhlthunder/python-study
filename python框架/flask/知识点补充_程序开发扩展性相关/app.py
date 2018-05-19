@@ -13,7 +13,7 @@
 #
 # @app.route('/index')
 # def index():
-#     # data=request.query_string.get('val')
+#     # data=request.query_string.get('val')   #对应url: http://localhost:5000/index?val=123
 #     data='xyy'
 #     if data=='xyy':
 #         ##发送报警: 短信/邮件

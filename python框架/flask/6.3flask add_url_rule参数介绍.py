@@ -12,7 +12,6 @@ defaults=None,              默认值,当URL中无参数，函数需要参数时
 endpoint=None,              名称，用于反向生成URL，即： url_for('名称')
 methods=None,               允许的请求方式，如：["GET","POST"]
 
-
 strict_slashes=None,        对URL最后的 / 符号是否严格要求，
                            如：
                            @app.route('/index',strict_slashes=False)，

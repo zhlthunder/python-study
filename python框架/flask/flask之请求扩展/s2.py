@@ -35,7 +35,7 @@ def index():
 if __name__ == '__main__':
     app.run()
 
-#属性信息：
+#输出信息：
 # 进来了
 # index 函数
 # 走了

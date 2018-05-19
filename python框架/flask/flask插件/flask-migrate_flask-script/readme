@@ -1,4 +1,11 @@
+
+
 install: pip3 install flask-migrate
+install: pip3 install flask-script
+
+
+flask-script:用于实现类似django 的 python manage.py runserver 及其它一些自定义的命令；
+flask-migrate: 用于实现类似django数据库迁移： django为 makemigrations/migrate  flask: migrate\update
 
 """
 执行验证：

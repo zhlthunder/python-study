@@ -1,0 +1,552 @@
+#之前我们学习的装饰器如下:
+def wrapper(func):
+    def inner(*args,**kwargs):
+        return func(*args,**kwargs)
+    return inner
+
+@wrapper  ##这部相当于执行 index=wrapper(index), 即将index函数作为参数带入wrapper函数中，执行结束后，返回innner函数，即index函数被重新装饰成inner函数
+def index(request):
+    pass
+
+##现在我们对上面的装饰器进行改造一下：
+
+def wrapper(option):
+    def inner(func,*args,**kwargs):
+        pass
+    return inner
+
+@wrapper({'k1':'v1'})
+def index(request):
+    pass
+
+#说明：
+# @wrapper({'k1':'v1'})的执行步骤如下：即
+#step1:执行 wrapper({'k1':'v1'})，返回inner函数；
+#step2:执行@inner,即执行 inner(index),即将index函数做为参数带入inner中执行
+总结： 这种装饰器，分成两步来执行，先执行wrapper,在执行inner
+
+
+##对比说明，和我们上面的装饰器不同的地方如下：
+# @wrapper ：只执行wrapper函数；   需要调用index才可以执行inner函数；
+#@wrapper({'k1':'v1'})：先执行wrapper函数，再执行inner函数； 不需要调用就可以执行inner函数；
+
+##继续对上面的装饰器进行改造：
+url_map={
+
+}  ##定义一个空列表
+
+def route(option):
+    def inner(func,*args,**kwargs):
+        url_map[option['path']]=func
+    return inner
+
+@route({'path':'/index'})
+def index(request):
+    pass
+
+
+
+##经过上面装饰器执行后,url_map变为： url_map={'/index':index}
+##即通过这种装饰器，实际上就生成了一个路由关系，当用户访问/index时，会自动执行index函数，这就是
+# flask中路由的原理
+
+补充： python中 用到的配置文件或全局变量，需要大写
+
+
+
+
+flask相关
+1.介绍flask , django tornado框架；
+##python主流web框架介绍
+##介绍flask和django,tornado的区别；
+#django 是个重武器，内部包含了非常多的组件：ORM,Form,ModelForm,缓存，Session,中间件，信号等， 适用于大项目
+#Flash 短小精悍，内部没有太多的组件，但第三方组件非常丰富。 即flask能缩能伸，可定制性很强。 适用于小项目，大项目
+        # 路由比较特殊，是基于装饰器来实现的，但究其本质还是通过add_url_rule实现的。
+##tornado 异步非阻塞，通过一个线程来执行一千个请求，性能更强
+#bottle: 比flask更简洁，但线上应用很少，第三方组件少
+#web.py: 和bottle的情况类似，应用较少
+
+
+2.flask快速入门
+pip3 install flask  //会同时安装所有的依赖包
+创建一个虚拟环境： virtualenv flask_env
+然后再pycharm中，创建工程，选到新创建的虚拟环境即可（在pycharm下也可以创建虚拟环境）
+
+web框架中的WSGI，本质上就是完成socket的创建用的。
+所有web框架的本质：
+# import socket
+#
+# def handle_request(client):
+#     buf = client.recv(1024)
+#     client.send("HTTP/1.1 200 OK\r\n\r\n")
+#     client.send("Hello, Seven")
+#
+# def main():
+#     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+#     sock.bind(('localhost',8000))
+#     sock.listen(5)
+#
+#     while True:
+#         connection, address = sock.accept()
+#         handle_request(connection)
+#         connection.close()
+#
+# if __name__ == '__main__':
+#     main()
+
+
+#: flask中使用的类似wsgi的模块为 werkzeug
+
+# 使用 werkzeug实现的一个简单server(也就是socket服务器端);
+
+# from werkzeug.wrappers import Request, Response
+#
+# @Request.application
+# def hello(request):
+#     return Response('Hello World!')
+#
+# if __name__ == '__main__':
+#     from werkzeug.serving import run_simple
+#     run_simple('localhost', 4000, hello)
+
+
+flask基本用法：
+
+from flask import Flask
+##实例化flask对象
+app = Flask(__name__)
+
+#将url(/)和hellow_world的对应关系添加到路由中
+@app.route('/')
+def hello_world():
+    return 'Hello World!'
+
+if __name__ == '__main__':
+    #监听用户请求
+    #如果有用户请求到来，则执行app的__cal__方法
+    ##__call__方法其实是整个请求的入口，在这个方法中把请求的数据进行封装，把请求中URL拿来进行路由映射，并执行视图函数，获取视图函数的返回值后给客户
+        # app.__call__
+    app.run()
+
+
+使用信息：
+return render_template('index.html',user=USERS)  //返回模板， 可以带参数，如果是返回的是一个字典，需要用**dict的方式；
+request.query_string ##包含URL请求头中的信息  //需要先导入request
+request.form ##包含form表单中的信息//需要先导入request
+字典中值的存入： dict['key']='v'
+字典中值的获取： dict.get('key')
+return redirect("/index")  //重定向的方法，需要导入redirect， 注意 /index和 /index/的差异
+模板中访问字典的方法：
+ {%  for k,v in user.items() %}  //必须加（）
+    <tr>
+    <td>{{k}}</td>
+    <td>{{v.name}}</td>    //type1：v.name
+    <td>{{v['age']}}</td>  //type2：v['age']  type3: v.get('age')
+      <td><a href="/detail/{{k}}">查看详细</a></td>  //切换页面的方法  ， 对应的url正则匹配的方法： @app.route(/detail/<int:nid>)  ,这样在detail函数中就可以使用nid变量了
+
+ 如果要保持用户会话，可以使用session
+ session['user']=user  写session
+ user=session.get('user') 获取session,斌判断是否登录；
+
+在route中定义endpoint='n1',导入url_for,  就可以反向生成url了。
+url=url_fo('n1')
+如果url中有变量时，也可以指定：
+比如/detail/<int:nid>
+url=url_for('n2',nid=22) //对应的url为/detail/22  注意，此时跳转时，肯定是调到指定的一个数字的页面，而不会是一个变量，否则就不知道要调到哪里去了，即目标的URL必须是明确唯一的。
+
+
+3.配置文件
+
+# flask参数配置的方法：
+type 1.app.config['DEBUG'] = True
+type 2.app.debug=True
+type 3.app.config.from_pyfile("settings.py")
+          settings.py 中内容样式为“ DEBUG=True”
+
+#以上三种方法都不常用
+tyep 4.在settings.py中定义类,应用方法：app.config.from_object("settings.DevelopmentConfig")  ##通过字符串导入模块的方法，用到importlib和rsplit，切记
+setting.py的文件定义如下：
+class Config(object):
+    DEBUG = False
+    TESTING = False
+    DATABASE_URI = 'sqlite://:memory:'
+
+class ProductionConfig(Config):
+    DATABASE_URI = 'mysql://user@localhost/foo'
+
+class DevelopmentConfig(Config):  //重载了父类的属性
+    DEBUG = True
+
+class TestingConfig(Config):
+    TESTING = True
+
+4.路由系统
+路由中用到的参数：
+添加路由方法1：
+app.route('/',methods=['GET','POST'],endpoint='n1')
+
+添加路由的方法2：
+app.add_url_rule("/login",'n2',login,methods=['GET','POST'])
+
+add_url_rule（也就是route）中支持的参数：
+
+"""
+参数介绍：
+defaults=None,              默认值,当URL中无参数，函数需要参数时，使用defaults={'k':'v'}为函数提供参数
+endpoint=None,              名称，用于反向生成URL，即： url_for('名称')
+methods=None,               允许的请求方式，如：["GET","POST"]
+
+strict_slashes=None,        对URL最后的 / 符号是否严格要求，
+                           如：
+                           @app.route('/index',strict_slashes=False)，
+                           访问 http://www.xx.com/index/ 或 http://www.xx.com/index均可
+                           @app.route('/index',strict_slashes=True)
+                           仅访问 http://www.xx.com/index
+
+redirect_to=None,           重定向到指定地址
+                            如：
+                            @app.route('/index/<int:nid>', redirect_to='/home/<nid>')
+                             或
+                             def func(adapter, nid):
+                             return "/home/888"
+                               @app.route('/index/<int:nid>', redirect_to=func)
+
+
+#defaults= 参数举例
+# @app.route('/index',methods=['GET','POST'],endpoint='n1',defaults={'nid':88})
+# def index(nid):
+#     print(nid)
+#     return 'Hello World!'
+
+##redirect_to= 参数举例
+@app.route('/index',methods=['GET','POST'],endpoint='n1',redirect_to='/index2')
+def index():
+    return '公司老页面'
+
+@app.route('/index2',methods=['GET','POST'],endpoint='n2')
+def index2():
+    return '公司新页面'
+
+
+# subdomain=None,             子域名访问
+##  www.baidu.com  为主域名
+##  api.baidu.com  为子域名
+比如：
+配置如下：
+app.config['SERVER_NAME'] = 'thunder.com:5000'  #配置域名
+@app.route("/", subdomain="admin")
+@app.route("/dynamic", subdomain="<username>")    #<username>  类似于字符串表达式
+
+# 然后就可以访问如下的地址了：
+# http://www.thunder.com:5000/dynamic  没有定义主网站，此时www也被匹配成了subdomain="<username>"
+# http://admin.thunder.com:5000
+# http://api.thunder.com:5000/dynamic  也匹配成subdomain="<username>"
+
+默认支持的路由系统：
+@app.route('/user/<username>')  表示字符串
+@app.route('/post/<int:post_id>') 表示整数
+@app.route('/post/<float:post_id>') 表示小数
+@app.route('/post/<path:path>') 路径
+@app.route('/login', methods=['GET', 'POST'])
+
+自定义一个类用于执行URL的正则匹配：
+/index/<int:nid>  这种方式中int匹配的是整形，匹配之后的值在nid变量中并传给视图函数
+/index/<regex("xb\d+"):nid>  这种方式中<regex("xb\d+")是使用自定义的方式匹配的正则表达式，匹配之后的值在nid变量中并传给视图函
+
+
+5.模板语言
+自定义函数传递到模板中执行，在模板中可以带括号，也可以传参数
+比如后端定义的函数：
+# def func1(arg):
+#     return arg+":阿斯顿发送到发送到"
+return render_template("s7.html",ff=func1)  ##传递到模板中
+
+{{ff("六六")}}<br/>  //在模板中使用后端传过来的函数
+
+xss攻击相关：目前的模板框架，都自动开启了防xss攻击的功能，即后端传递过来的html语言，前端不解析。
+如果要临时关闭这种功能，有如下的方法：
+方法1：  {{ff("六六")|safe}}  前端使用管道符+safe
+方法2： return Markup("<input type='text' value='%s' />"%(arg))  后端对要返回的内容执行Markup方法，记得要先导入markup
+
+总结：flask 的jinjia2模板语言，支持在后端定义函数，传递到前端，然后在前端执行；
+如果定义的函数中包含 html语句，就会存在xss攻击的风险， flask中规避的方法：
+方法1：在前端使用 |safe (即管道符加safe)的方法，格式如下：
+{{ff("六六")|safe}}
+
+方法2：在后端使用Markup 对要传递的字符串进行格式化，范例如下：
+Markup("<input type='text' value='%s' />"%(arg))
+
+备注：不采取上面的措施时，前端看到的信息如下，而没有解析成一个input框
+ <input type='text' value='六六' />
+
+ # type2: 宏定义
+"""
+可以通过宏定义，在前端页面中定义一个程序块，格式举例如下，这样就可以在前端生成4个input框
+
+ {% macro xx(name, type='text', value='') %}
+        <input type="{{ type }}" name="{{ name }}1" value="{{ value }}">
+        <input type="{{ type }}" name="{{ name }}2" value="{{ value }}">
+        <input type="{{ type }}" name="{{ name }}3" value="{{ value }}">
+        <input type="{{ type }}" name="{{ name }}4" value="{{ value }}">
+  {% endmacro %}
+
+ {{xx('n')}}
+
+
+6.请求&响应相关
+ # 请求相关信息
+    # request.method
+    # request.args
+    # request.form
+    # request.values
+    # request.cookies   request.cookies.get()
+    # request.headers
+    # request.path
+    # request.full_path
+    # request.script_root
+    # request.url
+    # request.base_url
+    # request.url_root
+    # request.host_url
+    # request.host
+    # request.files
+    # obj = request.files['the_file_name']
+    # obj.save('/var/www/uploads/' + secure_filename(obj.filename))
+     ##secure_filename 实际上是对文件名进行加密，以加密后字符串作为文件名，防止文件名重复
+
+
+     # 响应相关信息
+    # return "字符串"
+    # return render_template('html模板路径',**{})
+    # return redirect('/index.html')
+    # return jsonify({'k1':'v1'})  ##返回json格式的数据给前端页面
+
+    ##对响应进行二次加工， 比如设置cookie,设置响应头等等
+    # response = make_response(render_template('index.html'))  ##返回模板文件时，先创建一个响应对象，需要先导入make_response
+    # response = make_response(“this is index page”) ##返回的是字符串时，先创建一个响应对象，需要先导入make_response
+    # response是flask.wrappers.Response类型  ##对象的类型
+    # response.delete_cookie('key')  ##删除cookie
+    # response.set_cookie('key', 'value') ##设置cookie
+    # response.headers['X-Something'] = 'A value'  ##设置响应头
+    # return response   ##返回响应的对象
+
+7.session&cookie
+session在使用前必须设置：
+app.secret_key='asdfasdf'
+session 是一个特殊的字典对象，使用方法如下：
+
+ session['user']=user  写session
+ user=session.get('user') 获取session
+
+
+补充内容： 知识点补充_程序开发扩展性相关
+def send_msgs(msg):
+    for path in settings.MSG_LIST:
+        m,c=path.rsplit('.',maxsplit=1)   ##从右边开始分割1次，就把模块路径和 类或函数分割开了
+        md=importlib.import_module(m) ##动态导入模块
+        cls=getattr(md,c)   ##基于类的字符串从模块中找到对应的类
+        # print(md,cls)
+        obj=cls()   ##类的实例化
+        obj.send(msg) ##执行类的方法
+        # print(path)
+    # print("it is tesinggasdfafd")
+
+##此处非常重要，根据字符串导入模块，然后使用反射获取类名
+
+装饰器相关的问题：
+说明：如果登录验证的装饰器放到路由装饰器的上面，会导致路由添加也被阻止了，所以需要放到路由装饰器的下面；
+但放到路由装饰器的下面，执行时会报如下的错误：
+AssertionError: View function mapping is overwriting an existing endpoint function: inner
+原因说明：
+默认不指定endpoint时，endpoint=函数名；
+index和detail 被同一个装饰器装饰时，都会被替换成inner函数，即存在两个相同函数名inner,所有会报错
+
+解决对策1：
+为每个被装饰的函数指定endpoint
+
+解决对策2：
+import functools
+def verify(func):
+    @functools.wraps(func)  ##加上这个后，删除endpoint,在执行就不会报错了，即函数名没有变化，就不会出现重名的问题了，帮忙设置函数的元信息，即让函数名不变
+    def inner(*args,**kwargs):
+        user=session.get('user_info')
+        if not user:
+            return redirect('/login')
+            # return redirect("/login")
+        return func(*args,**kwargs)
+    return inner
+
+
+
+8.闪现，基于session来实现的，所以需要设置app.secret_key="asdfad"
+from flask import Flask,flash,get_flashed_messages
+#向某个地方设置一个值
+flash("asdfasdfafsd")
+
+#从某个地方获取设置过的所有值，并清除
+#闪现：就是读取一次后就被清除了，所以叫这个名字
+data=get_flashed_messages()
+
+flash中存储的数据可以进行分类：
+flash("超时错误"，cagtegory="xxx")
+get_flashed_messages(cagtegory_filter=['xxx'])  这样取的时候只拿这一类的数据，其它的数据可以不动
+
+闪现：就是用session实现的，即先把数据存放到session中，获取的时候采用pop的方法，这样数据清除了
+另外，既然是基于session实现的，那就不用担心数据错乱的问题，
+什么是数据错乱呢？ 即不同的客户端用户访问产生的错误信息，可以准确的按照用户别区分开来，为什么呢？
+session本质上维护的就是一个用户列表，所以已经实现了对用户的隔离
+
+闪现应用于：对临时数据操作，如：显示错误信息
+http://localhost:5000/index?v=asdfadfsafsd
+使用 val=request.args.get('v') 获取请求头中的数据；
+
+因为flash是基于session实现的，就会很好的实现在不同用户间进行数据的隔离；因为session已经基于用户实现了隔离；
+
+9.蓝图
+pro_flask_简单应用程序目录示例
+
+1).批量修改url
+account = Blueprint('account', __name__,url_prefix="/acc")
+#url_prefix="/acc"  用于对这个蓝图下面的所有URL 统一加个前缀； 即访问方式变更：/account--》/acc/account
+
+2).模板路径/静态文件路径
+account = Blueprint('account', __name__,url_prefix="/acc",template_folder='tpls')
+#url_prefix="/acc"  用于对这个蓝图下面的所有URL 统一加个前缀； 即访问方式变更：/account--》/acc/account##template_folder='tpls'
+ 定义这个蓝图下专用的templates,以实现templates的分离，但有个优先级的问题，如果templates和tpls中都有相同的模块，优先寻找templates中的
+
+3).请求扩展相关：
+    在__init__中使用，针对全站所有的app都适用；
+    在蓝图中使用时，只针对这个蓝图中的url适用，别的url不适用。   用户认证的代码，可以在蓝图中实现，这样只要在登录以外的视图函数中实现即可，登录函数不需要实现。
+     也就避免了使用黑名单了。
+
+
+4). 重要：
+蓝图对象的名称和蓝图中视图函数的名称一定不可以相同，否则就会报错，切记；
+
+
+
+
+10.请求扩展（django中间件）
+###########################################
+@app.before_request  在每次请求之前都会执行
+@app.after_request  每次响应返回之前执行
+@app.before_first_request 只在第一次请求前执行
+
+@app.errorhandler(404)  根据状态码定制错误页面
+
+定制模板方法：
+@app.template_global()
+@app.template_filter()
+###########################################
+详细如下：
+
+##这个函数会在每次request请求之前执行， 所以登录认证的功能可以在此实现(重要*****)
+@app.before_request
+def process_request(*args,**kwargs):
+    print("请求之前")
+    # print(request.url)  输出：http://localhost:5000/index
+    print(request.path)  #输出： /index
+    if request.path == '/login':
+        return None
+
+    user=session.get('user_info')
+    if user:
+        return None
+    return redirect('/login')
+
+    # return "拦截"    ##此处如果使用return,且返回的不是None, 那后面视图函数就无法执行了，页面上只显示 “拦截”
+
+ 进阶1：
+ @app.before_request  ##每次请求到来后首先执行的。
+def process_request(*args,**kwargs):
+    print("进来了")
+
+###中间是视图函数
+
+ @app.after_request  ##没有响应返回前要执行的。
+def process_response(response):
+    print("走了")
+    return response
+
+==》      @app.before_request ==》视图 ==》@app.after_request
+
+@app.before_request
+def process_request1(*args,**kwargs):
+    print("process_request1进来了")
+
+@app.before_request
+def process_request2(*args,**kwargs):
+    print("process_request2进来了")
+
+
+@app.after_request
+def process_response1(response):
+    print("process_response1走了")
+    return response
+
+@app.after_request
+def process_response2(response):
+    print("process_response2走了")
+    return response
+
+
+@app.route('/index',methods=['GET'])
+def index():
+    print("index 函数")
+    return "index"
+
+ 执行流程：process_request1--》process_request2--》视图--》process_response2--》process_response1
+重点：即在request1中执行拦截后，视图函数就不执行了，但所有的response还要继续执行
+
+@@给模板定制filter或simple_tag,类似django中用到的自定义过滤标签：
+##函数定制：
+
+在后台中定义如下的函数，然后再模板文件中调用
+@app.template_global()
+def sb(a1, a2):
+    return a1 + a2
+
+
+@app.template_filter()
+def db(a1, a2, a3):
+    return a1 + a2 + a3
+
+
+html调用方式：{{sb(1,2)}}  {{ 1|db(2,3)}} 备注：这个写法，1是第一个参数
+
+
+
+11.中间件
+用法实例：
+from flask import Flask
+app = Flask(__name__)
+
+
+@app.route('/')
+def index():
+    return 'Hello World!'
+
+class Md(object):
+    def __init__(self,old_wsgi_ap):
+        self.old_wsgi_ap=old_wsgi_ap
+
+    def __call__(self, environ, start_response):
+        print("开始之前")  ##实现中间件的功能代码
+        ret=self.old_wsgi_ap(environ, start_response)
+        print("开始之后") ##实现中间件的功能代码
+        return ret
+
+if __name__ == '__main__':
+    app.wsgi_app=Md(app.wsgi_app)  ##相当于对响应流程进行装饰
+    app.run()
+
+
+
+12.上下文管理
+   threadinglocal  本地线程  //在python中涉及多线程编程时会用到的部分
+   使用方法：
+    import threading
+    local_values = threading.local()  ##可以理解为：来了一个线程时，就开辟一个专用的空间给你使用，保存这个线程独有的值
+
+
+

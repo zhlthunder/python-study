@@ -31,7 +31,7 @@ from werkzeug.routing import BaseConverter
 
 app = Flask(import_name=__name__)
 
-#写转换器类
+#step1:写转换器类
 class RegexConverter(BaseConverter):
     """
     自定义URL匹配正则表达式
@@ -42,7 +42,8 @@ class RegexConverter(BaseConverter):
 
     def to_python(self, value):
         """
-        路由匹配时，匹配成功后传递给视图函数中参数的值
+        @@匹配成功时会执行这个函数
+        路由匹配时，匹配成功后,可以在to_python中对数据进行处理之后再传递给视图函数， 比如 return int(value)就可以将参数转换为整形后发送给视图函数
         :param value:
         :return:
         """
@@ -50,6 +51,7 @@ class RegexConverter(BaseConverter):
 
     def to_url(self, value):
         """
+        ##反向生成时会执行这个函数
         使用url_for反向生成URL时，传递的参数经过该方法处理，返回的值用于生成URL中的参数
         :param value:
         :return:
@@ -57,16 +59,23 @@ class RegexConverter(BaseConverter):
         val = super(RegexConverter, self).to_url(value)
         return val
 
-#将RegexConverter 添加到flask中
+#step2:将RegexConverter 添加到flask中
 app.url_map.converters['regex'] = RegexConverter
 
 
 @app.route('/index/<regex("xb\d+"):nid>')
 def index(nid):
-    print(url_for('index', nid='888'))
+    print(nid)
+
     return 'Index'
 
 
 if __name__ == '__main__':
     app.run()
 
+##访问的url: http://127.0.0.1:5000/index/xb999   ,打印输出：xb999
+##这么来理解：
+"""
+/index/<int:nid>  这种方式中int匹配的是整形，匹配之后的值在nid变量中并传给视图函数
+/index/<regex("xb\d+"):nid>  这种方式中<regex("xb\d+")是使用自定义的方式匹配的正则表达式，匹配之后的值在nid变量中并传给视图函数
+"""

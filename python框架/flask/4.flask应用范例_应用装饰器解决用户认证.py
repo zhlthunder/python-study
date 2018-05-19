@@ -25,7 +25,7 @@ def verify(func):
     return inner
 
 """
-说明：如果登录验证的装饰器放到路由装饰器的上面，会导致路由添加也被阻止了，所有需要放到路由装饰器的下面；
+说明：如果登录验证的装饰器放到路由装饰器的上面，会导致路由添加也被阻止了，所以需要放到路由装饰器的下面；
 但放到路由装饰器的下面，执行时会报如下的错误：
 AssertionError: View function mapping is overwriting an existing endpoint function: inner
 原因说明：

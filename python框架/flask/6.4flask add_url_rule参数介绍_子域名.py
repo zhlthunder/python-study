@@ -21,7 +21,7 @@ def static_index():
     return "static.your-domain.tld"
 
 
-@app.route("/dynamic", subdomain="<username>")
+@app.route("/dynamic", subdomain="<username>")    #<username>  类似于字符串表达式
 def username_index(username):
     """Dynamic subdomains are also supported
     Try going to user1.your-domain.tld/dynamic"""

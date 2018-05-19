@@ -3,7 +3,7 @@
 #author:zhl
 
 """
-session和co的区别：
+session和cookie的区别：
 
 会话（Session）跟踪是Web程序中常用的技术，用来跟踪用户的整个会话。常用的会话跟踪技术是
 Cookie与Session。Cookie通过在客户端记录信息确定用户身份，Session通过在服务器端记录信息确定用户身份。
@@ -60,7 +60,7 @@ app.secret_key='asdfasdf'
 
 @app.route('/')
 def index():
-    #flask内置的使用 加密cookie（签名cookie）来保存数据的。
+    #flask内置的使用 加密cookie（签名cookie）来保存数据的, 即会话的数据是写到cookie中的，没有存储在服务器端，这是flask内置session的使用方式
     session['k1']='v1'
     session['k2']='v2'
 

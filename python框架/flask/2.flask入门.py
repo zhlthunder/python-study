@@ -70,7 +70,7 @@
 
 ##flask基本使用：
 from flask import Flask
-##实例化flask对象
+##实例化flask对象，__name__为app命名，可以用其它任意的字符串
 app = Flask(__name__)
 
 #将url(/)和hellow_world的对应关系添加到路由中
