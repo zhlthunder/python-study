@@ -1,0 +1,137 @@
+refer: https://www.cnblogs.com/gopythoner/p/6337543.html
+
+安装相关：
+pip install pywin32
+pip install PyInstaller
+
+
+Python版本：Python3.5.2
+一、安装Pyinstaller
+1、安装pywin32
+
+        下载安装文件：查找到跟自己适用的python版本及window系统版本匹配的pywin32，下载后安装
+        使用pip命令安装：pip install pywin32
+
+2、安装Pyinstaller
+
+        下载安装文件安装：官网
+
+        使用pip命令安装：pip install PyInstaller
+
+二、使用Pyinstaller
+1、使用下载安装的方式安装的Pyinstaller打包方式
+
+将需要打包的文件放在解压得到的Pyinstaller文件夹中，打开cmd窗口，把路径切换到当前路径打开命令提示行，输入以下内容（最后的是文件名）：
+
+        python pyinstaller.py -F myfile.py
+
+2、使用pip方式安装的Pyinstaller打包方式
+
+打开cmd窗口，把路径切换到文件所在路径(文件随便放在哪里都行)打开命令提示行，输入以下内容（最后的是文件名）：
+
+        pyinstaller -F myfile.py
+
+3、输入参数的含义
+
+    -F 表示生成单个可执行文件
+    -w 表示去掉控制台窗口，这在GUI界面时非常有用。不过如果是命令行程序的话那就把这个选项删除吧！
+    -p 表示你自己自定义需要加载的类路径，一般情况下用不到
+    -i 表示可执行文件的图标
+
+三、注意事项
+
+    文件中使用了第三方库的打包方式
+
+在打包之前务必找到第三方库的包，把包复制到到跟myfile.py同目录下，然后再使用以上2种方式打包，否则会打包失败或者即使打包成功，程序也会闪退。
+
+下面演示一下使用了第三方库的打包方式：
+
+        找到第三方库的包，如使用了requests，可以使用查找的方式，找到这个包在哪里，然后把它复制到myfile.py同目录下
+ 比如在lib/site-packages目录下找到requests文件夹，把包文件复制到myfile.py同级目录下
+
+
+ 给程序换图标的方法
+
+    输入命令中添加一个-i tubiao.ico(图标的相对路径)。
+
+四、exe文件生成
+
+    如果程序打包过程没有报错，则会生成3个文件夹（有时候是2个），其中名为dist的文件夹中会有一个myfile.exe文件，运行一下，如果没有问题就打包成功，可以把这个exe文件单独拿出去用，其他的生成的文件夹可以删掉了。
+
+
+
+实际确认步骤总结：
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+使用pip安装pyinstaller后；
+在cmd窗口下，切换到需要打包的文件的目录下，执行：pyinstaller -F test.py 即可完成打包；
+之后取dist文件夹下的*.exe文件即可，其它文件都不需要了，完成了。
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+C:\Users\lin\PycharmProjects\python_study_1s\python_study\git-zhl\python-study\python程序调试备忘\pyinstall相关>pyinstaller -F test.py
+124 INFO: PyInstaller: 3.3.1
+125 INFO: Python: 2.7.13
+126 INFO: Platform: Windows-10-10.0.16299
+128 INFO: wrote C:\Users\lin\PYCHAR~1\PYTHON~1\PYTHON~1\git-zhl\PYTHON~1\PYTHON~3\PYINST~1\test.spec
+137 INFO: UPX is not available.
+176 INFO: Extending PYTHONPATH with paths
+['C:\\Users\\lin\\PycharmProjects\\python_study_1s\\python_study\\git-zhl\\python-study\\python\xb3\xcc\xd0\xf2\xb5\xf7\xca\xd4\xb1\xb8\xcd\xfc\\pyinstall\xcf\xe0\xb9\xd8',
+ 'C:\\Users\\lin\\PYCHAR~1\\PYTHON~1\\PYTHON~1\\git-zhl\\PYTHON~1\\PYTHON~3\\PYINST~1']
+177 INFO: checking Analysis
+178 INFO: Building Analysis because out00-Analysis.toc is non existent
+178 INFO: Initializing module dependency graph...
+184 INFO: Initializing module graph hooks...
+481 INFO: running Analysis out00-Analysis.toc
+504 INFO: Adding Microsoft.VC90.CRT to dependent assemblies of final executable
+  required by C:\Python27\python2.exe
+14005 INFO: Found C:\WINDOWS\WinSxS\Manifests\amd64_policy.9.0.microsoft.vc90.crt_1fc8b3b9a1e18e3b_9.0.21022.8_none_18f8a87fd1919cd9.manifest
+14019 INFO: Found C:\WINDOWS\WinSxS\Manifests\amd64_policy.9.0.microsoft.vc90.crt_1fc8b3b9a1e18e3b_9.0.30729.1_none_3da38fdebd0e6822.manifest
+14030 INFO: Found C:\WINDOWS\WinSxS\Manifests\amd64_policy.9.0.microsoft.vc90.crt_1fc8b3b9a1e18e3b_9.0.30729.4148_none_acd0e4ffe1daef0a.manifest
+14070 INFO: Found C:\WINDOWS\WinSxS\Manifests\amd64_policy.9.0.microsoft.vc90.crt_1fc8b3b9a1e18e3b_9.0.30729.7523_none_accf5b75e1dc34f0.manifest
+14075 INFO: Found C:\WINDOWS\WinSxS\Manifests\amd64_policy.9.0.microsoft.vc90.crt_1fc8b3b9a1e18e3b_9.0.30729.9317_none_acce041fe1dd7bc9.manifest
+14354 INFO: Searching for assembly amd64_Microsoft.VC90.CRT_1fc8b3b9a1e18e3b_9.0.30729.9317_none ...
+14355 INFO: Found manifest C:\WINDOWS\WinSxS\Manifests\amd64_microsoft.vc90.crt_1fc8b3b9a1e18e3b_9.0.30729.9317_none_08e0939fa840d57b.manifest
+14378 INFO: Searching for file msvcr90.dll
+14382 INFO: Found file C:\WINDOWS\WinSxS\amd64_microsoft.vc90.crt_1fc8b3b9a1e18e3b_9.0.30729.9317_none_08e0939fa840d57b\msvcr90.dll
+14383 INFO: Searching for file msvcp90.dll
+14384 INFO: Found file C:\WINDOWS\WinSxS\amd64_microsoft.vc90.crt_1fc8b3b9a1e18e3b_9.0.30729.9317_none_08e0939fa840d57b\msvcp90.dll
+14384 INFO: Searching for file msvcm90.dll
+14386 INFO: Found file C:\WINDOWS\WinSxS\amd64_microsoft.vc90.crt_1fc8b3b9a1e18e3b_9.0.30729.9317_none_08e0939fa840d57b\msvcm90.dll
+14535 INFO: Found C:\WINDOWS\WinSxS\Manifests\amd64_policy.9.0.microsoft.vc90.crt_1fc8b3b9a1e18e3b_9.0.21022.8_none_18f8a87fd1919cd9.manifest
+14537 INFO: Found C:\WINDOWS\WinSxS\Manifests\amd64_policy.9.0.microsoft.vc90.crt_1fc8b3b9a1e18e3b_9.0.30729.1_none_3da38fdebd0e6822.manifest
+14539 INFO: Found C:\WINDOWS\WinSxS\Manifests\amd64_policy.9.0.microsoft.vc90.crt_1fc8b3b9a1e18e3b_9.0.30729.4148_none_acd0e4ffe1daef0a.manifest
+14541 INFO: Found C:\WINDOWS\WinSxS\Manifests\amd64_policy.9.0.microsoft.vc90.crt_1fc8b3b9a1e18e3b_9.0.30729.7523_none_accf5b75e1dc34f0.manifest
+14542 INFO: Found C:\WINDOWS\WinSxS\Manifests\amd64_policy.9.0.microsoft.vc90.crt_1fc8b3b9a1e18e3b_9.0.30729.9317_none_acce041fe1dd7bc9.manifest
+14543 INFO: Adding redirect Microsoft.VC90.CRT version (9, 0, 21022, 8) -> (9, 0, 30729, 9317)
+14976 INFO: Caching module hooks...
+14987 INFO: Analyzing C:\Users\lin\PycharmProjects\python_study_1s\python_study\git-zhl\python-study\python程序调试备忘\pyinstall相关\test.py
+14988 INFO: Loading module hooks...
+14991 INFO: Loading module hook "hook-encodings.py"...
+20567 INFO: Looking for ctypes DLLs
+20568 INFO: Analyzing run-time hooks ...
+20574 INFO: Looking for dynamic libraries
+20703 INFO: Looking for eggs
+20703 INFO: Using Python library C:\WINDOWS\system32\python27.dll
+20706 INFO: Found binding redirects:
+[BindingRedirect(name=u'Microsoft.VC90.CRT', language=None, arch=u'amd64', oldVersion=(9, 0, 21022, 8), newVersion=(9, 0, 30729, 9317), publicKeyToken=u'1fc8b3b9a1e18e3b')]
+20710 INFO: Warnings written to C:\Users\lin\PYCHAR~1\PYTHON~1\PYTHON~1\git-zhl\PYTHON~1\PYTHON~3\PYINST~1\build\test\warntest.txt
+20733 INFO: Graph cross-reference written to C:\Users\lin\PYCHAR~1\PYTHON~1\PYTHON~1\git-zhl\PYTHON~1\PYTHON~3\PYINST~1\build\test\xref-test.html
+20793 INFO: checking PYZ
+20794 INFO: Building PYZ because out00-PYZ.toc is non existent
+20794 INFO: Building PYZ (ZlibArchive) C:\Users\lin\PYCHAR~1\PYTHON~1\PYTHON~1\git-zhl\PYTHON~1\PYTHON~3\PYINST~1\build\test\out00-PYZ.pyz
+21364 INFO: Building PYZ (ZlibArchive) C:\Users\lin\PYCHAR~1\PYTHON~1\PYTHON~1\git-zhl\PYTHON~1\PYTHON~3\PYINST~1\build\test\out00-PYZ.pyz completed successfully.
+21430 INFO: checking PKG
+21432 INFO: Building PKG because out00-PKG.toc is non existent
+21432 INFO: Building PKG (CArchive) out00-PKG.pkg
+21607 INFO: Redirecting Microsoft.VC90.CRT version (9, 0, 21022, 8) -> (9, 0, 30729, 9317)
+21612 INFO: Updating manifest in C:\Users\lin\AppData\Roaming\pyinstaller\bincache00_py27_64bit\python27.dll
+21617 INFO: Updating resource type 24 name 2 language 1033
+21794 INFO: Updating manifest in C:\Users\lin\AppData\Roaming\pyinstaller\bincache00_py27_64bit\_rlsetup.pyd
+21798 INFO: Updating resource type 24 name 2 language 1033
+21835 INFO: Redirecting Microsoft.VC90.CRT version (9, 0, 21022, 8) -> (9, 0, 30729, 9317)
+23560 INFO: Building PKG (CArchive) out00-PKG.pkg completed successfully.
+23568 INFO: Bootloader C:\Python27\lib\site-packages\PyInstaller\bootloader\Windows-64bit\run.exe
+23569 INFO: checking EXE
+23570 INFO: Building EXE because out00-EXE.toc is non existent
+23572 INFO: Building EXE from out00-EXE.toc
+23574 INFO: Appending archive to EXE C:\Users\lin\PYCHAR~1\PYTHON~1\PYTHON~1\git-zhl\PYTHON~1\PYTHON~3\PYINST~1\dist\test.exe
+23591 INFO: Building EXE from out00-EXE.toc completed successfully.

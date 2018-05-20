@@ -5,7 +5,7 @@
 # 下面代码的功能和 flask内部的 local.py 功能完全相同，可以通过搜索打开local.py
 
 
-# import flask.globals
+import flask.globals
 import  flask,threading
 # from greenlet import getcurrent as get_ident  ##获取当前协程的ID，此处虽然导入时有波浪线，但可以正常使用，原因待确认
 # from _thread import get_ident ##可以获取线程的唯一标识

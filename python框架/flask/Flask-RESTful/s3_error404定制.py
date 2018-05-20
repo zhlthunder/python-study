@@ -9,8 +9,6 @@
 from flask import Flask, jsonify
 from flask import abort
 from flask import make_response
-from flask import request
-from flask import url_for
 app = Flask(__name__)
 
 tasks = [
@@ -28,21 +26,20 @@ tasks = [
     }
 ]
 
+@app.errorhandler(404)  ##别的不存在的url都可以成功跳转到这里，唯一的问题就是if not len(list(task)) 如果跳转，方法待确认
+def not_found(error):
+    return make_response(jsonify({'error': 'Not found'}), 404)
 
 
-def make_public_task(task):
-    new_task = {}
-    for field in task:
-        if field == 'id':
-            new_task['uri'] = url_for('get_task', task_id=task['id'], _external=True)
-        else:
-            new_task[field] = task[field]
-    return new_task
+@app.route('/todo/api/v1.0/tasks/<int:task_id>', methods=['GET'])
+def get_task(task_id):
+    task = filter(lambda t: t['id'] == task_id, tasks)
+    if not len(list(task)):
+        return "404"
+    task = filter(lambda t: t['id'] == task_id, tasks)
+    return jsonify({'task': task.__next__()})
 
 
-@app.route('/todo/api/v1.0/tasks', methods=['GET'])
-def get_tasks():
-    return jsonify({'tasks': map(make_public_task, tasks)})
 
 
 

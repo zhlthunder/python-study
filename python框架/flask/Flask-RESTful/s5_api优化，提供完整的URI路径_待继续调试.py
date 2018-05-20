@@ -9,6 +9,8 @@
 from flask import Flask, jsonify
 from flask import abort
 from flask import make_response
+from flask import request
+from flask import url_for
 app = Flask(__name__)
 
 tasks = [
@@ -26,22 +28,25 @@ tasks = [
     }
 ]
 
-@app.errorhandler(404)  ##无法直接跳转到这个异常的函数，待继续确认
-def not_found(error):
-    return make_response(jsonify({'error': 'Not found'}), 404)
 
 
-@app.route('/todo/api/v1.0/tasks/<int:task_id>', methods=['GET'])
-def get_task(task_id):
-    task = filter(lambda t: t['id'] == task_id, tasks)
-    if not len(list(task)):
-        return "404"
-    task = filter(lambda t: t['id'] == task_id, tasks)
-    return jsonify({'task': task.__next__()})
+def make_public_task(task):
+    new_task = {}
+    for field in task:
+        if field == 'id':
+            new_task['uri'] = url_for('get_task', task_id=task['id'], _external=True)
+        else:
+            new_task[field] = task[field]
+    return new_task
 
 
+@app.route('/todo/api/v1.0/tasks', methods=['GET'])
+def get_tasks():
+    return jsonify({'tasks': list(map(make_public_task, tasks))})
 
 
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+##在python3下执行有点问题，可能和iteral有关，待继续确认

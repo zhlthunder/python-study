@@ -548,5 +548,475 @@ if __name__ == '__main__':
     import threading
     local_values = threading.local()  ##可以理解为：来了一个线程时，就开辟一个专用的空间给你使用，保存这个线程独有的值
 
+应用实例：
+
+##协程  gevent 安装：pip3 install gevent ，会安装 greenlet, gevent 两个模块
+##pip安装指定版本的命令： pip3 install pyasn1==0.4.2
+
+# import flask.globals
+import  flask,threading
+# from greenlet import getcurrent as get_ident  ##获取当前协程的ID的模块
+ from _thread import get_ident ##可以获取线程的唯一标识的模块
+
+##模块导入
+try:
+    from greenlet import getcurrent as get_ident  #先尝试导入协程相关的获取ID的模块， 即优先使用协程，如果没有安装协程的模块，就不支持协程
+except ImportError:
+    try:
+        from thread import get_ident  ##如果上面的报错，表示不支持协程，再导入线程相关的获取ID的模块
+    except ImportError:
+        from _thread import get_ident
 
 
+##下面的这个类就可以为每个线程开辟空间保存它的值了
+class Local(object):
+    def __init__(self):
+        self.storage={}  //定义一个大字典
+        self.get_ident=get_ident
+
+    def set(self,k,v):
+        ident=self.get_ident()  #获取线程的唯一标识
+        origin=self.storage.get(ident)  #用唯一标识查字典
+        if not origin: ##如果没有这个进程或协程的信息，则为这个进程新创建一个字典
+            origin={k:v}
+        else:
+            origin[k]=v  ##如果已经有这个进程对应的字典，则直接添加
+        self.storage[ident]=origin
+
+    def get(self,k):
+        ident=self.get_ident()  #获取线程的唯一标识
+        origin=self.storage.get(ident)
+        if not origin:
+            return None
+        return origin.get(k,None)
+
+local_values=Local()
+
+def func(num):
+    local_values.set('name',num)  //为每个线程创建单独的数据空间
+    import time
+    time.sleep(1)
+    print(local_values.get('name'), threading.current_thread().name)
+
+
+for i in range(20):
+    th = threading.Thread(target=func, args=(i,), name='线程%s' % i)
+    th.start()
+
+# 输出： 结果和前面的threadinglocal的输出相同，即目前我们定义的类已经完成了和threadinglocal类似的功能了
+# 1 线程1
+# 0 线程0
+# 2 线程2
+# 3 线程3
+# 4 线程4
+# 7 线程7
+# 6 线程6
+# 5 线程5
+# 9 线程9
+# 8 线程8
+# 10 线程10
+# 13 线程13
+# 11 线程11
+# 12 线程12
+# 15 线程15
+# 14 线程14
+# 16 线程16
+# 17 线程17
+# 18 线程18
+# 19 线程19
+
+
+flask内部对local的定义方法，应用到了很多面向对象的知识：
+class Local(object):
+    def __init__(self):
+        object.__setattr__(self, '__storage__', {})
+        object.__setattr__(self, '__ident_func__', get_ident)
+
+
+    def __getattr__(self, name):
+        try:
+            return self.__storage__[self.__ident_func__()][name]
+        except KeyError:
+            raise AttributeError(name)
+
+    def __setattr__(self, name, value):
+        ident = self.__ident_func__()
+        storage = self.__storage__
+        try:
+            storage[ident][name] = value
+        except KeyError:
+            storage[ident] = {name: value}
+
+    def __delattr__(self, name):
+        try:
+            del self.__storage__[self.__ident_func__()][name]
+        except KeyError:
+            raise AttributeError(name)
+ 这样赋值的变化：local_values.set('name',num)  ==》local_values.name=num ，因为有了__setattr__, 其它获取和删除操作用法类似
+
+
+一.上下文管理源码：
+
+flask中请求处理的大概的流程是：
+源码内部定义了3个类来处理请求，
+请求到来后，environ中包含了请求相关的全部的原始信息，可能是一个字符串；
+先调用一个方法，把字符串转换成 类的请求对象， 再调用一个方法把请求对象存放到local中；
+然后接受请求，通过路由进入视图函数处理，在视图函数处理过程中调用存放在local中的对象，当请求处理完成返回后，
+会删除local中存放的请求对象。 这样一次处理过程结束；
+
+请求进来之后，先执行flask的__call__方法；
+
+
+请求处理流程简析：
+
+a)请求进来之前，先执行 _request_ctx_stack = LocalStack() ，执行LocalStack实例化；
+  def __init__(self):
+        self._local = Local()
+    再进一步执行Local的实例化，执行它的init方法：
+        def __init__(self):
+        object.__setattr__(self, '__storage__', {})
+        object.__setattr__(self, '__ident_func__', get_ident)
+
+        请注意，此处的 Local() 和我们之前在threadinglocal中完成的功能类似
+
+
+b)请求到来-->Flask类 __call__方法 （1.内部调用Flask类的request_context 方法）-->实例化一个RequestContext类的对象（1.1 __init__方法）
+在__init__方法中的如下代码中，完成请求字符串转为请求对象的操作
+        if request is None:
+            request = app.request_class(environ)
+
+然后在flask的request_class方法调用的是另一request类来完成请求的封装的操作
+#: The class that is used for request objects.  See :class:`~flask.Request`
+    #: for more information.
+    request_class = Request
+
+ 调试打印：（请求封装前后）
+         print(environ)
+        print(ctx)
+输出：
+        {'wsgi.version': (1, 0), 'wsgi.url_scheme': 'http', 'wsgi.input': <_io.BufferedReader name=1036>, 'wsgi.errors':
+         <_io.TextIOWrapper name='<stderr>' mode='w' encoding='GBK'>, 'wsgi.multithread': False, 'wsgi.multiprocess': False,
+         'wsgi.run_once': False, 'werkzeug.server.shutdown': <function WSGIRequestHandler.make_environ.<locals>.shutdown_server at 0x05DBEB28>,
+         'SERVER_SOFTWARE': 'Werkzeug/0.12.2', 'REQUEST_METHOD': 'GET', 'SCRIPT_NAME': '', 'PATH_INFO': '/', 'QUERY_STRING': '',
+          'REMOTE_ADDR': '127.0.0.1', 'REMOTE_PORT': 56315, 'SERVER_NAME': '127.0.0.1', 'SERVER_PORT': '5000', 'SERVER_PROTOCOL': 'HTTP/1.1',
+           'HTTP_HOST': '127.0.0.1:5000', 'HTTP_CONNECTION': 'keep-alive', 'HTTP_CACHE_CONTROL': 'max-age=0', 'HTTP_UPGRADE_INSECURE_REQUESTS': '1',
+           'HTTP_USER_AGENT': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.186 Safari/537.36',
+            'HTTP_ACCEPT': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8', 'HTTP_ACCEPT_ENCODING':
+             'gzip, deflate, br', 'HTTP_ACCEPT_LANGUAGE': 'zh-CN,zh;q=0.9', 'werkzeug.request': <Request 'http://127.0.0.1:5000/' [GET]>}
+<RequestContext 'http://127.0.0.1:5000/' [GET] of s1>
+
+
+        print(type(environ))
+        print(type(ctx))
+        输出：
+        <class 'dict'>
+<class 'flask.ctx.RequestContext'>
+
+ 然后再执行： ctx.push() ，进入查看，主要看下面这行
+  _request_ctx_stack.push(self)  //self是RequestContext 对象，其中包含了请求相关的所有信息
+  而_request_ctx_stack是LocalStack类的对象，即执行了这个类的push方法，将请求相关的信息都存入local中（每个线程或每个协程都是独立的）
+
+  最终：
+      ##name='stack'
+        #value=[]
+        #写入后的字典如下：
+        #{
+        #唯一标识：{
+        #   stack:[]
+        # }
+        #append 请求相关的信息之后：
+          #{
+        #唯一标识：{
+        #   stack:[requestcontext对象 ctx]
+        # }
+
+
+  先看请求执行完成之后清场的操作：#将自己存放在local中的数据移除掉
+          finally:
+            if self.should_ignore_error(error):
+                error = None
+            ctx.auto_pop(error)   //这个就是将请求相关的信息从local中移除
+
+
+  现在再来看请求处理的过程：
+  先按照使用的步骤，我们导入request,然后就可以执行print(request.method)了，这个request从哪里来的呢？
+  我们来看下它的源码；
+  直接点击request定位到：
+  request = LocalProxy(partial(_lookup_req_object, 'request'))
+  说明：partial(_lookup_req_object, 'request') 是偏函数的一个用法，即先把'request' 参数封装到_lookup_req_object函数中，即先封装一个参数进去
+
+  即request = LocalProxy(函数） ，即这是一个实例化的对象，且函数中已经使用partial封装了一个参数进去。
+        下面就是   LocalProxy的init方法；
+      def __init__(self, local, name=None):
+        #参数传递信息local=partial(_lookup_req_object, 'request')
+        object.__setattr__(self, '_LocalProxy__local', local)
+        object.__setattr__(self, '__name__', name)
+        if callable(local) and not hasattr(local, '__release_local__'):
+            # "local" is a callable that is not an instance of Local or
+            # LocalManager: mark it as a wrapped function.
+            object.__setattr__(self, '__wrapped__', local)
+
+
+
+ 调用request时的操作过程的解析：
+ request = LocalProxy(partial(_lookup_req_object, 'request'))
+#上面这句解析：
+# request = LocalProxy(函数）
+#当视图中执行print(request)时，
+     # 执行 LocalProxy的__str__方法，这个方法比较复杂，可以先理解为就是执行LocalProxy 中传递的函数，即执行 partial(_lookup_req_object, 'request')
+     #这个函数执行过程如下：
+    #  def _lookup_req_object(name): ##name='request‘
+    # top = _request_ctx_stack.top   # 这句相当于从requestcontext对象中获取之前存入的request对象
+    # if top is None:
+    #     raise RuntimeError(_request_ctx_err_msg)
+    # return getattr(top, name)  #从requestcontext对象 获取 'request'对应的方法
+
+    #再举例，当执行print(request.method)时，
+    # 因为是request.method,即执行 LocalProxy的__getattr__方法，也要执行的_get_current_object() 方法，这个方法比较复杂，可以先理解为就是执行LocalProxy 中传递的函数，即执行 partial(_lookup_req_object, 'request')
+    #完成到的功能也是从这句相当于从requestcontext对象中获取之前存入的request对象 ，然后再执行getattr(self._get_current_object(), name)从中获取method方法：
+
+
+    flask 请求 之上下文源码总结：
+    1）threading local和flack自定义的local() 对象；threading local: 是基于线程的数据保存， flask 源码实现的local(),是支持协程的数据保护
+    2)
+     请求到来：
+        ctx 封装到requestcontext(request,session)中，
+        并把ctx存放到local中
+     执行视图时：
+        导入request
+        print(request) -->执行LocalPorxy对象的__str__方法
+        request.method  -->执行LocalPorxy对象的__getattr__方法
+        ......
+           这些方法的内部，都会调用 _lookup_req_object  这个函数， 这个函数就是取local() 中将requestcontext获取到，再去requestcontext中获取request或session
+
+     执行结束：
+        ctx.auto_pop(), 最终把ctx从local中移除；
+
+
+  flask上下管理回顾：
+   与django相比是两种不同的实现方式；
+     django/tornado是通过传参数的形式，怎么理解呢？ django中请求到来之后，包含请求信息的request通过函数之间的传递到达视图函数，然后进行处理的
+     flask是通过上下文管理，它中对request的管理是通过上下文管理来实现的
+
+     上下文管理：
+         1)threading local与local()  : 实现数据隔离的方式
+           threading.local是为每一个线程开辟一个空间存储数据；
+           flask源码中实现了一个local()类， 创建一个字典来保存数据，字典的key使用greenlet获取的标识，即是支持协程的。
+
+        2）请求刚进来时
+              把request和session 相关的所有数据封装到了requestcontext对象中，并把这个对象添加到local()中 ，通过localstack将对象添加到local对象中
+
+           使用（调用request）
+             比如调用此类的方法， request.method, print（request）, request+xxx 会执行localproxy中对应的方法
+             内部就是执行一个内嵌函数，这个函数会从local中获取requestcontext对象，并从中获取request或session等
+
+           请求终止
+              通过localstack的pop方法将local中的值移除；
+
+
+
+加上应用上下文后的请求流程如下：
+
+1.请求到来到的时候，有人来访问了
+      实例化了两个对象
+        #将请求相关的数据environ封装到了request_context对象中
+        # ctx.app  当前app的名称
+        # ctx.request： Request对象（封装请求相关的东西）
+        # ctx.session  #此时session是空的
+          #_request_ctx_stack.local{
+          #  唯一标识：{
+          #    “stack”:[ctx,]}   //"stack"是固定的
+          # }
+
+       #app_ctx=创建AppContext（self）对象
+     #里面包含：
+     #app_ctx.app 当前app对象
+     # app.g  为请求刚进来时，创建的一个空的对象，用于存储一个请求周期中需要存取的值
+
+           #_app_ctx_stack.local{
+          #  唯一标识：{
+          #    “stack”:[app_ctx,]}   //"stack"是固定的
+          # }
+
+
+2.使用时：
+  from flask import request,session,g,current_app
+  当执行print(request,session,g,current_app),都会执行响应localproxy对象的__str__方法，
+  request = LocalProxy(partial(_lookup_req_object, 'request'))
+  session = LocalProxy(partial(_lookup_req_object, 'session'))
+
+  current_app = LocalProxy(_find_app)
+g = LocalProxy(partial(_lookup_app_object, 'g'))
+
+3.终止时：
+全部pop掉
+
+
+问题1： 多线程到来时是如何处理的？
+      确切地说，请求到来之前，已经创建了两个local()对象，
+      当多个用户来访问时，比如启动的是多线程来处理多个用户请求，
+      始终使用这两个local对象，增加的只是基于唯一标识的字典
+          #_request_ctx_stack.local{
+          #  唯一标识：{
+          #    “stack”:[ctx,]}   //"stack"是固定的
+          # }
+                    #  唯一标识：{
+          #    “stack”:[ctx,]}   //"stack"是固定的
+          # }
+          }
+
+问题2： 为啥用“stack”:[ctx,] ，而不是“stack”:ctx
+因为flask的local中保存数据时，使用列表创建出来的栈
+
+
+多app应用的方法：
+from werkzeug.wsgi import  DispatcherMiddleware
+from werkzeug.serving import run_simple
+from flask import Flask,current_app
+
+app1=Flask('app01')
+app2=Flask('app02')
+
+
+
+@app1.route('/index')
+def index():
+    print(current_app)
+    return 'app01'
+
+@app2.route('/index2')
+def index2():
+    print(current_app)
+    return 'app02'
+
+#www.baidu.com/index  app1
+#www.baidu.com/sec/index  app2
+dm=DispatcherMiddleware(app1,{
+    '/sec':app2
+})
+
+if __name__ == '__main__':
+    run_simple('localhost',5000,dm,)
+
+web访问多app应用时，上下文管理是如何实现的？
+和单app完全相同，栈里面存放的还是一个唯一标识
+
+多app应用时，请求的流程如下：
+只是在上面的流程之前，先进行了一次app的分发，其它的流程和单个app完全相同，因为local中还是根据线程来进行存储的。
+
+补充：
+继续上面的问题2，为什么要使用栈？  主要用途： 离线脚本
+  写离线脚本时，且使用嵌套的方式时才会出现保存多个对象的情况。
+  如果写web程序或web运行环境，栈中用于保存一条数据。
+  当我们在写离线的测试脚本获取app信息时，可能会存在多个app上下文嵌套的情况。--但这种情况很少用。
+
+  from flask import Flask,current_app,globals,_app_ctx_stack
+
+app1=Flask('app01')
+app1.debug=True
+##如果app中存储了数据库的用户名，密码，数据库等信息， 在下面就可以获取到，然后建立数据库的连接
+
+app2=Flask('app02')
+app2.debug=False
+
+with app1.app_context():  #相当于执行 with AppContext(self): 会自动执行它的__enter__方法，最终也是执行 _app_ctx_stack.push(self)，即自动执行了压栈的操作
+        ##实例化对象： app_ctx=AppContext
+        ##里面包含：
+        #  app_ctx.app
+        #  app_ctx.g
+    #既然上面已经完成了压栈的操作，我现在直接打印出来看看
+    print(_app_ctx_stack._local.__storage__)
+    #输出： {<greenlet.greenlet object at 0x06240B20>: {'stack': [<flask.ctx.AppContext object at 0x059F4E50>]}}
+    print(type(current_app)) #这是返回app对象
+    print(current_app.config)
+    print(current_app.config['DEBUG'])
+
+    ##且上面的操作执行完成之后，就会执行pop操作
+
+with app2.app_context():
+    print(_app_ctx_stack._local.__storage__)
+
+
+print("------------------------------")
+
+
+##所以如果并排写两个with,那就是一个一个处理，local始终只有一个对象
+#但如果用下面的方法来写的话：
+
+with app1.app_context():
+    print(_app_ctx_stack._local.__storage__)  #此时栈中存放的是app1,且app1是最后的一个，执行top时获取的就是它 ；
+    #{<greenlet.greenlet object at 0x05C70B20>: {'stack': [<flask.ctx.AppContext object at 0x05D7E050>]}}
+    with app2.app_context():
+        print(_app_ctx_stack._local.__storage__)#此时栈中存放了app1,app2
+        #{<greenlet.greenlet object at 0x05C70B20>: {'stack': [<flask.ctx.AppContext object at 0x05D7E050>, <flask.ctx.AppContext object at 0x05D7E0D0>]}}
+        print(current_app.config['DEBUG'])
+        #重要：在这个代码块中执行top操作时，获取的也是自己,即获取的是app2，发生错乱
+    ##当上面的代码块执行结束后，会pop掉app2,这样栈中最后一个还是app1,不影响下面对app1的获取操作（非常重要，这就是为什么要使用栈的原因，这也就回答了readme中问题2）
+    ##！！只有这种情况才会出现这样的应用场景， 如果写网站的话，栈中同时只会有一个对象@@@
+    print(current_app.config['DEBUG'])
+
+
+最终总结：
+1.threading.local (哪里还用到threading.local?  DButils中也用到)， 自定义local()
+2.上下文：
+  -请求：
+     - request：用户请求信息
+     - session：保存用户会话信息
+  -应用：
+     - app :当前应用对象的信息
+     - g： 每个请求周期都会创建的一个用于在请求周期内传递值的一个容器
+3. 多app应用& 蓝图
+蓝图：是在app之后通过代理进行分发
+多app:就是基于多个app进行分发
+
+4.栈？
+
+5.面向对象补充的内容：
+ - 封装： 支持对象的直接封装，比如下面的Foo和Bar的 __init__就是完成的封装
+          也支持嵌套封装，在Base中的__init__中封装的是别的类的对象（很常用）
+   class Foo:
+       def __init__(self):
+            self.name=123
+            self.age='asdf'
+   class Bar:
+        def __init__(self):
+             self.xxx=123
+
+   class Base:
+        def __init__(self):
+        self.f=Foo()
+        self.xx=Bar()
+
+ --某个值+（）
+ 函数/方法：执行函数或方法
+ 类：实例化
+ 对象：执行类的__call__方法
+
+ --面向对象中双下划线的方法：
+ __new__
+ __init__
+ __call__
+ __setattr__
+ __str__
+ __getattr__
+ __delattr__
+ __enter__
+ __exit__
+ __add__
+ ......
+
+ 可以参考： flask中 localproxy中都用到
+
+
+ --强制调用私有字段：
+    私有字段在派生类中无法使用，切记；；
+
+
+ 6.源码的流程需要搞清楚；
+  ps:自定义堆和栈
+    栈：类似弹夹，后进先出
+    堆：先进先出
+
+2.信号
+
+3.数据库连接池
