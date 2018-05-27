@@ -13,7 +13,8 @@ account = Blueprint('account', __name__,url_prefix="/acc",template_folder='tpls'
 
 @account.route('/account', methods=['GET', "POST"])
 def blue_account():
-    return render_template('login_new.html')
+    return render_template('login.html')
+    # return render_template('login_new.html')
 
 
 @account.before_request

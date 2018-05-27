@@ -1,4 +1,5 @@
-missing module named org - imported by pickle
+missing module named org - imported by copy
+missing module named 'org.python' - imported by pickle
 missing module named fcntl - imported by tempfile, subprocess
 missing module named riscosenviron - imported by os
 missing module named riscospath - imported by os
@@ -9,4 +10,3 @@ missing module named os2 - imported by os
 missing module named pwd - imported by posixpath
 missing module named posix - imported by os
 missing module named resource - imported by posix
-missing module named 'org.python' - imported by copy

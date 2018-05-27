@@ -1,0 +1,96 @@
+https://blog.csdn.net/qq_32198277/article/details/52432890   @@@
+http://www.vuln.cn/8832
+https://www.cnblogs.com/cwp-bg/p/8780204.html  @@@@
+https://blog.csdn.net/y472360651/article/details/78538188
+
+大家在学习python的时候常常都是输入
+
+python 文件名.py
+
+    1
+
+这样启动小脚本
+
+但实际应用中往往没有那么简单，因为通常都要多线程处理并发，处理头部，这时就需要nginx和Gunicorn了
+首先安装gunicorn
+
+pip3 install gunicorn
+
+然后在app.run()上面加上：
+    from werkzeug.contrib.fixers import ProxyFix
+    app.wsgi_app=ProxyFix(app.wsgi_app
+
+然后命令行启动gunicorn
+
+最简单的启动方式是
+
+gunicorn 入口文件名:app  (比如此处为 gunicorn test:app)
+
+    1
+
+默认是监听127.0.0.1:8000
+
+如果是要处理高并发则要开多个进程和修改监听端口的画
+
+ gunicorn -w 4 -b 127.0.0.1:8000 入口文件名:app
+
+    1
+
+这样就可以启动4个进程同时处理HTTP请求，提高系统的使用效率及性能。
+还可以把端口8000改为其他
+
+
+在windows下运行 gunicorn时报错如下：
+dError: No module named 'fcntl'
+解决对策：
+因为没有下载到fcntl.py文件，所以这种部署方案先搁置了，后续继续确认在windows下使用 grunicorn部署的方法；
+
+采用第二种方案：
+https://www.cnblogs.com/kiddy/p/5749687.html
+
+pip3 install tornado
+
+使用到两个文件：
+test2.py 和 tornado_server.py
+
+如果直接运行python tornado_server.py会正常运行，输出如下：  //时间运行时没有提示下面的信息，但web已经可以访问了。
+
+ * Running on http://127.0.0.1:5000/
+ * Restarting with reloader
+
+
+nginx中相关的配置：
+http {
+    include       mime.types;
+    default_type  application/octet-stream;
+
+    sendfile        on;
+
+    keepalive_timeout  65;
+
+    server {
+        listen       80;
+        server_name  localhost;
+        location / {
+
+ 	    proxy_pass http://127.0.0.1:5000;
+
+        }
+
+    }
+
+ C:\nginx-1.14.0>nginx.exe -t
+nginx: the configuration file C:\nginx-1.14.0/conf/nginx.conf syntax is ok
+nginx: configuration file C:\nginx-1.14.0/conf/nginx.conf test is successful
+
+C:\nginx-1.14.0>nginx.exe -s reload
+
+ 存在的问题：
+ 当flask配置的url 路径为 /时,使用localhost访问时，一直得到的是nginx的默认页面；
+当flask配置的url 路径为 /index时,使用http://localhost/index 可以正常访问flask的界面；
+
+类似问题解释： http://cache.baiducontent.com/c?m=9f65cb4a8c8507ed4fece763105d8c2c4208d1212bd7a744228b8448e4250c141831bffd7371575a95d27c1050f21641a9ed3570340122b599ca8a4cdcbe972b2c8d3a67671cf04210d31badc94427c3269150e9ad19e2aeb56fd3f8dd968408059716446d8081d70f5c4f8078f16426e3d68e49650b4ee9ac6972ff286058e83436c15089e5251d0d96f7ad4b3cc63da16006e6d822c14d&p=c379d31a85cc43e806bd9b7d0f1797&newp=9e6acc0d8f934eac5aece62d0214bb231610db2151d7d11f6b82c825d7331b001c3bbfb42325170ed2c37c6c03a84e5becf23570350923a3dda5c91d9fb4c57479fa&user=baidu&fm=sc&query=windows+ngnix%2Bflask+%CE%DE%B7%A8%B7%C3%CE%CA&qid=cc28997700017b69&p1=10
+
+那是因为nginx安装完了默认带了一个配置文件，这个配置文件中，指定了default server，所以，你有两种方法避免这种情况，1、把nginx默认server的配置都删掉，2、给server指定server_name，然后配置hosts
+
+

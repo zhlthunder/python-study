@@ -4,6 +4,6 @@ from flask import Blueprint
 
 blog = Blueprint('blog', __name__)
 
-@blog.route('/blog', methods=['GET', "POST"])
+@blog.route('/', methods=['GET', "POST"])
 def blue_blog():
     return "it is blue_blog"
