@@ -19,35 +19,36 @@
 
 
 # 改进的代码：
-# import urllib.request
-# import re
-# data=urllib.request.urlopen("http://edu.51cto.com/course/1158.html").read().decode('utf-8')
-# pat="学习交流群\((\d+)\)"
-# qq=re.compile(pat).findall(data)
-# print(qq)
+import urllib.request
+import re
+data=urllib.request.urlopen("http://edu.51cto.com/course/1158.html").read().decode('utf-8')
+pat="学习交流群\((\d+)\)"
+qq=re.compile(pat).findall(data)
+print(qq)
 
+# 输出： ['311492457']
 
 
 ##作业：从指定网站提取出版社信息，并写入文件中
-import urllib.request
-import re
-import xlsxwriter
-
-data=urllib.request.urlopen("https://read.douban.com/provider/all").read().decode('utf-8')
-pat="<div class=\"name\">(.*?)</div>"
-ret=re.compile(pat).findall(data)
-# print(ret)
-#将结果写入excel文件中
-endfile='C:/Users/lin/PycharmProjects/python_study_1s/python_study/git-zhl/python-study/python爬虫之路/publisher.xlsx'
-wb1=xlsxwriter.Workbook(endfile)
-#创建一个sheet工作对象
-ws=wb1.add_worksheet()
-for a in range(len(ret)):
-    c=ret[a]
-    b=0
-    ws.write(a,b,c)
-wb1.close()
-print("文件合并完成")
+# import urllib.request
+# import re
+# import xlsxwriter
+#
+# data=urllib.request.urlopen("https://read.douban.com/provider/all").read().decode('utf-8')
+# pat="<div class=\"name\">(.*?)</div>"
+# ret=re.compile(pat).findall(data)
+# # print(ret)
+# #将结果写入excel文件中
+# endfile='C:/Users/lin/PycharmProjects/python_study_1s/python_study/git-zhl/python-study/python爬虫之路/publisher.xlsx'
+# wb1=xlsxwriter.Workbook(endfile)
+# #创建一个sheet工作对象
+# ws=wb1.add_worksheet()
+# for a in range(len(ret)):
+#     c=ret[a]
+#     b=0
+#     ws.write(a,b,c)
+# wb1.close()
+# print("文件合并完成")
 
 
 # 备注：

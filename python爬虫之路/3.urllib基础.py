@@ -6,6 +6,7 @@
 import urllib.request
 
 ##urlopen 打开一个网页的方法
+# urllib.request.urlopen("http://www.baidu.com")
 
 #urlretrieve(网址，本地存储的文件) :直接下载文件到本地
 # urllib.request.urlretrieve("https://www.zhibo8.cc/","C:/Users/lin/PycharmProjects/python_study_1s/python_study/git-zhl/python-study/python爬虫之路/download.html")
