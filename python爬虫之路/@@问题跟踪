@@ -1,0 +1,25 @@
+1.使用pycharm运行爬虫程序时，经常会报下面的错误：
+UnicodeEncodeError: 'gbk' codec can't encode character '\xbb' in position 28542: illegal multibyte sequence
+发生问题时，尝试了各种编码格式（decode('utf-8','ignore')），即替换其中的utf-8
+但依然有问题，偶然发现，使用python的命令行，不使用pycharm执行时，却没有报错，
+==》初步怀疑这个问题和pycharm IDE环境配置有关。
+
+参考网上的解决办法：
+ http://www.zpyshow.com/archives/937  或 https://www.cnblogs.com/huangzelin/p/4557533.html
+
+刚接触Python学习，正准备做个爬虫的例子，谁知道代码一开始就遇到了一个大坑，狂汗啊。
+
+问题是这样的：我通过代码爬取了博客园首页的HTML代码并存入到blog.txt文件当中，然后准备读取出来之后进行分析，可就在读取文件的这一步出现了问题。
+
+执行读取代码的时候程序总是会抛一个叫 “UnicodeEncodeError: 'gbk' codec can't encode character '\xbb' in position 117274: illegal multibyte sequence”的异常。
+
+刚开始以为是简单的编码问题，又是在代码中设置编码格式，又是百度谷歌的。可是，没找到一个靠谱的解决方案，问题依然存在。
+
+折腾了好几天实在是没办法了，后来突然想到会不会和IDE的设置有关系（我使用的IDE是PyCharm）。呵呵，折腾一番还真的解决了。
+
+==》打开IDE的 settings --> file encoding --> 将IDE encoding /Project encoding/default encoding for properties files 都修改为utf-8,此问题就可以解决了。
+说明，重要：默认情况下，Pycharm的IDE编码和项目编码是不同的，所以很多情况下都会出问题。
+
+
+
+

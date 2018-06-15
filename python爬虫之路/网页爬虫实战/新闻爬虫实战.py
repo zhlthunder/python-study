@@ -7,14 +7,17 @@
 
 
 # 先爬取一个新闻页面测试一下是否可以
-# import urllib.request
-# import re
-# url="http://new.qq.com/omn/20180105C033FU.html"
+import urllib.request
+import re
+url="http://new.qq.com/omn/NEW2018061503142500"
 ##浏览器伪装相关
-# headers=("User-Agent","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36")
-# opener=urllib.request.build_opener()
-# opener.addheaders=[headers]
-# data=opener.open(url).read().decode('gbk','ignore')
+headers=("User-Agent","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36")
+opener=urllib.request.build_opener()
+opener.addheaders=[headers]
+data=opener.open(url).read().decode('utf-8','ignore')
+print(len(data))
+
+
 
 # data=urllib.request.urlopen(url).read().decode('gbk','ignore')
 #说明：
@@ -90,38 +93,38 @@
 
 
 
-
-import urllib.request
-import re
-import zlib
-import sys
-url="http://news.qq.com/"
-#直接使用下面的一行报错，因为页面是压缩的。 且页面是使用gb2312编码的，所以要用gbk进行解码
-# text=urllib.request.urlopen(url).read().decode('gbk')
-#报错信息： UnicodeDecodeError: 'gbk' codec can't decode byte 0x8b in position 1: illegal multibyte sequence
-##所以需要采用如下的方法，对页面进行解压才可以
-data=urllib.request.urlopen(url).read()
-decompressed_data = zlib.decompress(data,16+zlib.MAX_WBITS)
-text=decompressed_data.decode('gbk')  #因为网页的编码格式是gb2312,所以这里必须用 gbk,如何用 utf-8还是会报错；
-print(len(text))
-
-#要匹配的目标字符串 <a target="_blank" class="linkto" href="http://new.qq.com/omn/20180105C033FU.html"
-#将目标网址的地方换成 .*?即可
-pat='<a target="_blank" class="linkto" href="(.*?)"'
-alllink=re.compile(pat).findall(text)
-# print(alllink)
-print(len(alllink))
-for i in range(0,len(alllink)):
-    thislink=alllink[i]
-    thispage=urllib.request.urlopen(thislink).read().decode("gbk","ignore")
-    pat1="<frame src=(.*?)>"
-    isframe=re.compile(pat1).findall(thispage)  ##判断是否有跳转的网址，并获取跳转的网址
-    print(len(isframe))
-    if not len(isframe):
-        urllib.request.urlretrieve(thislink,str(i)+".html")
-    else:
-        flink=isframe[0]
-        urllib.request.urlretrieve(flink,str(i)+".html")
+#
+# import urllib.request
+# import re
+# import zlib
+# import sys
+# url="http://news.qq.com/"
+# #直接使用下面的一行报错，因为页面是压缩的。 且页面是使用gb2312编码的，所以要用gbk进行解码
+# # text=urllib.request.urlopen(url).read().decode('gbk')
+# #报错信息： UnicodeDecodeError: 'gbk' codec can't decode byte 0x8b in position 1: illegal multibyte sequence
+# ##所以需要采用如下的方法，对页面进行解压才可以
+# data=urllib.request.urlopen(url).read()
+# decompressed_data = zlib.decompress(data,16+zlib.MAX_WBITS)
+# text=decompressed_data.decode('gbk')  #因为网页的编码格式是gb2312,所以这里必须用 gbk,如何用 utf-8还是会报错；
+# print(len(text))
+#
+# #要匹配的目标字符串 <a target="_blank" class="linkto" href="http://new.qq.com/omn/20180105C033FU.html"
+# #将目标网址的地方换成 .*?即可
+# pat='<a target="_blank" class="linkto" href="(.*?)"'
+# alllink=re.compile(pat).findall(text)
+# # print(alllink)
+# print(len(alllink))
+# for i in range(0,len(alllink)):
+#     thislink=alllink[i]
+#     thispage=urllib.request.urlopen(thislink).read().decode("gbk","ignore")
+#     pat1="<frame src=(.*?)>"
+#     isframe=re.compile(pat1).findall(thispage)  ##判断是否有跳转的网址，并获取跳转的网址
+#     print(len(isframe))
+#     if not len(isframe):
+#         urllib.request.urlretrieve(thislink,str(i)+".html")
+#     else:
+#         flink=isframe[0]
+#         urllib.request.urlretrieve(flink,str(i)+".html")
 
 
 
