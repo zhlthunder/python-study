@@ -1,0 +1,366 @@
+1.初步：
+类及类中的方法，在内存中只有一份，而根据类创建的每一个对象都在内存中需要存一份
+继承父类中的方法，但无法继承父类的__init__，如果要继承继承父类的__init__，采用下面的方法：
+class dog(animal):
+    def __init__(self):
+        self.age=123
+        super(dog,self).__init__()
+		
+2.#类的成员
+#类的成员可以分为三类：字段，方法和属性
+#字段： 普通字段和静态字段
+#方法： 普通方法，类方法和静态方法
+#属性： 普通属性
+
+#上面的所有成员中，只有普通字段的内容保存在对象中，根据类创建多少个对象，在内存中就有多少个普通字段；
+
+#1）字段：
+#普通字段属于 对象，通过对象来访问
+#静态字段属于类，通过类来访问
+
+# class Foo:
+#     country='china'   ##静态字段
+#     def __init__(self,name):
+#         self.name=name   #普通字段
+#
+# obj=Foo('jack')
+# print(obj.name)  #对象访问
+# print(Foo.country) #类访问
+
+#2）方法：
+#方法包括：普通方法，静态方法和类方法，三种方法在内存中都归属于类，区别在于调用方式不同
+#普通方法： 由对象调用，至少一个self参数；
+#类方法：由类调用，至少有一个cls参数。
+#静态方法：由类调用，无默认参数
+
+# class Foo:
+#     #静态方法
+#     @staticmethod
+#     def xo(arg1,arg2): #无默认参数，可以不传参数，也可以传任意参数
+#         print("xo")
+#
+#     #定义类方法
+#     @classmethod
+#     def xxoo(cls):#定义类方法，至少包含一个cls参数
+#         print("xxoo")
+#
+#     #定义普通方法，
+#     def show(self): #至少包含一个self 参数
+#         print("show")
+#
+# #调用静态方法：
+# Foo.xo('a','b')
+#
+# #调用类方法：
+# Foo.xxoo()
+#
+# #调用普通方法：
+# obj=Foo()
+# obj.show()
+
+#相同点：对于所有的方法而言，均属于类（非对象）中，所以在内存中只有一份
+#不同点：方法调用者不同，调用方法时自动传入的参数不同
+
+3）属性
+#属性定义的两种方式：
+#装饰器，在普通方法上应用装饰器
+#静态字段，即在类中定义值为property对象的静态字段
+
+
+方法1：使用装饰器定义属性
+#分为新式类和经典类， 如果类继承object,则为新式类
+#经典类（一种方式）
+# class Goods:
+#     @property  ##定义属性
+#     def price(self):
+#         return "nick"
+# obj=Goods()
+# ret=obj.price #调用属性，不需要括号，和调用字段相同
+
+
+#新式类：（三种方式）
+# class Goods(object):
+#     @property
+#     def price(self):
+#         print("@property")
+#
+#     @price.setter
+#     def price(self,value):
+#         print('@property.setter')
+#         print(value)
+#
+#     @price.deleter
+#     def price(self):
+#         print("@property.deleter")
+#
+# obj=Goods()
+# obj.price  #自动执行@property装饰的price方法，并获取方法的返回值
+# obj.price="test" #自动执行@price.setter装饰的price方法，并将“test”赋值给方法的参数value
+# del obj.price #自动执行@price.deleter修改时的price方法
+
+
+方法2:使用静态字段定义属性 ，新式类和经典类没有差别
+# class Foo:
+#     def get_bar(self):
+#         return "nick"
+#     BAR=property(get_bar)
+#
+# obj=Foo()
+# ret=obj.BAR #自动调用get_bar方法，并获取方法的返回值
+# print(ret)
+
+##引申：
+#property的构造方法中有4个参数：
+#第一个参数是方法名，调用对象.属性时自动触发执行方法
+#第二个参数是方法名，调用对象.属性=xx时自动触发执行方法
+#第三个参数是方法名，调用del 对象.属性时自动触发执行方法
+#第四个参数是字符串，调用对象.属性.__doc__,此参数是该属性的描述信息
+#实例：
+# class Foo:
+#
+#     def get_bar(self):
+#         print("nick")
+#
+#     def set_bar(self,value):#必须有两个参数
+#         print('set value '+value)
+#
+#     def del_bar(self):
+#         print('delete nick')
+#
+#     BAR=property(get_bar,set_bar,del_bar,'sadfasfdasfd')
+#
+# obj=Foo()
+# obj.BAR ##自动调用第一个参数中定义的方法get_bar
+# obj.BAR="jack" ##自动调用第二个参数中定义的方法set_bar
+# del obj.BAR##自动调用第三个参数中定义的方法del_bar
+
+
+3.类成员的修饰符（公有，私有）
+#公有成员：在任何地方都可以访问
+#私有成员：只有在类的内部才能访问
+
+#私有成员和共有成员的定义不同： 私有成员命名时，前两个字符是下划线（特殊成员除外）
+class Foo:
+    xo='xo' #公有静态字段
+    __xo='--xo' #私有静态字段
+
+    def __init__(self):
+        self.name='nick' #公有普通字段
+        self.__name2='nickk' #私有普通字段
+		
+#私有成员和公有成员的访问限制不同：
+#静态字段
+#公有静态字段：类可以访问，类内部也可以访问，派生类中可以访问
+#私有静态字段：仅类内部可以访问
+
+
+##公有静态字段：
+# class C:
+#     name="公有静态字段"
+#     def func(self):
+#         print(C.name)
+#
+# class D(C):
+#     def show(self):
+#         print(C.name)
+#
+# print(C.name) #类访问
+#
+# obj=C()
+# obj.func()  #类内部可以访问
+#
+# obj_son=D()
+# obj_son.show() ##派生类中可以访问
+
+		
+##私有静态字段
+# class C:
+#     __name='私有静态字段'
+#     def func(self):
+#         print(C.__name)
+#
+# class D(C):
+#     def show(self):
+#         print(C.__name)
+#
+# # print(C.__name)  ##类访问报错
+# obj=C()
+# obj.func()  #类内部可以访问
+#
+# obj_son=D()
+# # obj_son.show()  ##派生类中访问报错
+
+
+#普通字段：
+#公有普通字段：对象可以访问，类内部可以访问，派生类中也可以访问
+#私有普通字段： 仅类内部可以访问
+
+##共有字段
+# class C:
+#     def __init__(self):
+#         self.foo='公有字段'
+#     def func(self):
+#         print(self.foo)
+# class D(C):
+#     def show(self):
+#         print(self.foo)
+#
+# obj=C()
+#
+# print(obj.foo)#通过对象访问
+# obj.func()  #类内部访问
+#
+# obj_son=D()
+# obj_son.show()  ##派生类中访问
+
+##私有字段：
+# class C:
+#     def __init__(self):
+#         self.__foo='公有字段'
+#     def func(self):
+#         print(self.__foo)
+# class D(C):
+#     def show(self):
+#         print(self.__foo)
+#
+# obj=C()
+#
+# # print(obj.__foo) #通过对象访问 报错
+# obj.func()  #类内部访问
+# #
+# obj_son=D()
+# obj_son.show()  ##派生类中访问， 报错
+##方法和属性的访问和上述方式相似，即：私有成员只有类的内部可以使用
+##如果想要强制访问私有字段，可以通过：对象._类名__私有字段名 访问，比如： obj._C__foo,但不建议使用
+
+4.#类的私有成员中的特殊成员：
+#1.__doc__ 输出类的描述信息
+#6.__dict__输出类或对象中的成员
+#2.__module__和__class__
+#__module__ :输出当前操作的对象所在的个模块
+#__class__ ：输出当前操作的对象所属的类
+#5.__call__ ：对象（） 或类（）（） 自动执行__call__方法
+#7.__str__  ：print对象时会自动执行__str__
+#8 __getitem__ __setitem__ __delitem__
+#用于索引操作，如字典。 以上分别表示获取，设置，删除数据
+#10.__iter__
+#用于迭代器，之所以列表，字典，元祖 可以进行for循环，是因为类型内部定义了__iter__
+# class Foo(object):
+#     def __init__(self,sq):
+#         self.sq=sq
+#
+#     def __iter__(self):
+#         return iter(self.sq)
+#
+# obj=Foo([11,22,33,44])
+# for i in obj:
+#     print(i)
+
+#11. __new__ 和 __metaclass__
+# #obj是Foo类实例化的对象，其实，不仅obi是一个对象，Foo类本身也是一个对象，因为python中一切皆对象；
+# #按照这个理论，obj对象是通过FOO类的构造方法创建的，那么Foo类对象，也应该是通过执行某个类的构造方法创建的。
+# print(type(obj)) ## 输出：<class '__main__.Foo'> 表示obj对象是有Foo类创建的。
+# print(type(Foo)) #输出： <class 'type'> ，表示Foo类对象是由type类创建的。
+# 所以，obj对象是FOO类的一个实例，Foo类对象是type类的一个实例，即Foo类对象是通过type类的构造方法创建的。
+
+#那创建类应该就有两种方法：
+#1）
+class Foo(object,metaclass=type):
+    def func(self):
+        print("hello")
+#2)
+def func(self):
+    print("hello")
+Foo=type('Foo',(object,),{'func':func})
+#type: 第一个参数是类名， 第二个参数是 当前类的基类  第三个参数：类的成员
+# ==> 类是有type 类实例化产生的
+#那么问题来了，类默认是由type类实例化产生，type类中如何实现的创建类？ 类又是如何创建对象？
+# 答：类中有一个 属性__metaclass ,其用来表示该类由谁来实例化创建，所以，我们可以为__metaclass__设置一个type类的派生类，从而查看类创建的过程；
+
+
+
+面向对象的使用with打开时：
+class Sqlhelper():
+    def open(self):
+        print("打开数据库")
+
+    def fetch(self):
+        print("操作")
+
+    def close(self):
+        print("关闭连接")
+
+    def __enter__(self):
+        self.open()
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.close()
+
+##操作方式1：
+# obj=Sqlhelper()
+# obj.open()
+# obj.fetch()
+# obj.close()
+
+#操作方式2：  #执行效果和上面完全相同
+with Sqlhelper() as obj:  ##自动执行 __enter__方法
+    obj.fetch()
+    #结束时，自动执行__exit__方法
+
+	
+flask 框架中离线脚本使用with的情况：
+
+from flask import Flask,current_app,globals,_app_ctx_stack
+
+app01=Flask('app01')
+
+
+app02=Flask('app02')
+
+# app01.app_context()= AppContext(self)
+with app01.app_context():
+    print(_app_ctx_stack._local.__storage__)
+    with app02.app_context():
+        print(_app_ctx_stack._local.__storage__)
+        pass
+print(_app_ctx_stack._local.__storage__)
+
+堆栈中存放的信息如下：
+{19732: {'stack': [<flask.ctx.AppContext object at 0x000000FDC2FCC0B8>]}}
+{19732: {'stack': [<flask.ctx.AppContext object at 0x000000FDC2FCC0B8>, <flask.ctx.AppContext object at 0x000000FDC2FCC0F0>]}}
+{}
+
+
+
+##确认OOB 私有方法: 
+
+DICC={}
+class Goo:
+    def __setattr__(self, key, value):
+        DICC[key]=value
+
+    def __getattr__(self, item):
+        return DICC[item]
+
+    def __delattr__(self, item):
+        DICC.pop(item)
+
+obj=Goo()
+obj.item=33
+print(DICC)
+
+ret=obj.item
+print(ret)
+
+del obj.item
+print(DICC)
+
+输出：
+{'item': 33}
+33
+{}
+
+
+
+
