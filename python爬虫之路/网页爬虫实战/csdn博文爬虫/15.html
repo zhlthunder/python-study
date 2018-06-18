@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <link rel="canonical" href="https://blog.csdn.net/weixin_42039090/article/details/80721290"/> 
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="referrer" content="always">
+    <meta name="description" content="（1）      二分Kmeans算法简介：二分KMeans(Bisecting KMeans)是基于KMeans算法之上，KMeans聚类结果易受到初始聚类中心点选择的影响。如果不需要选取初始值呢。二分KMeans克服初始中心点影响，各簇中心点的距离较远，这就完全避免了初始聚类中心会选到一个类别上，一定程度上克服了算法陷入局部最优状态。基本思想：首先将所有点作为一个簇，然后将该簇一分为二，每次选..." />
+    <meta name="keywords" content="" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+    <meta name="shenma-site-verification" content="5a59773ab8077d4a62bf469ab966a63b_1497598848">
+    <script src="https://csdnimg.cn/release/phoenix/vendor/tingyun/tingyun-rum-blog.js"></script>
+
+    <link href="https://csdnimg.cn/public/favicon.ico" rel="SHORTCUT ICON">
+    <title>机器学习之经典算法（十七）二分Kmeans算法 - CSDN博客</title>
+    
+            <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/detail-60a2c245da.min.css">
+        <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/themes/skin3-template/skin3-template-88717cedf2.min.css">
+
+    <script type="text/javascript">
+        var username = "weixin_42039090";
+        var blog_address = "https://blog.csdn.net/weixin_42039090";
+        var static_host = "https://csdnimg.cn/release/phoenix/";
+        var currentUserName = ""; 
+        var isShowAds = true;
+        var isOwner = false;
+        var loginUrl = "https://passport.csdn.net/account/login?from=https://blog.csdn.net/weixin_42039090/article/details/80721290"
+        var blogUrl = "https://blog.csdn.net/";
+        var curSkin = "skin3-template";
+    </script>
+    <script type="text/javascript">
+        // Traffic Stats of the entire Web site By baidu
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?6bcd52f51e9b3dce32bec4a3997715ac";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+        // Traffic Stats of the entire Web site By baidu end
+    </script>
+    <script src="https://csdnimg.cn/public/common/libs/jquery/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <script src="https://csdnimg.cn/rabbit/exposure-click/main-1.0.6.js"></script>
+    <!-- 新版上报 -->
+    <script src="//g.csdnimg.cn/track/1.0.0/track.js" type="text/javascript"></script>
+    <!-- 新版上报end -->
+            <link rel="stylesheet" href="https://csdnimg.cn/public/sandalstrap/1.3/css/sandalstrap.min.css"> 
+    <style>
+        .MathJax, .MathJax_Message, .MathJax_Preview{
+            display: none
+        }
+    </style>
+</head>
+<body>    
+    <link rel="stylesheet" href="https://csdnimg.cn/public/common/toolbar/content_toolbar_css/content_toolbar.css">
+    <script id="toolbar-tpl-scriptId" src="https://csdnimg.cn/public/common/toolbar/js/content_toolbar.js" type="text/javascript" domain="https://blog.csdn.net/"></script>
+    <script src="https://csdnimg.cn/public/sandalstrap/1.3/fonts/csdnc/csdnc.js"></script><link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/blog_code-c3a0c33d5c.css">
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.css">
+<script type="text/javascript" src="//static.mediav.com/js/mvf_news_feed.js"></script>
+
+<header>
+	<div class="container d-flex clearfix">
+		<div class="title-box">
+			<h2 class="title-blog">
+				<a href="https://blog.csdn.net/weixin_42039090">机器之我心的博客</a>
+			</h2>
+			<p class="description"></p>
+		</div>
+		<div class="opt-box d-flex justify-content-end">
+			<a class="btn btn-sm" href="https://blog.csdn.net/weixin_42039090/rss/list">
+					<svg class="icon" aria-hidden="true">
+						<use xlink:href="#csdnc-rss"></use>
+					</svg>RSS订阅</a>
+					</div>
+	</div>
+</header><script src="https://dup.baidustatic.com/js/ds.js"></script>
+<div class="container clearfix pt0" id="mainBox">
+    <main>
+        <div class="blog-content-box">
+	<div class="article-title-box">
+			<span class="article-type type-1 float-left">原</span>		<h1 class="title-article">机器学习之经典算法（十七）二分Kmeans算法</h1>
+	</div>
+	<div class="article-info-box">
+		<div class="article-bar-top d-flex">
+												<span class="time">2018年06月17日 21:57:06</span>
+			<div class="float-right">
+				<span class="read-count">阅读数：330</span>
+											</div>
+		</div>
+	</div>
+	<article>
+		<div id="article_content" class="article_content clearfix csdn-tracking-statistics" data-pid="blog"  data-mod=popu_307  data-dsm = "post" >
+                    <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/htmledit_views-0a60691e80.css" />
+            <div class="htmledit_views">
+                <p>（1）      二分Kmeans算法简介：</p><p><span style="color:#4B4B4B;">二分</span><span style="color:#4B4B4B;">KMeans(Bisecting KMeans)</span><span style="color:#4B4B4B;">是基于</span><span style="color:#4B4B4B;">KMeans</span><span style="color:#4B4B4B;">算法之上，</span><span style="color:#4B4B4B;">KMeans</span><span style="color:#4B4B4B;">聚类结果易受到初始聚类中心点选择的影响。如果不需要选取初始值呢。二分</span><span style="color:#4B4B4B;">KMeans</span><span style="color:#4B4B4B;">克服初始中心点影响，各簇中心点的距离较远，这就完全避免了初始聚类中心会选到一个类别上，一定程度上克服了算法陷入局部最优状态。</span></p><p><span style="color:#4B4B4B;">基本思想：首先将所有点作为一个簇，然后将该簇一分为二，每次选择能最大限度降低聚类代价函数（也就是误差平方和）的簇划分为两个簇（不管是否刚才是否已经分裂过）。以此进行下去，直到簇的数目等于用户给定的数目</span><span style="color:#4B4B4B;">k</span><span style="color:#4B4B4B;">为止。那么，如何选择某簇进行分裂呢。那就只能用聚类的性能指标来衡量：误差平方和。搜索当前簇分类，选择分类误差平方和最小的，因为聚类的误差平方和越小表示数据点越接近于他们的质心，聚类效果就越好。</span></p><p><span style="color:#333333;">算法流程：</span></p><p align="left"><span style="color:#333333;">初始化簇表，使之包含由所有的点组成的簇（初始为一簇）。</span></p><p align="left"><span style="color:#333333;">while</span><span style="color:#333333;">（簇数未达到用户指定数目）：</span></p><p align="left"><span style="color:#333333;">  </span><span style="color:#333333;">从簇表中取出一个簇。</span></p><p align="left"><span style="color:#333333;">  {</span><span style="color:#333333;">对选定的簇进行多次二分探试}</span></p><p align="left"><span style="color:#333333;">  for i in range(</span><span style="color:#333333;">探试次数):</span></p><p align="left"><span style="color:#333333;">      </span><span style="color:#333333;">使用基本k</span>均值，二分选定的簇。</p><p align="left"><span style="color:#333333;">  </span><span style="color:#333333;">从二分试验中选择具有最小误差的两个簇。</span></p><p align="left"><span style="color:#333333;">  </span><span style="color:#333333;">将这两个簇添加到簇表中。</span></p><h3><span style="color:#333333;">缺点：</span></h3><p><span style="color:#333333;">二分</span><span style="color:#333333;">k</span><span style="color:#333333;">均值建立在</span><span style="color:#333333;">k</span><span style="color:#333333;">均值算法基础之上，相对于传统</span><span style="color:#333333;">k</span><span style="color:#333333;">均值，复杂度高，需要不断地搜索分类方式，当样本数量大，该方法不太适用。</span></p><p><span style="color:#333333;">（2）   </span><span style="color:#333333;">二分k</span>均值代码实现：</p><p><span style="color:#333333;">from numpy import *</span></p><p><span style="color:#333333;">import numpy as np</span></p><p><span style="color:#333333;">import matplotlib.pyplot as plt</span></p><p><span style="color:#333333;">def loadDataSet(fileName):      #general function to parse tab -delimitedfloats</span></p><p><span style="color:#333333;">   dataMat = []               #assume last column is target value</span></p><p><span style="color:#333333;">   fr = open(fileName)</span></p><p><span style="color:#333333;">   for line in fr.readlines():</span></p><p><span style="color:#333333;">        curLine = [float(y) for y inline.strip().split(',')]</span></p><p><span style="color:#333333;">       dataMat.append(curLine)</span></p><p><span style="color:#333333;">   return dataMat</span><span style="color:rgb(51,51,51);"> </span></p><p><span style="color:rgb(51,51,51);">def distEclud(vecA, vecB):</span></p><p><span style="color:#333333;">   return sqrt(sum(power(vecA - vecB, 2))) #la.norm(vecA-vecB)</span><span style="color:rgb(51,51,51);"> </span></p><p><span style="color:rgb(51,51,51);">def randCent(dataSet, k):</span></p><p><span style="color:#333333;">    n= shape(dataSet)[1]</span></p><p><span style="color:#333333;">   centroids = mat(zeros((k,n)))#create centroid mat</span></p><p><span style="color:#333333;">   for j in range(n):#create random cluster centers, within bounds of eachdimension</span></p><p><span style="color:#333333;">       minJ = min(dataSet[:,j])</span></p><p><span style="color:#333333;">       rangeJ = float(max(dataSet[:,j]) - minJ)</span></p><p><span style="color:#333333;">       centroids[:,j] = mat(minJ + rangeJ * random.rand(k,1))</span></p><p><span style="color:#333333;">   return centroids</span></p><p><span style="color:#333333;"> </span></p><p><span style="color:#333333;">def kMeans(dataSet, k, distMeas=distEclud,createCent=randCent):</span></p><p><span style="color:#333333;">    m= shape(dataSet)[0]</span></p><p><span style="color:#333333;">   clusterAssment = mat(zeros((m,2)))#create mat to assign data points</span></p><p><span style="color:#333333;">                                     #toa centroid, also holds SE of each point</span></p><p><span style="color:#333333;">   centroids = createCent(dataSet, k)</span></p><p><span style="color:#333333;">   clusterChanged = True</span></p><p><span style="color:#333333;">   while clusterChanged:</span></p><p><span style="color:#333333;">       clusterChanged = False</span></p><p><span style="color:#333333;">       for i in range(m):#for each data point assign it to the closest centroid</span></p><p><span style="color:#333333;">           minDist = inf; minIndex = -1</span></p><p><span style="color:#333333;">           for j in range(k):</span></p><p><span style="color:#333333;">                distJI =distMeas(centroids[j,:],dataSet[i,:])</span></p><p><span style="color:#333333;">                if distJI &lt; minDist:</span></p><p><span style="color:#333333;">                    minDist = distJI; minIndex= j</span></p><p><span style="color:#333333;">           if clusterAssment[i,0] != minIndex: clusterChanged = True</span></p><p><span style="color:#333333;">           clusterAssment[i,:] = minIndex,minDist**2</span></p><p><span style="color:#333333;">       print(centroids)</span></p><p><span style="color:#333333;">       for cent in range(k):#recalculate centroids</span></p><p><span style="color:#333333;">           ptsInClust = dataSet[nonzero(clusterAssment[:,0].A==cent)[0]]#get allthe point in this cluster</span></p><p><span style="color:#333333;">           centroids[cent,:] = mean(ptsInClust, axis=0) #assign centroid to mean</span></p><p><span style="color:#333333;">   return centroids, clusterAssment</span></p><p><span style="color:#333333;"> </span></p><p><span style="color:#333333;">def biKmeans(dataSet, k,distMeas=distEclud):</span></p><p><span style="color:#333333;">    m= shape(dataSet)[0]</span></p><p><span style="color:#333333;">   clusterAssment = mat(zeros((m,2)))</span></p><p><span style="color:#333333;">   centroid0 = mean(dataSet, axis=0).tolist()[0]</span></p><p><span style="color:#333333;">   centList =[centroid0] #create a list with one centroid</span></p><p><span style="color:#333333;">   for j in range(m):#calc initial Error</span></p><p><span style="color:#333333;">       clusterAssment[j,1] = distMeas(mat(centroid0), dataSet[j,:])**2</span></p><p><span style="color:#333333;">   while (len(centList) &lt; k):</span></p><p><span style="color:#333333;">       lowestSSE = inf</span></p><p><span style="color:#333333;">       for i in range(len(centList)):</span></p><p><span style="color:#333333;">           ptsInCurrCluster = dataSet[nonzero(clusterAssment[:,0].A==i)[0],:]#getthe data points currently in cluster i</span></p><p><span style="color:#333333;">           centroidMat, splitClustAss = kMeans(ptsInCurrCluster, 2, distMeas)</span></p><p><span style="color:#333333;">           sseSplit = sum(splitClustAss[:,1])#compare the SSE to the currrentminimum</span></p><p><span style="color:#333333;">           sseNotSplit =sum(clusterAssment[nonzero(clusterAssment[:,0].A!=i)[0],1])</span></p><p><span style="color:#333333;">           print("sseSplit, and notSplit: ",sseSplit,sseNotSplit)</span></p><p><span style="color:#333333;">           if (sseSplit + sseNotSplit) &lt; lowestSSE:</span></p><p><span style="color:#333333;">                bestCentToSplit = i</span></p><p><span style="color:#333333;">                bestNewCents = centroidMat</span></p><p><span style="color:#333333;">                bestClustAss =splitClustAss.copy()</span></p><p><span style="color:#333333;">                lowestSSE = sseSplit + sseNotSplit</span></p><p><span style="color:#333333;">       bestClustAss[nonzero(bestClustAss[:,0].A == 1)[0],0] = len(centList)#change 1 to 3,4, or whatever</span></p><p><span style="color:#333333;">       bestClustAss[nonzero(bestClustAss[:,0].A == 0)[0],0] = bestCentToSplit</span></p><p><span style="color:#333333;">       print('the bestCentToSplit is: ',bestCentToSplit)</span></p><p><span style="color:#333333;">        print('the len of bestClustAss is: ',len(bestClustAss))</span></p><p><span style="color:#333333;">       centList[bestCentToSplit] = bestNewCents[0,:].tolist()[0]#replace acentroid with two best centroids</span></p><p><span style="color:#333333;">       centList.append(bestNewCents[1,:].tolist()[0])</span></p><p><span style="color:#333333;">       clusterAssment[nonzero(clusterAssment[:,0].A == bestCentToSplit)[0],:]=bestClustAss#reassign new clusters, and SSE</span></p><p><span style="color:#333333;">   return mat(centList), clusterAssment</span></p><p><span style="color:#333333;"># show your cluster only available with 2-Ddata</span></p><p><span style="color:#333333;">def showCluster(dataSet, k, centroids,clusterAssment):</span></p><p><span style="color:#333333;">   numSamples, dim = dataSet.shape</span></p><p><span style="color:#333333;">   if dim != 2:</span></p><p><span style="color:#333333;">       print("I can not draw !")</span></p><p><span style="color:#333333;">       return 1</span></p><p><span style="color:#333333;">   mark = ['or', 'ob', 'og', 'ok', '^r', '+r', 'sr', 'dr', '&lt;r', 'pr']</span></p><p><span style="color:#333333;">   if k &gt; len(mark):</span></p><p><span style="color:#333333;">       print("Sorry!")</span></p><p><span style="color:#333333;">       return 1</span></p><p><span style="color:#333333;">    #draw all samples</span></p><p><span style="color:#333333;">   for i in range(numSamples):</span></p><p><span style="color:#333333;">       markIndex = int(clusterAssment[i, 0])</span></p><p><span style="color:#333333;">       plt.plot(dataSet[i, 0], dataSet[i, 1], mark[markIndex])</span></p><p><span style="color:#333333;">   mark = ['Dr', 'Db', 'Dg', 'Dk', '^b', '+b', 'sb', 'db', '&lt;b', 'pb']</span></p><p><span style="color:#333333;">    #draw the centroids</span></p><p><span style="color:#333333;">   for i in range(k):</span></p><p><span style="color:#333333;">       plt.plot(centroids[i, 0], centroids[i, 1], mark[i], markersize = 12)</span></p><p><span style="color:#333333;">   plt.show()</span></p><p><span style="color:#333333;">if __name__=='__main__':</span></p><p><span style="color:#333333;">   datMat = mat(loadDataSet('d:\\test.txt'))</span></p><p><span style="color:#333333;">   myCentList,myNewAssment = biKmeans(datMat,2)</span></p><p><span style="color:#333333;">   print ("centers</span><span style="color:#333333;">：",myCentList,myNewAssment)  </span></p><p><span style="color:#333333;">（3）   </span><span style="color:#333333;">二分k</span>均值应用举例：</p><p><span style="color:#333333;">测试代码：</span></p><p><span style="color:#333333;">import biKmeans as bT</span></p><p><span style="color:#333333;">from numpy import *</span></p><p><span style="color:#333333;">import time</span></p><p><span style="color:#333333;">import matplotlib.pyplot as plt</span></p><p><span style="color:#333333;">## step 1: load data</span></p><p><span style="color:#333333;">dataSet = []</span></p><p><span style="color:#333333;">fileIn = open('d:\\testSet.txt')</span></p><p><span style="color:#333333;">for line in fileIn.readlines():</span></p><p><span style="color:#333333;">   lineArr = line.strip().split('\t')</span></p><p><span style="color:#333333;">   dataSet.append([float(lineArr[0]), float(lineArr[1])])</span></p><p><span style="color:#333333;">## step 2: train</span></p><p><span style="color:#333333;">dataSet = mat(dataSet)</span></p><p><span style="color:#333333;">k = 4</span></p><p><span style="color:#333333;">centroids, clusterAssment =bT.biKmeans(dataSet, k)</span></p><p><span style="color:#333333;">## step 3: the result</span></p><p><span style="color:#333333;">bT.showCluster(dataSet,k, centroids, clusterAssment)</span></p><p><span style="color:#333333;">效果如下：</span></p><p><span style="color:#333333;"><img src="https://img-blog.csdn.net/20180617215830164?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjAzOTA5MA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="" /><br /></span></p><p><span style="color:#333333;"> 部分代码参考《机器学习实战》源代码。</span></p>            </div>
+                </div>
+				<div class="hide-article-box text-center csdn-tracking-statistics tracking-click" data-mod="popu_376">
+			<a class="btn btn-red-hollow" id="btn-readmore">阅读更多</a>
+		</div>
+        	</article>
+	
+	
+	<!-- !empty($pre_next_article[0]) -->
+		</div>
+<script>
+    $(".MathJax").remove();
+</script>
+
+<script type="text/javascript" src="https://static-blog.csdn.net/mdeditor/public/res/bower-libs/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+			"HTML-CSS": {
+					linebreaks: { automatic: true, width: "94%container" },
+					imageFont: null
+			},
+			tex2jax: {
+				preview: "none"
+			},
+			mml2jax: {
+				preview: 'none'
+			}
+	});
+</script>
+<script>
+	(function(){
+		var btnReadmore = $("#btn-readmore");
+		if(btnReadmore.length>0){
+			var winH = $(window).height();
+			var articleBox = $("div.article_content");
+			var artH = articleBox.height();
+			if(artH > winH*2){
+				articleBox.css({
+					'height':winH*2+'px',
+					'overflow':'hidden'
+				})
+				btnReadmore.click(function(){
+					articleBox.removeAttr("style");
+					$(this).parent().remove();
+				})
+			}else{
+				btnReadmore.parent().remove();
+			}
+		}
+	})()
+</script>        <div class="edu-promotion"></div>
+<script type="text/javascript">
+	var edu_ad_is_big_data = 0;
+	var edu_ad_id_mapping = {"0":["https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=python1","https:\/\/edu.csdn.net\/sp\/blog.php?type=618"],"1":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=web1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit","https:\/\/edu.csdn.net\/sp\/blog.php?type=web1","https:\/\/edu.csdn.net\/sp\/blog.php?type=web1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=618"],"8":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit"],"2":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=python1"],"3":["https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=618"],"6":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit"],"12":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit"],"14":["https:\/\/edu.csdn.net\/sp\/blog.php?type=web1","https:\/\/edu.csdn.net\/sp\/blog.php?type=python1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcweb","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=web1","https:\/\/edu.csdn.net\/sp\/blog.php?type=618"],"15":["https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcjg","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1"],"16":["https:\/\/edu.csdn.net\/sp\/blog.php?type=web1","https:\/\/edu.csdn.net\/sp\/blog.php?type=python1"],"28":["https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=python1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcai","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=python1","https:\/\/edu.csdn.net\/sp\/blog.php?type=618"],"29":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1"],"30":["https:\/\/edu.csdn.net\/sp\/blog.php?type=python1","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1"],"32":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=python1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcaq"],"33":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gccxrs","https:\/\/edu.csdn.net\/sp\/blog.php?type=python1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1"],"35":["https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit"],"37":["https:\/\/edu.csdn.net\/sp\/blog.php?type=web1","https:\/\/edu.csdn.net\/sp\/blog.php?type=python1"],"7":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=web1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=web1","https:\/\/edu.csdn.net\/sp\/blog.php?type=web1","https:\/\/edu.csdn.net\/sp\/blog.php?type=618"],"17":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1"],"34":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=python1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcbt"],"36":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit"],"31":["https:\/\/edu.csdn.net\/sp\/blog.php?type=python1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit"],"19":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit"],"20":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit"]};
+</script>        <a id="commentBox"></a>
+<div class="comment-box">
+	  	<div class="unlogin-box text-center">
+		想对作者说点什么？
+		<!-- $curl 当前地址 -->
+		<a href="https://passport.csdn.net/account/login?from=https://blog.csdn.net/weixin_42039090/article/details/80721290#commentBox" class="btn btn-sm btn-red">我来说一句</a>
+	</div>
+			<div class="comment-list-container">
+		<a id="comments"></a>
+		<div class="comment-list-box">
+		</div>
+		<div id="commentPage" class="pagination-box d-none"></div>
+		<div class="opt-box text-center">
+			<button class="btn btn-sm btn-link-blue" id="btnMoreComment"></button>
+		</div>
+	</div>
+</div>        <div class="recommend-box">
+            		<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/u011239443/article/details/68489023" target="_blank" strategy="BlogCommendFromQuerySearch_0">
+				《<em>机器学习</em>实战》（十）——k-means、k-means++、<em>二分</em>K-means			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/u011239443/article/details/68489023" target="_blank" >
+				原理
+创建K个点作为起始质点。每次迭代如下： 
+将各个数据点分配到离它距离最近的质点的簇。
+全部分配后，用各个簇中的数据点的位置均值来更新质点的位置。
+直到达到迭代次数，或者所有的数据点所在的簇不再改...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/u011239443" title="u011239443" target="_blank">
+					<img src="https://avatar.csdn.net/2/C/6/3_u011239443.jpg" alt="u011239443" class="avatar-pic">
+					<span class="name">u011239443</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2017-03-30 18:45:23</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：1573</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/BaiHuaXiu123/article/details/54883099" target="_blank" strategy="BlogCommendFromQuerySearch_1">
+				[<em>机器学习</em>]<em>二分</em>k-means<em>算法</em>详解			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/BaiHuaXiu123/article/details/54883099" target="_blank" >
+				<em>二分</em>k-means<em>算法</em>  <em>二分</em>k-means<em>算法</em>是分层聚类（Hierarchical clustering）的一种，分层聚类是聚类分析中常用的方法。 
+分层聚类的策略一般有两种：
+聚合。这是一种自底向...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/BaiHuaXiu123" title="BaiHuaXiu123" target="_blank">
+					<img src="https://avatar.csdn.net/B/A/8/3_baihuaxiu123.jpg" alt="BaiHuaXiu123" class="avatar-pic">
+					<span class="name">BaiHuaXiu123</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2017-02-05 21:00:05</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：2445</span>
+			</p>
+		</div>
+	</div>
+								<div class="recommend-item-box recommend-ad-box" id="ad1"></div>
+				<script>
+				  var width = $("div.recommend-box").outerWidth() - 48;
+					NEWS_FEED({
+						w: width,
+						h : 90,
+						showid : 'GNKXx7',
+						placeholderId: "ad1",
+						inject : 'define',
+						define : {
+							imagePosition : 'right',
+							imageBorderRadius : 0,
+							imageWidth: 120,
+							imageHeight: 90,
+							imageFill : 'clip',
+							displayImage : true,
+							displayTitle : true,
+							titleFontSize: 20,
+							titleFontColor: '#333',
+							titleFontFamily : 'Microsoft Yahei',
+							titleFontWeight: 'bold',
+							titlePaddingTop : 0,
+							titlePaddingRight : 0,
+							titlePaddingBottom : 10,
+							titlePaddingLeft : 0,
+							displayDesc : true,
+							descFontSize: 14,
+							descFontColor: '#6b6b6b',
+							descFontFamily : 'Microsoft Yahei',
+							paddingTop : 0,
+							paddingRight : 0,
+							paddingBottom : 0,
+							paddingLeft : 0,
+							backgroundColor: '#fff',
+							hoverColor: '#ca0c16'
+						}
+					})
+				</script>
+
+			
+				<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/Gamer_gyt/article/details/48949227" target="_blank" strategy="BlogCommendFromQuerySearch_2">
+				《<em>机器学习</em>实战》<em>二分</em>-<em>kMeans</em><em>算法</em>（<em>二分</em>K均值聚类）			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/Gamer_gyt/article/details/48949227" target="_blank" >
+				首先<em>二分</em>-K均值是为了解决k-均值的用户自定义输入簇值k所延伸出来的自己判断k数目，其基本思路是：
+为了得到k个簇，将所有点的集合分裂成两个簇，从这些簇中选取一个继续分裂，如此下去，直到产生k个簇。
+...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/Gamer_gyt" title="Gamer_gyt" target="_blank">
+					<img src="https://avatar.csdn.net/1/0/F/3_gamer_gyt.jpg" alt="Gamer_gyt" class="avatar-pic">
+					<span class="name">Gamer_gyt</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2015-10-07 15:32:34</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：9444</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/llp1992/article/details/45096063" target="_blank" strategy="BlogCommendFromQuerySearch_3">
+				<em>机器学习</em>实战ByMatlab（四）<em>二分</em>K-means<em>算法</em>			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/llp1992/article/details/45096063" target="_blank" >
+				前面我们在是实现K-means<em>算法</em>的时候，提到了它本身存在的缺陷：
+  1.可能收敛到局部最小值 
+  2.在大规模数据集上收敛较慢
+对于上一篇博文最后说的，当陷入局部最小值的时候，处理方法就是多运行...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/llp1992" title="llp1992" target="_blank">
+					<img src="https://avatar.csdn.net/4/6/5/3_llp1992.jpg" alt="llp1992" class="avatar-pic">
+					<span class="name">llp1992</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2015-04-17 13:44:00</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：8141</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/u010412719/article/details/47112039" target="_blank" strategy="BlogCommendFromQuerySearch_4">
+				《<em>机器学习</em>实战》之<em>二分</em>K-均值聚类<em>算法</em>的python实现			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/u010412719/article/details/47112039" target="_blank" >
+				《<em>机器学习</em>实战》之<em>二分</em>K-均值聚类<em>算法</em>的python实现上面博文介绍了K-均值聚类<em>算法</em>及其用python实现，上篇博文中的两张截图，我们可以看到，由于K-均值聚类<em>算法</em>中由于初始质心的选取，会造成聚类的...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/u010412719" title="u010412719" target="_blank">
+					<img src="https://avatar.csdn.net/2/8/E/3_u010412719.jpg" alt="u010412719" class="avatar-pic">
+					<span class="name">u010412719</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2015-07-28 21:33:54</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：1890</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/l0979365428/article/details/46929701" target="_blank" strategy="BlogCommendFromQuerySearch_5">
+				<em>二分</em><em>Kmeans</em>的java实现			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/l0979365428/article/details/46929701" target="_blank" >
+				当初始簇心选择不好的时候聚类的效果会很差。所以后来又有一个人提出了<em>二分</em>k均值（bisecting<em>kmeans</em>），其核心思路是：将初始的一个簇一分为二计算出误差平方和最大的那个簇，对他进行再一次的<em>二分</em>。...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/l0979365428" title="l0979365428" target="_blank">
+					<img src="https://avatar.csdn.net/6/B/6/3_l0979365428.jpg" alt="l0979365428" class="avatar-pic">
+					<span class="name">l0979365428</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2015-07-17 17:16:53</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：692</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box recommend-ad-box" id="a_d_feed_0"></div>
+			<script>
+				var width = $("div.recommend-box").outerWidth() - 48;
+				NEWS_FEED({
+					w: width,
+					h: 90,
+					showid: 'Afihld',
+					placeholderId: 'a_d_feed_0',
+					inject: 'define',
+					define: {
+						imagePosition: 'right',
+						imageBorderRadius: 0,
+						imageWidth: 120,
+						imageHeight: 90,
+						imageFill: 'clip',
+						displayImage: true,
+						displayTitle: true,
+						titleFontSize: 20,
+						titleFontColor: '#333',
+						titleFontFamily: 'Microsoft Yahei',
+						titleFontWeight: 'bold',
+						titlePaddingTop: 0,
+						titlePaddingRight: 0,
+						titlePaddingBottom: 10,
+						titlePaddingLeft: 0,
+						displayDesc: true,
+						descFontSize: 14,
+						descFontColor: '#6b6b6b',
+						descFontFamily: 'Microsoft Yahei',
+						paddingTop: 0,
+						paddingRight: 0,
+						paddingBottom: 0,
+						paddingLeft: 0,
+						backgroundColor: '#fff',
+						hoverColor: '#ca0c16'
+					}
+				})
+			</script>
+				<div class="recommend-item-box recommend-download-box csdn-tracking-statistics clearfix" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+			<div class="content float-left">
+				<h4 class="text-truncate">
+					<a href="https://download.csdn.net/download/u010619558/10220607" target="_blank" strategy="BlogCommendFromQuerySearch_6">
+						<em>KMeans</em><em>算法</em>java代码					</a>
+				</h4>
+				<p>
+					<span class="data">2018年01月23日 </span>
+					<span class="size">6KB</span>
+					<span class="type">下载</span>
+				</p>
+			</div>
+			<div class="img-box float-right">
+				<a href="https://download.csdn.net/download/u010619558/10220607" target="_blank" strategy="BlogCommendFromQuerySearch_6">
+					<img src="http://csdnimg.cn/release/download/old_static/images/minetype/unkonw.svg" alt="">
+				</a>
+			</div>
+		</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/lipengcn/article/details/50320893" target="_blank" strategy="BlogCommendFromQuerySearch_7">
+				<em>二分</em>K-均值<em>算法</em> bisecting K-means in Python			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/lipengcn/article/details/50320893" target="_blank" >
+				<em>二分</em>K-均值<em>算法</em> bisecting K-means in Python			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/lipengcn" title="lipengcn" target="_blank">
+					<img src="https://avatar.csdn.net/1/5/A/3_lipengcn.jpg" alt="lipengcn" class="avatar-pic">
+					<span class="name">lipengcn</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2015-12-15 21:31:05</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：2121</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/suipingsp/article/details/42495317" target="_blank" strategy="BlogCommendFromQuerySearch_8">
+				<em>机器学习</em><em>经典算法</em>详解及Python实现--聚类及K均值、<em>二分</em>K-均值聚类<em>算法</em>			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/suipingsp/article/details/42495317" target="_blank" >
+				聚类是一种无监督的学习（无监督学习不依赖预先定义的类或带类标记的训练实例），它将相似的对象归到同一个簇中，它是观察式学习，而非示例式的学习，有点像全自动分类。说白了，聚类（clustering）是完全...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/suipingsp" title="suipingsp" target="_blank">
+					<img src="https://avatar.csdn.net/5/5/F/3_suipingsp.jpg" alt="suipingsp" class="avatar-pic">
+					<span class="name">suipingsp</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2015-01-07 16:41:21</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：7447</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/skyonefly/article/details/50239943" target="_blank" strategy="BlogCommendFromQuerySearch_9">
+				<em>二分</em>K-means聚类，K-Means改进			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/skyonefly/article/details/50239943" target="_blank" >
+				由于K-means 有可能会收敛到局部最优值，而无法收敛到全局最优值，影响聚类性能
+一种用于度量聚类效果的指标是SSE(Sum of Squared Error，误差平方和），对应予 clusterA...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/skyonefly" title="skyonefly" target="_blank">
+					<img src="https://avatar.csdn.net/F/8/6/3_skyonefly.jpg" alt="skyonefly" class="avatar-pic">
+					<span class="name">skyonefly</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2015-12-09 18:35:18</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：2905</span>
+			</p>
+		</div>
+	</div>
+			            <!-- 第四范式SDK -->
+<script src="https://nbrecsys.4paradigm.com/resource/js/sdk-csdn-smallflow.js" async defer></script>
+            <div class="recommend-loading-box">
+                <img src='https://csdnimg.cn/release/phoenix/images/feedLoading.gif'>
+            </div>
+            <div class="recommend-end-box">
+                <p class="text-center">没有更多推荐了，<a href="https://blog.csdn.net/" class="c-blue c-blue-hover c-blue-focus">返回首页</a></p>
+            </div>
+        </div>
+    </main>
+    <aside>
+		    <div id="asideProfile" class="aside-box">
+    <h3 class="aside-title">个人资料</h3>
+    <div class="profile-intro d-flex">
+        <div class="avatar-box d-flex justify-content-center flex-column">
+            <a href="https://blog.csdn.net/weixin_42039090">
+                <img src="https://avatar.csdn.net/B/E/2/3_weixin_42039090.jpg" class="avatar_pic">
+            </a>
+        </div>
+        <div class="user-info d-flex justify-content-center flex-column">
+            <p class="name csdn-tracking-statistics tracking-click" data-mod="popu_379">
+                <a href="https://blog.csdn.net/weixin_42039090" target="_blank" class="text-truncate" id="uid">weixin_42039090</a>
+            </p>
+                    </div>
+                <div class="opt-box d-flex justify-content-center flex-column">
+            <span  class="csdn-tracking-statistics tracking-click" data-mod="popu_379">
+                                <a class="btn btn-sm btn-red-hollow" href="https://passport.csdn.net/account/login?from=https://blog.csdn.net/weixin_42039090/article/details/80721290" target="_self">关注</a>
+                            </span>
+                    </div>
+            </div>
+    <div class="data-info d-flex item-tiling">
+                <dl class="text-center" title="97">
+                        <dt><a href="https://blog.csdn.net/weixin_42039090?t=1">原创</a></dt>
+            <dd><a href="https://blog.csdn.net/weixin_42039090?t=1"><span class="count">97</span></a></dd>
+                    </dl>
+        <dl class="text-center" title="3">
+            <dt>粉丝</dt>
+            <dd><span class="count" id="fan">3</span></dd>
+        </dl>
+        <dl class="text-center" title="36">
+            <dt>喜欢</dt>
+            <dd><span class="count">36</span></dd>
+        </dl>
+        <dl class="text-center" title="16">
+            <dt>评论</dt>
+            <dd><span class="count">16</span></dd>
+        </dl>
+    </div>
+    <div class="grade-box clearfix">
+        <dl>
+            <dt>等级：</dt>
+            <dd>
+                <a href="https://blog.csdn.net/home/help.html#level" title="4级,点击查看等级说明" target="_blank">
+                    <svg class="icon icon-level" aria-hidden="true">
+                        <use xlink:href="#csdnc-bloglevel-4"></use>
+                    </svg>
+                </a>
+            </dd>
+        </dl>
+        <dl>
+            <dt>访问：</dt>
+            <dd title="21423">
+                2万+            </dd>
+        </dl>
+        <dl>
+            <dt>积分：</dt>
+            <dd title="1214">
+                1214            </dd>
+        </dl>
+        <dl title="46222">
+            <dt>排名：</dt>
+            <dd>4万+</dd>
+        </dl>
+    </div>
+        <div class="badge-box d-flex">
+        <span>勋章：</span>
+                        <a class="icon-badge" title="持之以恒">
+            <svg class="icon" aria-hidden="true">
+                <use xlink:href="#csdnc-m-lasting"></use>
+            </svg>
+            <div class="icon-arrow"></div>
+            <div class="grade-detail-box item2">
+                <div class="pos-box">
+                    <div class="left-box d-flex justify-content-center align-items-center flex-column">
+                        <svg class="icon" aria-hidden="true">
+                            <use xlink:href="#csdnc-m-lasting"></use>
+                        </svg>
+                        <p>持之以恒</p>
+                    </div>
+                    <div class="right-box d-flex justify-content-center align-items-center">
+                        授予每个自然月内发布4篇或4篇以上原创或翻译IT博文的用户。不积跬步无以至千里，不积小流无以成江海，程序人生的精彩需要坚持不懈地积累！
+                    </div>
+                </div>
+            </div>
+        </a>
+                            </div>
+    </div>		    <div class="csdn-tracking-statistics mb8 box-shadow" data-pid="blog" data-mod="popu_4" style="height:250px;">
+    <div class="aside-content text-center" id="cpro_u2734133">
+        <!-- 投放代码 -->
+        <script type="text/javascript" src="//cee1.iteye.com/lgyyovfyh.js"></script>
+    </div>
+</div>
+		    <div id="asideNewArticle" class="aside-box">
+    <h3 class="aside-title">最新文章</h3>
+    <div class="aside-content">
+        <ul class="inf_list clearfix csdn-tracking-statistics tracking-click" data-mod="popu_382">
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/weixin_42039090/article/details/80722398" target="_blank">scipy处理多项式方法</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/weixin_42039090/article/details/80722336" target="_blank">Pandas处理数据方法</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/weixin_42039090/article/details/80721958" target="_blank">批量修改python2.7版本print加括弧问题</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/weixin_42039090/article/details/80721871" target="_blank">numpy矩阵运算总结</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/weixin_42039090/article/details/80720805" target="_blank">读《机器学习》笔记</a>
+            </li>
+                    </ul>
+    </div>
+</div>
+		    		    <div id="asideCategory" class="aside-box flexible-box">
+    <h3 class="aside-title">个人分类</h3>
+    <div class="aside-content">
+        <ul>
+                        <li>
+                <a href="https://blog.csdn.net/weixin_42039090/article/category/7697324">
+                    机器之心                    <span class="count float-right">33篇</span>
+                </a>
+            </li>
+                        <li>
+                <a href="https://blog.csdn.net/weixin_42039090/article/category/7699914">
+                    机器学习                    <span class="count float-right">63篇</span>
+                </a>
+            </li>
+                        <li>
+                <a href="https://blog.csdn.net/weixin_42039090/article/category/7704491">
+                    学习随记                    <span class="count float-right">15篇</span>
+                </a>
+            </li>
+                        <li>
+                <a href="https://blog.csdn.net/weixin_42039090/article/category/7710763">
+                    python之路                    <span class="count float-right">8篇</span>
+                </a>
+            </li>
+                        <li>
+                <a href="https://blog.csdn.net/weixin_42039090/article/category/7711495">
+                    Python高手系列                    <span class="count float-right">20篇</span>
+                </a>
+            </li>
+                        <li>
+                <a href="https://blog.csdn.net/weixin_42039090/article/category/7729093">
+                    修炼之路                    <span class="count float-right">22篇</span>
+                </a>
+            </li>
+                        <li>
+                <a href="https://blog.csdn.net/weixin_42039090/article/category/7731073">
+                    专家之道                    <span class="count float-right">18篇</span>
+                </a>
+            </li>
+                        <li>
+                <a href="https://blog.csdn.net/weixin_42039090/article/category/7731074">
+                    机器之巅                    <span class="count float-right">15篇</span>
+                </a>
+            </li>
+                    </ul>
+    </div>
+        <p class="text-center">
+        <a class="btn btn-link-blue flexible-btn" data-fbox="aside-archive">展开</a>
+    </p>
+    </div>
+		    <div id="asideArchive" class="aside-box">
+    <h3 class="aside-title">归档</h3>
+    <div class="aside-content">
+        <ul class="archive-list">
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/weixin_42039090/article/month/2018/06">
+                    2018年6月                    <span class="count float-right">86篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/weixin_42039090/article/month/2018/05">
+                    2018年5月                    <span class="count float-right">17篇</span>
+                </a>
+            </li>
+                    </ul>
+    </div>
+    </div>
+		    <div id="asideNewComments" class="aside-box">
+    <h3 class="aside-title">最新评论</h3>
+    <div class="aside-content">
+        <ul class="newcomment-list">
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/weixin_42039090/article/details/80613529#comments">sklearn中生成数据集samp...</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/weixin_42412467" class="user-name" target="_blank">weixin_42412467</a>：有点看不懂。                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/weixin_42039090/article/details/80614918#comments">Sklearn提供的常用数据集</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/weixin_42412467" class="user-name" target="_blank">weixin_42412467</a>：写得好。                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/weixin_42039090/article/details/80614918#comments">Sklearn提供的常用数据集</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/weixin_42412467" class="user-name" target="_blank">weixin_42412467</a>：写的非常好！正是我需要的。                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/weixin_42039090/article/details/80601725#comments">机器学习之十大经典算法（六） SV...</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/weixin_42039090" class="user-name" target="_blank">weixin_42039090</a>：类的封装给使用带来很多方便。                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/weixin_42039090/article/details/80581202#comments">机器学习之十大经典算法（五） Ad...</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/weixin_42039090" class="user-name" target="_blank">weixin_42039090</a>：封装成类，以后可以import了。                </p>
+            </li>
+                    </ul>
+    </div>
+</div>
+		<div id="asideFooter">
+			
+		<div class="aside-box">
+						<script type="text/javascript" src="//cee1.iteye.com/avneunkwb.js"></script>
+					</div>
+				<div class="aside-box">
+			<div class="persion_article">
+			</div>
+		</div>
+	</div>
+</aside>
+<script src="https://csdnimg.cn/pubfooter/js/publib_footer-1.0.3.js" data-isfootertrack="false" type="text/javascript"></script>
+<script>
+	$("a.flexible-btn").click(function(){
+		$(this).parents('div.aside-box').removeClass('flexible-box');
+		$(this).remove();
+	})
+</script>
+</div>
+<div class="mask-dark"></div>
+<div class="pulllog-box" style="display: block;">
+	<div class="pulllog clearfix">
+		<span class="text float-left">加入CSDN，享受更精准的内容推荐，与500万程序员共同成长！</span>
+		<div class="pulllog-btn float-right clearfix">
+            <button class="pulllog-login float-left csdn-tracking-statistics tracking-click" data-mod="popu_557">
+                登录
+            </button>
+            <div class="pulllog-sigin float-left csdn-tracking-statistics tracking-click" data-mod="popu_558">
+                <a href="https://passport.csdn.net/account/mobileregister" target="_blank">注册</a>
+            </div>
+            <button class="btn-close">
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#csdnc-times"></use>
+                </svg>
+            </button>
+		</div>
+	</div>
+</div>
+<div id="loginWrap" style="display:none"></div>
+<div class="tool-box">
+	<ul class="meau-list">
+		<li>
+			<button class="btn-like " title="点赞">
+				<svg class="icon active" aria-hidden="true">
+					<use xlink:href="#csdnc-thumbsup-ok"></use>
+				</svg><svg class="icon no-active" aria-hidden="true">
+					<use xlink:href="#csdnc-thumbsup"></use>
+				</svg>
+				<p>0</p>
+			</button>
+		</li>
+		<li class="toc-container-box" id="liTocBox">
+			<button class="btn-toc" title="目录">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-contents"></use>
+				</svg><br>目录
+			</button>
+			<div class="toc-container">
+				<div class="pos-box">
+					<div class="icon-arrow"></div>
+					<div class="scroll-box">
+						<div class="toc-box"></div>
+					</div>
+				</div>
+				<div class="opt-box">
+					<button class="btn-opt prev nomore" title="向上">
+						<svg class="icon" aria-hidden="true">
+							<use xlink:href="#csdnc-chevronup"></use>
+						</svg>
+					</button>
+					<button class="btn-opt next">
+						<svg class="icon" aria-hidden="true">
+							<use xlink:href="#csdnc-chevrondown"></use>
+						</svg>
+					</button>
+				</div>
+			</div>
+		</li>
+		<li>
+			<button class="btn-bookmark" title="收藏">
+				<svg class="icon active" aria-hidden="true">
+					<use xlink:href="#csdnc-bookmark-ok"></use>
+				</svg><svg class="icon no-active" aria-hidden="true">
+					<use xlink:href="#csdnc-bookmark"></use>
+				</svg><br>收藏
+			</button>
+		</li>
+		<li>
+			<a class="btn-comments" title="评论" href="#commentBox">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-comments"></use>
+				</svg><br>评论
+			</a>
+		</li>
+				<li class="bdsharebuttonbox">
+			<a class="btn-comments bds_weixin" data-cmd="weixin" title="微信分享">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-wechat"></use>
+				</svg><br>微信
+			</a>
+		</li>
+		<li class="bdsharebuttonbox">
+			<a class="btn-comments bds_tsina" data-cmd="tsina" title="微博分享">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-weibo"></use>
+				</svg><br>微博
+			</a>
+		</li>
+		<li class="bdsharebuttonbox">
+			<a class="btn-comments bds_qzone" data-cmd="qzone" title="QQ分享">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-qq"></use>
+				</svg><br>QQ
+			</a>
+		</li>
+	</ul>
+</div>
+<script>window._bd_share_config = { "common": { "bdSnsKey": {}, "bdText": "", "bdMini": "1", "bdMiniList": false, "bdPic": "", "bdStyle": "0", "bdSize": "16" }, "share": {} }; with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'https://csdnimg.cn/static/api/js/share.js?v=89860594'];</script>
+<script>
+    var recommendCount = 10;
+    recommendCount = recommendCount > 1 ? (recommendCount + (recommendCount>6 ? 2 : 1)) : recommendCount;
+    var articleTit = "机器学习之经典算法（十七）二分Kmeans算法";
+    var ChannelId = 2;
+    var articleId = "80721290";
+    var commentscount = 0;
+    var islock = false;
+    var curentUrl = "https://blog.csdn.net/weixin_42039090/article/details/80721290";
+    var myUrl = "https://my.csdn.net/";
+    //1禁止评论，2正常
+    var commentAuth = 2;
+    //百度搜索
+    var baiduKey = "";
+    var needInsertBaidu = true;
+</script>
+<script src="https://csdnimg.cn/public/sandalstrap/1.3/js/sandalstrap.min.js"></script>
+<script src="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.js"></script>
+<script src='https://csdnimg.cn/public/common/gotop/js/goTop-v1.0.min.js?v201803151422'></script>
+<script>
+    GoTop({
+        right: 8,
+        hasReport: true,
+        reportFun: function() {
+            showReport(false,"机器学习之经典算法（十七）二分Kmeans算法");
+        }
+    })
+</script>
+<script src="https://csdnimg.cn/release/phoenix/template/js/common-bd54b21308.min.js"></script>
+<script src="https://csdnimg.cn/release/phoenix/template/js/detail-effe72036e.min.js"></script>
+<script src="https://csdnimg.cn/release/phoenix/themes/skin3-template/skin3-template-46c7bd3d86.min.js"></script>
+</body>
+<div class="box-box-default">
+    <a class="btn-remove">
+        关闭
+    </a>
+    <script type="text/javascript" src="//cee1.iteye.com/mhzzjepzz.js"></script>
+</div>
+<div class="box-box-large">
+    <a class="btn-remove">
+        关闭
+    </a>
+    <script type="text/javascript" src="//cee1.iteye.com/idvveasfs.js"></script>
+</div>
+</html>

@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <link rel="canonical" href="https://blog.csdn.net/XWUkefr2tnh4/article/details/80684444"/> 
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="referrer" content="always">
+    <meta name="description" content="
+  
+    
+                    
+
+                    
+
+                    
+                    
+                    要说史上最著名的猫，大概就是薛定谔的那只了。它被关在装有少量镭和氰化物的密闭容器里，当镭发生衰变时，就会触发机关打碎装有氰化物的瓶子，猫就会死亡；如果镭不发生衰变，猫就会..." />
+    <meta name="keywords" content="" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+    <meta name="shenma-site-verification" content="5a59773ab8077d4a62bf469ab966a63b_1497598848">
+    <script src="https://csdnimg.cn/release/phoenix/vendor/tingyun/tingyun-rum-blog.js"></script>
+
+    <link href="https://csdnimg.cn/public/favicon.ico" rel="SHORTCUT ICON">
+    <title>TensorFlow: 薛定谔的管道 - CSDN博客</title>
+    
+            <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/detail-60a2c245da.min.css">
+        <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/themes/skin3-template/skin3-template-88717cedf2.min.css">
+
+    <script type="text/javascript">
+        var username = "xwukefr2tnh4";
+        var blog_address = "https://blog.csdn.net/xwukefr2tnh4";
+        var static_host = "https://csdnimg.cn/release/phoenix/";
+        var currentUserName = ""; 
+        var isShowAds = true;
+        var isOwner = false;
+        var loginUrl = "https://passport.csdn.net/account/login?from=https://blog.csdn.net/XWUkefr2tnh4/article/details/80684444"
+        var blogUrl = "https://blog.csdn.net/";
+        var curSkin = "skin3-template";
+    </script>
+    <script type="text/javascript">
+        // Traffic Stats of the entire Web site By baidu
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?6bcd52f51e9b3dce32bec4a3997715ac";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+        // Traffic Stats of the entire Web site By baidu end
+    </script>
+    <script src="https://csdnimg.cn/public/common/libs/jquery/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <script src="https://csdnimg.cn/rabbit/exposure-click/main-1.0.6.js"></script>
+    <!-- 新版上报 -->
+    <script src="//g.csdnimg.cn/track/1.0.0/track.js" type="text/javascript"></script>
+    <!-- 新版上报end -->
+            <link rel="stylesheet" href="https://csdnimg.cn/public/sandalstrap/1.3/css/sandalstrap.min.css"> 
+    <style>
+        .MathJax, .MathJax_Message, .MathJax_Preview{
+            display: none
+        }
+    </style>
+</head>
+<body>    
+    <link rel="stylesheet" href="https://csdnimg.cn/public/common/toolbar/content_toolbar_css/content_toolbar.css">
+    <script id="toolbar-tpl-scriptId" src="https://csdnimg.cn/public/common/toolbar/js/content_toolbar.js" type="text/javascript" domain="https://blog.csdn.net/"></script>
+    <script src="https://csdnimg.cn/public/sandalstrap/1.3/fonts/csdnc/csdnc.js"></script><link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/blog_code-c3a0c33d5c.css">
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.css">
+<script type="text/javascript" src="//static.mediav.com/js/mvf_news_feed.js"></script>
+
+<header>
+	<div class="container d-flex clearfix">
+		<div class="title-box">
+			<h2 class="title-blog">
+				<a href="https://blog.csdn.net/xwukefr2tnh4">深度学习大讲堂</a>
+			</h2>
+			<p class="description"> 高质量原创内容平台,邀请学术界、工业界一线专家撰稿,致力于推送人工智能与深度学习最新技术、产品和活动信息....</p>
+		</div>
+		<div class="opt-box d-flex justify-content-end">
+			<a class="btn btn-sm" href="https://blog.csdn.net/xwukefr2tnh4/rss/list">
+					<svg class="icon" aria-hidden="true">
+						<use xlink:href="#csdnc-rss"></use>
+					</svg>RSS订阅</a>
+					</div>
+	</div>
+</header><script src="https://dup.baidustatic.com/js/ds.js"></script>
+<div class="container clearfix pt0" id="mainBox">
+    <main>
+        <div class="blog-content-box">
+	<div class="article-title-box">
+			<span class="article-type type-1 float-left">原</span>		<h1 class="title-article">TensorFlow: 薛定谔的管道</h1>
+	</div>
+	<div class="article-info-box">
+		<div class="article-bar-top d-flex">
+												<span class="time">2018年06月13日 20:01:06</span>
+			<div class="float-right">
+				<span class="read-count">阅读数：1798</span>
+											</div>
+		</div>
+	</div>
+	<article>
+		<div id="article_content" class="article_content clearfix csdn-tracking-statistics" data-pid="blog"  data-mod=popu_307  data-dsm = "post" >
+                    <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/htmledit_views-0a60691e80.css" />
+            <div class="htmledit_views">
+                
+    <div class="rich_media_content">
+                    
+
+                    
+
+                    
+                    
+                    <p style="line-height:1.75em;margin-top:5px;"><img src="https://ss.csdn.net/p?https://mmbiz.qpic.cn/mmbiz_jpg/xRp3sibCWzgEgFKD30ledq2IkVxHoVc3KVegKnxdiahYEDzzHgibzdiaK5IpXxqTsQ5YcWIZWsBhKPK6SzOJ4EZVRA/640?wx_fmt=jpeg" alt="640?wx_fmt=jpeg" /></p><p style="margin:5px 0px 0px;line-height:1.75em;"><span style="font-size:15px;color:rgb(136,136,136);">要说史上最著名的猫，大概就是薛定谔的那只了。它被关在装有少量镭和氰化物的密闭容器里，当镭发生衰变时，就会触发机关打碎装有氰化物的瓶子，猫就会死亡；如果镭不发生衰变，猫就会存活下来。在量子力学理论中，由于放射性的镭处于衰变和没有衰变两种状态的叠加，这只猫也处于生死叠加态，只有对其进行观测，才能决定这只猫的生死。<span lang="en-us" style="font-size:15px;margin:0px;" xml:lang="en-us"></span></span></p><p style="margin:5px 0px 0px;line-height:1.75em;"><span style="margin:0px;font-size:15px;color:rgb(136,136,136);"> </span></p><p style="margin:5px 0px 0px;line-height:1.75em;"><span style="font-size:15px;color:rgb(136,136,136);">所以，哈姆雷特说：<span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us"></span></span></p><p style="margin:5px 0px 0px;line-height:1.75em;"><span style="font-size:15px;color:rgb(136,136,136);">生存还是死亡，这是一个问题！</span></p><p style="margin:0px;"><span style="font-size:12px;"></span><br /></p><p style="margin:5px 0px 0px;line-height:1.75em;"><span style="font-size:15px;color:rgb(136,136,136);">今天我们从猫说起，来讨论一个管道，一个蕴含着某些不确定性的管道：TensorFlow。我们从T<span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us">ensorFlow</span>中的一个计算实例出发，在这个例子中的一个计算节点像薛定谔的猫一样具备不确定性的输出结果：如下图所示的例子，同时计算节点<span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us">assign</span>和节点<span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us">c</span>时，<span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us">c</span>的计算结果<span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us">out_c</span>是不确定的<span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us">,</span>这是因为<span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us">TensorFlow</span>会尽可能的对计算过程并行化，所以<span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us">out_c</span>的结果依赖<span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us">assign</span>和<span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us">c</span>谁先执行。</span></p><p style="margin:5px 0px 0px;line-height:1.75em;"><span style="font-size:15px;color:rgb(136,136,136);"><br /></span></p><p style="margin:5px 0px 0px;line-height:1.75em;"><img src="https://ss.csdn.net/p?https://mmbiz.qpic.cn/mmbiz_png/xRp3sibCWzgEgFKD30ledq2IkVxHoVc3KDGPyPOcIerNtib4Sumq9Px4LwfywIibma00hq5G3dOaMoKZYtg2h6H2g/640?wx_fmt=png" alt="640?wx_fmt=png" /></p><p style="margin:5px 0px 0px;line-height:1.75em;"><span style="font-size:15px;color:rgb(136,136,136);">那么面对这样一个可能会产生“薛定谔现象”的框架，我们如何利用它来实现模型呢？<span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us"></span></span></p><p style="margin:5px 0px 0px;line-height:1.75em;"><br /></p><p style="margin:5px 0px 0px;line-height:1.75em;"><span style="font-size:15px;color:rgb(136,136,136);">我们在使用<span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us">TensorFlow</span>这个软件库构建模型时，实际上是在<span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us">TensorFlow</span>提供的这套<span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us">api</span>系统里编写<span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us">TF</span>程序，这里可以把<span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us">TensorFlow</span>看成是一门进行数值计算的“编程语言”。那么为了更好的掌握<span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us">TF</span>这么“语言”，我们可以从三个层次来学习：<span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us"></span></span></p><ul class="list-paddingleft-2" type="disc"><li><p style="line-height:1.75em;margin-top:5px;"><span style="font-size:15px;color:rgb(136,136,136);">理解<span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us">TensorFlow</span>的基本概念和基本组件<span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us"></span></span></p></li><li><p style="line-height:1.75em;margin-top:5px;"><span style="font-size:15px;color:rgb(136,136,136);">基于对基本概念的理解，利用基本组件来构建模型<span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us"></span></span></p></li><li><p style="line-height:1.75em;margin-top:5px;"><span style="font-size:15px;color:rgb(136,136,136);">调试模型，优化模型速度，优化模型精度<span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us"></span></span></p></li></ul><p style="margin:5px 0px 0px;line-height:1.75em;"><span style="margin:0px;font-size:15px;color:rgb(136,136,136);"> </span></p><p style="margin:5px 0px 0px;line-height:1.75em;"><span style="font-size:15px;color:rgb(136,136,136);">这里我们从理解基本概念以及一个调试模型的例子出发，来介绍其实现模型计算的过程。</span></p><p><img src="https://ss.csdn.net/p?https://mmbiz.qpic.cn/mmbiz_gif/xRp3sibCWzgEgFKD30ledq2IkVxHoVc3KpCYGC0wJKq1xxTOwhLmp8dweWUfmJfgaW6FdDhvsdohs6bvFj9uiaicQ/640?wx_fmt=gif" alt="640?wx_fmt=gif" /></p><p style="margin:5px 0px 0px;line-height:1.75em;"><span style="font-size:15px;color:rgb(136,136,136);"><span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us">TensorFlow</span>的核心是通过数据流图的方式来实现数值计算，这里最核心的概念就是数据流图，<span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us">TensorFlow</span>是以静态图（这里不强调其动态图的特性）的方式来表达计算，那么一旦计算模型以图的方式表达完成，就要通过<span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us">Session</span>来驱动计算，整体示意如上图所示，节点和边构成了你的计算模型，而实际计算时数据<span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us">(Tensor)</span>沿着图的边被驱动着进行计算从而流动起来，这也形象的表示了<span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us">TensorFlow=Tensor+Flow</span>。因此<span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us">TensorFlow</span>程序就可以分为两个阶段：<span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us"></span></span></p><ul class="list-paddingleft-2" type="disc"><li><p style="line-height:1.75em;margin-top:5px;"><span style="font-size:15px;color:rgb(136,136,136);">阶段一：组装一个计算图，这里只是用<span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us">TF</span>的<span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us">api</span>来表达计算模型，生成的是一个静态图，图由计算的节点以及节点之间的连接表示，这个阶段只是静态的表示了计算，因此得不到任何实际的计算值。<span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us"></span></span></p></li><li><p style="line-height:1.75em;margin-top:5px;"><span style="font-size:15px;color:rgb(136,136,136);">阶段二：通过一个<span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us">Session</span>（会话）来执行计算，这里可以计算某个节点，而这个节点所依赖的父节点都会被驱动先行执行。<span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us"></span></span></p></li></ul><p style="line-height:1.75em;margin-top:5px;"><span style="font-size:15px;color:rgb(136,136,136);">比如我们想从下图所示的数据(X,Y)中学习一个线性关系y=w*x+b</span></p><p style="line-height:1.75em;margin-top:5px;"><img src="https://ss.csdn.net/p?https://mmbiz.qpic.cn/mmbiz_png/xRp3sibCWzgEgFKD30ledq2IkVxHoVc3K9CtNae4x8SyTLeBvErtHB2Iax2ia641poYc4OL8vPP5de5lYDadlyow/640?wx_fmt=png" alt="640?wx_fmt=png" /></p><p style="margin:5px 0px 0px;line-height:1.75em;"><span style="font-size:15px;color:rgb(136,136,136);">对于这样一个机器学习任务，一般分为测试过程和训练过程，测试过程一般比较简单，这里我们介绍如何使用<span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us">TensorFlow</span>来实现训练过程，对于机器学习模型的训练过程的一般可以如下面流程图所示：<span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us"></span></span></p><p style="line-height:1.75em;margin-top:5px;"><img src="https://ss.csdn.net/p?https://mmbiz.qpic.cn/mmbiz_png/xRp3sibCWzgEgFKD30ledq2IkVxHoVc3K6kQe8jAJib7bNC1NtmcWPDw0n3Qicwq3MLzliaTwyXrmOiaNyV9lfcqqmA/640?wx_fmt=png" alt="640?wx_fmt=png" /></p><p style="margin:5px 0px 0px;line-height:1.75em;"><span style="font-size:15px;color:rgb(136,136,136);">具体步骤为：<span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us"></span></span></p><p style="margin:5px 0px 0px 24px;text-indent:-18pt;line-height:1.75em;"><span style="font-size:15px;color:rgb(136,136,136);"><span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us">1.    </span>定义输入和输出标签<span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us"></span></span></p><p style="margin:5px 0px 0px 24px;text-indent:-18pt;line-height:1.75em;"><span style="font-size:15px;color:rgb(136,136,136);"><span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us">2.    </span>定义模型参数<span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us"></span></span></p><p style="margin:5px 0px 0px 24px;text-indent:-18pt;line-height:1.75em;"><span style="font-size:15px;color:rgb(136,136,136);"><span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us">3.    </span>初始化模型参数<span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us"></span></span></p><p style="margin:5px 0px 0px 24px;text-indent:-18pt;line-height:1.75em;"><span style="font-size:15px;color:rgb(136,136,136);"><span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us">4.    </span>基于输入和模型参数，由模型的推理过程计算模型的预测结果<span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us"></span></span></p><p style="margin:5px 0px 0px 24px;text-indent:-18pt;line-height:1.75em;"><span style="font-size:15px;color:rgb(136,136,136);"><span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us">5.    </span>基于模型的预测结果和标签值，由损失函数来计算<span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us">loss</span></span></p><p style="margin:5px 0px 0px 24px;text-indent:-18pt;line-height:1.75em;"><span style="font-size:15px;color:rgb(136,136,136);"><span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us">6.    </span>优化器通过更新参数来最小化<span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us">loss</span></span></p><p style="margin:5px 0px 0px 24px;text-indent:-18pt;line-height:1.75em;"><span style="font-size:15px;color:rgb(136,136,136);"><span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us">7.    </span>不断重复<span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us">4-6</span>直到迭代次数达到或者<span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us">loss</span>低于设定的阈值<span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us"></span></span></p><p style="margin:5px 0px 0px;line-height:1.75em;"><span style="margin:0px;font-size:15px;color:rgb(136,136,136);"> </span></p><p style="margin:5px 0px 0px;line-height:1.75em;"><span style="font-size:15px;color:rgb(136,136,136);">使用<span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us">TensorFlow</span>来完成以上计算时，我们需要：<span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us"></span></span></p><p style="margin:5px 0px 0px 48px;text-indent:-36pt;line-height:1.75em;"><span style="font-size:15px;color:rgb(136,136,136);"><span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us">1）  </span>使用静态图的方式表达上面的计算过程（对应阶段一）<span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us"></span></span></p><p style="margin:5px 0px 0px 48px;text-indent:-36pt;line-height:1.75em;"><span style="font-size:15px;color:rgb(136,136,136);"><span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us">2）  </span>使用<span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us">Session(</span>会话<span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us">)</span>来驱动上面的计算（对应阶段二）<span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us"></span></span></p><p style="margin:5px 0px 15px;line-height:1.75em;"><span style="font-size:15px;color:rgb(136,136,136);">可以如下面代码所示，</span><span style="color:rgb(136,136,136);font-size:15px;text-align:right;"> </span></p><p style="line-height:1.75em;margin-top:5px;"><img src="https://ss.csdn.net/p?https://mmbiz.qpic.cn/mmbiz_png/xRp3sibCWzgEgFKD30ledq2IkVxHoVc3KkbicibicOfjvnn1U8yyTcFUTbdnRVFXY6ibs7pKu3icyIezghibib45RACpHg/640?wx_fmt=png" alt="640?wx_fmt=png" /></p><p style="line-height:1.75em;margin-top:5px;"><img src="https://ss.csdn.net/p?https://mmbiz.qpic.cn/mmbiz_png/xRp3sibCWzgEgFKD30ledq2IkVxHoVc3KrZECianQkHr3o6Z3KcIbUu5jr3ogFuu4TzmSRkxbwMUDJOPstpBrmqg/640?wx_fmt=png" alt="640?wx_fmt=png" /></p><p style="line-height:1.75em;margin-top:5px;"><span style="font-size:15px;color:rgb(136,136,136);">所有我们想要进行的计算都需要在阶段一进行表达，如我们需要进行模型初始化这样一个计算过程，那么我们需要在阶段一构造一个init操作节点，我们需要最小化loss,更新模型参数，我们可以构造一个train_op操作节点，每个计算对应计算图中的一个计算节点，一旦计算图构建完成，我们就可以在阶段二过程通过运行这个节点来进行实际的计算如sess.run(init)，sess.run(train_op)。由此通过阶段一阶段二两部分程序完成我们想要的计算逻辑，</span><span style="color:rgb(136,136,136);font-size:15px;font-family:DengXian;text-align:justify;">学习到的线性模型如下图所示。</span></p><p style="line-height:1.75em;margin-top:5px;"><span style="font-size:15px;color:rgb(136,136,136);"></span></p><p><img src="https://ss.csdn.net/p?https://mmbiz.qpic.cn/mmbiz_png/xRp3sibCWzgEgFKD30ledq2IkVxHoVc3Kzc5BDtOtj4WSoNzetOPPhHxOXj0C7hZ6pphVFhRKZHvfhxswu0QkCA/640?wx_fmt=png" alt="640?wx_fmt=png" /></p><p style="margin:5px 0px 0px;line-height:1.75em;"><span style="font-size:15px;color:rgb(136,136,136);">正是因为<span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us">TF</span>这种<span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us">graph</span>和<span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us">session</span>两阶段的划分，导致我们在调试<span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us">TF</span>的时候也会分为两个阶段：<span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us"></span></span></p><p style="margin:5px 0px 0px 51.93px;text-indent:-18pt;line-height:1.75em;"><span style="font-size:15px;color:rgb(136,136,136);"><span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us">1.    </span>错误发生在组装图部分。这里<span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us">TF</span>会进行类型检测，以及<span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us">shape</span>推理，所以一般<span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us">dtype</span>和<span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us">shape</span>相关的错误会与这一部分代码相关。<span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us"></span></span></p><p style="margin:5px 0px 0px 51.93px;text-indent:-18pt;line-height:1.75em;"><span style="font-size:15px;color:rgb(136,136,136);"><span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us">2.    </span>错误发生在执行图部分。这里<span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us">TF</span>会进行运行时的计算，所以<span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us">NaN</span>等问题会发生在这个阶段。<span lang="en-us" style="color:rgb(136,136,136);font-size:15px;margin:0px;" xml:lang="en-us"></span></span></p><p style="margin:5px 0px 0px;line-height:1.75em;"><span style="margin:0px;font-size:15px;color:rgb(136,136,136);"> </span></p><p style="line-height:1.75em;margin-top:5px;"><span style="font-size:15px;color:rgb(136,136,136);">如果想更多的了解如何使用TensorFlow构建机器学习模型，可以点击</span><span style="font-size:15px;color:rgb(123,12,0);"><strong>阅读原文</strong></span><span style="font-size:15px;color:rgb(136,136,136);">，关注深度学习大讲堂推出的Tensorflow实战课程。</span></p><p style="line-height:1.75em;margin-top:5px;"><br /></p><p>往期精彩回顾</p><p><a href="http://mp.weixin.qq.com/s?__biz=MzI1NTE4NTUwOQ==&amp;mid=2650331920&amp;idx=1&amp;sn=4698f7d749cb5f02cb9b119863d1d340&amp;chksm=f235bc1ac542350c82efc4b49de3fa1219d2faca21b6cce694ada725522e9ca269368508cdd3&amp;scene=21#wechat_redirect">【领域报告】主动学习年度进展|VALSE2018</a></p><p><a href="http://mp.weixin.qq.com/s?__biz=MzI1NTE4NTUwOQ==&amp;mid=2650331893&amp;idx=1&amp;sn=98a559e4c1b59a9ae40a7a5f71233e16&amp;chksm=f235bdffc54234e97fed340d69e9f1ae56a9b46948f4d374f48397092f18d8d3ac60dc053b0e&amp;scene=21#wechat_redirect">可微编程：打开深度学习的黑盒子</a></p><p><a href="http://mp.weixin.qq.com/s?__biz=MzI1NTE4NTUwOQ==&amp;mid=2650331887&amp;idx=1&amp;sn=33cf773a210d2589e7e511b85ef03b24&amp;chksm=f235bde5c54234f3b971dac7d4bd011c2c5be3a14b213e52e0c72824a62665fefdeaab0c23df&amp;scene=21#wechat_redirect" style="color:rgb(87,107,149);">白翔：复杂开放场景中的文本理解</a><br /></p><p style="min-height:1em;"><a href="http://mp.weixin.qq.com/s?__biz=MzI1NTE4NTUwOQ==&amp;mid=2650331886&amp;idx=1&amp;sn=5ddd71884f2951da98969d36bb5c94e2&amp;chksm=f235bde4c54234f29fc9c53d2439ae5162a6c1f18762e6abb352ca5dc03d1558cf6d34e56447&amp;scene=21#wechat_redirect" style="color:rgb(87,107,149);">【领域报告】图像OCR年度进展|VALSE2018</a></p><p style="min-height:1em;"><a href="http://mp.weixin.qq.com/s?__biz=MzI1NTE4NTUwOQ==&amp;mid=2650331879&amp;idx=1&amp;sn=3e24fe4127f56faa77301c184b3e0057&amp;chksm=f235bdedc54234fb2e9d8dd44108dfac048631a1e29772cb9bb62aaf99dabf8cc89b6eae3d42&amp;scene=21#wechat_redirect" style="color:rgb(87,107,149);">【领域报告】行人再识别年度进展 |VALSE2018</a></p><p style="min-height:1em;"><a href="http://mp.weixin.qq.com/s?__biz=MzI1NTE4NTUwOQ==&amp;mid=2650331758&amp;idx=1&amp;sn=0e36475427f735ace5b412fe66b00e8e&amp;chksm=f235bd64c542347282fb880cd47cdd8be38026d148878e6fad25a163a6af02e670342681b6fc&amp;scene=21#wechat_redirect" style="color:rgb(87,107,149);letter-spacing:.544px;line-height:20.8px;">“一叶知秋”：弱监督视觉语义分割|VALSE2018</a><a href="http://mp.weixin.qq.com/s?__biz=MzI1NTE4NTUwOQ==&amp;mid=2650331360&amp;idx=1&amp;sn=cf6e9843db8ae91d69995fee6352ad15&amp;chksm=f235bfeac54236fca4ee76ede5893f3f9ec13fdb1a28653f56c3043ebf372f65c447b89017e1&amp;scene=21#wechat_redirect" style="color:rgb(87,107,149);font-size:13px;text-align:center;white-space:normal;letter-spacing:.544px;line-height:20.8px;">之</a>九</p><p style="min-height:1em;"><a href="http://mp.weixin.qq.com/s?__biz=MzI1NTE4NTUwOQ==&amp;mid=2650331721&amp;idx=1&amp;sn=d5714461c62804e2fa10963bd9e94c3c&amp;chksm=f235bd43c542345551be0cc39b3bd236c2a9a3f5b473d6ce600cbb19b36ba7477e3a7b5a81e3&amp;scene=21#wechat_redirect" style="color:rgb(87,107,149);letter-spacing:.544px;line-height:25.6px;">“解疑释惑”：视觉世界中的结构化理解|VALSE2018</a><a href="http://mp.weixin.qq.com/s?__biz=MzI1NTE4NTUwOQ==&amp;mid=2650331360&amp;idx=1&amp;sn=cf6e9843db8ae91d69995fee6352ad15&amp;chksm=f235bfeac54236fca4ee76ede5893f3f9ec13fdb1a28653f56c3043ebf372f65c447b89017e1&amp;scene=21#wechat_redirect" style="color:rgb(87,107,149);font-size:13px;text-align:center;white-space:normal;letter-spacing:.544px;line-height:20.8px;">之</a>八</p><p style="min-height:1em;"><a href="http://mp.weixin.qq.com/s?__biz=MzI1NTE4NTUwOQ==&amp;mid=2650331683&amp;idx=1&amp;sn=cbc45681a1128af1d9a7d554885e6cbc&amp;chksm=f235bd29c542343f8f910ccad6c3d22ebc20fda8ab05a2603121b6ce99e748418437c20d8d66&amp;scene=21#wechat_redirect" style="color:rgb(87,107,149);letter-spacing:.544px;line-height:20.8px;">“提纲挈领”：视觉系统的紧凑性初探|VALSE2018</a><a href="http://mp.weixin.qq.com/s?__biz=MzI1NTE4NTUwOQ==&amp;mid=2650331360&amp;idx=1&amp;sn=cf6e9843db8ae91d69995fee6352ad15&amp;chksm=f235bfeac54236fca4ee76ede5893f3f9ec13fdb1a28653f56c3043ebf372f65c447b89017e1&amp;scene=21#wechat_redirect" style="color:rgb(87,107,149);font-size:13px;text-align:center;white-space:normal;letter-spacing:.544px;line-height:20.8px;">之</a>七</p><p style="min-height:1em;"><a href="http://mp.weixin.qq.com/s?__biz=MzI1NTE4NTUwOQ==&amp;mid=2650331571&amp;idx=1&amp;sn=9a6429d2ee8adf1b48ebcb0d781667ce&amp;chksm=f235beb9c54237af875b85a530aade389481e291168c26e51686e985e0cd711dc7299863808c&amp;scene=21#wechat_redirect" style="color:rgb(87,107,149);letter-spacing:.544px;line-height:20.8px;">“删繁就简”：深度神经网络加速与压缩|VALSE2018</a><a href="http://mp.weixin.qq.com/s?__biz=MzI1NTE4NTUwOQ==&amp;mid=2650331360&amp;idx=1&amp;sn=cf6e9843db8ae91d69995fee6352ad15&amp;chksm=f235bfeac54236fca4ee76ede5893f3f9ec13fdb1a28653f56c3043ebf372f65c447b89017e1&amp;scene=21#wechat_redirect" style="color:rgb(87,107,149);font-size:13px;text-align:center;white-space:normal;letter-spacing:.544px;line-height:20.8px;">之</a>六</p><p style="min-height:1em;"><a href="http://mp.weixin.qq.com/s?__biz=MzI1NTE4NTUwOQ==&amp;mid=2650331360&amp;idx=1&amp;sn=cf6e9843db8ae91d69995fee6352ad15&amp;chksm=f235bfeac54236fca4ee76ede5893f3f9ec13fdb1a28653f56c3043ebf372f65c447b89017e1&amp;scene=21#wechat_redirect" style="color:rgb(87,107,149);letter-spacing:.544px;line-height:20.8px;">“看山是山”：脑启发的视觉计算|VALSE2018之五</a></p><p><br /></p>
+                </div>
+              </div>
+                </div>
+				<div class="hide-article-box text-center csdn-tracking-statistics tracking-click" data-mod="popu_376">
+			<a class="btn btn-red-hollow" id="btn-readmore">阅读更多</a>
+		</div>
+        	</article>
+	
+		<div class="article-bar-bottom">
+				<div class="article-copyright">
+			版权声明：本文为博主原创文章，未经博主允许不得转载。			https://blog.csdn.net/XWUkefr2tnh4/article/details/80684444		</div>
+									</div>
+	
+	<!-- !empty($pre_next_article[0]) -->
+		</div>
+<script>
+    $(".MathJax").remove();
+</script>
+
+<script type="text/javascript" src="https://static-blog.csdn.net/mdeditor/public/res/bower-libs/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+			"HTML-CSS": {
+					linebreaks: { automatic: true, width: "94%container" },
+					imageFont: null
+			},
+			tex2jax: {
+				preview: "none"
+			},
+			mml2jax: {
+				preview: 'none'
+			}
+	});
+</script>
+<script>
+	(function(){
+		var btnReadmore = $("#btn-readmore");
+		if(btnReadmore.length>0){
+			var winH = $(window).height();
+			var articleBox = $("div.article_content");
+			var artH = articleBox.height();
+			if(artH > winH*2){
+				articleBox.css({
+					'height':winH*2+'px',
+					'overflow':'hidden'
+				})
+				btnReadmore.click(function(){
+					articleBox.removeAttr("style");
+					$(this).parent().remove();
+				})
+			}else{
+				btnReadmore.parent().remove();
+			}
+		}
+	})()
+</script>        <div class="edu-promotion"></div>
+<script type="text/javascript">
+	var edu_ad_is_big_data = 0;
+	var edu_ad_id_mapping = {"0":["https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=python1","https:\/\/edu.csdn.net\/sp\/blog.php?type=618"],"1":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=web1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit","https:\/\/edu.csdn.net\/sp\/blog.php?type=web1","https:\/\/edu.csdn.net\/sp\/blog.php?type=web1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=618"],"8":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit"],"2":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=python1"],"3":["https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=618"],"6":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit"],"12":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit"],"14":["https:\/\/edu.csdn.net\/sp\/blog.php?type=web1","https:\/\/edu.csdn.net\/sp\/blog.php?type=python1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcweb","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=web1","https:\/\/edu.csdn.net\/sp\/blog.php?type=618"],"15":["https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcjg","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1"],"16":["https:\/\/edu.csdn.net\/sp\/blog.php?type=web1","https:\/\/edu.csdn.net\/sp\/blog.php?type=python1"],"28":["https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=python1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcai","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=python1","https:\/\/edu.csdn.net\/sp\/blog.php?type=618"],"29":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1"],"30":["https:\/\/edu.csdn.net\/sp\/blog.php?type=python1","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1"],"32":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=python1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcaq"],"33":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gccxrs","https:\/\/edu.csdn.net\/sp\/blog.php?type=python1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1"],"35":["https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit"],"37":["https:\/\/edu.csdn.net\/sp\/blog.php?type=web1","https:\/\/edu.csdn.net\/sp\/blog.php?type=python1"],"7":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=web1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=web1","https:\/\/edu.csdn.net\/sp\/blog.php?type=web1","https:\/\/edu.csdn.net\/sp\/blog.php?type=618"],"17":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1"],"34":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=python1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcbt"],"36":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit"],"31":["https:\/\/edu.csdn.net\/sp\/blog.php?type=python1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit"],"19":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit"],"20":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit"]};
+</script>        <a id="commentBox"></a>
+<div class="comment-box">
+	  	<div class="unlogin-box text-center">
+		想对作者说点什么？
+		<!-- $curl 当前地址 -->
+		<a href="https://passport.csdn.net/account/login?from=https://blog.csdn.net/XWUkefr2tnh4/article/details/80684444#commentBox" class="btn btn-sm btn-red">我来说一句</a>
+	</div>
+			<div class="comment-list-container">
+		<a id="comments"></a>
+		<div class="comment-list-box">
+		</div>
+		<div id="commentPage" class="pagination-box d-none"></div>
+		<div class="opt-box text-center">
+			<button class="btn btn-sm btn-link-blue" id="btnMoreComment"></button>
+		</div>
+	</div>
+</div>        <div class="recommend-box">
+            		<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/eit520/article/details/65633063" target="_blank" strategy="BlogCommendFromQuerySearch_5">
+				物理学上四大神兽之拉普拉斯妖是指什么			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/eit520/article/details/65633063" target="_blank" >
+				拉普拉斯妖是在1814年由法国的一名数学家名为皮耶尔·西蒙·拉普拉斯的人提出的。拉普拉斯在青年的时候就已经在数学方面显示出他的天赋，18岁时就去了巴黎从事数学工作。当时想向法国的知名学者达朗贝尔求教，...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/eit520" title="eit520" target="_blank">
+					<img src="https://avatar.csdn.net/B/3/1/3_eit520.jpg" alt="eit520" class="avatar-pic">
+					<span class="name">eit520</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2017-03-24 16:40:34</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：14649</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/rogerzhanglijie/article/details/8472840" target="_blank" strategy="BlogCommendFromQuerySearch_0">
+				Schrodinger 功能模块简介			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/rogerzhanglijie/article/details/8472840" target="_blank" >
+				Schrödinger（<em>薛定谔</em>）是药物发现的完整软件包，包括：基于受体和配体结构的诱导契合和柔性对接模式；基于受体结构及配体极性的对接模式；基于受体结构及溶液环境性质的对接模式；组合化学库设计及基于组...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/rogerzhanglijie" title="rogerzhanglijie" target="_blank">
+					<img src="https://avatar.csdn.net/D/A/4/3_rogerzhanglijie.jpg" alt="rogerzhanglijie" class="avatar-pic">
+					<span class="name">rogerzhanglijie</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2013-01-06 14:10:11</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：2205</span>
+			</p>
+		</div>
+	</div>
+								<div class="recommend-item-box recommend-ad-box" id="ad1"></div>
+				<script>
+				  var width = $("div.recommend-box").outerWidth() - 48;
+					NEWS_FEED({
+						w: width,
+						h : 90,
+						showid : 'GNKXx7',
+						placeholderId: "ad1",
+						inject : 'define',
+						define : {
+							imagePosition : 'right',
+							imageBorderRadius : 0,
+							imageWidth: 120,
+							imageHeight: 90,
+							imageFill : 'clip',
+							displayImage : true,
+							displayTitle : true,
+							titleFontSize: 20,
+							titleFontColor: '#333',
+							titleFontFamily : 'Microsoft Yahei',
+							titleFontWeight: 'bold',
+							titlePaddingTop : 0,
+							titlePaddingRight : 0,
+							titlePaddingBottom : 10,
+							titlePaddingLeft : 0,
+							displayDesc : true,
+							descFontSize: 14,
+							descFontColor: '#6b6b6b',
+							descFontFamily : 'Microsoft Yahei',
+							paddingTop : 0,
+							paddingRight : 0,
+							paddingBottom : 0,
+							paddingLeft : 0,
+							backgroundColor: '#fff',
+							hoverColor: '#ca0c16'
+						}
+					})
+				</script>
+
+			
+				<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/Summer_Hanson/article/details/54629470" target="_blank" strategy="BlogCommendFromQuerySearch_1">
+				从“<em>薛定谔</em>的猫”联想到“好奇害死猫”			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/Summer_Hanson/article/details/54629470" target="_blank" >
+				可能会存在好奇害死猫，但是我认为人类能有现在的发展就是因为好奇的意外收获！...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/Summer_Hanson" title="Summer_Hanson" target="_blank">
+					<img src="https://avatar.csdn.net/9/8/F/3_summer_hanson.jpg" alt="Summer_Hanson" class="avatar-pic">
+					<span class="name">Summer_Hanson</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2017-01-20 10:25:29</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：635</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/cchd0001/article/details/78513955" target="_blank" strategy="BlogCommendFromQuerySearch_2">
+				一个<em>薛定谔</em>的bug			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/cchd0001/article/details/78513955" target="_blank" >
+				最近在维护公司原有项目的时候，遇到了一个无限循环的bug 。 
+初次遇到的时候，是刚刚接手这个项目，甚至怀疑自己是不是参数没有配置正确。 后来切换了运行服务器，重新编译后却正常运行了，也就没有再去追究...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/cchd0001" title="cchd0001" target="_blank">
+					<img src="https://avatar.csdn.net/8/6/C/3_cchd0001.jpg" alt="cchd0001" class="avatar-pic">
+					<span class="name">cchd0001</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2017-11-12 19:58:28</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：236</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/pi9nc/article/details/12303233" target="_blank" strategy="BlogCommendFromQuerySearch_3">
+				什么是<em>薛定谔</em>方程			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/pi9nc/article/details/12303233" target="_blank" >
+				收录时间
+ : 2013-10-05
+
+字体: 较大 标准 较小打印
+
+分享到：新浪微博腾讯微博豆瓣
+
+什么是<em>薛定谔</em>方程
+
+Marianne Freiberger
+
+
+
+关键...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/pi9nc" title="pi9nc" target="_blank">
+					<img src="https://avatar.csdn.net/8/9/C/3_pi9nc.jpg" alt="pi9nc" class="avatar-pic">
+					<span class="name">pi9nc</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2013-10-05 09:37:14</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：11273</span>
+			</p>
+		</div>
+	</div>
+						<div class="recommend-item-box recommend-download-box csdn-tracking-statistics clearfix" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+			<div class="content float-left">
+				<h4 class="text-truncate">
+					<a href="https://download.csdn.net/download/benxiaohaibuben/3872624" target="_blank" strategy="BlogCommendFromQuerySearch_4">
+						一维<em>薛定谔</em>方程的定态解					</a>
+				</h4>
+				<p>
+					<span class="data">2011年12月02日 </span>
+					<span class="size">429KB</span>
+					<span class="type">下载</span>
+				</p>
+			</div>
+			<div class="img-box float-right">
+				<a href="https://download.csdn.net/download/benxiaohaibuben/3872624" target="_blank" strategy="BlogCommendFromQuerySearch_4">
+					<img src="http://csdnimg.cn/release/download/old_static/images/minetype/pdf.svg" alt="">
+				</a>
+			</div>
+		</div>
+					<div class="recommend-item-box recommend-ad-box" id="a_d_feed_0"></div>
+			<script>
+				var width = $("div.recommend-box").outerWidth() - 48;
+				NEWS_FEED({
+					w: width,
+					h: 90,
+					showid: 'Afihld',
+					placeholderId: 'a_d_feed_0',
+					inject: 'define',
+					define: {
+						imagePosition: 'right',
+						imageBorderRadius: 0,
+						imageWidth: 120,
+						imageHeight: 90,
+						imageFill: 'clip',
+						displayImage: true,
+						displayTitle: true,
+						titleFontSize: 20,
+						titleFontColor: '#333',
+						titleFontFamily: 'Microsoft Yahei',
+						titleFontWeight: 'bold',
+						titlePaddingTop: 0,
+						titlePaddingRight: 0,
+						titlePaddingBottom: 10,
+						titlePaddingLeft: 0,
+						displayDesc: true,
+						descFontSize: 14,
+						descFontColor: '#6b6b6b',
+						descFontFamily: 'Microsoft Yahei',
+						paddingTop: 0,
+						paddingRight: 0,
+						paddingBottom: 0,
+						paddingLeft: 0,
+						backgroundColor: '#fff',
+						hoverColor: '#ca0c16'
+					}
+				})
+			</script>
+			<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/u011499992/article/details/46427141" target="_blank" strategy="BlogCommendFromQuerySearch_6">
+				杂谈——<em>薛定谔</em>的猫			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/u011499992/article/details/46427141" target="_blank" >
+				<em>薛定谔</em>的猫 筛子 把妹			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/u011499992" title="u011499992" target="_blank">
+					<img src="https://avatar.csdn.net/5/D/E/3_u011499992.jpg" alt="u011499992" class="avatar-pic">
+					<span class="name">u011499992</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2015-06-09 15:16:58</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：756</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/weixin_38843030/article/details/72496077" target="_blank" strategy="BlogCommendFromQuerySearch_7">
+				量子纠缠			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/weixin_38843030/article/details/72496077" target="_blank" >
+				量子纠缠			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/weixin_38843030" title="weixin_38843030" target="_blank">
+					<img src="https://avatar.csdn.net/8/F/B/3_weixin_38843030.jpg" alt="weixin_38843030" class="avatar-pic">
+					<span class="name">weixin_38843030</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2017-05-18 20:26:48</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：296</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/CoderPai/article/details/68952271" target="_blank" strategy="BlogCommendFromQuerySearch_8">
+				<em>TensorFlow</em>学习系列（五）：如何使用队列和多线程优化输入<em>管道</em>			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/CoderPai/article/details/68952271" target="_blank" >
+				这篇教程是翻译Morgan写的<em>TensorFlow</em>教程，作者已经授权翻译，这是原文。
+目录<em>TensorFlow</em>学习系列（一）：初识<em>TensorFlow</em><em>TensorFlow</em>学习系列（二）：形状和动态维度...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/CoderPai" title="CoderPai" target="_blank">
+					<img src="https://avatar.csdn.net/B/9/A/3_coderpai.jpg" alt="CoderPai" class="avatar-pic">
+					<span class="name">CoderPai</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2017-04-02 15:17:36</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：5191</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/zephr/article/details/15462433" target="_blank" strategy="BlogCommendFromQuerySearch_9">
+				《生命是什么》-<em>薛定谔</em>			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/zephr/article/details/15462433" target="_blank" >
+				薄薄的一本小册子，100来页，可能也就是上个大厕的长度。			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/zephr" title="zephr" target="_blank">
+					<img src="https://avatar.csdn.net/2/A/4/3_zephr.jpg" alt="zephr" class="avatar-pic">
+					<span class="name">zephr</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2013-11-11 22:01:18</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：247</span>
+			</p>
+		</div>
+	</div>
+			            <!-- 第四范式SDK -->
+<script src="https://nbrecsys.4paradigm.com/resource/js/sdk-csdn-smallflow.js" async defer></script>
+            <div class="recommend-loading-box">
+                <img src='https://csdnimg.cn/release/phoenix/images/feedLoading.gif'>
+            </div>
+            <div class="recommend-end-box">
+                <p class="text-center">没有更多推荐了，<a href="https://blog.csdn.net/" class="c-blue c-blue-hover c-blue-focus">返回首页</a></p>
+            </div>
+        </div>
+    </main>
+    <aside>
+		    <div id="asideProfile" class="aside-box">
+    <h3 class="aside-title">个人资料</h3>
+    <div class="profile-intro d-flex">
+        <div class="avatar-box d-flex justify-content-center flex-column">
+            <a href="https://blog.csdn.net/xwukefr2tnh4">
+                <img src="https://avatar.csdn.net/D/3/A/3_xwukefr2tnh4.jpg" class="avatar_pic">
+            </a>
+        </div>
+        <div class="user-info d-flex justify-content-center flex-column">
+            <p class="name csdn-tracking-statistics tracking-click" data-mod="popu_379">
+                <a href="https://blog.csdn.net/xwukefr2tnh4" target="_blank" class="text-truncate" id="uid">xwukefr2tnh4</a>
+            </p>
+                    </div>
+                <div class="opt-box d-flex justify-content-center flex-column">
+            <span  class="csdn-tracking-statistics tracking-click" data-mod="popu_379">
+                                <a class="btn btn-sm btn-red-hollow" href="https://passport.csdn.net/account/login?from=https://blog.csdn.net/XWUkefr2tnh4/article/details/80684444" target="_self">关注</a>
+                            </span>
+                    </div>
+            </div>
+    <div class="data-info d-flex item-tiling">
+                <dl class="text-center" title="30">
+                        <dt><a href="https://blog.csdn.net/xwukefr2tnh4?t=1">原创</a></dt>
+            <dd><a href="https://blog.csdn.net/xwukefr2tnh4?t=1"><span class="count">30</span></a></dd>
+                    </dl>
+        <dl class="text-center" title="26">
+            <dt>粉丝</dt>
+            <dd><span class="count" id="fan">26</span></dd>
+        </dl>
+        <dl class="text-center" title="27">
+            <dt>喜欢</dt>
+            <dd><span class="count">27</span></dd>
+        </dl>
+        <dl class="text-center" title="5">
+            <dt>评论</dt>
+            <dd><span class="count">5</span></dd>
+        </dl>
+    </div>
+    <div class="grade-box clearfix">
+        <dl>
+            <dt>等级：</dt>
+            <dd>
+                <a href="https://blog.csdn.net/home/help.html#level" title="2级,点击查看等级说明" target="_blank">
+                    <svg class="icon icon-level" aria-hidden="true">
+                        <use xlink:href="#csdnc-bloglevel-2"></use>
+                    </svg>
+                </a>
+            </dd>
+        </dl>
+        <dl>
+            <dt>访问：</dt>
+            <dd title="17946">
+                1万+            </dd>
+        </dl>
+        <dl>
+            <dt>积分：</dt>
+            <dd title="357">
+                357            </dd>
+        </dl>
+        <dl title="229632">
+            <dt>排名：</dt>
+            <dd>22万+</dd>
+        </dl>
+    </div>
+    </div>		    <div class="csdn-tracking-statistics mb8 box-shadow" data-pid="blog" data-mod="popu_4" style="height:250px;">
+    <div class="aside-content text-center" id="cpro_u2734133">
+        <!-- 投放代码 -->
+        <script type="text/javascript" src="//cee1.iteye.com/lgyyovfyh.js"></script>
+    </div>
+</div>
+		    <div id="asideNewArticle" class="aside-box">
+    <h3 class="aside-title">最新文章</h3>
+    <div class="aside-content">
+        <ul class="inf_list clearfix csdn-tracking-statistics tracking-click" data-mod="popu_382">
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/XWUkefr2tnh4/article/details/80682023" target="_blank">【领域报告】主动学习年度进展|VALSE2018</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/XWUkefr2tnh4/article/details/80649764" target="_blank">可微编程：打开深度学习的黑盒子</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/XWUkefr2tnh4/article/details/80589198" target="_blank">白翔：复杂开放场景中的文本理解</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/XWUkefr2tnh4/article/details/80532704" target="_blank">【领域报告】图像OCR年度进展|VALSE2018之十一</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/XWUkefr2tnh4/article/details/80504631" target="_blank">【领域报告】行人再识别年度进展 |VALSE2018之十</a>
+            </li>
+                    </ul>
+    </div>
+</div>
+		    		    		    <div id="asideArchive" class="aside-box flexible-box">
+    <h3 class="aside-title">归档</h3>
+    <div class="aside-content">
+        <ul class="archive-list">
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/xwukefr2tnh4/article/month/2018/06">
+                    2018年6月                    <span class="count float-right">4篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/xwukefr2tnh4/article/month/2018/05">
+                    2018年5月                    <span class="count float-right">10篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/xwukefr2tnh4/article/month/2018/04">
+                    2018年4月                    <span class="count float-right">4篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/xwukefr2tnh4/article/month/2018/03">
+                    2018年3月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/xwukefr2tnh4/article/month/2018/02">
+                    2018年2月                    <span class="count float-right">5篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/xwukefr2tnh4/article/month/2018/01">
+                    2018年1月                    <span class="count float-right">4篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/xwukefr2tnh4/article/month/2017/12">
+                    2017年12月                    <span class="count float-right">5篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/xwukefr2tnh4/article/month/2017/11">
+                    2017年11月                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/xwukefr2tnh4/article/month/2017/10">
+                    2017年10月                    <span class="count float-right">4篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/xwukefr2tnh4/article/month/2017/09">
+                    2017年9月                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/xwukefr2tnh4/article/month/2017/08">
+                    2017年8月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/xwukefr2tnh4/article/month/2017/07">
+                    2017年7月                    <span class="count float-right">3篇</span>
+                </a>
+            </li>
+                    </ul>
+    </div>
+        <p class="text-center">
+        <a class="btn btn-link-blue flexible-btn" data-fbox="aside-archive">展开</a>
+    </p>
+    </div>
+		    <div id="asideHotArticle" class="aside-box">
+	<h3 class="aside-title">热门文章</h3>
+	<div class="aside-content">
+		<ul class="hotArticle-list csdn-tracking-statistics tracking-click" data-mod="popu_521">
+							<li>
+					<a href="https://blog.csdn.net/xwukefr2tnh4/article/details/78734093">见微知著：语义分割中的弱监督学习</a>
+					<p class="read">阅读量：<span>1934</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/xwukefr2tnh4/article/details/78955546">程明明：面向弱监督的图像理解</a>
+					<p class="read">阅读量：<span>1380</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/xwukefr2tnh4/article/details/80684444">TensorFlow: 薛定谔的管道</a>
+					<p class="read">阅读量：<span>1341</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/xwukefr2tnh4/article/details/80345353">让机器“删繁就简”：深度神经网络加速与压缩|VALSE2018之六</a>
+					<p class="read">阅读量：<span>1099</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/xwukefr2tnh4/article/details/78139791">乔宇：深度模型让机器理解场景|VALSE2017之十一</a>
+					<p class="read">阅读量：<span>1063</span></p>
+				</li>
+					</ul>
+	</div>
+</div>
+		    <div id="asideNewComments" class="aside-box">
+    <h3 class="aside-title">最新评论</h3>
+    <div class="aside-content">
+        <ul class="newcomment-list">
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/xwukefr2tnh4/article/details/80684444#comments">TensorFlow: 薛定谔的管道</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/weixin_42324983" class="user-name" target="_blank">weixin_42324983</a>：动态图                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/xwukefr2tnh4/article/details/80684444#comments">TensorFlow: 薛定谔的管道</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/kojava" class="user-name" target="_blank">kojava</a>：那个动态的图用什么做的？  SGD Trainer那个。                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/xwukefr2tnh4/article/details/80345353#comments">让机器“删繁就简”：深度神经网络加...</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/myy629464" class="user-name" target="_blank">myy629464</a>：归纳总结是知识积累的好方法之一。感谢博主！                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/xwukefr2tnh4/article/details/79988549#comments">人工智能国家队推出AI实践系列课程</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/wjf1997" class="user-name" target="_blank">wjf1997</a>：人工智能国家队推出AI实践系列课程                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/xwukefr2tnh4/article/details/78955546#comments">程明明：面向弱监督的图像理解</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/qq_36008109" class="user-name" target="_blank">qq_36008109</a>：想法很先进                </p>
+            </li>
+                    </ul>
+    </div>
+</div>
+		<div id="asideFooter">
+			
+		<div class="aside-box">
+						<script type="text/javascript" src="//cee1.iteye.com/avneunkwb.js"></script>
+					</div>
+				<div class="aside-box">
+			<div class="persion_article">
+			</div>
+		</div>
+	</div>
+</aside>
+<script src="https://csdnimg.cn/pubfooter/js/publib_footer-1.0.3.js" data-isfootertrack="false" type="text/javascript"></script>
+<script>
+	$("a.flexible-btn").click(function(){
+		$(this).parents('div.aside-box').removeClass('flexible-box');
+		$(this).remove();
+	})
+</script>
+</div>
+<div class="mask-dark"></div>
+<div class="pulllog-box" style="display: block;">
+	<div class="pulllog clearfix">
+		<span class="text float-left">加入CSDN，享受更精准的内容推荐，与500万程序员共同成长！</span>
+		<div class="pulllog-btn float-right clearfix">
+            <button class="pulllog-login float-left csdn-tracking-statistics tracking-click" data-mod="popu_557">
+                登录
+            </button>
+            <div class="pulllog-sigin float-left csdn-tracking-statistics tracking-click" data-mod="popu_558">
+                <a href="https://passport.csdn.net/account/mobileregister" target="_blank">注册</a>
+            </div>
+            <button class="btn-close">
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#csdnc-times"></use>
+                </svg>
+            </button>
+		</div>
+	</div>
+</div>
+<div id="loginWrap" style="display:none"></div>
+<div class="tool-box">
+	<ul class="meau-list">
+		<li>
+			<button class="btn-like " title="点赞">
+				<svg class="icon active" aria-hidden="true">
+					<use xlink:href="#csdnc-thumbsup-ok"></use>
+				</svg><svg class="icon no-active" aria-hidden="true">
+					<use xlink:href="#csdnc-thumbsup"></use>
+				</svg>
+				<p>2</p>
+			</button>
+		</li>
+		<li class="toc-container-box" id="liTocBox">
+			<button class="btn-toc" title="目录">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-contents"></use>
+				</svg><br>目录
+			</button>
+			<div class="toc-container">
+				<div class="pos-box">
+					<div class="icon-arrow"></div>
+					<div class="scroll-box">
+						<div class="toc-box"></div>
+					</div>
+				</div>
+				<div class="opt-box">
+					<button class="btn-opt prev nomore" title="向上">
+						<svg class="icon" aria-hidden="true">
+							<use xlink:href="#csdnc-chevronup"></use>
+						</svg>
+					</button>
+					<button class="btn-opt next">
+						<svg class="icon" aria-hidden="true">
+							<use xlink:href="#csdnc-chevrondown"></use>
+						</svg>
+					</button>
+				</div>
+			</div>
+		</li>
+		<li>
+			<button class="btn-bookmark" title="收藏">
+				<svg class="icon active" aria-hidden="true">
+					<use xlink:href="#csdnc-bookmark-ok"></use>
+				</svg><svg class="icon no-active" aria-hidden="true">
+					<use xlink:href="#csdnc-bookmark"></use>
+				</svg><br>收藏
+			</button>
+		</li>
+		<li>
+			<a class="btn-comments" title="评论" href="#commentBox">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-comments"></use>
+				</svg><br>评论
+			</a>
+		</li>
+				<li class="bdsharebuttonbox">
+			<a class="btn-comments bds_weixin" data-cmd="weixin" title="微信分享">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-wechat"></use>
+				</svg><br>微信
+			</a>
+		</li>
+		<li class="bdsharebuttonbox">
+			<a class="btn-comments bds_tsina" data-cmd="tsina" title="微博分享">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-weibo"></use>
+				</svg><br>微博
+			</a>
+		</li>
+		<li class="bdsharebuttonbox">
+			<a class="btn-comments bds_qzone" data-cmd="qzone" title="QQ分享">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-qq"></use>
+				</svg><br>QQ
+			</a>
+		</li>
+	</ul>
+</div>
+<script>window._bd_share_config = { "common": { "bdSnsKey": {}, "bdText": "", "bdMini": "1", "bdMiniList": false, "bdPic": "", "bdStyle": "0", "bdSize": "16" }, "share": {} }; with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'https://csdnimg.cn/static/api/js/share.js?v=89860594'];</script>
+<script>
+    var recommendCount = 10;
+    recommendCount = recommendCount > 1 ? (recommendCount + (recommendCount>6 ? 2 : 1)) : recommendCount;
+    var articleTit = "TensorFlow: 薛定谔的管道";
+    var ChannelId = 0;
+    var articleId = "80684444";
+    var commentscount = 2;
+    var islock = false;
+    var curentUrl = "https://blog.csdn.net/XWUkefr2tnh4/article/details/80684444";
+    var myUrl = "https://my.csdn.net/";
+    //1禁止评论，2正常
+    var commentAuth = 0;
+    //百度搜索
+    var baiduKey = "";
+    var needInsertBaidu = true;
+</script>
+<script src="https://csdnimg.cn/public/sandalstrap/1.3/js/sandalstrap.min.js"></script>
+<script src="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.js"></script>
+<script src='https://csdnimg.cn/public/common/gotop/js/goTop-v1.0.min.js?v201803151422'></script>
+<script>
+    GoTop({
+        right: 8,
+        hasReport: true,
+        reportFun: function() {
+            showReport(false,"TensorFlow: 薛定谔的管道");
+        }
+    })
+</script>
+<script src="https://csdnimg.cn/release/phoenix/template/js/common-bd54b21308.min.js"></script>
+<script src="https://csdnimg.cn/release/phoenix/template/js/detail-effe72036e.min.js"></script>
+<script src="https://csdnimg.cn/release/phoenix/themes/skin3-template/skin3-template-46c7bd3d86.min.js"></script>
+</body>
+<div class="box-box-default">
+    <a class="btn-remove">
+        关闭
+    </a>
+    <script type="text/javascript" src="//cee1.iteye.com/mhzzjepzz.js"></script>
+</div>
+<div class="box-box-large">
+    <a class="btn-remove">
+        关闭
+    </a>
+    <script type="text/javascript" src="//cee1.iteye.com/idvveasfs.js"></script>
+</div>
+</html>

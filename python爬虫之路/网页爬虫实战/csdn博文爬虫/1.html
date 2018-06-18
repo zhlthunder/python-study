@@ -1,0 +1,1273 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <link rel="canonical" href="https://blog.csdn.net/xmxkf/article/details/80690993"/> 
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="referrer" content="always">
+    <meta name="description" content="
+  转载请标明出处： https://blog.csdn.net/xmxkf/article/details/80674232  
+  本文出自:【openXu的博客】
+
+
+  项目中有一些图表需求，一开始尝试使用一些开源的图表库，这些图表库功能很强大，图表种类应有尽有，是不错的选择。但是这些类库使用起来通常需要大量的设置，对于项目风格不能很好的贴合。于是自己尝试写了一个图表库，使用起来非常方便..." />
+    <meta name="keywords" content="" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+    <meta name="shenma-site-verification" content="5a59773ab8077d4a62bf469ab966a63b_1497598848">
+    <script src="https://csdnimg.cn/release/phoenix/vendor/tingyun/tingyun-rum-blog.js"></script>
+
+    <link href="https://csdnimg.cn/public/favicon.ico" rel="SHORTCUT ICON">
+    <title>开源一个Android自定义图表库 - CSDN博客</title>
+    
+            <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/detail-60a2c245da.min.css">
+        <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/themes/skin-yellow/skin-yellow-4e9c30ca0e.min.css">
+
+    <script type="text/javascript">
+        var username = "u010163442";
+        var blog_address = "https://blog.csdn.net/xmxkf";
+        var static_host = "https://csdnimg.cn/release/phoenix/";
+        var currentUserName = ""; 
+        var isShowAds = true;
+        var isOwner = false;
+        var loginUrl = "https://passport.csdn.net/account/login?from=https://blog.csdn.net/xmxkf/article/details/80690993"
+        var blogUrl = "https://blog.csdn.net/";
+        var curSkin = "skin-yellow";
+    </script>
+    <script type="text/javascript">
+        // Traffic Stats of the entire Web site By baidu
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?6bcd52f51e9b3dce32bec4a3997715ac";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+        // Traffic Stats of the entire Web site By baidu end
+    </script>
+    <script src="https://csdnimg.cn/public/common/libs/jquery/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <script src="https://csdnimg.cn/rabbit/exposure-click/main-1.0.6.js"></script>
+    <!-- 新版上报 -->
+    <script src="//g.csdnimg.cn/track/1.0.0/track.js" type="text/javascript"></script>
+    <!-- 新版上报end -->
+            <link rel="stylesheet" href="https://csdnimg.cn/public/sandalstrap/1.3/css/sandalstrap.min.css"> 
+    <style>
+        .MathJax, .MathJax_Message, .MathJax_Preview{
+            display: none
+        }
+    </style>
+</head>
+<body>    
+    <link rel="stylesheet" href="https://csdnimg.cn/public/common/toolbar/content_toolbar_css/content_toolbar.css">
+    <script id="toolbar-tpl-scriptId" src="https://csdnimg.cn/public/common/toolbar/js/content_toolbar.js" type="text/javascript" domain="https://blog.csdn.net/"></script>
+    <script src="https://csdnimg.cn/public/sandalstrap/1.3/fonts/csdnc/csdnc.js"></script><link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/blog_code-c3a0c33d5c.css">
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.css">
+<script type="text/javascript" src="//static.mediav.com/js/mvf_news_feed.js"></script>
+
+<header>
+	<div class="container d-flex clearfix">
+		<div class="title-box">
+			<h2 class="title-blog">
+				<a href="https://blog.csdn.net/xmxkf">openXu的专栏</a>
+			</h2>
+			<p class="description"></p>
+		</div>
+		<div class="opt-box d-flex justify-content-end">
+			<a class="btn btn-sm" href="https://blog.csdn.net/xmxkf/rss/list">
+					<svg class="icon" aria-hidden="true">
+						<use xlink:href="#csdnc-rss"></use>
+					</svg>RSS订阅</a>
+					</div>
+	</div>
+</header><script src="https://dup.baidustatic.com/js/ds.js"></script>
+<div class="container clearfix pt0" id="mainBox">
+    <main>
+        <div class="blog-content-box">
+	<div class="article-title-box">
+			<span class="article-type type-1 float-left">原</span>		<h1 class="title-article">开源一个Android自定义图表库</h1>
+	</div>
+	<div class="article-info-box">
+		<div class="article-bar-top d-flex">
+												<span class="time">2018年06月14日 12:04:42</span>
+			<div class="float-right">
+				<span class="read-count">阅读数：2447</span>
+											</div>
+		</div>
+	</div>
+	<article>
+		<div id="article_content" class="article_content clearfix csdn-tracking-statistics" data-pid="blog"  data-mod=popu_307  data-dsm = "post" >
+                    <div class="markdown_views">
+                <blockquote>
+  <p>转载请标明出处： <a href="https://blog.csdn.net/xmxkf/article/details/80690993">https://blog.csdn.net/xmxkf/article/details/80690993</a> <br>
+  本文出自:<a href="https://blog.csdn.net/xmxkf">【openXu的博客】</a></p>
+</blockquote>
+
+<p><div class="toc">
+<ul>
+<li><ul>
+<li><a href="#类库接入">类库接入</a></li>
+<li><a href="#使用示例">使用示例</a><ul>
+<li><a href="#1南丁格尔玫瑰图-nightingalerosechart">1、南丁格尔玫瑰图 NightingaleRoseChart</a></li>
+<li><a href="#2占比饼状图表-piechartlayout">2、占比饼状图表 PieChartLayout</a></li>
+<li><a href="#3进度环形图-progresspiechart">3、进度环形图 ProgressPieChart</a></li>
+<li><a href="#4纵向柱状图-barverticalchart">4、纵向柱状图 BarVerticalChart</a></li>
+<li><a href="#5横向柱状图-barhorizontalchart">5、横向柱状图 BarHorizontalChart</a></li>
+</ul>
+</li>
+<li><a href="#源码下载">源码下载</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</p>
+
+<p>  项目中有一些图表需求，一开始尝试使用一些开源的图表库，这些图表库功能很强大，图表种类应有尽有，是不错的选择。但是这些类库使用起来通常需要大量的设置，对于项目风格不能很好的贴合。于是自己尝试写了一个图表库，使用起来非常方便，注释清晰，后期扩展性强。</p>
+
+<h2 id="类库接入">类库接入</h2>
+
+<p><code>build.gradle</code>中添加依赖：</p>
+
+
+
+<pre class="prettyprint"><code class="language-xml hljs ">     implementation 'com.openxu.viewlib:OXViewLib:<span class="hljs-tag">&lt;<span class="hljs-title">new</span> <span class="hljs-attribute">version</span>&gt;</span>'</code></pre>
+
+<p>其中<code>&lt;new version&gt;</code>替换为最新版本，版本查看<a href="https://github.com/openXu/OXChart">OXChart</a></p>
+
+
+
+<h2 id="使用示例">使用示例</h2>
+
+
+
+<h3 id="1南丁格尔玫瑰图-nightingalerosechart">1、南丁格尔玫瑰图 NightingaleRoseChart</h3>
+
+<p>      <img src="https://img-blog.csdn.net/20180614115818706?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTAxNjM0NDI=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="南丁格尔玫瑰图" title=""></p>
+
+
+
+<pre class="prettyprint"><code class="language-xml hljs "><span class="hljs-tag">&lt;<span class="hljs-title">com.openxu.cview.chart.rosechart.NightingaleRoseChart
+</span>    <span class="hljs-attribute">android:id</span>=<span class="hljs-value">"@+id/roseChartSmall"</span>
+    <span class="hljs-attribute">android:layout_width</span>=<span class="hljs-value">"match_parent"</span>
+    <span class="hljs-attribute">android:layout_height</span>=<span class="hljs-value">"wrap_content"</span>/&gt;</span></code></pre>
+
+
+
+<pre class="prettyprint"><code class="language-Java hljs fsharp">NightingaleRoseChart roseChartSmall = (NightingaleRoseChart)findViewById(R.id.roseChartSmall);
+roseChartSmall.setShowChartLable(<span class="hljs-keyword">true</span>);    <span class="hljs-comment">//是否在图表上显示指示lable</span>
+roseChartSmall.setShowChartNum(<span class="hljs-keyword">false</span>);     <span class="hljs-comment">//是否在图表上显示指示num</span>
+roseChartSmall.setShowNumTouched(<span class="hljs-keyword">false</span>);   <span class="hljs-comment">//点击显示数量</span>
+roseChartSmall.setShowRightNum(<span class="hljs-keyword">true</span>);      <span class="hljs-comment">//右侧显示数量</span>
+roseList.add(<span class="hljs-keyword">new</span> RoseBean(<span class="hljs-number">10</span>, <span class="hljs-string">"数据1"</span>));
+roseList.add(<span class="hljs-keyword">new</span> RoseBean(<span class="hljs-number">13</span>, <span class="hljs-string">"数据2"</span>));
+roseList.add(<span class="hljs-keyword">new</span> RoseBean(<span class="hljs-number">31</span>, <span class="hljs-string">"数据3"</span>));
+roseList.add(<span class="hljs-keyword">new</span> RoseBean(<span class="hljs-number">8</span>, <span class="hljs-string">"数据4"</span>));
+roseList.add(<span class="hljs-keyword">new</span> RoseBean(<span class="hljs-number">21</span>, <span class="hljs-string">"数据5"</span>));
+<span class="hljs-comment">//参数1：数据对象class， 参数2：数量属性字段名称， 参数3：名称属性字段名称， 参数4：数据集合</span>
+roseChartSmall.setData(RoseBean.<span class="hljs-keyword">class</span>, <span class="hljs-string">"count"</span>, <span class="hljs-string">"ClassName"</span>, roseList);
+roseChartSmall.setLoading(<span class="hljs-keyword">false</span>);<span class="hljs-comment">//是否正在加载，数据加载完毕后置为false</span></code></pre>
+
+
+
+<h3 id="2占比饼状图表-piechartlayout">2、占比饼状图表 PieChartLayout</h3>
+
+<p>      <img src="https://img-blog.csdn.net/20180614115902429?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTAxNjM0NDI=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="占比饼状图表" title=""></p>
+
+
+
+<pre class="prettyprint"><code class="language-xml hljs "><span class="hljs-tag">&lt;<span class="hljs-title">com.openxu.cview.chart.piechart.PieChartLayout
+</span>   <span class="hljs-attribute">android:id</span>=<span class="hljs-value">"@+id/pieChart1"</span>
+   <span class="hljs-attribute">android:layout_width</span>=<span class="hljs-value">"match_parent"</span>
+   <span class="hljs-attribute">android:layout_height</span>=<span class="hljs-value">"180dp"</span>
+   <span class="hljs-attribute">android:layout_centerVertical</span>=<span class="hljs-value">"true"</span>
+   <span class="hljs-attribute">android:paddingRight</span>=<span class="hljs-value">"10dp"</span>
+   <span class="hljs-attribute">android:background</span>=<span class="hljs-value">"#ffffff"</span>
+   <span class="hljs-attribute">android:orientation</span>=<span class="hljs-value">"horizontal"</span>&gt;</span>
+   <span class="hljs-tag">&lt;<span class="hljs-title">com.openxu.cview.chart.piechart.PieChart
+</span>       <span class="hljs-attribute">android:layout_width</span>=<span class="hljs-value">"match_parent"</span>
+       <span class="hljs-attribute">android:layout_height</span>=<span class="hljs-value">"match_parent"</span>
+       <span class="hljs-attribute">android:layout_weight</span>=<span class="hljs-value">"1"</span> /&gt;</span>
+   <span class="hljs-tag">&lt;<span class="hljs-title">com.openxu.cview.chart.piechart.PieChartLableView
+</span>       <span class="hljs-attribute">android:layout_width</span>=<span class="hljs-value">"match_parent"</span>
+       <span class="hljs-attribute">android:layout_height</span>=<span class="hljs-value">"match_parent"</span>
+       <span class="hljs-attribute">android:layout_weight</span>=<span class="hljs-value">"2"</span> /&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">com.openxu.cview.chart.piechart.PieChartLayout</span>&gt;</span></code></pre>
+
+
+
+<pre class="prettyprint"><code class="language-Java hljs avrasm"> PieChartLayout pieChart1 = (PieChartLayout)findViewById(R<span class="hljs-preprocessor">.id</span><span class="hljs-preprocessor">.pieChart</span>1)<span class="hljs-comment">;</span>
+<span class="hljs-comment">/*
+ * 圆环宽度
+ * ringWidth &gt; 0 :空心圆环，内环为白色，可以在内环中绘制字
+ * ringWidth &lt;=0 :实心
+ */</span>
+pieChart1<span class="hljs-preprocessor">.setRingWidth</span>(DensityUtil<span class="hljs-preprocessor">.dip</span>2px(this, <span class="hljs-number">15</span>))<span class="hljs-comment">;</span>
+pieChart1<span class="hljs-preprocessor">.setLineLenth</span>(DensityUtil<span class="hljs-preprocessor">.dip</span>2px(this, <span class="hljs-number">8</span>))<span class="hljs-comment">; // //指示线长度</span>
+pieChart1<span class="hljs-preprocessor">.setTagModul</span>(PieChartLayout<span class="hljs-preprocessor">.TAG</span>_MODUL<span class="hljs-preprocessor">.MODUL</span>_CHART)<span class="hljs-comment">;       //在扇形图上显示tag</span>
+pieChart1<span class="hljs-preprocessor">.setDebug</span>(false)<span class="hljs-comment">;</span>
+pieChart1<span class="hljs-preprocessor">.setLoading</span>(true)<span class="hljs-comment">;</span>
+//请求数据
+List&lt;PieChartBean&gt; datalist = new ArrayList&lt;&gt;()<span class="hljs-comment">;</span>
+datalist<span class="hljs-preprocessor">.add</span>(new PieChartBean(<span class="hljs-number">20</span>, <span class="hljs-string">"理发屋"</span>))<span class="hljs-comment">;</span>
+datalist<span class="hljs-preprocessor">.add</span>(new PieChartBean(<span class="hljs-number">20</span>, <span class="hljs-string">"KTV"</span>))<span class="hljs-comment">;</span>
+//显示在中间的lable
+List&lt;ChartLable&gt; tableList = new ArrayList&lt;&gt;()<span class="hljs-comment">;</span>
+tableList<span class="hljs-preprocessor">.add</span>(new ChartLable(<span class="hljs-string">"建筑"</span>, DensityUtil<span class="hljs-preprocessor">.sp</span>2px(this, <span class="hljs-number">12</span>), getResources()<span class="hljs-preprocessor">.getColor</span>(R<span class="hljs-preprocessor">.color</span><span class="hljs-preprocessor">.text</span>_color_light_gray)))<span class="hljs-comment">;</span>
+tableList<span class="hljs-preprocessor">.add</span>(new ChartLable(<span class="hljs-string">"性质"</span>, DensityUtil<span class="hljs-preprocessor">.sp</span>2px(this, <span class="hljs-number">12</span>), getResources()<span class="hljs-preprocessor">.getColor</span>(R<span class="hljs-preprocessor">.color</span><span class="hljs-preprocessor">.text</span>_color_light_gray)))<span class="hljs-comment">;</span>
+pieChart1<span class="hljs-preprocessor">.setLoading</span>(false)<span class="hljs-comment">;</span>
+//参数<span class="hljs-number">1</span>：数据类型   参数<span class="hljs-number">2</span>：数量字段名称   参数<span class="hljs-number">3</span>：名称字段   参数<span class="hljs-number">4</span>：数据集合   参数<span class="hljs-number">5</span>:lable集合
+pieChart1<span class="hljs-preprocessor">.setChartData</span>(PieChartBean<span class="hljs-preprocessor">.class</span>, <span class="hljs-string">"Numner"</span>, <span class="hljs-string">"Name"</span>,datalist ,tableList)<span class="hljs-comment">;</span></code></pre>
+
+
+
+<h3 id="3进度环形图-progresspiechart">3、进度环形图 ProgressPieChart</h3>
+
+<p>      <img src="https://img-blog.csdn.net/20180614115926316?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTAxNjM0NDI=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="进度环形图" title=""></p>
+
+
+
+<pre class="prettyprint"><code class="language-xml hljs "><span class="hljs-tag">&lt;<span class="hljs-title">com.openxu.cview.chart.ProgressPieChart
+</span>    <span class="hljs-attribute">android:id</span>=<span class="hljs-value">"@+id/chart1"</span>
+    <span class="hljs-attribute">android:layout_width</span>=<span class="hljs-value">"120dp"</span>
+    <span class="hljs-attribute">android:layout_height</span>=<span class="hljs-value">"120dp"</span>
+    <span class="hljs-attribute">android:background</span>=<span class="hljs-value">"#ffffff"</span>/&gt;</span></code></pre>
+
+
+
+<pre class="prettyprint"><code class="language-Java hljs avrasm">ProgressPieChart chart1 = (ProgressPieChart)findViewById(R<span class="hljs-preprocessor">.id</span><span class="hljs-preprocessor">.chart</span>1)<span class="hljs-comment">;</span>
+chart1<span class="hljs-preprocessor">.setProSize</span>(DensityUtil<span class="hljs-preprocessor">.dip</span>2px(this, <span class="hljs-number">5</span>))<span class="hljs-comment">;  //圆环宽度</span>
+chart1<span class="hljs-preprocessor">.setDebug</span>(false)<span class="hljs-comment">;</span>
+chart1<span class="hljs-preprocessor">.setLoading</span>(false)<span class="hljs-comment">;</span>
+chart1<span class="hljs-preprocessor">.setProColor</span>(Color<span class="hljs-preprocessor">.parseColor</span>(<span class="hljs-string">"#ff0000"</span>))<span class="hljs-comment">;  //进度颜色</span>
+//环形中间显示的lable
+List&lt;ChartLable&gt; lables = new ArrayList&lt;&gt;()<span class="hljs-comment">;</span>
+lables<span class="hljs-preprocessor">.add</span>(new ChartLable(<span class="hljs-string">"60.0%"</span>,
+        DensityUtil<span class="hljs-preprocessor">.sp</span>2px(this, <span class="hljs-number">12</span>), Color<span class="hljs-preprocessor">.parseColor</span>(<span class="hljs-string">"#ff0000"</span>)))<span class="hljs-comment">;</span>
+lables<span class="hljs-preprocessor">.add</span>(new ChartLable(<span class="hljs-string">"完成率"</span>,
+        DensityUtil<span class="hljs-preprocessor">.sp</span>2px(this, <span class="hljs-number">8</span>), getResources()<span class="hljs-preprocessor">.getColor</span>(R<span class="hljs-preprocessor">.color</span><span class="hljs-preprocessor">.text</span>_color_light_gray)))<span class="hljs-comment">;</span>
+chart1<span class="hljs-preprocessor">.setData</span>(<span class="hljs-number">100</span>, <span class="hljs-number">60</span>, lables)<span class="hljs-comment">;</span></code></pre>
+
+
+
+<h3 id="4纵向柱状图-barverticalchart">4、纵向柱状图 BarVerticalChart</h3>
+
+<p>      <img src="https://img-blog.csdn.net/20180614115941803?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTAxNjM0NDI=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="纵向柱状图" title=""></p>
+
+
+
+<pre class="prettyprint"><code class="language-xml hljs "><span class="hljs-tag">&lt;<span class="hljs-title">com.openxu.cview.chart.barchart.BarVerticalChart
+</span>    <span class="hljs-attribute">android:id</span>=<span class="hljs-value">"@+id/chart1"</span>
+    <span class="hljs-attribute">android:layout_width</span>=<span class="hljs-value">"match_parent"</span>
+    <span class="hljs-attribute">android:layout_height</span>=<span class="hljs-value">"250dip"</span>
+    <span class="hljs-attribute">android:background</span>=<span class="hljs-value">"#ffffff"</span>
+    <span class="hljs-attribute">android:padding</span>=<span class="hljs-value">"10dp"</span>/&gt;</span></code></pre>
+
+
+
+<pre class="prettyprint"><code class="language-Java hljs php">BarVerticalChart chart1 = (BarVerticalChart)findViewById(R.id.chart1);
+chart1.setBarSpace(DensityUtil.dip2px(this, <span class="hljs-number">1</span>));  <span class="hljs-comment">//双柱间距</span>
+chart1.setBarItemSpace(DensityUtil.dip2px(this, <span class="hljs-number">20</span>));  <span class="hljs-comment">//柱间距</span>
+chart1.setDebug(<span class="hljs-keyword">false</span>);
+chart1.setBarNum(<span class="hljs-number">2</span>);   <span class="hljs-comment">//一组柱子数量</span>
+chart1.setBarColor(<span class="hljs-keyword">new</span> int[]{Color.parseColor(<span class="hljs-string">"#5F93E7"</span>),Color.parseColor(<span class="hljs-string">"#F28D02"</span>)});
+<span class="hljs-comment">//X轴</span>
+<span class="hljs-keyword">List</span>&lt;String&gt; strXList = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
+<span class="hljs-comment">//柱状图数据</span>
+<span class="hljs-keyword">List</span>&lt;<span class="hljs-keyword">List</span>&lt;BarBean&gt;&gt; dataList = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
+<span class="hljs-keyword">for</span>(int i = <span class="hljs-number">0</span>; i&lt;<span class="hljs-number">5</span>; i++){
+    <span class="hljs-comment">//此集合为柱状图上一条数据，集合中包含几个实体就是几个柱子</span>
+    <span class="hljs-keyword">List</span>&lt;BarBean&gt; <span class="hljs-keyword">list</span> = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
+    <span class="hljs-keyword">list</span>.add(<span class="hljs-keyword">new</span> BarBean(random.nextInt(<span class="hljs-number">30</span>), <span class="hljs-string">"接入系统"</span>));
+    <span class="hljs-keyword">list</span>.add(<span class="hljs-keyword">new</span> BarBean(random.nextInt(<span class="hljs-number">20</span>), <span class="hljs-string">"审核信息"</span>));
+    dataList.add(<span class="hljs-keyword">list</span>);
+    strXList.add((i+<span class="hljs-number">1</span>)+<span class="hljs-string">"月"</span>);
+}
+chart1.setLoading(<span class="hljs-keyword">false</span>);
+chart1.setData(dataList, strXList);</code></pre>
+
+
+
+<h3 id="5横向柱状图-barhorizontalchart">5、横向柱状图 BarHorizontalChart</h3>
+
+<p>      <img src="https://img-blog.csdn.net/20180614115957322?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTAxNjM0NDI=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="横向柱状图" title=""></p>
+
+
+
+<pre class="prettyprint"><code class="language-xml hljs "><span class="hljs-tag">&lt;<span class="hljs-title">com.openxu.cview.chart.barchart.BarHorizontalChart
+</span>    <span class="hljs-attribute">android:id</span>=<span class="hljs-value">"@+id/chart1"</span>
+    <span class="hljs-attribute">android:layout_width</span>=<span class="hljs-value">"match_parent"</span>
+    <span class="hljs-attribute">android:layout_height</span>=<span class="hljs-value">"250dp"</span>
+    <span class="hljs-attribute">android:layout_marginTop</span>=<span class="hljs-value">"20dp"</span>
+    <span class="hljs-attribute">android:background</span>=<span class="hljs-value">"#ffffff"</span>
+    <span class="hljs-attribute">android:padding</span>=<span class="hljs-value">"10dip"</span>/&gt;</span></code></pre>
+
+
+
+<pre class="prettyprint"><code class="language-Java hljs php"> BarHorizontalChart chart1 = (BarHorizontalChart)findViewById(R.id.chart1);
+chart1.setBarSpace(DensityUtil.dip2px(this, <span class="hljs-number">1</span>));  <span class="hljs-comment">//双柱间距</span>
+chart1.setBarItemSpace(DensityUtil.dip2px(this, <span class="hljs-number">20</span>));  <span class="hljs-comment">//柱间距</span>
+chart1.setDebug(<span class="hljs-keyword">false</span>);
+chart1.setBarNum(<span class="hljs-number">3</span>);
+chart1.setBarColor(<span class="hljs-keyword">new</span> int[]{Color.parseColor(<span class="hljs-string">"#5F93E7"</span>),Color.parseColor(<span class="hljs-string">"#F28D02"</span>)});
+<span class="hljs-comment">//X轴</span>
+<span class="hljs-keyword">List</span>&lt;String&gt; strXList = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
+<span class="hljs-comment">//柱状图数据</span>
+<span class="hljs-keyword">List</span>&lt;<span class="hljs-keyword">List</span>&lt;BarBean&gt;&gt; dataList = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
+<span class="hljs-keyword">for</span>(int i = <span class="hljs-number">0</span>; i&lt;<span class="hljs-number">100</span>; i++){
+    <span class="hljs-comment">//此集合为柱状图上一条数据，集合中包含几个实体就是几个柱子</span>
+    <span class="hljs-keyword">List</span>&lt;BarBean&gt; <span class="hljs-keyword">list</span> = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();
+    <span class="hljs-keyword">list</span>.add(<span class="hljs-keyword">new</span> BarBean(random.nextInt(<span class="hljs-number">30</span>), <span class="hljs-string">"lable1"</span>));
+    <span class="hljs-keyword">list</span>.add(<span class="hljs-keyword">new</span> BarBean(random.nextInt(<span class="hljs-number">20</span>), <span class="hljs-string">"lable2"</span>));
+    dataList.add(<span class="hljs-keyword">list</span>);
+    strXList.add((i+<span class="hljs-number">1</span>)+<span class="hljs-string">"月"</span>);
+}
+chart1.setLoading(<span class="hljs-keyword">false</span>);
+chart1.setData(dataList, strXList);</code></pre>
+
+<blockquote>
+  <p>欢迎关注，希望在这里有你想要的，博主会持续更新高(di)质(ji)量(shu)的文章和大家交流学习</p>
+  
+  <p>喜欢请点赞，no爱请勿喷~O(∩_∩)O谢谢</p>
+</blockquote>
+
+
+
+<h2 id="源码下载">源码下载</h2>
+
+<p><a href="https://github.com/openXu/OXChart">GitHub</a></p>            </div>
+            <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/markdown_views-ea0013b516.css" />
+                </div>
+				<div class="hide-article-box text-center csdn-tracking-statistics tracking-click" data-mod="popu_376">
+			<a class="btn btn-red-hollow" id="btn-readmore">阅读更多</a>
+		</div>
+        	</article>
+	
+<a id="chatqa"></a>
+<div class="answer-box d-flex">
+  <div class="img-qrcode-box">
+    <img src="http://images.gitbook.cn/39ae01b0-6eae-11e8-a10b-7f04b65ef5b2" alt="">
+    <p>扫码向博主提问</p>
+  </div>
+
+      <a href="https://mp.csdn.net/ask" class="btn btn-sm btn-link-blue btn-op-answer" target="_blank">去开通我的Chat快问</a>
+    
+  <div class="content-box  d-flex flex-column justify-content-center">
+    <div class="info-box d-flex">
+      <img src="https://avatar.csdn.net/5/2/A/3_u010163442.jpg" alt="" class="avatar-pic">
+      <p class="name d-flex align-items-center">u010163442</p>
+            <p class="flag d-flex align-items-center">
+          <svg class="icon" aria-hidden="true">
+              <use xlink:href="#csdnc-blogexpert"></use>
+          </svg>
+          博客专家
+      </p>
+          </div>
+    <div class="remark text-truncate">
+      非学，无以致疑；非问，无以广识    </div>
+          <ul class="expertise-list d-flex align-content-start flex-wrap">
+            <li class="title">擅长领域：</li>
+                              <li>Android </li>
+                              <li>移动开发</li>
+                    </ul>
+      </div>
+</div>
+
+		<div class="article-bar-bottom">
+				<div class="article-copyright">
+			版权声明：本文为博主原创文章，未经博主允许不得转载。			https://blog.csdn.net/u010163442/article/details/80690993		</div>
+									</div>
+	
+	<!-- !empty($pre_next_article[0]) -->
+		</div>
+<script>
+    $(".MathJax").remove();
+</script>
+
+<script type="text/javascript" src="https://static-blog.csdn.net/mdeditor/public/res/bower-libs/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+			"HTML-CSS": {
+					linebreaks: { automatic: true, width: "94%container" },
+					imageFont: null
+			},
+			tex2jax: {
+				preview: "none"
+			},
+			mml2jax: {
+				preview: 'none'
+			}
+	});
+</script>
+<script>
+	(function(){
+		var btnReadmore = $("#btn-readmore");
+		if(btnReadmore.length>0){
+			var winH = $(window).height();
+			var articleBox = $("div.article_content");
+			var artH = articleBox.height();
+			if(artH > winH*2){
+				articleBox.css({
+					'height':winH*2+'px',
+					'overflow':'hidden'
+				})
+				btnReadmore.click(function(){
+					articleBox.removeAttr("style");
+					$(this).parent().remove();
+				})
+			}else{
+				btnReadmore.parent().remove();
+			}
+		}
+	})()
+</script>        <div class="edu-promotion"></div>
+<script type="text/javascript">
+	var edu_ad_is_big_data = 0;
+	var edu_ad_id_mapping = {"0":["https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=python1","https:\/\/edu.csdn.net\/sp\/blog.php?type=618"],"1":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=web1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit","https:\/\/edu.csdn.net\/sp\/blog.php?type=web1","https:\/\/edu.csdn.net\/sp\/blog.php?type=web1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=618"],"8":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit"],"2":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=python1"],"3":["https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=618"],"6":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit"],"12":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit"],"14":["https:\/\/edu.csdn.net\/sp\/blog.php?type=web1","https:\/\/edu.csdn.net\/sp\/blog.php?type=python1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcweb","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=web1","https:\/\/edu.csdn.net\/sp\/blog.php?type=618"],"15":["https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcjg","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1"],"16":["https:\/\/edu.csdn.net\/sp\/blog.php?type=web1","https:\/\/edu.csdn.net\/sp\/blog.php?type=python1"],"28":["https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=python1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcai","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=python1","https:\/\/edu.csdn.net\/sp\/blog.php?type=618"],"29":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1"],"30":["https:\/\/edu.csdn.net\/sp\/blog.php?type=python1","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1"],"32":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=python1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcaq"],"33":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gccxrs","https:\/\/edu.csdn.net\/sp\/blog.php?type=python1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1"],"35":["https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit"],"37":["https:\/\/edu.csdn.net\/sp\/blog.php?type=web1","https:\/\/edu.csdn.net\/sp\/blog.php?type=python1"],"7":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=web1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=web1","https:\/\/edu.csdn.net\/sp\/blog.php?type=web1","https:\/\/edu.csdn.net\/sp\/blog.php?type=618"],"17":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1"],"34":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=python1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcbt"],"36":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit"],"31":["https:\/\/edu.csdn.net\/sp\/blog.php?type=python1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit"],"19":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit"],"20":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit"]};
+</script>        <a id="commentBox"></a>
+<div class="comment-box">
+	  	<div class="unlogin-box text-center">
+		想对作者说点什么？
+		<!-- $curl 当前地址 -->
+		<a href="https://passport.csdn.net/account/login?from=https://blog.csdn.net/xmxkf/article/details/80690993#commentBox" class="btn btn-sm btn-red">我来说一句</a>
+	</div>
+			<div class="comment-list-container">
+		<a id="comments"></a>
+		<div class="comment-list-box">
+		</div>
+		<div id="commentPage" class="pagination-box d-none"></div>
+		<div class="opt-box text-center">
+			<button class="btn btn-sm btn-link-blue" id="btnMoreComment"></button>
+		</div>
+	</div>
+</div>        <div class="recommend-box">
+            		<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_614" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/eidolon8/article/details/18853879" target="_blank" strategy="BlogCommendFromQuerySearch_19">
+				共有12款C# 报表/图表制作<em>开源</em>软件			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/eidolon8/article/details/18853879" target="_blank" >
+				【商业】商业<em>图表库</em> ChartDirector
+
+
+
+
+
+ChartDirector 是一款商业的<em>图表库</em>，有多种语言的版本，使用它做的图表非常的精细漂亮，提供免费版本，但会出现logo信息...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/eidolon8" title="eidolon8" target="_blank">
+					<img src="https://avatar.csdn.net/2/1/7/3_eidolon8.jpg" alt="eidolon8" class="avatar-pic">
+					<span class="name">eidolon8</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2014-01-29 01:30:40</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：5505</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_614" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/easyer2012/article/details/52396921" target="_blank" strategy="BlogCommendFromQuerySearch_0">
+				<em>Android</em><em>开源</em> - SmallChart<em>图表库</em>			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/easyer2012/article/details/52396921" target="_blank" >
+				SmallChart是<em>一个</em><em>开源</em>的<em>Android</em><em>图表库</em>，拥有5种不同的图表类型来展示数据。可以通过输入的数据以及可设置的颜色、画笔大小等属性方便的创建图表。
+
+Curve Chart(fill)
+...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/easyer2012" title="easyer2012" target="_blank">
+					<img src="https://avatar.csdn.net/6/B/9/3_easyer2012.jpg" alt="easyer2012" class="avatar-pic">
+					<span class="name">easyer2012</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2016-09-01 10:28:32</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：1244</span>
+			</p>
+		</div>
+	</div>
+								<div class="recommend-item-box recommend-ad-box" id="ad1"></div>
+				<script>
+				  var width = $("div.recommend-box").outerWidth() - 48;
+					NEWS_FEED({
+						w: width,
+						h : 90,
+						showid : 'GNKXx7',
+						placeholderId: "ad1",
+						inject : 'define',
+						define : {
+							imagePosition : 'right',
+							imageBorderRadius : 0,
+							imageWidth: 120,
+							imageHeight: 90,
+							imageFill : 'clip',
+							displayImage : true,
+							displayTitle : true,
+							titleFontSize: 20,
+							titleFontColor: '#333',
+							titleFontFamily : 'Microsoft Yahei',
+							titleFontWeight: 'bold',
+							titlePaddingTop : 0,
+							titlePaddingRight : 0,
+							titlePaddingBottom : 10,
+							titlePaddingLeft : 0,
+							displayDesc : true,
+							descFontSize: 14,
+							descFontColor: '#6b6b6b',
+							descFontFamily : 'Microsoft Yahei',
+							paddingTop : 0,
+							paddingRight : 0,
+							paddingBottom : 0,
+							paddingLeft : 0,
+							backgroundColor: '#fff',
+							hoverColor: '#ca0c16'
+						}
+					})
+				</script>
+
+			
+				<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_614" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/tracydragonlxy/article/details/78406377" target="_blank" strategy="BlogCommendFromQuerySearch_17">
+				<em>Android</em>——<em>图表库</em>MP<em>Android</em>Chart的使用			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/tracydragonlxy/article/details/78406377" target="_blank" >
+				<em>Android</em>——<em>图表库</em>MP<em>Android</em>Chart的使用前言：将MP<em>Android</em>Chart相关的方法封装成<em>一个</em>类，方便的使用MP<em>Android</em>Chart绘制线性图。GitHub地址：https:/...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/tracydragonlxy" title="tracydragonlxy" target="_blank">
+					<img src="https://avatar.csdn.net/2/C/0/3_tracydragonlxy.jpg" alt="tracydragonlxy" class="avatar-pic">
+					<span class="name">tracydragonlxy</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2017-10-31 18:13:29</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：200</span>
+			</p>
+		</div>
+	</div>
+						<div class="recommend-item-box recommend-download-box csdn-tracking-statistics clearfix" data-mod="popu_614" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+			<div class="content float-left">
+				<h4 class="text-truncate">
+					<a href="https://download.csdn.net/download/u010841653/8696181" target="_blank" strategy="BlogCommendFromQuerySearch_1">
+						<em>Android</em><em>开源</em><em>图表库</em>HelloCharts,最优秀的<em>开源</em>图库					</a>
+				</h4>
+				<p>
+					<span class="data">2015年05月13日 </span>
+					<span class="size">6.53MB</span>
+					<span class="type">下载</span>
+				</p>
+			</div>
+			<div class="img-box float-right">
+				<a href="https://download.csdn.net/download/u010841653/8696181" target="_blank" strategy="BlogCommendFromQuerySearch_1">
+					<img src="http://csdnimg.cn/release/download/old_static/images/minetype/zip.svg" alt="">
+				</a>
+			</div>
+		</div>
+						<div class="recommend-item-box recommend-download-box csdn-tracking-statistics clearfix" data-mod="popu_614" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+			<div class="content float-left">
+				<h4 class="text-truncate">
+					<a href="https://download.csdn.net/download/zhouli253/1603682" target="_blank" strategy="BlogCommendFromQuerySearch_2">
+						open-flash-chart2.0					</a>
+				</h4>
+				<p>
+					<span class="data">2009年08月25日 </span>
+					<span class="size">4.73MB</span>
+					<span class="type">下载</span>
+				</p>
+			</div>
+			<div class="img-box float-right">
+				<a href="https://download.csdn.net/download/zhouli253/1603682" target="_blank" strategy="BlogCommendFromQuerySearch_2">
+					<img src="http://csdnimg.cn/release/download/old_static/images/minetype/zip.svg" alt="">
+				</a>
+			</div>
+		</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_614" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/qq_24531461/article/details/73526656" target="_blank" strategy="BlogCommendFromQuerySearch_3">
+				解析<em>Android</em>上强大的<em>图表库</em>MP<em>Android</em>Chart			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/qq_24531461/article/details/73526656" target="_blank" >
+				转自：http://www.jianshu.com/p/c6e8ea5e9ba0
+
+
+
+条形图和线形图的组合图
+
+
+一图胜千文，纯粹的数据枯燥、无聊，让人看不下去，改变一下形式，用图表装...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/qq_24531461" title="qq_24531461" target="_blank">
+					<img src="https://avatar.csdn.net/D/7/6/3_qq_24531461.jpg" alt="qq_24531461" class="avatar-pic">
+					<span class="name">qq_24531461</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2017-06-21 09:06:15</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：1274</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box recommend-ad-box" id="a_d_feed_0"></div>
+			<script>
+				var width = $("div.recommend-box").outerWidth() - 48;
+				NEWS_FEED({
+					w: width,
+					h: 90,
+					showid: 'Afihld',
+					placeholderId: 'a_d_feed_0',
+					inject: 'define',
+					define: {
+						imagePosition: 'right',
+						imageBorderRadius: 0,
+						imageWidth: 120,
+						imageHeight: 90,
+						imageFill: 'clip',
+						displayImage: true,
+						displayTitle: true,
+						titleFontSize: 20,
+						titleFontColor: '#333',
+						titleFontFamily: 'Microsoft Yahei',
+						titleFontWeight: 'bold',
+						titlePaddingTop: 0,
+						titlePaddingRight: 0,
+						titlePaddingBottom: 10,
+						titlePaddingLeft: 0,
+						displayDesc: true,
+						descFontSize: 14,
+						descFontColor: '#6b6b6b',
+						descFontFamily: 'Microsoft Yahei',
+						paddingTop: 0,
+						paddingRight: 0,
+						paddingBottom: 0,
+						paddingLeft: 0,
+						backgroundColor: '#fff',
+						hoverColor: '#ca0c16'
+					}
+				})
+			</script>
+			<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_614" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/shaoyezhangliwei/article/details/79257184" target="_blank" strategy="BlogCommendFromQuerySearch_4">
+				<em>Android</em> 图表开发<em>开源</em>库MP<em>Android</em>Chart			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/shaoyezhangliwei/article/details/79257184" target="_blank" >
+				上面是APP中实现的效果图（点击可以放大查看）Mp<em>Android</em>Chart 的下载地址图1的效果不是用这个实现的，如果感兴趣可以参考我这篇文章  <em>Android</em>渐变圆环总体来说，MP<em>Android</em>Ch...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/shaoyezhangliwei" title="shaoyezhangliwei" target="_blank">
+					<img src="https://avatar.csdn.net/6/C/3/3_shaoyezhangliwei.jpg" alt="shaoyezhangliwei" class="avatar-pic">
+					<span class="name">shaoyezhangliwei</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2018-02-23 10:09:47</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：1253</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_614" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/xcltapestry/article/details/29675613" target="_blank" strategy="BlogCommendFromQuerySearch_5">
+				<em>Android</em><em>开源</em><em>图表库</em>XCL-Charts版本发布及展示页			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/xcltapestry/article/details/29675613" target="_blank" >
+				XCL-Charts<em>图表库</em>基于<em>Android</em>原生Canvas来绘制各种图表,使用简便,定制灵活。 目前支持3D/非3D柱形图(Bar Chart)、3D/非3D饼图(Pie Chart)、堆叠图(St...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/xcltapestry" title="xcltapestry" target="_blank">
+					<img src="https://avatar.csdn.net/9/1/C/3_xcltapestry.jpg" alt="xcltapestry" class="avatar-pic">
+					<span class="name">xcltapestry</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2014-06-12 00:16:50</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：32763</span>
+			</p>
+		</div>
+	</div>
+						<div class="recommend-item-box recommend-download-box csdn-tracking-statistics clearfix" data-mod="popu_614" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+			<div class="content float-left">
+				<h4 class="text-truncate">
+					<a href="https://download.csdn.net/download/tyyj90/9080785" target="_blank" strategy="BlogCommendFromQuerySearch_6">
+						MP<em>Android</em>Chart					</a>
+				</h4>
+				<p>
+					<span class="data">2015年09月05日 </span>
+					<span class="size">5.61MB</span>
+					<span class="type">下载</span>
+				</p>
+			</div>
+			<div class="img-box float-right">
+				<a href="https://download.csdn.net/download/tyyj90/9080785" target="_blank" strategy="BlogCommendFromQuerySearch_6">
+					<img src="http://csdnimg.cn/release/download/old_static/images/minetype/zip.svg" alt="">
+				</a>
+			</div>
+		</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_614" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/hejjunlin/article/details/51774964" target="_blank" strategy="BlogCommendFromQuerySearch_7">
+				最牛逼<em>android</em>上的<em>图表库</em>MpChart（一） 介绍篇			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/hejjunlin/article/details/51774964" target="_blank" >
+				最牛逼<em>android</em>上的<em>图表库</em>MpChart一 介绍篇
+MpChart优点
+MpChart是什么
+MpChart支持哪些图表...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/hejjunlin" title="hejjunlin" target="_blank">
+					<img src="https://avatar.csdn.net/9/5/0/3_hejjunlin.jpg" alt="hejjunlin" class="avatar-pic">
+					<span class="name">hejjunlin</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2016-06-28 12:05:03</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：21853</span>
+			</p>
+		</div>
+	</div>
+			            <!-- 第四范式SDK -->
+<script src="https://nbrecsys.4paradigm.com/resource/js/sdk-csdn-smallflow.js" async defer></script>
+            <div class="recommend-loading-box">
+                <img src='https://csdnimg.cn/release/phoenix/images/feedLoading.gif'>
+            </div>
+            <div class="recommend-end-box">
+                <p class="text-center">没有更多推荐了，<a href="https://blog.csdn.net/" class="c-blue c-blue-hover c-blue-focus">返回首页</a></p>
+            </div>
+        </div>
+    </main>
+    <aside>
+		    <div id="asideProfile" class="aside-box">
+    <h3 class="aside-title">个人资料</h3>
+    <div class="profile-intro d-flex">
+        <div class="avatar-box d-flex justify-content-center flex-column">
+            <a href="https://blog.csdn.net/u010163442">
+                <img src="https://avatar.csdn.net/5/2/A/3_u010163442.jpg" class="avatar_pic">
+            </a>
+        </div>
+        <div class="user-info d-flex justify-content-center flex-column">
+            <p class="name csdn-tracking-statistics tracking-click" data-mod="popu_379">
+                <a href="https://blog.csdn.net/u010163442" target="_blank" class="text-truncate" id="uid">u010163442</a>
+            </p>
+                        <p class="flag">
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#csdnc-blogexpert"></use>
+                </svg>
+                博客专家
+            </p>
+                    </div>
+                <div class="opt-box d-flex justify-content-center flex-column">
+            <span  class="csdn-tracking-statistics tracking-click" data-mod="popu_379">
+                                <a class="btn btn-sm btn-red-hollow" href="https://passport.csdn.net/account/login?from=https://blog.csdn.net/xmxkf/article/details/80690993" target="_self">关注</a>
+                            </span>
+                        <span  class="csdn-tracking-statistics tracking-click" data-mod="">
+                <a class="btn btn-sm btn-yellow-hollow" id="btnAsk" href="#chatqa" target="_self">向TA提问</a>
+            </span>
+                    </div>
+            </div>
+    <div class="data-info d-flex item-tiling">
+                <dl class="text-center" title="53">
+                        <dt><a href="https://blog.csdn.net/xmxkf?t=1">原创</a></dt>
+            <dd><a href="https://blog.csdn.net/xmxkf?t=1"><span class="count">53</span></a></dd>
+                    </dl>
+        <dl class="text-center" title="400">
+            <dt>粉丝</dt>
+            <dd><span class="count" id="fan">400</span></dd>
+        </dl>
+        <dl class="text-center" title="441">
+            <dt>喜欢</dt>
+            <dd><span class="count">441</span></dd>
+        </dl>
+        <dl class="text-center" title="214">
+            <dt>评论</dt>
+            <dd><span class="count">214</span></dd>
+        </dl>
+    </div>
+    <div class="grade-box clearfix">
+        <dl>
+            <dt>等级：</dt>
+            <dd>
+                <a href="https://blog.csdn.net/home/help.html#level" title="5级,点击查看等级说明" target="_blank">
+                    <svg class="icon icon-level" aria-hidden="true">
+                        <use xlink:href="#csdnc-bloglevel-5"></use>
+                    </svg>
+                </a>
+            </dd>
+        </dl>
+        <dl>
+            <dt>访问：</dt>
+            <dd title="306199">
+                30万+            </dd>
+        </dl>
+        <dl>
+            <dt>积分：</dt>
+            <dd title="3102">
+                3102            </dd>
+        </dl>
+        <dl title="14561">
+            <dt>排名：</dt>
+            <dd>1万+</dd>
+        </dl>
+    </div>
+        <div class="badge-box d-flex">
+        <span>勋章：</span>
+                <a class="icon-badge" title="专栏达人">
+            <svg class="icon" aria-hidden="true">
+                <use xlink:href="#csdnc-m-columns"></use>
+            </svg>
+            <div class="icon-arrow"></div>
+            <div class="grade-detail-box item1">
+                <div class="pos-box">
+                    <div class="left-box d-flex justify-content-center align-items-center flex-column">
+                        <svg class="icon" aria-hidden="true">
+                            <use xlink:href="#csdnc-m-columns"></use>
+                        </svg>
+                        <p>专栏达人</p>
+                    </div>
+                    <div class="right-box d-flex justify-content-center align-items-center">
+                        授予成功创建个人博客专栏的用户。专栏中添加五篇以上博文即可点亮！撰写博客专栏浓缩技术精华，专栏达人就是你！
+                    </div>
+                </div>
+            </div> 
+        </a>  
+                        <a class="icon-badge" title="持之以恒">
+            <svg class="icon" aria-hidden="true">
+                <use xlink:href="#csdnc-m-lasting"></use>
+            </svg>
+            <div class="icon-arrow"></div>
+            <div class="grade-detail-box item2">
+                <div class="pos-box">
+                    <div class="left-box d-flex justify-content-center align-items-center flex-column">
+                        <svg class="icon" aria-hidden="true">
+                            <use xlink:href="#csdnc-m-lasting"></use>
+                        </svg>
+                        <p>持之以恒</p>
+                    </div>
+                    <div class="right-box d-flex justify-content-center align-items-center">
+                        授予每个自然月内发布4篇或4篇以上原创或翻译IT博文的用户。不积跬步无以至千里，不积小流无以成江海，程序人生的精彩需要坚持不懈地积累！
+                    </div>
+                </div>
+            </div>
+        </a>
+                            </div>
+    </div>		    <div class="csdn-tracking-statistics mb8 box-shadow" data-pid="blog" data-mod="popu_4" style="height:250px;">
+    <div class="aside-content text-center" id="cpro_u2734133">
+        <!-- 投放代码 -->
+        <script type="text/javascript" src="//cee1.iteye.com/lgyyovfyh.js"></script>
+    </div>
+</div>
+		    <div id="asideNewArticle" class="aside-box">
+    <h3 class="aside-title">最新文章</h3>
+    <div class="aside-content">
+        <ul class="inf_list clearfix csdn-tracking-statistics tracking-click" data-mod="popu_382">
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/u010163442/article/details/80674232" target="_blank">Android Studio将项目发布到Maven仓库（3种方式最新最全）</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/u010163442/article/details/79995020" target="_blank">DOM</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/u010163442/article/details/79994336" target="_blank">JavaScript基础知识快速预览</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/u010163442/article/details/79488089" target="_blank">RecyclerView使用全解析</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/u010163442/article/details/79481243" target="_blank">Android事件分发机制</a>
+            </li>
+                    </ul>
+    </div>
+</div>
+		    <div id="asideColumn" class="aside-box">
+    <h3 class="aside-title">博主专栏</h3>
+    <div class="aside-content">
+        <ul class="column-box csdn-tracking-statistics tracking-click" data-mod="popu_520" >
+                            <li class="clearfix">
+                    <div class="img-box float-left">
+                        <a class="d-flex align-items-center" href="https://blog.csdn.net/column/details/14247.html">
+                            <img src="https://img-blog.csdn.net/20170117131456125?imageView2/5/w/120/h/120" alt="">
+                        </a>
+                    </div>
+                    <div class="info">
+                        <p class="title"><a href="https://blog.csdn.net/column/details/14247.html">自定义控件高手</a></p>
+                        <div class="data">阅读量：<span>132793</span><span class="count">9 篇</span></div>
+                    </div>
+                </li>
+                            <li class="clearfix">
+                    <div class="img-box float-left">
+                        <a class="d-flex align-items-center" href="https://blog.csdn.net/column/details/20176.html">
+                            <img src="https://img-blog.csdn.net/20180307142749398?imageView2/5/w/120/h/120" alt="">
+                        </a>
+                    </div>
+                    <div class="info">
+                        <p class="title"><a href="https://blog.csdn.net/column/details/20176.html">RxJava详解</a></p>
+                        <div class="data">阅读量：<span>58199</span><span class="count">11 篇</span></div>
+                    </div>
+                </li>
+                    </ul>
+    </div>
+    </div>
+		    <div id="asideArchive" class="aside-box flexible-box">
+    <h3 class="aside-title">归档</h3>
+    <div class="aside-content">
+        <ul class="archive-list">
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/u010163442/article/month/2018/06">
+                    2018年6月                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/u010163442/article/month/2018/04">
+                    2018年4月                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/u010163442/article/month/2018/03">
+                    2018年3月                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/u010163442/article/month/2017/01">
+                    2017年1月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/u010163442/article/month/2016/12">
+                    2016年12月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/u010163442/article/month/2016/11">
+                    2016年11月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/u010163442/article/month/2016/10">
+                    2016年10月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/u010163442/article/month/2016/09">
+                    2016年9月                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/u010163442/article/month/2016/08">
+                    2016年8月                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/u010163442/article/month/2016/07">
+                    2016年7月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/u010163442/article/month/2016/06">
+                    2016年6月                    <span class="count float-right">11篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/u010163442/article/month/2016/05">
+                    2016年5月                    <span class="count float-right">8篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/u010163442/article/month/2016/04">
+                    2016年4月                    <span class="count float-right">4篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/u010163442/article/month/2015/05">
+                    2015年5月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/u010163442/article/month/2013/08">
+                    2013年8月                    <span class="count float-right">14篇</span>
+                </a>
+            </li>
+                    </ul>
+    </div>
+        <p class="text-center">
+        <a class="btn btn-link-blue flexible-btn" data-fbox="aside-archive">展开</a>
+    </p>
+    </div>
+		    <div id="asideHotArticle" class="aside-box">
+	<h3 class="aside-title">热门文章</h3>
+	<div class="aside-content">
+		<ul class="hotArticle-list csdn-tracking-statistics tracking-click" data-mod="popu_521">
+							<li>
+					<a href="https://blog.csdn.net/u010163442/article/details/51595096">Android Studio中Git的配置及协同开发</a>
+					<p class="read">阅读量：<span>42296</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/u010163442/article/details/51490283">Android自定义View（三、深入解析控件测量onMeasure）</a>
+					<p class="read">阅读量：<span>28886</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/u010163442/article/details/51454685">Android自定义View（一、初体验自定义TextView）</a>
+					<p class="read">阅读量：<span>26001</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/u010163442/article/details/51468648">Android自定义View（二、深入解析自定义属性）</a>
+					<p class="read">阅读量：<span>23419</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/u010163442/article/details/51500304">Android自定义ViewGroup（四、打造自己的布局容器）</a>
+					<p class="read">阅读量：<span>18219</span></p>
+				</li>
+					</ul>
+	</div>
+</div>
+		    <div id="asideNewComments" class="aside-box">
+    <h3 class="aside-title">最新评论</h3>
+    <div class="aside-content">
+        <ul class="newcomment-list">
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/u010163442/article/details/80690993#comments">开源一个Android自定义图表库</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/qq_33843732" class="user-name" target="_blank">qq_33843732</a>：66666666666666666666666                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/u010163442/article/details/80690993#comments">开源一个Android自定义图表库</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/neuqliyang" class="user-name" target="_blank">neuqliyang</a>：666666                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/u010163442/article/details/80690993#comments">开源一个Android自定义图表库</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/qq_41689259" class="user-name" target="_blank">qq_41689259</a>：可以&lt;img src=&quot;http://forum.csdn.net/PointFo...                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/u010163442/article/details/80690993#comments">开源一个Android自定义图表库</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/changmingbaobao" class="user-name" target="_blank">changmingbaobao</a>：66666666666                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/u010163442/article/details/80690993#comments">开源一个Android自定义图表库</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/qq_36515370" class="user-name" target="_blank">qq_36515370</a>：66666666666                </p>
+            </li>
+                    </ul>
+    </div>
+</div>
+		<div id="asideFooter">
+			
+		<div class="aside-box">
+						<script type="text/javascript" src="//cee1.iteye.com/mhzzpwgzj.js"></script>
+					</div>
+				<div class="aside-box">
+			<div class="persion_article">
+			</div>
+		</div>
+	</div>
+</aside>
+<script src="https://csdnimg.cn/pubfooter/js/publib_footer-1.0.3.js" data-isfootertrack="false" type="text/javascript"></script>
+<script>
+	$("a.flexible-btn").click(function(){
+		$(this).parents('div.aside-box').removeClass('flexible-box');
+		$(this).remove();
+	})
+</script>
+</div>
+<div class="mask-dark"></div>
+<div class="pulllog-box" style="display: block;">
+	<div class="pulllog clearfix">
+		<span class="text float-left">加入CSDN，享受更精准的内容推荐，与500万程序员共同成长！</span>
+		<div class="pulllog-btn float-right clearfix">
+            <button class="pulllog-login float-left csdn-tracking-statistics tracking-click" data-mod="popu_557">
+                登录
+            </button>
+            <div class="pulllog-sigin float-left csdn-tracking-statistics tracking-click" data-mod="popu_558">
+                <a href="https://passport.csdn.net/account/mobileregister" target="_blank">注册</a>
+            </div>
+            <button class="btn-close">
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#csdnc-times"></use>
+                </svg>
+            </button>
+		</div>
+	</div>
+</div>
+<div id="loginWrap" style="display:none"></div>
+<div class="tool-box">
+	<ul class="meau-list">
+		<li>
+			<button class="btn-like " title="点赞">
+				<svg class="icon active" aria-hidden="true">
+					<use xlink:href="#csdnc-thumbsup-ok"></use>
+				</svg><svg class="icon no-active" aria-hidden="true">
+					<use xlink:href="#csdnc-thumbsup"></use>
+				</svg>
+				<p>7</p>
+			</button>
+		</li>
+		<li class="toc-container-box" id="liTocBox">
+			<button class="btn-toc" title="目录">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-contents"></use>
+				</svg><br>目录
+			</button>
+			<div class="toc-container">
+				<div class="pos-box">
+					<div class="icon-arrow"></div>
+					<div class="scroll-box">
+						<div class="toc-box"></div>
+					</div>
+				</div>
+				<div class="opt-box">
+					<button class="btn-opt prev nomore" title="向上">
+						<svg class="icon" aria-hidden="true">
+							<use xlink:href="#csdnc-chevronup"></use>
+						</svg>
+					</button>
+					<button class="btn-opt next">
+						<svg class="icon" aria-hidden="true">
+							<use xlink:href="#csdnc-chevrondown"></use>
+						</svg>
+					</button>
+				</div>
+			</div>
+		</li>
+		<li>
+			<button class="btn-bookmark" title="收藏">
+				<svg class="icon active" aria-hidden="true">
+					<use xlink:href="#csdnc-bookmark-ok"></use>
+				</svg><svg class="icon no-active" aria-hidden="true">
+					<use xlink:href="#csdnc-bookmark"></use>
+				</svg><br>收藏
+			</button>
+		</li>
+		<li>
+			<a class="btn-comments" title="评论" href="#commentBox">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-comments"></use>
+				</svg><br>评论
+			</a>
+		</li>
+				<li>
+			<a class="btn-comments" title="快问" href="#chatqa">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-chat-qa"></use>
+				</svg><br>快问
+			</a>
+		</li>
+				<li class="bdsharebuttonbox">
+			<a class="btn-comments bds_weixin" data-cmd="weixin" title="微信分享">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-wechat"></use>
+				</svg><br>微信
+			</a>
+		</li>
+		<li class="bdsharebuttonbox">
+			<a class="btn-comments bds_tsina" data-cmd="tsina" title="微博分享">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-weibo"></use>
+				</svg><br>微博
+			</a>
+		</li>
+		<li class="bdsharebuttonbox">
+			<a class="btn-comments bds_qzone" data-cmd="qzone" title="QQ分享">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-qq"></use>
+				</svg><br>QQ
+			</a>
+		</li>
+	</ul>
+</div>
+<script>window._bd_share_config = { "common": { "bdSnsKey": {}, "bdText": "", "bdMini": "1", "bdMiniList": false, "bdPic": "", "bdStyle": "0", "bdSize": "16" }, "share": {} }; with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'https://csdnimg.cn/static/api/js/share.js?v=89860594'];</script>
+<script>
+    var recommendCount = 10;
+    recommendCount = recommendCount > 1 ? (recommendCount + (recommendCount>6 ? 2 : 1)) : recommendCount;
+    var articleTit = "开源一个Android自定义图表库";
+    var ChannelId = 1;
+    var articleId = "80690993";
+    var commentscount = 13;
+    var islock = false;
+    var curentUrl = "https://blog.csdn.net/xmxkf/article/details/80690993";
+    var myUrl = "https://my.csdn.net/";
+    //1禁止评论，2正常
+    var commentAuth = 2;
+    //百度搜索
+    var baiduKey = "android+studio%E4%B8%AD%E5%8E%BB%E6%8E%89gradle%E4%B8%AD%E5%AF%B9release%E7%9A%84%E6%B7%B7%E6%B7%86%E5%B0%B1%E5%A5%BD%E4%BA%86";
+    var needInsertBaidu = true;
+</script>
+<script src="https://csdnimg.cn/public/sandalstrap/1.3/js/sandalstrap.min.js"></script>
+<script src="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.js"></script>
+<script src='https://csdnimg.cn/public/common/gotop/js/goTop-v1.0.min.js?v201803151422'></script>
+<script>
+    GoTop({
+        right: 8,
+        hasReport: true,
+        reportFun: function() {
+            showReport(false,"开源一个Android自定义图表库");
+        }
+    })
+</script>
+<script src="https://csdnimg.cn/release/phoenix/template/js/common-bd54b21308.min.js"></script>
+<script src="https://csdnimg.cn/release/phoenix/template/js/detail-effe72036e.min.js"></script>
+<script src="https://csdnimg.cn/release/phoenix/themes/skin-yellow/skin-yellow-22f3069ef3.min.js"></script>
+<script src="https://csdnimg.cn/search/baidu_search-1.1.2.js?v=201802071056&autorun=true&install=true&keyword=android+studio%E4%B8%AD%E5%8E%BB%E6%8E%89gradle%E4%B8%AD%E5%AF%B9release%E7%9A%84%E6%B7%B7%E6%B7%86%E5%B0%B1%E5%A5%BD%E4%BA%86"  type="text/javascript"></script>
+</body>
+<div class="box-box-default">
+    <a class="btn-remove">
+        关闭
+    </a>
+    <script type="text/javascript" src="//cee1.iteye.com/mhzzjepzz.js"></script>
+</div>
+<div class="box-box-large">
+    <a class="btn-remove">
+        关闭
+    </a>
+    <script type="text/javascript" src="//cee1.iteye.com/idvveasfs.js"></script>
+</div>
+</html>

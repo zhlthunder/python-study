@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <link rel="canonical" href="https://blog.csdn.net/T7SFOKzorD1JAYMSFk4/article/details/80654931"/> 
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="referrer" content="always">
+    <meta name="description" content="
+  
+    
+                    
+
+                    
+
+                    
+                    
+                    1、反向传播思想：计算出输出与标签间的损失函数值，然后计算其相对于每个神经元的梯度，根据梯度方向更新权值。（1）将训练集数据输入到ANN的输入层，经过隐藏层，最后达到输出..." />
+    <meta name="keywords" content="" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+    <meta name="shenma-site-verification" content="5a59773ab8077d4a62bf469ab966a63b_1497598848">
+    <script src="https://csdnimg.cn/release/phoenix/vendor/tingyun/tingyun-rum-blog.js"></script>
+
+    <link href="https://csdnimg.cn/public/favicon.ico" rel="SHORTCUT ICON">
+    <title>机器学习及深度学习的知识点及面试题总结 - CSDN博客</title>
+    
+            <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/detail-60a2c245da.min.css">
+        <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/themes/skin3-template/skin3-template-88717cedf2.min.css">
+
+    <script type="text/javascript">
+        var username = "t7sfokzord1jaymsfk4";
+        var blog_address = "https://blog.csdn.net/t7sfokzord1jaymsfk4";
+        var static_host = "https://csdnimg.cn/release/phoenix/";
+        var currentUserName = ""; 
+        var isShowAds = true;
+        var isOwner = false;
+        var loginUrl = "https://passport.csdn.net/account/login?from=https://blog.csdn.net/T7SFOKzorD1JAYMSFk4/article/details/80654931"
+        var blogUrl = "https://blog.csdn.net/";
+        var curSkin = "skin3-template";
+    </script>
+    <script type="text/javascript">
+        // Traffic Stats of the entire Web site By baidu
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?6bcd52f51e9b3dce32bec4a3997715ac";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+        // Traffic Stats of the entire Web site By baidu end
+    </script>
+    <script src="https://csdnimg.cn/public/common/libs/jquery/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <script src="https://csdnimg.cn/rabbit/exposure-click/main-1.0.6.js"></script>
+    <!-- 新版上报 -->
+    <script src="//g.csdnimg.cn/track/1.0.0/track.js" type="text/javascript"></script>
+    <!-- 新版上报end -->
+            <link rel="stylesheet" href="https://csdnimg.cn/public/sandalstrap/1.3/css/sandalstrap.min.css"> 
+    <style>
+        .MathJax, .MathJax_Message, .MathJax_Preview{
+            display: none
+        }
+    </style>
+</head>
+<body>    
+    <link rel="stylesheet" href="https://csdnimg.cn/public/common/toolbar/content_toolbar_css/content_toolbar.css">
+    <script id="toolbar-tpl-scriptId" src="https://csdnimg.cn/public/common/toolbar/js/content_toolbar.js" type="text/javascript" domain="https://blog.csdn.net/"></script>
+    <script src="https://csdnimg.cn/public/sandalstrap/1.3/fonts/csdnc/csdnc.js"></script><link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/blog_code-c3a0c33d5c.css">
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.css">
+<script type="text/javascript" src="//static.mediav.com/js/mvf_news_feed.js"></script>
+
+<header>
+	<div class="container d-flex clearfix">
+		<div class="title-box">
+			<h2 class="title-blog">
+				<a href="https://blog.csdn.net/t7sfokzord1jaymsfk4">七月在线实验室</a>
+			</h2>
+			<p class="description">发布 人工智能 与 数据 相关知识、干货</p>
+		</div>
+		<div class="opt-box d-flex justify-content-end">
+			<a class="btn btn-sm" href="https://blog.csdn.net/t7sfokzord1jaymsfk4/rss/list">
+					<svg class="icon" aria-hidden="true">
+						<use xlink:href="#csdnc-rss"></use>
+					</svg>RSS订阅</a>
+					</div>
+	</div>
+</header><script src="https://dup.baidustatic.com/js/ds.js"></script>
+<div class="container clearfix pt0" id="mainBox">
+    <main>
+        <div class="blog-content-box">
+	<div class="article-title-box">
+			<span class="article-type type-2 float-left">转</span>		<h1 class="title-article">机器学习及深度学习的知识点及面试题总结</h1>
+	</div>
+	<div class="article-info-box">
+		<div class="article-bar-top d-flex">
+												<span class="time">2018年06月11日 16:54:31</span>
+			<div class="float-right">
+				<span class="read-count">阅读数：908</span>
+											</div>
+		</div>
+	</div>
+	<article>
+		<div id="article_content" class="article_content clearfix csdn-tracking-statistics" data-pid="blog"  data-mod=popu_307  data-dsm = "post" >
+                    <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/htmledit_views-0a60691e80.css" />
+            <div class="htmledit_views">
+                
+    <div class="rich_media_content">
+                    
+
+                    
+
+                    
+                    
+                    <p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;"><strong style="max-width:100%;">1、反向传播思想：</strong></span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;">计算出输出与标签间的损失函数值，然后计算其相对于每个神经元的梯度，根据梯度方向更新权值。</span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;">（1）将训练集数据输入到ANN的输入层，经过隐藏层，最后达到输出层并输出结果，这是ANN的前向传播过程；</span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;">（2）由于ANN的输出结果与实际结果有误差，则计算估计值与实际值之间的误差，并将该误差从输出层向隐藏层反向传播，直至传播到输入层；</span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;">（3）在反向传播的过程中，根据误差调整各种参数的值；不断迭代上述过程，直至收敛。</span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;"><strong style="max-width:100%;">2、无监督逐层训练：</strong>预训练：每次训练一层隐结点。训练时将上一层隐结点的输出作为输入，而本层隐结点的输出作为下一层隐结点的输入。在预训练结束后，再对整个网络进行微调训练。</span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;"><strong style="max-width:100%;">3、DNN</strong>：指深度神经网络，与RNN循环神经网络、CNN卷积神经网络的区别就是，DNN特指全连接的神经元结构，并不包含卷积单元或时间上的关联。</span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;"><strong style="max-width:100%;">一、DBN：（预训练+微调）</strong></span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;">思想：整个网络看成是多个RBM的堆叠，在使用无监督逐层训练时，首先训练第一层，然后将第一层预训练好的隐结点视为第二层的输入节点，对第二层进行预训练，各层预训练完成后，再用BP算法对整个网络进行训练。</span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;">整体解释：预训练+微调 的做法可视为将大量参数分组，对每组先找到局部看起来比较好的位置，然后再基于这些局部较优的结果联合起来进行全局寻优。好处：利用了模型大量参数所提供的自由度，有效的节省了训练开销。</span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;">（补充：是一个概率生成模型，与传统的判别神经网络不同的是，生成模型建立了观察数据和标签之间的联合分布，而判别模型只评估了条件概率。</span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="font-size:14px;"><span style="font-size:14px;max-width:100%;">DBN遇到的问题：需要为训练提供一个有标签的样本集；学习过程较慢；不适当的参数选择导致学习收敛于局部最优解。</span><span style="font-size:14px;max-width:100%;text-indent:0em;">）</span></span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;"><strong style="max-width:100%;">二、CNN：（局部感知+权共享机制：让一组神经元使用相同的连接权）</strong></span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;">提出：全连接的结构下会引起参数数量的膨胀，容易过拟合且局部最优。图像中有固有的局部模式可以利用，所以，提出了CNN，并不是所有上下层神经元都能直接相连，而是通过“卷积核”作为中介。同一个卷积核在所有图像内都是共享的，图像通过卷积操作后仍然保留原来的位置关系。</span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;">复合多个“卷积层”和“采样层”对输入信号进行加工，然后再连接层实现与输出目标之间的映射。多层的目的：一层卷积学到的特征往往是局部的，层数越高，学到的特征就越全局化。</span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;">CNN两大神器：</span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;">1、局部感知：一般认为图像的空间联系是局部的像素联系比较密切，而距离较远的像素相关性较弱，因此，每个神经元没必要对全局图像进行感知，只要对局部进行感知，然后在更高层将局部的信息综合起来得到全局信息。利用卷积层实现：（特征映射，每个特征映射是一个神经元阵列）：从上一层通过局部卷积滤波器提取局部特征。卷积层紧跟着一个用来求局部平均与二次提取的计算层，这种二次特征提取结构减少了特征分辨率。</span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;">2、参数共享：在局部连接中，每个神经元的参数都是一样的，即：同一个卷积核在图像中都是共享的。（理解：卷积操作实际是在提取一个个局部信息，而局部信息的一些统计特性和其他部分是一样的，也就意味着这部分学到的特征也可以用到另一部分上。所以对图像上的所有位置，都能使用同样的学习特征。）卷积核共享有个问题：提取特征不充分，可以通过增加多个卷积核来弥补，可以学习多种特征。</span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;">3、采样(池化)层：在通过卷积得到特征后，希望利用这些特征进行分类。基于局部相关性原理进行亚采样，在减少数据量的同时保留有用信息。（压缩数据和参数的量，减少过拟合）（max-polling 和average-polling）</span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;">可用BP算法训练，训练中，无论是卷积层还是采样层，每一组神经元都是用相同的连接权。</span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;">优点：限制了参数的个数并挖掘了局部结构的这个特点，减少了复杂度。</span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;">（CNN主要用来识别位移、缩放及其他形式扭曲不变性的二维图形。由于CNN的特征检测层通过训练数据进行学习，所以在使用CNN时，避免了显示的特征抽取，而隐式地从训练数据中进行学习；再者由于同一特征映射面上的神经元权值相同，所以网络可以并行学习，这也是卷积网络相对于神经元彼此相连网络的一大优势。卷积神经网络以其局部权值共享的特殊结构在语音识别和图像处理方面有着独特的优越性，其布局更接近于实际的生物神经网络，权值共享降低了网络的复杂性，特别是多维输入向量的图像可以直接输入网络这一特点避免了特征提取和分类过程中数据重建的复杂度）</span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;"><strong style="max-width:100%;">三、DBN与CNN两者异同：</strong></span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;">异：DBN：全连接，有pre-train过程；CNN：局部连接，没有预训练过程，但加了卷积。</span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;">同：无论是DBN还是CNN，这种多隐层堆叠，每层对上一层的输出进行处理的机制，可看作是在对输入信号进行逐层加工，从而把初始的、与输出目标之间联系不大的输入表示，转化成与输出目标联系密切的表示。即：通过多层处理，逐渐将初始的低层特征表示转化成高层的特征表示后，用“简单模型”就可以完成复杂的分类等学习任务。</span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;"><strong style="max-width:100%;">四、RNN：</strong></span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;">提出：DNN存在一个缺陷：无法对时间序列上的变化进行建模，然而，样本出现的时间顺序对于自然语言处理、语音识别等应用很重要；RNN解决了样本的处理在各个时刻独立的问题，可以对时间序列上的变化进行建模，深度是时间上的长度。神经元的输出可以在下一个时间戳直接作用到自身。即，某一层某一时刻神经元的输入，除了上一层神经元在该时刻的输出外，还有本身在上一时刻的输出。</span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;">缺点：时间轴上的“梯度消失”，为解决这个问题——&gt;长短时记忆单元LSTM：通过门的开关实现时间上记忆功能，防止梯度消失。</span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;"><strong style="max-width:100%;">五、LSTM：</strong></span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;">核心：模仿一种细胞状态，类似传送带思想，直接在整个链上运行，只有一些少量的线性交互，信息在上面保持不变。利用一种“门”的结构来去除或增加信息到细胞状态的能力，有三个门。门：让信息选择通过的方法，包括sigmoid神经网络层和一个点乘操作。</span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;">第一步：忘记门层：决定从细胞状态中丢弃什么信息。读取本层的输入和上一层的输出，输出一个0到1之间的数值给每个细胞状态。</span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;">第二步：确定什么样的信息被存放在细胞状态中，包含两个部分：1）sigmoid“输入门层”，决定什么值将要更新。2）tanh层，创建一个新的候选值向量。会被加到状态中。</span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;">第三步：更新细胞状态。基于细胞状态确定输出什么值</span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;"><strong style="max-width:100%;">面试篇：</strong></span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;">深度学习整体解释：</span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;">1）自下而上的非监督学习</span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;">2）自顶向下的监督学习</span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;">理解它们各自的参数代表什么，比较好的初始参数，BP的计算，以及常见超参数的调整策略。</span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;"><strong style="max-width:100%;">如何优化模型 : 加速收敛， 避免overfit, 提升精度 ..</strong></span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;">– batch size effect；- learning rate effect；- weight initialization effect；- batch normalization</span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;">– drop-out；- model average；- fine-tuning；- data augmentation</span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;"><strong style="max-width:100%;">CNN最成功的应用是在CV，那为什么NLP和Speech的很多问题也可以用CNN解出来？为什么AlphaGo里也用了CNN？这几个不相关的问题的相似性在哪里？CNN通过什么手段抓住了这个共性？</strong></span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;">几个不相关的问题的相关性在于，都存在局部与整体的关系，由低层次的特征经过组合，组成高层次的特征，并且得到不同特征之间的空间相关性。</span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;">CNN通过：局部感知、权值共享、池化操作、多层次结构抓住了这个共性。局部感知使网络可以提取数据的局部特征；权值共享大大降低了网络的训练难度；池化操作和多层次结构一起，实现了数据的降维，将低层次的特征组合成高层次的特征。</span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;">什么时候用local-conv？什么时候用全卷积（每一个点用同一个filter）？</span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;">当数据集具有全局的局部特征分布时，也就是说局部特征之间有较强的相关性，适合用全卷积。在不同的区域有不同的特征分布时，适合用local-Conv。</span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;">什么样的资料不适合用深度学习？</span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;">1）数据集太小，因为神经网络有效的关键就是大量的数据，有大量的参数需要训练，少量的数据不能充分训练参数。</span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;">2）数据集没有局部相关性。目前深度学习应用的领域主要是图像、语音、自然语言处理，这些领域的共性就是局部相关性。例如：图像中的像素组成物体，语音中的音位组成单词，文本数据中的单词组成句子，而深度学习的本质就是学习局部低层次的特征，然后组合低层次的特征成高层次的特征，得到不同特征之间的空间相关性。</span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;"><strong style="max-width:100%;">何为共线性, 跟过拟合有啥关联?</strong></span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;">共线性：多变量线性回归中，变量之间由于存在高度相关关系而使回归估计不准确。</span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;">共线性会造成冗余，导致过拟合。</span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;">解决方法：排除变量的相关性／加入权重正则。</span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;"><strong style="max-width:100%;">为什么引入非线性激励函数？</strong></span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;">因为如果不用非线性激励函数，每一层都是上一层的线性函数，无论神经网络多少层，输出都是输入的线性组合，与只有一个隐藏层效果一样。相当于多层感知机了。所以引入非线性激励函数，深层网络就变得有意义了，可以逼近任意函数。</span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;"><strong style="max-width:100%;">什么造成梯度消失？推导？</strong></span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;">许多激活函数将输出值挤压在很小的区间内，在激活函数两端较大范围的定义域内梯度为0，导致权重更新的缓慢训练难度增加，造成学习停止。（前面层上的梯度是来自后面的层上项的乘积，当层数过多时，随着乘积的累积，将越来越小。）</span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;"><strong style="max-width:100%;">CNN常见的问题</strong></span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;">1、梯度消失问题：过多的层数会导致梯度消失，解决手段：减少层数；增大学习率；用Relu代替sigmoid。</span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;">2、权重衰减：CNN的权重共享相当于自带某种正则项，所以代价函数里可不加正则</span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;">3、随机梯度下降的参数选择：</span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;">参考：</span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;">http://blog.csdn.net/fuwenyan/article/details/53914371</span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;">1）batch的选择决定了下降的方向：</span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;">如果数据集比较小，可以采用全数据集的形式，好处：全数据集确定的方向能够更好的代表样本总体；不同权重的梯度值差别巨大，因此选一个全局的学习率很困难，使用全数据集可以只基于梯度符号并且针对性单独更新各权值。</span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;">如果数据集比较大，全数据集不可行，内存限制；由于各个batch采样的差异性，各次梯度修正值相互抵消，无法修正。另一个极端每次只训练一个样本，batch=1，每次修正方向以各自样本的梯度方向修正，难以达到收敛。</span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;">选择适中的batch？ 批梯度下降法，</span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;"><strong style="max-width:100%;">常用的激励函数：</strong></span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;"><strong style="max-width:100%;">http://blog.csdn.net/u013146742/article/details/51986575</strong></span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;">1）sigmoid：将输出实值压缩到0-1之间。 缺点：（输入非常大或非常小的时候）容易梯度消失；sigmoid函数是非0均值的，下一层的神经元将从上一层神经元得到的非0 均值的信号作为输入，再结合w计算梯度，始终都是正的。（可根据batch调节）</span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;">2）Tanh：是0均值的。</span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;">3）Relu（修正线性单元）：好处：收敛快，求梯度简单。具有稀疏特性。</span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;">（相比于sigmoid：sigmoid反向传播求误差梯度时，求导计算量很大，而relu求导简单；对于深层网络，sigmoid反向传播时，在sigmoid接近饱和区时，变换太缓慢，导数趋0，从而无法完成深层网络的训练；Relu会使一部分神经元的输出为0，造成了网络的稀疏性，并且减少了参数的相互依存关系，缓解了过拟合问题。）</span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;">缺点：训练的时候很脆弱，一个非常大的梯度流过一个Relu神经元后，不会对其他数据有激活现象了，设置较小的学习率，这种情况会不那么频繁。</span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;"><strong style="max-width:100%;">卷积计算层：</strong></span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;">参数共享机制、一组固定的权重和不同窗口内数据做内积：卷积</span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;">CNN优缺点：</span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;">优点：共享卷积核、减少了网络自由参数的个数，对高维数据处理无压力；无需手动选取特征，训练好权重，即得特征。降低神经网络的复杂性。这种网络结构在有监督的方式下学习到了一些良好的性能：对平移、比例缩放、倾斜或其他形式的变形具有高度不变性。</span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;">缺点：需要调参，需要大量样本；</span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;"><strong style="max-width:100%;">神经网络优势:</strong></span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;">可以利用神经网络中某一层的输出当做是数据的另一种表达，从而可以将其认为是经过神经网络学习到的特征，基于这一特征，可以进行进一步的相似度比较等操作。</span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;">有效的关键是大规模的数据，每个DL都有众多的参数，少量数据无法将参数训练充分。</span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;"><strong style="max-width:100%;">发展缺陷：</strong></span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="max-width:100%;font-size:14px;">随着网络层数的加深，优化函数越来越容易陷入局部最优解，并且这个“陷阱”越来越偏离真正的全局最优，利用有限数据训练的深层网络，性能还不如浅层网络。</span></p><p style="padding-top:10px;max-width:100%;min-height:1em;"><span style="font-size:14px;"><span style="font-size:14px;max-width:100%;">随着网络层数增加，梯度消失现象越来越严重，（一般指sigmoid函数，反向传播时，每传递一层，梯度衰减为原来的1/4。层数一多，梯度指数衰减后，底层基本接收不到有效的训练信号。（</span><span style="font-size:14px;max-width:100%;color:rgb(62,62,62);">来自：公众号： datadw）</span></span></p><p style="white-space:normal;max-width:100%;min-height:1em;color:rgb(51,51,51);text-align:center;"><span style="max-width:100%;font-family:arial, sans-serif;text-indent:28px;font-size:14px;color:rgb(0,0,0);"><img class="__bg_gif" width="22" style="margin-right:auto;margin-left:auto;font-size:16px;width:auto;" src="http://ss.csdn.net/p?https://mmbiz.qpic.cn/mmbiz_gif/BQH2tPrgI9QOOdb08qicOiaaEA9fIyITiaaVMpSGuPOxr3G7wVfBeyHZUHfO8pEqtu6EL4vicWwAEXWfkicUIqTHBlw/640?wx_fmt=gif" alt="640?wx_fmt=gif" /></span></p><p style="white-space:normal;max-width:100%;min-height:1em;color:rgb(51,51,51);"><span style="max-width:100%;font-family:arial, sans-serif;text-indent:28px;font-size:14px;"></span></p><h1 style="margin-top:5px;margin-bottom:5px;padding-left:15px;font-weight:bold;white-space:normal;max-width:100%;text-align:justify;color:rgb(62,62,62);font-family:arial, sans-serif;line-height:1.2;background-color:rgb(255,255,255);font-size:20px;border-left:6px solid rgb(0,153,127);letter-spacing:1px;word-spacing:1px;"><span style="max-width:100%;font-size:14px;"><span style="max-width:100%;line-height:25.6px;">《机器学习 第九期》</span><span style="max-width:100%;">从零到机器学习实战项目，提供GPU&amp;CPU双云平台，作业考试1V1批改（优秀学员内推BAT等）；点击文末“阅读原文”了解详情</span></span></h1><p style="margin-top:5px;margin-bottom:5px;white-space:normal;max-width:100%;min-height:1em;"><img width="554" style="letter-spacing:.544px;line-height:1.75em;border-width:1px;border-style:solid;border-color:rgb(238,237,235);background-color:rgb(238,237,235);background-position:50% 50%;background-repeat:no-repeat;width:558px;" src="http://ss.csdn.net/p?https://mmbiz.qpic.cn/mmbiz_jpg/pu7ghYhibpSib5wNT8UMZzLVd6wauWtcn9doAmPvuLH9qteaqaFZu2Rx2p8eaSiabEEIojNvqjeev0xbWRFcuDiczQ/640?wx_fmt=jpeg" alt="640?wx_fmt=jpeg" /></p><p style="margin-top:5px;margin-bottom:5px;white-space:normal;max-width:100%;min-height:1em;"><img style="letter-spacing:.5px;line-height:1.6;font-family:Simsun;width:558px;" src="http://ss.csdn.net/p?https://mmbiz.qpic.cn/mmbiz_jpg/pu7ghYhibpSib5wNT8UMZzLVd6wauWtcn9hCSAbSh1G5tFthX66NNJTNewlk3eAnOpzXcVxv3ad4nHcuh5I1HQRw/640?wx_fmt=jpeg" alt="640?wx_fmt=jpeg" /></p>
+                </div>
+              </div>
+                </div>
+				<div class="hide-article-box text-center csdn-tracking-statistics tracking-click" data-mod="popu_376">
+			<a class="btn btn-red-hollow" id="btn-readmore">阅读更多</a>
+		</div>
+        	</article>
+	
+	
+	<!-- !empty($pre_next_article[0]) -->
+		</div>
+<script>
+    $(".MathJax").remove();
+</script>
+
+<script type="text/javascript" src="https://static-blog.csdn.net/mdeditor/public/res/bower-libs/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+			"HTML-CSS": {
+					linebreaks: { automatic: true, width: "94%container" },
+					imageFont: null
+			},
+			tex2jax: {
+				preview: "none"
+			},
+			mml2jax: {
+				preview: 'none'
+			}
+	});
+</script>
+<script>
+	(function(){
+		var btnReadmore = $("#btn-readmore");
+		if(btnReadmore.length>0){
+			var winH = $(window).height();
+			var articleBox = $("div.article_content");
+			var artH = articleBox.height();
+			if(artH > winH*2){
+				articleBox.css({
+					'height':winH*2+'px',
+					'overflow':'hidden'
+				})
+				btnReadmore.click(function(){
+					articleBox.removeAttr("style");
+					$(this).parent().remove();
+				})
+			}else{
+				btnReadmore.parent().remove();
+			}
+		}
+	})()
+</script>        <div class="edu-promotion"></div>
+<script type="text/javascript">
+	var edu_ad_is_big_data = 0;
+	var edu_ad_id_mapping = {"0":["https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=python1","https:\/\/edu.csdn.net\/sp\/blog.php?type=618"],"1":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=web1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit","https:\/\/edu.csdn.net\/sp\/blog.php?type=web1","https:\/\/edu.csdn.net\/sp\/blog.php?type=web1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=618"],"8":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit"],"2":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=python1"],"3":["https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=618"],"6":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit"],"12":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit"],"14":["https:\/\/edu.csdn.net\/sp\/blog.php?type=web1","https:\/\/edu.csdn.net\/sp\/blog.php?type=python1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcweb","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=web1","https:\/\/edu.csdn.net\/sp\/blog.php?type=618"],"15":["https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcjg","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1"],"16":["https:\/\/edu.csdn.net\/sp\/blog.php?type=web1","https:\/\/edu.csdn.net\/sp\/blog.php?type=python1"],"28":["https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=python1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcai","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=python1","https:\/\/edu.csdn.net\/sp\/blog.php?type=618"],"29":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1"],"30":["https:\/\/edu.csdn.net\/sp\/blog.php?type=python1","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1"],"32":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=python1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcaq"],"33":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gccxrs","https:\/\/edu.csdn.net\/sp\/blog.php?type=python1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1"],"35":["https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit"],"37":["https:\/\/edu.csdn.net\/sp\/blog.php?type=web1","https:\/\/edu.csdn.net\/sp\/blog.php?type=python1"],"7":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=web1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=web1","https:\/\/edu.csdn.net\/sp\/blog.php?type=web1","https:\/\/edu.csdn.net\/sp\/blog.php?type=618"],"17":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1"],"34":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=python1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcbt"],"36":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit"],"31":["https:\/\/edu.csdn.net\/sp\/blog.php?type=python1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit"],"19":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit"],"20":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit"]};
+</script>        <a id="commentBox"></a>
+<div class="comment-box">
+	  	<div class="unlogin-box text-center">
+		想对作者说点什么？
+		<!-- $curl 当前地址 -->
+		<a href="https://passport.csdn.net/account/login?from=https://blog.csdn.net/T7SFOKzorD1JAYMSFk4/article/details/80654931#commentBox" class="btn btn-sm btn-red">我来说一句</a>
+	</div>
+			<div class="comment-list-container">
+		<a id="comments"></a>
+		<div class="comment-list-box">
+		</div>
+		<div id="commentPage" class="pagination-box d-none"></div>
+		<div class="opt-box text-center">
+			<button class="btn btn-sm btn-link-blue" id="btnMoreComment"></button>
+		</div>
+	</div>
+</div>        <div class="recommend-box">
+            		<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/woaidapaopao/article/details/77869840" target="_blank" strategy="BlogCommendFromQuerySearch_2">
+				面试笔试整理4：<em>机器学习</em>面试问题准备（进阶）			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/woaidapaopao/article/details/77869840" target="_blank" >
+				这部分主要是针对上面问题的一些更细节的补充，包括公式的推倒思路、模型的基本构成、细节问题的分析等等。
+
+
+
+一、问题杂烩
+
+1、PCA的第二主成分 
+第二个主成分时域第一成分方向正教的差异性次大方向。...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/woaidapaopao" title="woaidapaopao" target="_blank">
+					<img src="https://avatar.csdn.net/B/7/6/3_woaidapaopao.jpg" alt="woaidapaopao" class="avatar-pic">
+					<span class="name">woaidapaopao</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2017-09-07 16:35:20</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：1467</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/Grace_0642/article/details/52172095" target="_blank" strategy="BlogCommendFromQuerySearch_6">
+				<em>机器学习</em>中常用到的<em>知识点</em><em>总结</em>			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/Grace_0642/article/details/52172095" target="_blank" >
+				写在前面的话
+
+都是什么鬼,为什么学校的洗手液和老板用的沐浴乳是一个味道的,我现在在敲代码,整个手上都弥漫着一股老板的味道,深深的恐惧感油然而生
+
+
+
+1.基本概念
+
+监督学习(supervised ...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/Grace_0642" title="Grace_0642" target="_blank">
+					<img src="https://avatar.csdn.net/B/E/6/3_grace_0642.jpg" alt="Grace_0642" class="avatar-pic">
+					<span class="name">Grace_0642</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2016-08-11 15:51:53</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：1791</span>
+			</p>
+		</div>
+	</div>
+								<div class="recommend-item-box recommend-ad-box" id="ad1"></div>
+				<script>
+				  var width = $("div.recommend-box").outerWidth() - 48;
+					NEWS_FEED({
+						w: width,
+						h : 90,
+						showid : 'GNKXx7',
+						placeholderId: "ad1",
+						inject : 'define',
+						define : {
+							imagePosition : 'right',
+							imageBorderRadius : 0,
+							imageWidth: 120,
+							imageHeight: 90,
+							imageFill : 'clip',
+							displayImage : true,
+							displayTitle : true,
+							titleFontSize: 20,
+							titleFontColor: '#333',
+							titleFontFamily : 'Microsoft Yahei',
+							titleFontWeight: 'bold',
+							titlePaddingTop : 0,
+							titlePaddingRight : 0,
+							titlePaddingBottom : 10,
+							titlePaddingLeft : 0,
+							displayDesc : true,
+							descFontSize: 14,
+							descFontColor: '#6b6b6b',
+							descFontFamily : 'Microsoft Yahei',
+							paddingTop : 0,
+							paddingRight : 0,
+							paddingBottom : 0,
+							paddingLeft : 0,
+							backgroundColor: '#fff',
+							hoverColor: '#ca0c16'
+						}
+					})
+				</script>
+
+			
+				<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/wcysghww/article/details/79373459" target="_blank" strategy="BlogCommendFromQuerySearch_12">
+				<em>机器学习</em>算法<em>知识点</em>整理			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/wcysghww/article/details/79373459" target="_blank" >
+				发现了一个很不错的<em>机器学习</em>网站哦http://www.julyedu.com/这学期准备找实习了，所以想巩固一下自己的理论基础。用博客的方式记录下来，方便以后查阅复习。1生成模型generative ...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/wcysghww" title="wcysghww" target="_blank">
+					<img src="https://avatar.csdn.net/0/D/D/3_wcysghww.jpg" alt="wcysghww" class="avatar-pic">
+					<span class="name">wcysghww</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2018-06-06 10:29:16</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：211</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/qq_34896915/article/details/73565045" target="_blank" strategy="BlogCommendFromQuerySearch_0">
+				<em>机器学习</em>——神经网络、<em>深度学习</em>  <em>知识点</em><em>总结</em> 及 <em>面试题</em>汇总			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/qq_34896915/article/details/73565045" target="_blank" >
+				1、反向传播思想：
+
+计算出输出与标签间的损失函数值，然后计算其相对于每个神经元的梯度，根据梯度方向更新权值。
+
+（1）将训练集数据输入到ANN的输入层，经过隐藏层，最后达到输出层并输出结果，...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/qq_34896915" title="qq_34896915" target="_blank">
+					<img src="https://avatar.csdn.net/9/B/F/3_qq_34896915.jpg" alt="qq_34896915" class="avatar-pic">
+					<span class="name">qq_34896915</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2017-06-22 10:55:38</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：10053</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/MIcF435p6D221sSdLd2/article/details/80252209" target="_blank" strategy="BlogCommendFromQuerySearch_1">
+				收藏！<em>机器学习</em>与<em>深度学习</em>面试问题<em>总结</em>			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/MIcF435p6D221sSdLd2/article/details/80252209" target="_blank" >
+				
+  
+    
+                    
+
+                    
+
+                    
+                    
+     ...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/MIcF435p6D221sSdLd2" title="MIcF435p6D221sSdLd2" target="_blank">
+					<img src="https://avatar.csdn.net/8/8/1/3_micf435p6d221ssdld2.jpg" alt="MIcF435p6D221sSdLd2" class="avatar-pic">
+					<span class="name">MIcF435p6D221sSdLd2</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2018-05-09 13:18:59</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：230</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/vbskj/article/details/52107690" target="_blank" strategy="BlogCommendFromQuerySearch_3">
+				<em>机器学习</em> 常见<em>面试题</em> <em>总结</em>			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/vbskj/article/details/52107690" target="_blank" >
+				前言：
+
+找工作时（IT行业），除了常见的软件开发以外，<em>机器学习</em>岗位也可以当作是一个选择，不少计算机方向的研究生都会接触这个，如果你的研究方向是<em>机器学习</em>/数据挖掘之类，且又对其非常感兴趣的话，可以...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/vbskj" title="vbskj" target="_blank">
+					<img src="https://avatar.csdn.net/D/9/E/3_vbskj.jpg" alt="vbskj" class="avatar-pic">
+					<span class="name">vbskj</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2016-08-03 21:21:18</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：4009</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box recommend-ad-box" id="a_d_feed_0"></div>
+			<script>
+				var width = $("div.recommend-box").outerWidth() - 48;
+				NEWS_FEED({
+					w: width,
+					h: 90,
+					showid: 'Afihld',
+					placeholderId: 'a_d_feed_0',
+					inject: 'define',
+					define: {
+						imagePosition: 'right',
+						imageBorderRadius: 0,
+						imageWidth: 120,
+						imageHeight: 90,
+						imageFill: 'clip',
+						displayImage: true,
+						displayTitle: true,
+						titleFontSize: 20,
+						titleFontColor: '#333',
+						titleFontFamily: 'Microsoft Yahei',
+						titleFontWeight: 'bold',
+						titlePaddingTop: 0,
+						titlePaddingRight: 0,
+						titlePaddingBottom: 10,
+						titlePaddingLeft: 0,
+						displayDesc: true,
+						descFontSize: 14,
+						descFontColor: '#6b6b6b',
+						descFontFamily: 'Microsoft Yahei',
+						paddingTop: 0,
+						paddingRight: 0,
+						paddingBottom: 0,
+						paddingLeft: 0,
+						backgroundColor: '#fff',
+						hoverColor: '#ca0c16'
+					}
+				})
+			</script>
+			<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/haluoluo211/article/details/55213171" target="_blank" strategy="BlogCommendFromQuerySearch_4">
+				网易面试<em>总结</em>(<em>机器学习</em>一些面试)			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/haluoluo211/article/details/55213171" target="_blank" >
+				http://blog.csdn.net/jiejinquanil/article/details/52530922
+
+
+之前投过了网易内推，笔试过了，但是一直没通知我面试。我当时想着可能没戏了...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/haluoluo211" title="haluoluo211" target="_blank">
+					<img src="https://avatar.csdn.net/9/D/7/3_haluoluo211.jpg" alt="haluoluo211" class="avatar-pic">
+					<span class="name">haluoluo211</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2017-02-15 17:58:55</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：6946</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/Jack_lyp2017/article/details/78665415" target="_blank" strategy="BlogCommendFromQuerySearch_5">
+				<em>机器学习</em>和<em>深度学习</em><em>面试题</em>			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/Jack_lyp2017/article/details/78665415" target="_blank" >
+				1.带核的SVM为什么能分类非线性问题？ 
+　　核函数的本质是两个函数的內积，而这个函数在SVM中可以表示成对于输入值的高维映射。注意核并不是直接对应映射，核只不过是一个內积 
+
+2.常用核函数...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/Jack_lyp2017" title="Jack_lyp2017" target="_blank">
+					<img src="https://avatar.csdn.net/8/9/B/3_jack_lyp2017.jpg" alt="Jack_lyp2017" class="avatar-pic">
+					<span class="name">Jack_lyp2017</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2017-11-29 15:08:30</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：467</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/u012656566/article/details/56008411" target="_blank" strategy="BlogCommendFromQuerySearch_7">
+				<em>机器学习</em>面试常用算法<em>知识点</em>梳理<em>总结</em>			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/u012656566/article/details/56008411" target="_blank" >
+				原文地址：http://www.cnblogs.com/tornadomeet/p/3395593.html
+ 
+　　前言：
+　　找工作时（IT行业），除了常见的软件开发以外，<em>机器学习</em>岗位也可以当作是...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/u012656566" title="u012656566" target="_blank">
+					<img src="https://avatar.csdn.net/E/9/7/3_u012656566.jpg" alt="u012656566" class="avatar-pic">
+					<span class="name">u012656566</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2017-02-20 10:16:26</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：1206</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/qq_34896915/article/details/75040578" target="_blank" strategy="BlogCommendFromQuerySearch_8">
+				<em>机器学习</em>——EM算法 <em>知识点</em>与面试<em>总结</em>			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/qq_34896915/article/details/75040578" target="_blank" >
+				提出：有时候任务中含有一些不能观察到的隐含变量，样本的产生和隐含变量有关，而求模型的参数时一般用最大似然估计，由于隐变量的存在，所以对似然函数参数求导是求不出来的，这时采用EM算法来求导。
+<em>总结</em>：是一...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/qq_34896915" title="qq_34896915" target="_blank">
+					<img src="https://avatar.csdn.net/9/B/F/3_qq_34896915.jpg" alt="qq_34896915" class="avatar-pic">
+					<span class="name">qq_34896915</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2017-07-12 20:09:13</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：1967</span>
+			</p>
+		</div>
+	</div>
+			            <!-- 第四范式SDK -->
+<script src="https://nbrecsys.4paradigm.com/resource/js/sdk-csdn-smallflow.js" async defer></script>
+            <div class="recommend-loading-box">
+                <img src='https://csdnimg.cn/release/phoenix/images/feedLoading.gif'>
+            </div>
+            <div class="recommend-end-box">
+                <p class="text-center">没有更多推荐了，<a href="https://blog.csdn.net/" class="c-blue c-blue-hover c-blue-focus">返回首页</a></p>
+            </div>
+        </div>
+    </main>
+    <aside>
+		    <div id="asideProfile" class="aside-box">
+    <h3 class="aside-title">个人资料</h3>
+    <div class="profile-intro d-flex">
+        <div class="avatar-box d-flex justify-content-center flex-column">
+            <a href="https://blog.csdn.net/t7sfokzord1jaymsfk4">
+                <img src="https://avatar.csdn.net/7/A/6/3_t7sfokzord1jaymsfk4.jpg" class="avatar_pic">
+            </a>
+        </div>
+        <div class="user-info d-flex justify-content-center flex-column">
+            <p class="name csdn-tracking-statistics tracking-click" data-mod="popu_379">
+                <a href="https://blog.csdn.net/t7sfokzord1jaymsfk4" target="_blank" class="text-truncate" id="uid">t7sfokzord1jaymsfk4</a>
+            </p>
+                    </div>
+                <div class="opt-box d-flex justify-content-center flex-column">
+            <span  class="csdn-tracking-statistics tracking-click" data-mod="popu_379">
+                                <a class="btn btn-sm btn-red-hollow" href="https://passport.csdn.net/account/login?from=https://blog.csdn.net/T7SFOKzorD1JAYMSFk4/article/details/80654931" target="_self">关注</a>
+                            </span>
+                    </div>
+            </div>
+    <div class="data-info d-flex item-tiling">
+                <dl class="text-center" title="12">
+                        <dt><a href="https://blog.csdn.net/t7sfokzord1jaymsfk4?t=1">原创</a></dt>
+            <dd><a href="https://blog.csdn.net/t7sfokzord1jaymsfk4?t=1"><span class="count">12</span></a></dd>
+                    </dl>
+        <dl class="text-center" title="513">
+            <dt>粉丝</dt>
+            <dd><span class="count" id="fan">513</span></dd>
+        </dl>
+        <dl class="text-center" title="304">
+            <dt>喜欢</dt>
+            <dd><span class="count">304</span></dd>
+        </dl>
+        <dl class="text-center" title="159">
+            <dt>评论</dt>
+            <dd><span class="count">159</span></dd>
+        </dl>
+    </div>
+    <div class="grade-box clearfix">
+        <dl>
+            <dt>等级：</dt>
+            <dd>
+                <a href="https://blog.csdn.net/home/help.html#level" title="5级,点击查看等级说明" target="_blank">
+                    <svg class="icon icon-level" aria-hidden="true">
+                        <use xlink:href="#csdnc-bloglevel-5"></use>
+                    </svg>
+                </a>
+            </dd>
+        </dl>
+        <dl>
+            <dt>访问：</dt>
+            <dd title="247376">
+                24万+            </dd>
+        </dl>
+        <dl>
+            <dt>积分：</dt>
+            <dd title="2625">
+                2625            </dd>
+        </dl>
+        <dl title="17911">
+            <dt>排名：</dt>
+            <dd>1万+</dd>
+        </dl>
+    </div>
+        <div class="badge-box d-flex">
+        <span>勋章：</span>
+                        <a class="icon-badge" title="持之以恒">
+            <svg class="icon" aria-hidden="true">
+                <use xlink:href="#csdnc-m-lasting"></use>
+            </svg>
+            <div class="icon-arrow"></div>
+            <div class="grade-detail-box item2">
+                <div class="pos-box">
+                    <div class="left-box d-flex justify-content-center align-items-center flex-column">
+                        <svg class="icon" aria-hidden="true">
+                            <use xlink:href="#csdnc-m-lasting"></use>
+                        </svg>
+                        <p>持之以恒</p>
+                    </div>
+                    <div class="right-box d-flex justify-content-center align-items-center">
+                        授予每个自然月内发布4篇或4篇以上原创或翻译IT博文的用户。不积跬步无以至千里，不积小流无以成江海，程序人生的精彩需要坚持不懈地积累！
+                    </div>
+                </div>
+            </div>
+        </a>
+                            </div>
+    </div>		    <div class="csdn-tracking-statistics mb8 box-shadow" data-pid="blog" data-mod="popu_4" style="height:250px;">
+    <div class="aside-content text-center" id="cpro_u2734133">
+        <!-- 投放代码 -->
+        <script type="text/javascript" src="//cee1.iteye.com/lgyyovfyh.js"></script>
+    </div>
+</div>
+		    <div id="asideNewArticle" class="aside-box">
+    <h3 class="aside-title">最新文章</h3>
+    <div class="aside-content">
+        <ul class="inf_list clearfix csdn-tracking-statistics tracking-click" data-mod="popu_382">
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/T7SFOKzorD1JAYMSFk4/article/details/80684038" target="_blank">一起来学习 Python 函数式编程</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/T7SFOKzorD1JAYMSFk4/article/details/80650077" target="_blank">机器学习一周心得分享</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/T7SFOKzorD1JAYMSFk4/article/details/80650075" target="_blank">Python面试基础题小汇总</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/T7SFOKzorD1JAYMSFk4/article/details/80598842" target="_blank">限时免费领，手慢无：Python及机器学习热门图书大放送</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/T7SFOKzorD1JAYMSFk4/article/details/80589169" target="_blank">Python NLP入门教程</a>
+            </li>
+                    </ul>
+    </div>
+</div>
+		    		    		    <div id="asideArchive" class="aside-box flexible-box">
+    <h3 class="aside-title">归档</h3>
+    <div class="aside-content">
+        <ul class="archive-list">
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/t7sfokzord1jaymsfk4/article/month/2018/06">
+                    2018年6月                    <span class="count float-right">7篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/t7sfokzord1jaymsfk4/article/month/2018/05">
+                    2018年5月                    <span class="count float-right">28篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/t7sfokzord1jaymsfk4/article/month/2018/04">
+                    2018年4月                    <span class="count float-right">42篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/t7sfokzord1jaymsfk4/article/month/2018/03">
+                    2018年3月                    <span class="count float-right">37篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/t7sfokzord1jaymsfk4/article/month/2018/02">
+                    2018年2月                    <span class="count float-right">24篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/t7sfokzord1jaymsfk4/article/month/2018/01">
+                    2018年1月                    <span class="count float-right">45篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/t7sfokzord1jaymsfk4/article/month/2017/12">
+                    2017年12月                    <span class="count float-right">56篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/t7sfokzord1jaymsfk4/article/month/2017/11">
+                    2017年11月                    <span class="count float-right">9篇</span>
+                </a>
+            </li>
+                    </ul>
+    </div>
+        <p class="text-center">
+        <a class="btn btn-link-blue flexible-btn" data-fbox="aside-archive">展开</a>
+    </p>
+    </div>
+		    <div id="asideHotArticle" class="aside-box">
+	<h3 class="aside-title">热门文章</h3>
+	<div class="aside-content">
+		<ul class="hotArticle-list csdn-tracking-statistics tracking-click" data-mod="popu_521">
+							<li>
+					<a href="https://blog.csdn.net/t7sfokzord1jaymsfk4/article/details/79073686">AI 经典书单 | 人工智能学习该读哪些书</a>
+					<p class="read">阅读量：<span>46631</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/t7sfokzord1jaymsfk4/article/details/80001644">「热话题」33岁程序员5小时濒死体验，程序员养生攻略</a>
+					<p class="read">阅读量：<span>11116</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/t7sfokzord1jaymsfk4/article/details/79069909">5分钟弄懂：语音识别技术原理</a>
+					<p class="read">阅读量：<span>9451</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/t7sfokzord1jaymsfk4/article/details/79033162">面试神回复，HR都对你跪服！</a>
+					<p class="read">阅读量：<span>8531</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/t7sfokzord1jaymsfk4/article/details/78960035">教你用Python来玩跳一跳</a>
+					<p class="read">阅读量：<span>8300</span></p>
+				</li>
+					</ul>
+	</div>
+</div>
+		    <div id="asideNewComments" class="aside-box">
+    <h3 class="aside-title">最新评论</h3>
+    <div class="aside-content">
+        <ul class="newcomment-list">
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/t7sfokzord1jaymsfk4/article/details/80654931#comments">机器学习及深度学习的知识点及面试题...</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/weixin_42474447" class="user-name" target="_blank">weixin_42474447</a>：谢谢 兽角                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/t7sfokzord1jaymsfk4/article/details/80276446#comments">西游记里有多少妖怪？如何应对奇葩面...</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/u010599656" class="user-name" target="_blank">u010599656</a>：其实我觉得20元一盒的烟就挺好抽的了，为什么药买50元的呢？这样每天会多花60元。                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/t7sfokzord1jaymsfk4/article/details/80491038#comments">百万年薪AI工程师思维导图及书单</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/xiewenbo" class="user-name" target="_blank">xiewenbo</a>：哈哈哈哈                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/t7sfokzord1jaymsfk4/article/details/80276446#comments">西游记里有多少妖怪？如何应对奇葩面...</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/pio_ke" class="user-name" target="_blank">pio_ke</a>：[reply]qq_40095332[/reply]
+我也这样想的，，就像求1~5000的和。。                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/t7sfokzord1jaymsfk4/article/details/80345346#comments">200 行 Python 代码做个...</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/linshi180" class="user-name" target="_blank">linshi180</a>：发个url给看个效果吧！这样才负责，不然干看着 也没体会到有没有！                </p>
+            </li>
+                    </ul>
+    </div>
+</div>
+		<div id="asideFooter">
+			
+		<div class="aside-box">
+						<script type="text/javascript" src="//cee1.iteye.com/avneunkwb.js"></script>
+					</div>
+				<div class="aside-box">
+			<div class="persion_article">
+			</div>
+		</div>
+	</div>
+</aside>
+<script src="https://csdnimg.cn/pubfooter/js/publib_footer-1.0.3.js" data-isfootertrack="false" type="text/javascript"></script>
+<script>
+	$("a.flexible-btn").click(function(){
+		$(this).parents('div.aside-box').removeClass('flexible-box');
+		$(this).remove();
+	})
+</script>
+</div>
+<div class="mask-dark"></div>
+<div class="pulllog-box" style="display: block;">
+	<div class="pulllog clearfix">
+		<span class="text float-left">加入CSDN，享受更精准的内容推荐，与500万程序员共同成长！</span>
+		<div class="pulllog-btn float-right clearfix">
+            <button class="pulllog-login float-left csdn-tracking-statistics tracking-click" data-mod="popu_557">
+                登录
+            </button>
+            <div class="pulllog-sigin float-left csdn-tracking-statistics tracking-click" data-mod="popu_558">
+                <a href="https://passport.csdn.net/account/mobileregister" target="_blank">注册</a>
+            </div>
+            <button class="btn-close">
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#csdnc-times"></use>
+                </svg>
+            </button>
+		</div>
+	</div>
+</div>
+<div id="loginWrap" style="display:none"></div>
+<div class="tool-box">
+	<ul class="meau-list">
+		<li>
+			<button class="btn-like " title="点赞">
+				<svg class="icon active" aria-hidden="true">
+					<use xlink:href="#csdnc-thumbsup-ok"></use>
+				</svg><svg class="icon no-active" aria-hidden="true">
+					<use xlink:href="#csdnc-thumbsup"></use>
+				</svg>
+				<p>2</p>
+			</button>
+		</li>
+		<li class="toc-container-box" id="liTocBox">
+			<button class="btn-toc" title="目录">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-contents"></use>
+				</svg><br>目录
+			</button>
+			<div class="toc-container">
+				<div class="pos-box">
+					<div class="icon-arrow"></div>
+					<div class="scroll-box">
+						<div class="toc-box"></div>
+					</div>
+				</div>
+				<div class="opt-box">
+					<button class="btn-opt prev nomore" title="向上">
+						<svg class="icon" aria-hidden="true">
+							<use xlink:href="#csdnc-chevronup"></use>
+						</svg>
+					</button>
+					<button class="btn-opt next">
+						<svg class="icon" aria-hidden="true">
+							<use xlink:href="#csdnc-chevrondown"></use>
+						</svg>
+					</button>
+				</div>
+			</div>
+		</li>
+		<li>
+			<button class="btn-bookmark" title="收藏">
+				<svg class="icon active" aria-hidden="true">
+					<use xlink:href="#csdnc-bookmark-ok"></use>
+				</svg><svg class="icon no-active" aria-hidden="true">
+					<use xlink:href="#csdnc-bookmark"></use>
+				</svg><br>收藏
+			</button>
+		</li>
+		<li>
+			<a class="btn-comments" title="评论" href="#commentBox">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-comments"></use>
+				</svg><br>评论
+			</a>
+		</li>
+				<li class="bdsharebuttonbox">
+			<a class="btn-comments bds_weixin" data-cmd="weixin" title="微信分享">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-wechat"></use>
+				</svg><br>微信
+			</a>
+		</li>
+		<li class="bdsharebuttonbox">
+			<a class="btn-comments bds_tsina" data-cmd="tsina" title="微博分享">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-weibo"></use>
+				</svg><br>微博
+			</a>
+		</li>
+		<li class="bdsharebuttonbox">
+			<a class="btn-comments bds_qzone" data-cmd="qzone" title="QQ分享">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-qq"></use>
+				</svg><br>QQ
+			</a>
+		</li>
+	</ul>
+</div>
+<script>window._bd_share_config = { "common": { "bdSnsKey": {}, "bdText": "", "bdMini": "1", "bdMiniList": false, "bdPic": "", "bdStyle": "0", "bdSize": "16" }, "share": {} }; with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'https://csdnimg.cn/static/api/js/share.js?v=89860594'];</script>
+<script>
+    var recommendCount = 10;
+    recommendCount = recommendCount > 1 ? (recommendCount + (recommendCount>6 ? 2 : 1)) : recommendCount;
+    var articleTit = "机器学习及深度学习的知识点及面试题总结";
+    var ChannelId = 0;
+    var articleId = "80654931";
+    var commentscount = 1;
+    var islock = false;
+    var curentUrl = "https://blog.csdn.net/T7SFOKzorD1JAYMSFk4/article/details/80654931";
+    var myUrl = "https://my.csdn.net/";
+    //1禁止评论，2正常
+    var commentAuth = 0;
+    //百度搜索
+    var baiduKey = "";
+    var needInsertBaidu = true;
+</script>
+<script src="https://csdnimg.cn/public/sandalstrap/1.3/js/sandalstrap.min.js"></script>
+<script src="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.js"></script>
+<script src='https://csdnimg.cn/public/common/gotop/js/goTop-v1.0.min.js?v201803151422'></script>
+<script>
+    GoTop({
+        right: 8,
+        hasReport: true,
+        reportFun: function() {
+            showReport(false,"机器学习及深度学习的知识点及面试题总结");
+        }
+    })
+</script>
+<script src="https://csdnimg.cn/release/phoenix/template/js/common-bd54b21308.min.js"></script>
+<script src="https://csdnimg.cn/release/phoenix/template/js/detail-effe72036e.min.js"></script>
+<script src="https://csdnimg.cn/release/phoenix/themes/skin3-template/skin3-template-46c7bd3d86.min.js"></script>
+</body>
+<div class="box-box-default">
+    <a class="btn-remove">
+        关闭
+    </a>
+    <script type="text/javascript" src="//cee1.iteye.com/mhzzjepzz.js"></script>
+</div>
+<div class="box-box-large">
+    <a class="btn-remove">
+        关闭
+    </a>
+    <script type="text/javascript" src="//cee1.iteye.com/idvveasfs.js"></script>
+</div>
+</html>

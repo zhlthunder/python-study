@@ -1,0 +1,1338 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <link rel="canonical" href="https://blog.csdn.net/ityouknow/article/details/80682237"/> 
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="referrer" content="always">
+    <meta name="description" content="
+  
+    
+                    
+
+                    
+
+                    
+                    
+                    文章摘录于我在 gitchat 上的分享Spring Boot 2.0 的推出又激起了一阵学习 Spring Boot 热，就单从我个人的博客的访问量大幅增加就可以感受到..." />
+    <meta name="keywords" content="" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+    <meta name="shenma-site-verification" content="5a59773ab8077d4a62bf469ab966a63b_1497598848">
+    <script src="https://csdnimg.cn/release/phoenix/vendor/tingyun/tingyun-rum-blog.js"></script>
+
+    <link href="https://csdnimg.cn/public/favicon.ico" rel="SHORTCUT ICON">
+    <title>为什么说 Java 程序员到了必须掌握 Spring Boot 的时候？ - CSDN博客</title>
+    
+            <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/detail-60a2c245da.min.css">
+        <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/themes/skin-yellow/skin-yellow-4e9c30ca0e.min.css">
+
+    <script type="text/javascript">
+        var username = "ityouknow";
+        var blog_address = "https://blog.csdn.net/ityouknow";
+        var static_host = "https://csdnimg.cn/release/phoenix/";
+        var currentUserName = ""; 
+        var isShowAds = true;
+        var isOwner = false;
+        var loginUrl = "https://passport.csdn.net/account/login?from=https://blog.csdn.net/ityouknow/article/details/80682237"
+        var blogUrl = "https://blog.csdn.net/";
+        var curSkin = "skin-yellow";
+    </script>
+    <script type="text/javascript">
+        // Traffic Stats of the entire Web site By baidu
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?6bcd52f51e9b3dce32bec4a3997715ac";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+        // Traffic Stats of the entire Web site By baidu end
+    </script>
+    <script src="https://csdnimg.cn/public/common/libs/jquery/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <script src="https://csdnimg.cn/rabbit/exposure-click/main-1.0.6.js"></script>
+    <!-- 新版上报 -->
+    <script src="//g.csdnimg.cn/track/1.0.0/track.js" type="text/javascript"></script>
+    <!-- 新版上报end -->
+            <link rel="stylesheet" href="https://csdnimg.cn/public/sandalstrap/1.3/css/sandalstrap.min.css"> 
+    <style>
+        .MathJax, .MathJax_Message, .MathJax_Preview{
+            display: none
+        }
+    </style>
+</head>
+<body>    
+    <link rel="stylesheet" href="https://csdnimg.cn/public/common/toolbar/content_toolbar_css/content_toolbar.css">
+    <script id="toolbar-tpl-scriptId" src="https://csdnimg.cn/public/common/toolbar/js/content_toolbar.js" type="text/javascript" domain="https://blog.csdn.net/"></script>
+    <script src="https://csdnimg.cn/public/sandalstrap/1.3/fonts/csdnc/csdnc.js"></script><link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/blog_code-c3a0c33d5c.css">
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.css">
+<script type="text/javascript" src="//static.mediav.com/js/mvf_news_feed.js"></script>
+
+<header>
+	<div class="container d-flex clearfix">
+		<div class="title-box">
+			<h2 class="title-blog">
+				<a href="https://blog.csdn.net/ityouknow">纯洁的微笑</a>
+			</h2>
+			<p class="description">万事皆因忙中错，好人半自苦中来</p>
+		</div>
+		<div class="opt-box d-flex justify-content-end">
+			<a class="btn btn-sm" href="https://blog.csdn.net/ityouknow/rss/list">
+					<svg class="icon" aria-hidden="true">
+						<use xlink:href="#csdnc-rss"></use>
+					</svg>RSS订阅</a>
+					</div>
+	</div>
+</header><script src="https://dup.baidustatic.com/js/ds.js"></script>
+<div class="container clearfix pt0" id="mainBox">
+    <main>
+        <div class="blog-content-box">
+	<div class="article-title-box">
+			<span class="article-type type-1 float-left">原</span>		<h1 class="title-article">为什么说 Java 程序员到了必须掌握 Spring Boot 的时候？</h1>
+	</div>
+	<div class="article-info-box">
+		<div class="article-bar-top d-flex">
+												<span class="time">2018年06月13日 07:36:00</span>
+			<div class="float-right">
+				<span class="read-count">阅读数：6858</span>
+											</div>
+		</div>
+	</div>
+	<article>
+		<div id="article_content" class="article_content clearfix csdn-tracking-statistics" data-pid="blog"  data-mod=popu_307  data-dsm = "post" >
+                    <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/htmledit_views-0a60691e80.css" />
+            <div class="htmledit_views">
+                
+    <div class="rich_media_content">
+                    
+
+                    
+
+                    
+                    
+                    <blockquote><h1 style="margin-bottom:10px;"><span style="color:rgb(129,145,152);">文章摘录于我在 gitchat 上的分享</span></h1></blockquote><img style="border-width:0px;margin-right:auto;margin-left:auto;" title="" src="https://ss.csdn.net/p?https://mmbiz.qpic.cn/mmbiz_png/PgqYrEEtEnr7v8v2f1Cgv0iaN5M70bPN7yXSdKQ9uHPg7BcUysWJKXo7Z8wpcN7naNl3ja1JIiaFJSoutco9ficZQ/640?wx_fmt=png" alt="640?wx_fmt=png" /><p style="margin-bottom:16px;margin-top:15px;">Spring Boot 2.0 的推出又激起了一阵学习 Spring Boot 热，就单从我个人的博客的访问量大幅增加就可以感受到大家对学习 Spring Boot 的热情，那么在这么多人热衷于学习 Spring Boot 之时，我自己也在思考： Spring Boot 诞生的背景是什么？Spring 企业又是基于什么样的考虑创建 Spring Boot? 传统企业使用 Spring Boot 会给我们带来什么样变革?</p><p style="margin-bottom:16px;margin-top:15px;">带着这些问题，我们一起来了解下 Spring Boot 到底是什么?</p><h2 style="font-size:28px;line-height:1.25;">Spring 历史</h2><p style="margin-bottom:16px;margin-top:15px;">说起 Spring Boot 我们不得不先了解一下 Spring 这个企业，不仅因为 Spring Boot 来源于 Spirng 大家族，而且 Spring Boot 的诞生和 Sping 框架的发展息息相关。</p><p style="margin-bottom:16px;margin-top:15px;">时间回到2002年，当时正是 Java EE 和 EJB 大行其道的时候，很多知名公司都是采用此技术方案进行项目开发。这时候有一个美国的小伙子认为 EJB 太过臃肿，并不是所有的项目都需要使用 EJB 这种大型框架，应该会有一种更好的方案来解决这个问题。</p><p style="margin-bottom:16px;margin-top:15px;">为了证明他的想法是正确的，于2002年10月甚至写了一本书《 Expert One-on-One J2EE 》，介绍了当时 Java 企业应用程序开发的情况，并指出了 Java EE 和 EJB 组件框架中存在的一些主要缺陷。在这本书中，他提出了一个基于普通 Java 类和依赖注入的更简单的解决方案。</p><p style="margin-bottom:16px;margin-top:15px;">在书中，他展示了如何在不使用 EJB 的情况下构建高质量，可扩展的在线座位预留系统。为了构建应用程序，他编写了超过 30,000 行的基础结构代码，项目中的根包命名为 com.interface21，所以人们最初称这套开源框架为 interface21，也就是 Spring 的前身。</p><p style="margin-bottom:16px;margin-top:15px;">他是谁呢，他就是大名鼎鼎的 Rod Johnson （下图）, Rod Johnson 在悉尼大学不仅获得了计算机学位，同时还获得了音乐学位，更令人吃惊的是在回到软件开发领域之前，他还获得了音乐学的博士学位。现在 Rod Johnson 已经离开了 Spring ，成为了一个天使投资人，同时也是多个公司的董事，早已走上人生巅峰。</p><img style="border-width:0px;margin-right:auto;margin-left:auto;" title="" src="https://ss.csdn.net/p?https://mmbiz.qpic.cn/mmbiz_jpg/PgqYrEEtEnr7v8v2f1Cgv0iaN5M70bPN7Rasf9lDla82ibPtqLxWO16r5ibtllXU5agLibcI12yj2R3DuuBV1zib4Kw/640?wx_fmt=jpeg" alt="640?wx_fmt=jpeg" /><p style="margin-bottom:16px;margin-top:15px;">在这本书发布后，一对一的 J2EE 设计和开发一炮而红。这本书免费提供的大部分基础架构代码都是高度可重用的。 2003 年 Rod Johnson 和同伴在此框架的基础上开发了一个全新的框架命名为 Spring ,据 Rod Johnson 介绍 Spring 是传统 J2EE 新的开始。随后 Spring 发展进入快车道。</p><ul style="list-style-type:circle;" class="list-paddingleft-2"><li><p>2004 年 03 月，1.0 版发布。</p></li><li><p>2006 年 10 月，2.0 版发布。</p></li><li><p>2007 年 11 月更名为 SpringSource，同时发布了 Spring 2.5。</p></li><li><p>2009 年 12 月，Spring 3.0 发布。</p></li><li><p>2013 年 12 月，Pivotal 宣布发布 Spring 框架 4.0。</p></li><li><p>2017 年 09 月，Spring 5.0 发布。</p></li></ul><h2 style="font-size:28px;line-height:1.25;">Spring Boot 的诞生</h2><p style="margin-bottom:16px;margin-top:15px;">随着使用 Spring 进行开发的个人和企业越来越多，Spring 也慢慢从一个单一简洁的小框架变成一个大而全的开源软件，Spring 的边界不断的进行扩充，到了后来 Spring 几乎可以做任何事情了，市面上主流的开源软件、中间件都有 Spring 对应组件支持，人们在享用 Spring 的这种便利之后，也遇到了一些问题。</p><p style="margin-bottom:16px;margin-top:15px;">Spring 每集成一个开源软件，就需要增加一些基础配置，慢慢的随着人们开发的项目越来越庞大，往往需要集成很多开源软件，因此后期使用 Spirng 开发大型项目需要引入很多配置文件，太多的配置非常难以理解，并容易配置出错，到了后来人们甚至称 Spring 为配置地狱。</p><p style="margin-bottom:16px;margin-top:15px;">Spring 似乎也意识到了这些问题，急需有这么一套软件可以解决这些问题，这个时候微服务的概念也慢慢兴起，快速开发微小独立的应用变得更为急迫，Spring 刚好处在这么一个交叉点上，于 2013 年初开始的 Spring Boot 项目的研发，2014年4月，Spring Boot 1.0.0 发布。</p><p style="margin-bottom:16px;margin-top:15px;">Spring Boot 诞生之初，就受到开源社区的持续关注，陆续有一些个人和企业尝试着使用了 Spring Boot，并迅速喜欢上了这款开源软件。直到2016年，在国内 Spring Boot 才被正真使用了起来，期间很多研究 Spring Boot 的开发者在网上写了大量关于 Spring Boot 的文章，同时有一些公司在企业内部进行了小规模的使用，并将使用经验分享了出来。从2016年到2018年，使用 Spring Boot 的企业和个人开发者越来越多，我们从 Spring Boot 关键字的百度指数就可以看出。</p><img style="border-width:0px;margin-right:auto;margin-left:auto;" title="" src="https://ss.csdn.net/p?https://mmbiz.qpic.cn/mmbiz_png/PgqYrEEtEnr7v8v2f1Cgv0iaN5M70bPN7HXShz4ETmP6mtvkLia9z0NgblFIiao437iaeGAZC13slw9DUQfMvMicMYA/640?wx_fmt=png" alt="640?wx_fmt=png" /><p style="margin-bottom:16px;margin-top:15px;">上图为2014年到2018年 Spring Boot 的百度指数，可以看出 Spring Boot 2.0 的推出引发了搜索高峰。</p><p style="margin-bottom:16px;margin-top:15px;">当然 Spring Boot 不是为了取代 Spring ,Spring Boot 基于 Spring 开发，是为了让人们更容易的使用 Spring。看到 Spring Boot 的市场反应，Spring 官方也非常重视 Spring Boot 的后续发展，已经将 Spring Boot 作为公司最顶级的项目来推广，放到了官网上第一的位置，因此后续 Spring Boot 的持续发展也被看好。</p><img style="border-width:0px;margin-right:auto;margin-left:auto;" title="" src="https://ss.csdn.net/p?https://mmbiz.qpic.cn/mmbiz_png/PgqYrEEtEnr7v8v2f1Cgv0iaN5M70bPN70sFuTT9Whcja8CGSVcibvdxrSovIJs60lmicnH3L9dFEMpXqkCChWJEg/640?wx_fmt=png" alt="640?wx_fmt=png" /><h2 style="font-size:28px;line-height:1.25;">什么是 Spring Boot</h2><p style="margin-bottom:16px;margin-top:15px;"><strong>Spring Boot 介绍</strong></p><p style="margin-bottom:16px;margin-top:15px;">Spring Boot 是由 Pivotal 团队提供的全新框架，其设计目的是用来简化新 Spring 应用的初始搭建以及开发过程。该框架使用了特定的方式来进行配置，从而使开发人员不再需要定义样板化的配置。用我的话来理解，就是 Spring Boot 其实不是什么新的框架，它默认配置了很多框架的使用方式，就像 maven 整合了所有的 jar 包，Spring Boot 整合了所有的框架（不知道这样比喻是否合适）。</p><p style="margin-bottom:16px;margin-top:15px;">Spring Boot 简化了基于 Spring 的应用开发，通过少量的代码就能创建一个独立的、产品级别的 Spring 应用。 Spring Boot 为 Spring 平台及第三方库提供开箱即用的设置，这样你就可以有条不紊地开始。Spring Boot 的核心思想就是约定大于配置，多数 Spring Boot 应用只需要很少的 Spring 配置。采用 Spring Boot 可以大大的简化你的开发模式，所有你想集成的常用框架，它都有对应的组件支持。</p><p style="margin-bottom:16px;margin-top:15px;"><strong>Spring Boot 特性</strong></p><ul style="list-style-type:circle;" class="list-paddingleft-2"><li><p>使用 Spring 项目引导页面可以在几秒构建一个项目</p></li><li><p>方便对外输出各种形式的服务，如 REST API、WebSocket、Web、Streaming、Tasks</p></li><li><p>非常简洁的安全策略集成</p></li><li><p>支持关系数据库和非关系数据库</p></li><li><p>支持运行期内嵌容器，如 Tomcat、Jetty</p></li><li><p>强大的开发包，支持热启动</p></li><li><p>自动管理依赖</p></li><li><p>自带应用监控</p></li><li><p>支持各种 IED，如 IntelliJ IDEA 、NetBeans</p></li></ul><p style="margin-bottom:16px;margin-top:15px;">Spring Boot 这些特性会给我们研发带来非常大的优势，下面我们可以分开来介绍：</p><h2 style="font-size:28px;line-height:1.25;">使用 Spring Boot 的优势</h2><p style="margin-bottom:16px;margin-top:15px;">使用 Spring Boot 开发项目，会给我们带来非常美妙的开发体验，可以从以下几个方面展开来说明</p><h3 style="font-size:24px;line-height:1.3;">Spring Boot 让开发变得更简单</h3><p style="margin-bottom:16px;margin-top:15px;">Spring Boot 对开发效率的提升是全方位的，我们可以简单做一下对比：</p><p style="margin-bottom:16px;margin-top:15px;">在没有使用 Spring Boot 之前我们开发一个 web 项目需要做哪些工作：</p><ul style="list-style-type:circle;" class="list-paddingleft-2"><li><p>1）配置 web.xml，加载 Spring 和 Spring mvc</p></li><li><p>2）配置数据库连接、配置 Spring 事务</p></li><li><p>3）配置加载配置文件的读取，开启注解</p></li><li><p>4）配置日志文件</p></li><li><p>…</p></li><li><p>n) 配置完成之后部署 tomcat 调试</p></li></ul><p style="margin-bottom:16px;margin-top:15px;">可能你还需要考虑各个版本的兼容性，jar 包冲突的各种可行性。</p><p style="margin-bottom:16px;margin-top:15px;">那么使用 Spring Boot 之后我们需要开发一个 web 项目需要哪些操作呢？</p><ul style="list-style-type:circle;" class="list-paddingleft-2"><li><p>1）登录网址 http://start.spring.io/ 选择对应的组件直接下载</p></li><li><p>2）导入项目，直接开发</p></li></ul><p style="margin-bottom:16px;margin-top:15px;">上面的 N 步和下面的2步形成巨大的反差，这仅仅只是在开发环境搭建的这个方面。</p><h3 style="font-size:24px;line-height:1.3;">Spring Boot 使测试变得更简单</h3><p style="margin-bottom:16px;margin-top:15px;">Spring Boot 对测试的支持不可谓不强大，Spring Boot 内置了7种强大的测试框架：</p><ul style="list-style-type:circle;" class="list-paddingleft-2"><li><p>JUnit： 一个 Java 语言的单元测试框架</p></li><li><p>Spring Test &amp; Spring Boot Test：为 Spring Boot 应用提供集成测试和工具支持</p></li><li><p>AssertJ：支持流式断言的 Java 测试框架</p></li><li><p>Hamcrest：一个匹配器库</p></li><li><p>Mockito：一个 java mock 框架</p></li><li><p>JSONassert：一个针对 JSON 的断言库</p></li><li><p>JsonPath：JSON XPath 库</p></li></ul><p style="margin-bottom:16px;margin-top:15px;">我们只需要在项目中引入 <code class="prettyprint code-in-text prettyprinted" style="font-family:Consolas, Menlo, Courier, monospace;font-size:12px;background:rgb(238,241,245);padding:2px 7px;line-height:18px;border-width:0px 0px 0px;border-left-style:solid;border-left-color:rgb(26,188,156);"><span class="pln" style="color:rgb(23,158,214);">spring</span><span class="pun" style="color:rgb(23,158,214);">-</span><span class="pln" style="color:rgb(23,158,214);">boot</span><span class="pun" style="color:rgb(23,158,214);">-</span><span class="pln" style="color:rgb(23,158,214);">start</span><span class="pun" style="color:rgb(23,158,214);">-</span><span class="pln" style="color:rgb(23,158,214);">test</span></code>依赖包，就可以对数据库、Mock、 Web 等各种情况进行测试。</p><p style="margin-bottom:16px;margin-top:15px;">Spring Boot Test 中包含了我们需要使用的各种测试场景，满足我们日常项目的测试需求。</p><h3 style="font-size:24px;line-height:1.3;">Spring Boot 让配置变得更简单</h3><p style="margin-bottom:16px;margin-top:15px;">Spring Boot 让配置变简单，说到这里我们就需要了解一下 Spring Boot 的核心思想：约定优于配置。那么什么是约定优于配置呢？</p><p style="margin-bottom:16px;margin-top:15px;">约定优于配置（convention over configuration），也称作按约定编程，是一种软件设计范式，旨在减少软件开发人员需做决定的数量，获得简单的好处，而又不失灵活性。</p><p style="margin-bottom:16px;margin-top:15px;">本质是说，开发人员仅需规定应用中不符约定的部分。例如，如果模型中有个名为 User 的类，那么数据库中对应的表就会默认命名为 user。只有在偏离这一约定时，例如将该表命名为”user_info”，才需写有关这个名字的配置。</p><h3 style="font-size:24px;line-height:1.3;">Spring Boot 让部署变得更简单</h3><p style="margin-bottom:16px;margin-top:15px;">说起 Spring Boot 让部署变简单，就不得不说 Spring Boot 内嵌容器。内嵌容器不只让部署变得简单，其实在开发调试阶段也会带来非常大的便利性，对比以往开发 Web 项目时配置 Tomcat 的繁琐，会让大家使用 Spring Boot 内嵌容器开发时有更深的感触。使用 Spring Boot 开发 Web 项目，让我们不需要关心容器的环境问题，专心写业务代码即可。</p><p style="margin-bottom:16px;margin-top:15px;">Jenkins 是目前持续构建领域使用最广泛的工具之一，Jenkins 是一个独立的开源自动化服务器，可用于自动化各种任务，如构建，测试和部署软件。Jenkins 可以通过本机系统包 Docker 安装，甚至可以通过安装 Java Runtime Environment 的任何机器独立运行。</p><p style="margin-bottom:16px;margin-top:15px;">说直白一点 Jenkins 就是专门来负责如何将代码变成可执行的程序包，将它部署到目标服务器中，并对其运营状态（日志）进行监控的软件。自动化、性能、打包、部署、发布、发布结果自动化验证、接口测试、单元测试等等关于我们打包测试部署的方方面面 Jenkins 都可以很友好的支持。</p><p style="margin-bottom:16px;margin-top:15px;">使用 Jenkins 部署 Spring Boot 项目非常简单，大家想继续了解可以参考我的文章：使用Jenkins部署Spring Boot，只需要前期做一些简单的配置，当我们需要发布项目时只需要点击项目对应的发布按钮，就可以将项目从版本库中拉取、打包、发布到目标服务器中，大大简化了运维后期的部署工作。</p><p style="margin-bottom:16px;margin-top:15px;">虚拟化技术的发展给我们带来了更多的可能性，我们可以利用容器化技术，将 Spring Boot 项目做成镜像，根据容器集群的策略来实现弹性扩容、动态部署等。所以 Spring Boot + Docker + Jenkins 会将 Spring Boot 项目的部署做得更简单化、智能化。</p><h3 style="font-size:24px;line-height:1.3;">Spring Boot 让监控变得更简单</h3><p style="margin-bottom:16px;margin-top:15px;">可以说 Spring Boot 就是一款自带监控的开源软件，在设计之初就考虑到应用的监控问题，专门提供了一款监控组件来完成这个工作，这个组件就是 Spring Boot Actuator 。</p><p style="margin-bottom:16px;margin-top:15px;">Spring Boot Actuator 是 Spring Boot 提供的对应用系统监控的集成功能，可以查看应用配置的详细信息，例如自动化配置信息、创建的 Spring beans 以及一些环境属性等。</p><p style="margin-bottom:16px;margin-top:15px;">当然 Spring Boot Actuator 虽然可以监控一个 Spring Boot 应用的健康情况，实际上现在的系统都是需要很多的服务相互配合来完成工作，如何通过一个监控软件来监控所以的 Spring Boot 项目将变得比较紧迫。</p><p style="margin-bottom:16px;margin-top:15px;">在开源界也有人意识到了这个问题，并且基于 Spring boot actuator 做出了一款强大的监控软件，这个软件就是 Spring Boot admin 。</p><p style="margin-bottom:16px;margin-top:15px;">Spring Boot Admin 是一个管理和监控 Spring Boot 应用程序的开源软件。每个应用都认为是一个客户端，通过 HTTP 或者使用 Eureka 注册到 admin server 中进行展示，Spring Boot Admin UI 部分使用 AngularJs 将数据展示在前端。</p><p style="margin-bottom:16px;margin-top:15px;">Spring Boot Admin 是一个针对 spring-boot 的 actuator 接口进行UI美化封装的监控工具。他可以：在列表中浏览所有被监控 spring-boot 项目的基本信息，详细的 Health 信息、内存信息、JVM 信息、垃圾回收信息、各种配置信息（比如数据源、缓存列表和命中率）等，还可以直接修改logger的level。</p><p style="margin-bottom:16px;margin-top:15px;">使用 Spring Boot Admin 不仅可以监控 Spring Boot 项目，还可以监控 Spring Cloud 项目，因此使用了 Spring Boot 项目之后我们监控 Spring Boot 集群效果如下：</p><p style="margin-bottom:16px;margin-top:15px;"><img style="white-space:normal;" src="https://ss.csdn.net/p?https://mmbiz.qpic.cn/mmbiz_png/PgqYrEEtEnr7v8v2f1Cgv0iaN5M70bPN79mGBiaNu0jNsDicwyQQ9et21TJ2qEfE5oricQQgl1M8YK5AqgXa8r6iaYw/640?wx_fmt=png" alt="640?wx_fmt=png" /></p><p><img src="https://ss.csdn.net/p?https://mmbiz.qpic.cn/mmbiz_png/PgqYrEEtEnr7v8v2f1Cgv0iaN5M70bPN7JeVZ6vomyzPLagf9WLQcLQLrAgRdkMkjkQrWXqgjmhf2zpjN5xqoHw/640?wx_fmt=png" alt="640?wx_fmt=png" /></p><p style="margin-bottom:16px;margin-top:15px;">简单、直观、易用是它的特点，针对一些特殊情况还可以提供报警服务。所以说使用 Spring Boot Actuator 解决了单个 Spring Boot 的监控问题，使用 Spring Boot Admin 就是解决了整个集群监控的问题。</p><h2 style="font-size:28px;line-height:1.25;">Spring 、Spring Boot 和 Spring Cloud 的关系</h2><p style="margin-bottom:16px;margin-top:15px;">Spring 最初最核心的两大核心功能 Spring Ioc 和 Spring Aop 成就了 Spring，Spring 在这两大核心的功能上不断的发展，才有了 Spring 事务、Spirng Mvc 等一系列伟大的产品，最终成就了 Spring 帝国，到了后期 Spring 几乎可以解决企业开发中的所有问题。</p><p style="margin-bottom:16px;margin-top:15px;">Spring Boot 是在强大的 Spring 帝国生态基础上面发展而来，发明 Spring Boot 不是为了取代 Spring ,是为了让人们更容易的使用 Spring 。所以说没有 Spring 强大的功能和生态，就不会有后期的 Spring Boot 火热, Spring Boot 使用约定优于配置的理念，重新重构了 Spring 的使用，让 Spring 后续的发展更有生命力。</p><p style="margin-bottom:16px;margin-top:15px;">Spring Cloud 是一系列框架的有序集合。它利用 Spring Boot 的开发便利性巧妙地简化了分布式系统基础设施的开发，如服务发现注册、配置中心、消息总线、负载均衡、断路器、数据监控等，都可以用 Spring Boot 的开发风格做到一键启动和部署。</p><p style="margin-bottom:16px;margin-top:15px;">Spring 并没有重复制造轮子，它只是将目前各家公司开发的比较成熟、经得起实际考验的服务框架组合起来，通过 Spring Boot 风格进行再封装屏蔽掉了复杂的配置和实现原理，最终给开发者留出了一套简单易懂、易部署和易维护的分布式系统开发工具包。</p><p style="margin-bottom:16px;margin-top:15px;">根据上面的说明我们可以看出来，Spring Cloud 是为了解决微服务架构中服务治理而提供的一系列功能的开发框架，并且 Spring Cloud 是完全基于 Spring Boot 而开发，Spring Cloud 利用 Spring Boot 特性整合了开源行业中优秀的组件，整体对外提供了一套在微服务架构中服务治理的解决方案。</p><p style="margin-bottom:16px;margin-top:15px;">综上我们可以这样来理解，正是由于 Spring Ioc 和 Spring Aop 两个强大的功能才有了 Spring ，Spring 生态不断的发展才有了 Spring Boot ，使用 Spring Boot 让 Spring 更易用更有生命力，Spring Cloud 是基于 Spring Boot 开发的一套微服务架构下的服务治理方案。</p><p style="margin-bottom:16px;margin-top:15px;">用一组不太合理的包含关系来表达它们之间的关系。</p><blockquote style="color:rgb(129,145,152);border-left-color:rgb(26,188,156);margin-bottom:16px;"><p>Spring ioc/aop &gt; Spring &gt; Spring Boot &gt; Spring Cloud</p></blockquote><p style="margin-bottom:16px;margin-top:15px;"><span style="color:rgb(0,82,255);">如果大家想系列学习 Spring Boot 课程，欢迎大家关注我在 gitchat 上面的课程：快速学习 Spring Boot 技术栈，官网正在做活动，有很大的优惠，扫描即可查看</span></p><img style="border-width:0px;margin-right:auto;margin-left:auto;" title="" src="https://ss.csdn.net/p?https://mmbiz.qpic.cn/mmbiz_png/PgqYrEEtEnr7v8v2f1Cgv0iaN5M70bPN73Y1iaFWXIlPm57C9SXNAQbTiaepYNhCicv5nyXjgOoBeHs0druYDjB7Lg/640?wx_fmt=png" alt="640?wx_fmt=png" /><h2 style="font-size:28px;line-height:1.25;">总结</h2><p style="margin-bottom:16px;margin-top:15px;">不知道什么时候起，行业里一些开发人员愿意相信，使用复杂的软件就意味着采用了高深的技术；使用了大量的配置，就意味着软件有着很多比较强大的功能。在产品设计的时候有一个理念就是让产品操作足够的傻瓜化，假设用户是一个智商并不高的群体，却可以使他很容易的学会使用其产品，将此特性做为产品设计的一项标准之一。</p><p style="margin-bottom:16px;margin-top:15px;">其实我们的开源软件也是一款产品，繁琐并不意味着功能强大，反而有可能是设计不够合理；简洁也并不意味着简单，很有可能它只是将众多复杂的功能进行了封装，让我们在使用的时候足够的简单。好的产品如此，好的开源软件也应该如此，Spring Boot 的出现就是让编程变得更简单一些。</p><p style="margin-bottom:16px;margin-top:15px;">在此引用 Python 的经典设计格言，格言来源于 Python 但不限于 Python。</p><blockquote style="color:rgb(129,145,152);border-left-color:rgb(26,188,156);margin-bottom:16px;"><p>美丽优于丑陋。 <br />清楚优于含糊。 <br />简单优于复杂。 <br />复杂优于繁琐。 <br />平坦优于曲折。 <br />宽松优于密集。 <br />重要的是可读性。 <br />特殊的案例不足以特殊到破坏规则。 <br />尽管实践可以打破真理。 <br />错误却不可置之不理。 <br />除非另有明确要求。 <br />面对模棱两可，拒绝猜测。 <br />总会有一个 —— 最好是只有一个 —— 显而易见的方式来明辨。 <br />哪怕这种方式在开始的时候可能并不明显。 <br />现在有比没有好。 <br />尽管没有经常好于现在。 <br />如果如何实现很难被解释清楚，那么这个想法就是一个坏想法。 <br />如果如何实现可以被很好的解释，那么这是一个好想法。</p></blockquote><p style="margin-bottom:16px;margin-top:15px;"><span style="font-size:15px;">GitChat 是一个知识分享平台，通过这个平台我们希望改变知识的学习方式，围绕着做 IT 领域提供知识服务，衔接分享者和消费者。过去的一年中我也在此平台进行了一些分享，个人感觉这个平台的氛围和学习气氛都很不错，最重要的是它是只面向技术的垂直社区，GitChat 正在举行年中大促，有各种优惠的活动，今天是最后一天推荐大家关注。</span></p><img style="border-width:0px;margin-right:auto;margin-left:auto;color:rgb(56,68,82);" title="" src="https://ss.csdn.net/p?https://mmbiz.qpic.cn/mmbiz_png/PgqYrEEtEnr7v8v2f1Cgv0iaN5M70bPN7JNIVN9QqKYwZtcj2ptFcDeibF24mSSMKy77wM0kJUTXqKKAWgicFSTaQ/640?wx_fmt=png" alt="640?wx_fmt=png" /></div>
+              </div>
+                </div>
+				<div class="hide-article-box text-center csdn-tracking-statistics tracking-click" data-mod="popu_376">
+			<a class="btn btn-red-hollow" id="btn-readmore">阅读更多</a>
+		</div>
+        	</article>
+	
+<a id="chatqa"></a>
+<div class="answer-box d-flex">
+  <div class="img-qrcode-box">
+    <img src="http://images.gitbook.cn/a8c85250-4f62-11e8-b92c-b9e17284e8fb" alt="">
+    <p>扫码向博主提问</p>
+  </div>
+
+      <a href="https://mp.csdn.net/ask" class="btn btn-sm btn-link-blue btn-op-answer" target="_blank">去开通我的Chat快问</a>
+    
+  <div class="content-box  d-flex flex-column justify-content-center">
+    <div class="info-box d-flex">
+      <img src="https://avatar.csdn.net/1/9/4/3_ityouknow.jpg" alt="" class="avatar-pic">
+      <p class="name d-flex align-items-center">ityouknow</p>
+            <p class="flag d-flex align-items-center">
+          <svg class="icon" aria-hidden="true">
+              <use xlink:href="#csdnc-blogexpert"></use>
+          </svg>
+          博客专家
+      </p>
+          </div>
+    <div class="remark text-truncate">
+      you can ask anything    </div>
+          <ul class="expertise-list d-flex align-content-start flex-wrap">
+            <li class="title">擅长领域：</li>
+                              <li>微服务架构     </li>
+                              <li>springboot</li>
+                              <li>职场生涯</li>
+                    </ul>
+      </div>
+</div>
+
+		<div class="article-bar-bottom">
+				<div class="article-copyright">
+			版权声明：本文为博主原创，了解最新劲爆内容，请关注公众号。			https://blog.csdn.net/ityouknow/article/details/80682237		</div>
+									</div>
+	
+	<!-- !empty($pre_next_article[0]) -->
+		</div>
+<script>
+    $(".MathJax").remove();
+</script>
+
+<script type="text/javascript" src="https://static-blog.csdn.net/mdeditor/public/res/bower-libs/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+			"HTML-CSS": {
+					linebreaks: { automatic: true, width: "94%container" },
+					imageFont: null
+			},
+			tex2jax: {
+				preview: "none"
+			},
+			mml2jax: {
+				preview: 'none'
+			}
+	});
+</script>
+<script>
+	(function(){
+		var btnReadmore = $("#btn-readmore");
+		if(btnReadmore.length>0){
+			var winH = $(window).height();
+			var articleBox = $("div.article_content");
+			var artH = articleBox.height();
+			if(artH > winH*2){
+				articleBox.css({
+					'height':winH*2+'px',
+					'overflow':'hidden'
+				})
+				btnReadmore.click(function(){
+					articleBox.removeAttr("style");
+					$(this).parent().remove();
+				})
+			}else{
+				btnReadmore.parent().remove();
+			}
+		}
+	})()
+</script>        <div class="edu-promotion"></div>
+<script type="text/javascript">
+	var edu_ad_is_big_data = 0;
+	var edu_ad_id_mapping = {"0":["https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=python1","https:\/\/edu.csdn.net\/sp\/blog.php?type=618"],"1":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=web1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit","https:\/\/edu.csdn.net\/sp\/blog.php?type=web1","https:\/\/edu.csdn.net\/sp\/blog.php?type=web1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=618"],"8":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit"],"2":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=python1"],"3":["https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=618"],"6":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit"],"12":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit"],"14":["https:\/\/edu.csdn.net\/sp\/blog.php?type=web1","https:\/\/edu.csdn.net\/sp\/blog.php?type=python1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcweb","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=web1","https:\/\/edu.csdn.net\/sp\/blog.php?type=618"],"15":["https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcjg","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1"],"16":["https:\/\/edu.csdn.net\/sp\/blog.php?type=web1","https:\/\/edu.csdn.net\/sp\/blog.php?type=python1"],"28":["https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=python1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcai","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=python1","https:\/\/edu.csdn.net\/sp\/blog.php?type=618"],"29":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1"],"30":["https:\/\/edu.csdn.net\/sp\/blog.php?type=python1","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1"],"32":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=python1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcaq"],"33":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gccxrs","https:\/\/edu.csdn.net\/sp\/blog.php?type=python1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1"],"35":["https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit"],"37":["https:\/\/edu.csdn.net\/sp\/blog.php?type=web1","https:\/\/edu.csdn.net\/sp\/blog.php?type=python1"],"7":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=web1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=web1","https:\/\/edu.csdn.net\/sp\/blog.php?type=web1","https:\/\/edu.csdn.net\/sp\/blog.php?type=618"],"17":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1"],"34":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=python1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcbt"],"36":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit"],"31":["https:\/\/edu.csdn.net\/sp\/blog.php?type=python1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit"],"19":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit"],"20":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit"]};
+</script>        <a id="commentBox"></a>
+<div class="comment-box">
+	  	<div class="unlogin-box text-center">
+		想对作者说点什么？
+		<!-- $curl 当前地址 -->
+		<a href="https://passport.csdn.net/account/login?from=https://blog.csdn.net/ityouknow/article/details/80682237#commentBox" class="btn btn-sm btn-red">我来说一句</a>
+	</div>
+			<div class="comment-list-container">
+		<a id="comments"></a>
+		<div class="comment-list-box">
+		</div>
+		<div id="commentPage" class="pagination-box d-none"></div>
+		<div class="opt-box text-center">
+			<button class="btn btn-sm btn-link-blue" id="btnMoreComment"></button>
+		</div>
+	</div>
+</div>        <div class="recommend-box">
+            		<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_614" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/cejiajin6641/article/details/80260057" target="_blank" strategy="BlogCommendFromQuerySearch_36">
+				<em>Java</em><em>程序员</em>月薪达到两万，需要技术水平达到什么程度？			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/cejiajin6641/article/details/80260057" target="_blank" >
+				最近跟朋友在一起聚会的<em>时候</em>，提了一个问题，说<em>Java</em><em>程序员</em>如何能月薪达到二万，技术水平需要达到什么程度？人回答说这只能是大企业或者互联网企业工程师才能拿到。也许是的，小公司或者非互联网企业拿二万的不太...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/cejiajin6641" title="cejiajin6641" target="_blank">
+					<img src="https://avatar.csdn.net/6/9/D/3_cejiajin6641.jpg" alt="cejiajin6641" class="avatar-pic">
+					<span class="name">cejiajin6641</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2018-05-09 21:42:34</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：546</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_614" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/haoyifen/article/details/72803999" target="_blank" strategy="BlogCommendFromQuerySearch_0">
+				<em>为什么</em>下一个5年<em>java</em>后台开发你该选择<em>Spring</em> <em>Boot</em>?			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/haoyifen/article/details/72803999" target="_blank" >
+				<em>Spring</em>是一个无所不包的一站式<em>java</em>开发平台. 但由于10多年的发展, <em>Spring</em>的体系太过庞大, <em>程序员</em>无法<em>掌握</em>其历史, 同时复杂的依赖, 大量的配置, 复杂的部署给开发带来了很大的阻碍.
+...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/haoyifen" title="haoyifen" target="_blank">
+					<img src="https://avatar.csdn.net/1/7/0/3_haoyifen.jpg" alt="haoyifen" class="avatar-pic">
+					<span class="name">haoyifen</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2017-05-29 21:19:55</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：10111</span>
+			</p>
+		</div>
+	</div>
+								<div class="recommend-item-box recommend-ad-box" id="ad1"></div>
+				<script>
+				  var width = $("div.recommend-box").outerWidth() - 48;
+					NEWS_FEED({
+						w: width,
+						h : 90,
+						showid : 'GNKXx7',
+						placeholderId: "ad1",
+						inject : 'define',
+						define : {
+							imagePosition : 'right',
+							imageBorderRadius : 0,
+							imageWidth: 120,
+							imageHeight: 90,
+							imageFill : 'clip',
+							displayImage : true,
+							displayTitle : true,
+							titleFontSize: 20,
+							titleFontColor: '#333',
+							titleFontFamily : 'Microsoft Yahei',
+							titleFontWeight: 'bold',
+							titlePaddingTop : 0,
+							titlePaddingRight : 0,
+							titlePaddingBottom : 10,
+							titlePaddingLeft : 0,
+							displayDesc : true,
+							descFontSize: 14,
+							descFontColor: '#6b6b6b',
+							descFontFamily : 'Microsoft Yahei',
+							paddingTop : 0,
+							paddingRight : 0,
+							paddingBottom : 0,
+							paddingLeft : 0,
+							backgroundColor: '#fff',
+							hoverColor: '#ca0c16'
+						}
+					})
+				</script>
+
+			
+				<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_614" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/sky_zhangfan/article/details/1897349" target="_blank" strategy="BlogCommendFromQuerySearch_4">
+				<em>java</em><em>程序员</em><em>必须</em><em>掌握</em>的linux知识			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/sky_zhangfan/article/details/1897349" target="_blank" >
+				一般大型J2EE应用都在建构在linux环境下的。开发环境下我们可以通过samba映射成本地的网络驱动器，直接在windows环境下进行编程调试。但是最后的发布还是要到linux环境，同时我们对网上w...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/sky_zhangfan" title="sky_zhangfan" target="_blank">
+					<img src="https://avatar.csdn.net/3/A/F/3_sky_zhangfan.jpg" alt="sky_zhangfan" class="avatar-pic">
+					<span class="name">sky_zhangfan</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2007-11-22 09:43:00</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：4167</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_614" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/u012758088/article/details/68482724" target="_blank" strategy="BlogCommendFromQuerySearch_18">
+				<em>程序员</em>debug三大定律			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/u012758088/article/details/68482724" target="_blank" >
+				声明
+
+
+
+
+首先声明，本文其实是写给管理<em>程序员</em>的人看的。如果你是<em>程序员</em>，看了以后可能会对你的职业生涯产生负面影响，慎入!
+
+
+
+
+至于其他闲杂人等，可以了解一下码农的工作状态，看个乐子。
+
+
+
+
+什...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/u012758088" title="u012758088" target="_blank">
+					<img src="https://avatar.csdn.net/4/D/D/3_u012758088.jpg" alt="u012758088" class="avatar-pic">
+					<span class="name">u012758088</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2017-03-30 08:26:36</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：705</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_614" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/L_L_cold/article/details/50911483" target="_blank" strategy="BlogCommendFromQuerySearch_19">
+				做一个<em>java</em>高级<em>程序员</em>甚至架构师 应该<em>掌握</em>哪些技术			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/L_L_cold/article/details/50911483" target="_blank" >
+							</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/L_L_cold" title="L_L_cold" target="_blank">
+					<img src="https://avatar.csdn.net/5/3/4/3_l_l_cold.jpg" alt="L_L_cold" class="avatar-pic">
+					<span class="name">L_L_cold</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2016-03-17 10:31:43</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：1132</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_614" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/qq_21122243/article/details/73248732" target="_blank" strategy="BlogCommendFromQuerySearch_2">
+				05_<em>程序员</em><em>必须</em><em>掌握</em>的8大排序算法_冒泡排序			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/qq_21122243/article/details/73248732" target="_blank" >
+				冒泡排序基本思想
+  基本思想：在要排序的一组数中，对当前还未排好序的范围内的全部数，自上而下对相邻的两个数依次进行比较和调整，让较大的数往下沉，较小的往上冒。即：每当两相邻的数比较后发现它们的排序与...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/qq_21122243" title="qq_21122243" target="_blank">
+					<img src="https://avatar.csdn.net/3/7/D/3_qq_21122243.jpg" alt="qq_21122243" class="avatar-pic">
+					<span class="name">qq_21122243</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2017-06-14 16:34:15</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：140</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box recommend-ad-box" id="a_d_feed_0"></div>
+			<script>
+				var width = $("div.recommend-box").outerWidth() - 48;
+				NEWS_FEED({
+					w: width,
+					h: 90,
+					showid: 'Afihld',
+					placeholderId: 'a_d_feed_0',
+					inject: 'define',
+					define: {
+						imagePosition: 'right',
+						imageBorderRadius: 0,
+						imageWidth: 120,
+						imageHeight: 90,
+						imageFill: 'clip',
+						displayImage: true,
+						displayTitle: true,
+						titleFontSize: 20,
+						titleFontColor: '#333',
+						titleFontFamily: 'Microsoft Yahei',
+						titleFontWeight: 'bold',
+						titlePaddingTop: 0,
+						titlePaddingRight: 0,
+						titlePaddingBottom: 10,
+						titlePaddingLeft: 0,
+						displayDesc: true,
+						descFontSize: 14,
+						descFontColor: '#6b6b6b',
+						descFontFamily: 'Microsoft Yahei',
+						paddingTop: 0,
+						paddingRight: 0,
+						paddingBottom: 0,
+						paddingLeft: 0,
+						backgroundColor: '#fff',
+						hoverColor: '#ca0c16'
+					}
+				})
+			</script>
+			<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_614" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/u012109105/article/details/47343065" target="_blank" strategy="BlogCommendFromQuerySearch_7">
+				常用排序算法/<em>程序员</em><em>必须</em><em>掌握</em>的8大排序算法			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/u012109105/article/details/47343065" target="_blank" >
+				分类：
+
+1）插入排序（直接插入排序、希尔排序）
+2）交换排序（冒泡排序、快速排序）
+3）选择排序（直接选择排序、堆排序）
+4）归并排序
+5）分配排序（基数排序）
+
+所需辅助空间最多：...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/u012109105" title="u012109105" target="_blank">
+					<img src="https://avatar.csdn.net/2/F/C/3_u012109105.jpg" alt="u012109105" class="avatar-pic">
+					<span class="name">u012109105</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2015-08-07 18:04:43</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：1527</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_614" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/u010850094/article/details/55518373" target="_blank" strategy="BlogCommendFromQuerySearch_8">
+				每个成功的<em>程序员</em>，都会<em>掌握</em>这三种语言！			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/u010850094/article/details/55518373" target="_blank" >
+				一.快乐的语言
+
+
+
+
+这是一种你用来思考的语言。这是一种你希望无时无刻不在使用的语言。这是一种用来编写自己的项目的语言。对于我来说，它是OCaml
+ (现在还有<em>Java</em>Script，尽管...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/u010850094" title="u010850094" target="_blank">
+					<img src="https://avatar.csdn.net/F/A/5/3_u010850094.jpg" alt="u010850094" class="avatar-pic">
+					<span class="name">u010850094</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2017-02-17 17:52:26</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：1067</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_614" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/z3881006/article/details/71158825" target="_blank" strategy="BlogCommendFromQuerySearch_12">
+				<em>Spring</em> 学习<em>必须</em>会的问题（面试）			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/z3881006/article/details/71158825" target="_blank" >
+				什么是<em>spring</em>
+使用<em>Spring</em>框架的好处是什么
+<em>Spring</em>由哪些模块组成
+核心容器应用上下文 模块
+BeanFactory  BeanFactory 实现举例
+XMLBeanFactory
+解...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/z3881006" title="z3881006" target="_blank">
+					<img src="https://avatar.csdn.net/0/8/9/3_z3881006.jpg" alt="z3881006" class="avatar-pic">
+					<span class="name">z3881006</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2017-05-04 10:35:00</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：867</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_614" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/xiaoxiaohacker/article/details/52042202" target="_blank" strategy="BlogCommendFromQuerySearch_21">
+				工作了3年的<em>JAVA</em><em>程序员</em>应该具备什么技能			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/xiaoxiaohacker/article/details/52042202" target="_blank" >
+				首页 &gt; 职场攻略 &gt; 职场杂谈 &gt;
+ 正文
+
+
+
+
+工作了3年的<em>JAVA</em><em>程序员</em>应该具备什么技能？
+
+来源：五百丁 作者：LZ 2016-03-18
+
+
+
+
+
+
+
+因为...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/xiaoxiaohacker" title="xiaoxiaohacker" target="_blank">
+					<img src="https://avatar.csdn.net/3/4/F/3_xiaoxiaohacker.jpg" alt="xiaoxiaohacker" class="avatar-pic">
+					<span class="name">xiaoxiaohacker</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2016-07-27 09:19:37</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：13581</span>
+			</p>
+		</div>
+	</div>
+			            <!-- 第四范式SDK -->
+<script src="https://nbrecsys.4paradigm.com/resource/js/sdk-csdn-smallflow.js" async defer></script>
+            <div class="recommend-loading-box">
+                <img src='https://csdnimg.cn/release/phoenix/images/feedLoading.gif'>
+            </div>
+            <div class="recommend-end-box">
+                <p class="text-center">没有更多推荐了，<a href="https://blog.csdn.net/" class="c-blue c-blue-hover c-blue-focus">返回首页</a></p>
+            </div>
+        </div>
+    </main>
+    <aside>
+		    <div id="asideProfile" class="aside-box">
+    <h3 class="aside-title">个人资料</h3>
+    <div class="profile-intro d-flex">
+        <div class="avatar-box d-flex justify-content-center flex-column">
+            <a href="https://blog.csdn.net/ityouknow">
+                <img src="https://avatar.csdn.net/1/9/4/3_ityouknow.jpg" class="avatar_pic">
+            </a>
+        </div>
+        <div class="user-info d-flex justify-content-center flex-column">
+            <p class="name csdn-tracking-statistics tracking-click" data-mod="popu_379">
+                <a href="https://blog.csdn.net/ityouknow" target="_blank" class="text-truncate" id="uid">ityouknow</a>
+            </p>
+                        <p class="flag">
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#csdnc-blogexpert"></use>
+                </svg>
+                博客专家
+            </p>
+                    </div>
+                <div class="opt-box d-flex justify-content-center flex-column">
+            <span  class="csdn-tracking-statistics tracking-click" data-mod="popu_379">
+                                <a class="btn btn-sm btn-red-hollow" href="https://passport.csdn.net/account/login?from=https://blog.csdn.net/ityouknow/article/details/80682237" target="_self">关注</a>
+                            </span>
+                        <span  class="csdn-tracking-statistics tracking-click" data-mod="">
+                <a class="btn btn-sm btn-yellow-hollow" id="btnAsk" href="#chatqa" target="_self">向TA提问</a>
+            </span>
+                    </div>
+            </div>
+    <div class="data-info d-flex item-tiling">
+                <dl class="text-center" title="90">
+                        <dt><a href="https://blog.csdn.net/ityouknow?t=1">原创</a></dt>
+            <dd><a href="https://blog.csdn.net/ityouknow?t=1"><span class="count">90</span></a></dd>
+                    </dl>
+        <dl class="text-center" title="1337">
+            <dt>粉丝</dt>
+            <dd><span class="count" id="fan">1337</span></dd>
+        </dl>
+        <dl class="text-center" title="633">
+            <dt>喜欢</dt>
+            <dd><span class="count">633</span></dd>
+        </dl>
+        <dl class="text-center" title="575">
+            <dt>评论</dt>
+            <dd><span class="count">575</span></dd>
+        </dl>
+    </div>
+    <div class="grade-box clearfix">
+        <dl>
+            <dt>等级：</dt>
+            <dd>
+                <a href="https://blog.csdn.net/home/help.html#level" title="6级,点击查看等级说明" target="_blank">
+                    <svg class="icon icon-level" aria-hidden="true">
+                        <use xlink:href="#csdnc-bloglevel-6"></use>
+                    </svg>
+                </a>
+            </dd>
+        </dl>
+        <dl>
+            <dt>访问：</dt>
+            <dd title="463356">
+                46万+            </dd>
+        </dl>
+        <dl>
+            <dt>积分：</dt>
+            <dd title="5651">
+                5651            </dd>
+        </dl>
+        <dl title="6071">
+            <dt>排名：</dt>
+            <dd>6071</dd>
+        </dl>
+    </div>
+        <div class="badge-box d-flex">
+        <span>勋章：</span>
+                <a class="icon-badge" title="专栏达人">
+            <svg class="icon" aria-hidden="true">
+                <use xlink:href="#csdnc-m-columns"></use>
+            </svg>
+            <div class="icon-arrow"></div>
+            <div class="grade-detail-box item1">
+                <div class="pos-box">
+                    <div class="left-box d-flex justify-content-center align-items-center flex-column">
+                        <svg class="icon" aria-hidden="true">
+                            <use xlink:href="#csdnc-m-columns"></use>
+                        </svg>
+                        <p>专栏达人</p>
+                    </div>
+                    <div class="right-box d-flex justify-content-center align-items-center">
+                        授予成功创建个人博客专栏的用户。专栏中添加五篇以上博文即可点亮！撰写博客专栏浓缩技术精华，专栏达人就是你！
+                    </div>
+                </div>
+            </div> 
+        </a>  
+                        <a class="icon-badge" title="持之以恒">
+            <svg class="icon" aria-hidden="true">
+                <use xlink:href="#csdnc-m-lasting"></use>
+            </svg>
+            <div class="icon-arrow"></div>
+            <div class="grade-detail-box item2">
+                <div class="pos-box">
+                    <div class="left-box d-flex justify-content-center align-items-center flex-column">
+                        <svg class="icon" aria-hidden="true">
+                            <use xlink:href="#csdnc-m-lasting"></use>
+                        </svg>
+                        <p>持之以恒</p>
+                    </div>
+                    <div class="right-box d-flex justify-content-center align-items-center">
+                        授予每个自然月内发布4篇或4篇以上原创或翻译IT博文的用户。不积跬步无以至千里，不积小流无以成江海，程序人生的精彩需要坚持不懈地积累！
+                    </div>
+                </div>
+            </div>
+        </a>
+                            </div>
+    </div>		    <div class="csdn-tracking-statistics mb8 box-shadow" data-pid="blog" data-mod="popu_4" style="height:250px;">
+    <div class="aside-content text-center" id="cpro_u2734133">
+        <!-- 投放代码 -->
+        <script type="text/javascript" src="//cee1.iteye.com/lgyyovfyh.js"></script>
+    </div>
+</div>
+		    <!--自定义模块-->
+<div id="asideCustom52512666" class="aside-box custom-box">
+    <h3 class="aside-title">链接</h3>
+    <div class="aside-content clearfix">
+        
+<a href="https://github.com/ityouknow"><img src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" style="position:absolute; top:0; right:0; border:0"></a>
+<div class="profile">
+<h3><strong>微信公众号：纯洁的微笑</strong></h3>
+<p><img src="https://img-blog.csdn.net/20180406125523605" alt=""> </p>
+<h3><strong>导航：</strong></h3>
+<br>
+<p>&nbsp;&nbsp;&nbsp;<a href="http://www.ityouknow.com/about">关于我</a> </p>
+<br>
+<p>&nbsp;&nbsp;&nbsp;<a href="http://www.ityouknow.com/archives">文章索引</a> </p>
+<br>
+<p>&nbsp;&nbsp;&nbsp;<a href="https://www.zhihu.com/people/ityouknow/activities">我的知乎</a> </p>
+<br>
+<p>&nbsp;&nbsp;&nbsp;<a href="http://www.ityouknow.com/share/2017/10/01/resource-sharing.html"><strong>获取十套精选1000G架构师资料
+</strong></a></p>
+<br>
+<p>&nbsp;&nbsp;&nbsp;我的微信：<strong>593544228</strong>（备注：CSDN） </p>
+<br>
+<p>&nbsp;&nbsp;&nbsp;交流群：<strong>144304696</strong> </p>
+</div>
+    </div>
+</div>
+		    <div id="asideNewArticle" class="aside-box">
+    <h3 class="aside-title">最新文章</h3>
+    <div class="aside-content">
+        <ul class="inf_list clearfix csdn-tracking-statistics tracking-click" data-mod="popu_382">
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/ityouknow/article/details/80682236" target="_blank">历时25天，我的博客（www.ityouknow.com）终于又活了过来</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/ityouknow/article/details/80649827" target="_blank">有一场青春叫高考</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/ityouknow/article/details/80649826" target="_blank">我所经历的创业潮</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/ityouknow/article/details/80649822" target="_blank">人生苦短，尽情抽奖。</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/ityouknow/article/details/80603617" target="_blank">前后端API交互如何保证数据安全性？</a>
+            </li>
+                    </ul>
+    </div>
+</div>
+		    <div id="asideColumn" class="aside-box">
+    <h3 class="aside-title">博主专栏</h3>
+    <div class="aside-content">
+        <ul class="column-box csdn-tracking-statistics tracking-click" data-mod="popu_520" >
+                            <li class="clearfix">
+                    <div class="img-box float-left">
+                        <a class="d-flex align-items-center" href="https://blog.csdn.net/column/details/14730.html">
+                            <img src="https://img-blog.csdn.net/20170303084939689?imageView2/5/w/120/h/120" alt="">
+                        </a>
+                    </div>
+                    <div class="info">
+                        <p class="title"><a href="https://blog.csdn.net/column/details/14730.html">生产实战经历</a></p>
+                        <div class="data">阅读量：<span>51505</span><span class="count">8 篇</span></div>
+                    </div>
+                </li>
+                            <li class="clearfix">
+                    <div class="img-box float-left">
+                        <a class="d-flex align-items-center" href="https://blog.csdn.net/column/details/15149.html">
+                            <img src="//img-blog.csdn.net/20180322145949776?imageView2/5/w/120/h/120" alt="">
+                        </a>
+                    </div>
+                    <div class="info">
+                        <p class="title"><a href="https://blog.csdn.net/column/details/15149.html">快速学习 Spring Boot 技术栈</a></p>
+                        <div class="data">阅读量：<span>156700</span><span class="count">29 篇</span></div>
+                    </div>
+                </li>
+                            <li class="clearfix">
+                    <div class="img-box float-left">
+                        <a class="d-flex align-items-center" href="https://blog.csdn.net/column/details/15468.html">
+                            <img src="https://img-blog.csdn.net/20170505085715576?imageView2/5/w/120/h/120" alt="">
+                        </a>
+                    </div>
+                    <div class="info">
+                        <p class="title"><a href="https://blog.csdn.net/column/details/15468.html">快速学习 Spring Cloud 技术栈</a></p>
+                        <div class="data">阅读量：<span>64478</span><span class="count">15 篇</span></div>
+                    </div>
+                </li>
+                            <li class="clearfix">
+                    <div class="img-box float-left">
+                        <a class="d-flex align-items-center" href="https://blog.csdn.net/column/details/15469.html">
+                            <img src="https://img-blog.csdn.net/20170505085855018?imageView2/5/w/120/h/120" alt="">
+                        </a>
+                    </div>
+                    <div class="info">
+                        <p class="title"><a href="https://blog.csdn.net/column/details/15469.html">jvm实战</a></p>
+                        <div class="data">阅读量：<span>21261</span><span class="count">10 篇</span></div>
+                    </div>
+                </li>
+                            <li class="clearfix">
+                    <div class="img-box float-left">
+                        <a class="d-flex align-items-center" href="https://blog.csdn.net/column/details/20775.html">
+                            <img src="//img-blog.csdn.net/20180322150304222?imageView2/5/w/120/h/120" alt="">
+                        </a>
+                    </div>
+                    <div class="info">
+                        <p class="title"><a href="https://blog.csdn.net/column/details/20775.html">快速学习 Docker 技术栈</a></p>
+                        <div class="data">阅读量：<span>4186</span><span class="count">9 篇</span></div>
+                    </div>
+                </li>
+                    </ul>
+    </div>
+    </div>
+		    <div id="asideCategory" class="aside-box flexible-box">
+    <h3 class="aside-title">个人分类</h3>
+    <div class="aside-content">
+        <ul>
+                        <li>
+                <a href="https://blog.csdn.net/ityouknow/article/category/1328495">
+                    j2EE                    <span class="count float-right">7篇</span>
+                </a>
+            </li>
+                        <li>
+                <a href="https://blog.csdn.net/ityouknow/article/category/1313815">
+                    java基础                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <li>
+                <a href="https://blog.csdn.net/ityouknow/article/category/1313808">
+                    数据库                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <li>
+                <a href="https://blog.csdn.net/ityouknow/article/category/1406474">
+                    linux                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <li>
+                <a href="https://blog.csdn.net/ityouknow/article/category/6368317">
+                    投资理财                    <span class="count float-right">3篇</span>
+                </a>
+            </li>
+                        <li>
+                <a href="https://blog.csdn.net/ityouknow/article/category/6489844">
+                    python                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <li>
+                <a href="https://blog.csdn.net/ityouknow/article/category/6507198">
+                    springboot                    <span class="count float-right">29篇</span>
+                </a>
+            </li>
+                        <li>
+                <a href="https://blog.csdn.net/ityouknow/article/category/6533092">
+                    职场                    <span class="count float-right">6篇</span>
+                </a>
+            </li>
+                        <li>
+                <a href="https://blog.csdn.net/ityouknow/article/category/6676782">
+                    架构                    <span class="count float-right">4篇</span>
+                </a>
+            </li>
+                        <li>
+                <a href="https://blog.csdn.net/ityouknow/article/category/6745886">
+                    性能调优                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <li>
+                <a href="https://blog.csdn.net/ityouknow/article/category/6883202">
+                    生活                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <li>
+                <a href="https://blog.csdn.net/ityouknow/article/category/6895161">
+                    spring-cloud                    <span class="count float-right">16篇</span>
+                </a>
+            </li>
+                        <li>
+                <a href="https://blog.csdn.net/ityouknow/article/category/6957445">
+                    书籍推荐                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <li>
+                <a href="https://blog.csdn.net/ityouknow/article/category/6967687">
+                    人工智能                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <li>
+                <a href="https://blog.csdn.net/ityouknow/article/category/6973452">
+                    支付                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <li>
+                <a href="https://blog.csdn.net/ityouknow/article/category/7007448">
+                    java                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <li>
+                <a href="https://blog.csdn.net/ityouknow/article/category/7081662">
+                    drools                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <li>
+                <a href="https://blog.csdn.net/ityouknow/article/category/7172723">
+                    jvm                    <span class="count float-right">7篇</span>
+                </a>
+            </li>
+                        <li>
+                <a href="https://blog.csdn.net/ityouknow/article/category/7487391">
+                    docker                    <span class="count float-right">7篇</span>
+                </a>
+            </li>
+                    </ul>
+    </div>
+        <p class="text-center">
+        <a class="btn btn-link-blue flexible-btn" data-fbox="aside-archive">展开</a>
+    </p>
+    </div>
+		    <div id="asideArchive" class="aside-box flexible-box">
+    <h3 class="aside-title">归档</h3>
+    <div class="aside-content">
+        <ul class="archive-list">
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/ityouknow/article/month/2018/06">
+                    2018年6月                    <span class="count float-right">10篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/ityouknow/article/month/2018/05">
+                    2018年5月                    <span class="count float-right">23篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/ityouknow/article/month/2018/04">
+                    2018年4月                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/ityouknow/article/month/2018/03">
+                    2018年3月                    <span class="count float-right">10篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/ityouknow/article/month/2018/02">
+                    2018年2月                    <span class="count float-right">3篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/ityouknow/article/month/2018/01">
+                    2018年1月                    <span class="count float-right">7篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/ityouknow/article/month/2017/12">
+                    2017年12月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/ityouknow/article/month/2017/11">
+                    2017年11月                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/ityouknow/article/month/2017/10">
+                    2017年10月                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/ityouknow/article/month/2017/09">
+                    2017年9月                    <span class="count float-right">7篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/ityouknow/article/month/2017/08">
+                    2017年8月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/ityouknow/article/month/2017/07">
+                    2017年7月                    <span class="count float-right">5篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/ityouknow/article/month/2017/06">
+                    2017年6月                    <span class="count float-right">7篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/ityouknow/article/month/2017/05">
+                    2017年5月                    <span class="count float-right">12篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/ityouknow/article/month/2017/04">
+                    2017年4月                    <span class="count float-right">8篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/ityouknow/article/month/2017/03">
+                    2017年3月                    <span class="count float-right">4篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/ityouknow/article/month/2017/02">
+                    2017年2月                    <span class="count float-right">3篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/ityouknow/article/month/2017/01">
+                    2017年1月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/ityouknow/article/month/2016/11">
+                    2016年11月                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/ityouknow/article/month/2016/10">
+                    2016年10月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/ityouknow/article/month/2016/09">
+                    2016年9月                    <span class="count float-right">3篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/ityouknow/article/month/2016/08">
+                    2016年8月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/ityouknow/article/month/2016/06">
+                    2016年6月                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/ityouknow/article/month/2013/10">
+                    2013年10月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/ityouknow/article/month/2013/04">
+                    2013年4月                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/ityouknow/article/month/2013/03">
+                    2013年3月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/ityouknow/article/month/2012/11">
+                    2012年11月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                    </ul>
+    </div>
+        <p class="text-center">
+        <a class="btn btn-link-blue flexible-btn" data-fbox="aside-archive">展开</a>
+    </p>
+    </div>
+		    <div id="asideHotArticle" class="aside-box">
+	<h3 class="aside-title">热门文章</h3>
+	<div class="aside-content">
+		<ul class="hotArticle-list csdn-tracking-statistics tracking-click" data-mod="popu_521">
+							<li>
+					<a href="https://blog.csdn.net/ityouknow/article/details/73836159">springboot(十四)：springboot整合shiro-登录认证和权限管理</a>
+					<p class="read">阅读量：<span>50049</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/ityouknow/article/details/52441288">springboot(四)：thymeleaf使用详解</a>
+					<p class="read">阅读量：<span>17014</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/ityouknow/article/details/80337608">一句“在吗？”逼死人</a>
+					<p class="read">阅读量：<span>16266</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/ityouknow/article/details/80490925">一次惊险的跳槽面试经历（阿里/美团/头条/网易/有赞...)</a>
+					<p class="read">阅读量：<span>15243</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/ityouknow/article/details/58034815">一次生产事故的优化经历</a>
+					<p class="read">阅读量：<span>13730</span></p>
+				</li>
+					</ul>
+	</div>
+</div>
+		    <div id="asideNewComments" class="aside-box">
+    <h3 class="aside-title">最新评论</h3>
+    <div class="aside-content">
+        <ul class="newcomment-list">
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/ityouknow/article/details/52219687#comments">程序员该用哪种姿势来理财</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/sppsunpeng" class="user-name" target="_blank">sppsunpeng</a>：说实话，大多人不适合买股票                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/ityouknow/article/details/80682237#comments">为什么说 Java 程序员到了必须...</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/akuwalink" class="user-name" target="_blank">akuwalink</a>：说的很好，感觉说的很对                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/ityouknow/article/details/80682237#comments">为什么说 Java 程序员到了必须...</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/baxiadsy_csdn" class="user-name" target="_blank">baxiadsy_csdn</a>：繁琐并不意味着功能强大，反而有可能是设计不够合理；简洁也并不意味着简单，很有可能它只是将众多复杂的...                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/ityouknow/article/details/80589552#comments">我们为什么应该坚持写博客</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/laman819" class="user-name" target="_blank">laman819</a>：有一点让我比较困是自己想写的一些文章，有些内容可能会涉及到公司一些规章不方便写，导致思前想后不敢发...                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/ityouknow/article/details/80682237#comments">为什么说 Java 程序员到了必须...</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/antiparticle2" class="user-name" target="_blank">antiparticle2</a>：试试有积分吗？                </p>
+            </li>
+                    </ul>
+    </div>
+</div>
+		<div id="asideFooter">
+			
+		<div class="aside-box">
+						<script type="text/javascript" src="//cee1.iteye.com/mhzzpwgzj.js"></script>
+					</div>
+				<div class="aside-box">
+			<div class="persion_article">
+			</div>
+		</div>
+	</div>
+</aside>
+<script src="https://csdnimg.cn/pubfooter/js/publib_footer-1.0.3.js" data-isfootertrack="false" type="text/javascript"></script>
+<script>
+	$("a.flexible-btn").click(function(){
+		$(this).parents('div.aside-box').removeClass('flexible-box');
+		$(this).remove();
+	})
+</script>
+</div>
+<div class="mask-dark"></div>
+<div class="pulllog-box" style="display: block;">
+	<div class="pulllog clearfix">
+		<span class="text float-left">加入CSDN，享受更精准的内容推荐，与500万程序员共同成长！</span>
+		<div class="pulllog-btn float-right clearfix">
+            <button class="pulllog-login float-left csdn-tracking-statistics tracking-click" data-mod="popu_557">
+                登录
+            </button>
+            <div class="pulllog-sigin float-left csdn-tracking-statistics tracking-click" data-mod="popu_558">
+                <a href="https://passport.csdn.net/account/mobileregister" target="_blank">注册</a>
+            </div>
+            <button class="btn-close">
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#csdnc-times"></use>
+                </svg>
+            </button>
+		</div>
+	</div>
+</div>
+<div id="loginWrap" style="display:none"></div>
+<div class="tool-box">
+	<ul class="meau-list">
+		<li>
+			<button class="btn-like " title="点赞">
+				<svg class="icon active" aria-hidden="true">
+					<use xlink:href="#csdnc-thumbsup-ok"></use>
+				</svg><svg class="icon no-active" aria-hidden="true">
+					<use xlink:href="#csdnc-thumbsup"></use>
+				</svg>
+				<p>13</p>
+			</button>
+		</li>
+		<li class="toc-container-box" id="liTocBox">
+			<button class="btn-toc" title="目录">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-contents"></use>
+				</svg><br>目录
+			</button>
+			<div class="toc-container">
+				<div class="pos-box">
+					<div class="icon-arrow"></div>
+					<div class="scroll-box">
+						<div class="toc-box"></div>
+					</div>
+				</div>
+				<div class="opt-box">
+					<button class="btn-opt prev nomore" title="向上">
+						<svg class="icon" aria-hidden="true">
+							<use xlink:href="#csdnc-chevronup"></use>
+						</svg>
+					</button>
+					<button class="btn-opt next">
+						<svg class="icon" aria-hidden="true">
+							<use xlink:href="#csdnc-chevrondown"></use>
+						</svg>
+					</button>
+				</div>
+			</div>
+		</li>
+		<li>
+			<button class="btn-bookmark" title="收藏">
+				<svg class="icon active" aria-hidden="true">
+					<use xlink:href="#csdnc-bookmark-ok"></use>
+				</svg><svg class="icon no-active" aria-hidden="true">
+					<use xlink:href="#csdnc-bookmark"></use>
+				</svg><br>收藏
+			</button>
+		</li>
+		<li>
+			<a class="btn-comments" title="评论" href="#commentBox">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-comments"></use>
+				</svg><br>评论
+			</a>
+		</li>
+				<li>
+			<a class="btn-comments" title="快问" href="#chatqa">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-chat-qa"></use>
+				</svg><br>快问
+			</a>
+		</li>
+				<li class="bdsharebuttonbox">
+			<a class="btn-comments bds_weixin" data-cmd="weixin" title="微信分享">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-wechat"></use>
+				</svg><br>微信
+			</a>
+		</li>
+		<li class="bdsharebuttonbox">
+			<a class="btn-comments bds_tsina" data-cmd="tsina" title="微博分享">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-weibo"></use>
+				</svg><br>微博
+			</a>
+		</li>
+		<li class="bdsharebuttonbox">
+			<a class="btn-comments bds_qzone" data-cmd="qzone" title="QQ分享">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-qq"></use>
+				</svg><br>QQ
+			</a>
+		</li>
+	</ul>
+</div>
+<script>window._bd_share_config = { "common": { "bdSnsKey": {}, "bdText": "", "bdMini": "1", "bdMiniList": false, "bdPic": "", "bdStyle": "0", "bdSize": "16" }, "share": {} }; with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'https://csdnimg.cn/static/api/js/share.js?v=89860594'];</script>
+<script>
+    var recommendCount = 10;
+    recommendCount = recommendCount > 1 ? (recommendCount + (recommendCount>6 ? 2 : 1)) : recommendCount;
+    var articleTit = "为什么说 Java 程序员到了必须掌握 Spring Boot 的时候？";
+    var ChannelId = 0;
+    var articleId = "80682237";
+    var commentscount = 4;
+    var islock = false;
+    var curentUrl = "https://blog.csdn.net/ityouknow/article/details/80682237";
+    var myUrl = "https://my.csdn.net/";
+    //1禁止评论，2正常
+    var commentAuth = 0;
+    //百度搜索
+    var baiduKey = "";
+    var needInsertBaidu = true;
+</script>
+<script src="https://csdnimg.cn/public/sandalstrap/1.3/js/sandalstrap.min.js"></script>
+<script src="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.js"></script>
+<script src='https://csdnimg.cn/public/common/gotop/js/goTop-v1.0.min.js?v201803151422'></script>
+<script>
+    GoTop({
+        right: 8,
+        hasReport: true,
+        reportFun: function() {
+            showReport(false,"为什么说 Java 程序员到了必须掌握 Spring Boot 的时候？");
+        }
+    })
+</script>
+<script src="https://csdnimg.cn/release/phoenix/template/js/common-bd54b21308.min.js"></script>
+<script src="https://csdnimg.cn/release/phoenix/template/js/detail-effe72036e.min.js"></script>
+<script src="https://csdnimg.cn/release/phoenix/themes/skin-yellow/skin-yellow-22f3069ef3.min.js"></script>
+</body>
+<div class="box-box-default">
+    <a class="btn-remove">
+        关闭
+    </a>
+    <script type="text/javascript" src="//cee1.iteye.com/mhzzjepzz.js"></script>
+</div>
+<div class="box-box-large">
+    <a class="btn-remove">
+        关闭
+    </a>
+    <script type="text/javascript" src="//cee1.iteye.com/idvveasfs.js"></script>
+</div>
+</html>

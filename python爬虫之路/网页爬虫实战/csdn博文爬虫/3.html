@@ -1,0 +1,1963 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <link rel="canonical" href="https://blog.csdn.net/cyq1162/article/details/80695110"/> 
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="referrer" content="always">
+    <meta name="description" content="前言：
+昨天，在文章：终于等到你：CYQ.Data V5系列 （ORM数据层，支持.NET Core）最新版本开源了&amp;amp;nbsp;中，
+不小心看到一条留言：
+
+然后就去该地址看了一下，这一看，顺带折腾了一天。
+今天，就和大伙分享下折腾的感觉。
+在该开源地址中，代码有C++和C#两个版本，编码的整体风格倾向与于C++。
+主要的时间，花了在对于检测无BOM的部分，顺带重温了各种编码的基础。
+建议在看此文..." />
+    <meta name="keywords" content="" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+    <meta name="shenma-site-verification" content="5a59773ab8077d4a62bf469ab966a63b_1497598848">
+    <script src="https://csdnimg.cn/release/phoenix/vendor/tingyun/tingyun-rum-blog.js"></script>
+
+    <link href="https://csdnimg.cn/public/favicon.ico" rel="SHORTCUT ICON">
+    <title>如何检测或判断一个文件或字节流（无BOM）是什么编码类型 - CSDN博客</title>
+    
+            <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/detail-60a2c245da.min.css">
+        <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/themes/skin3-template/skin3-template-88717cedf2.min.css">
+
+    <script type="text/javascript">
+        var username = "cyq1162";
+        var blog_address = "https://blog.csdn.net/cyq1162";
+        var static_host = "https://csdnimg.cn/release/phoenix/";
+        var currentUserName = ""; 
+        var isShowAds = true;
+        var isOwner = false;
+        var loginUrl = "https://passport.csdn.net/account/login?from=https://blog.csdn.net/cyq1162/article/details/80695110"
+        var blogUrl = "https://blog.csdn.net/";
+        var curSkin = "skin3-template";
+    </script>
+    <script type="text/javascript">
+        // Traffic Stats of the entire Web site By baidu
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?6bcd52f51e9b3dce32bec4a3997715ac";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+        // Traffic Stats of the entire Web site By baidu end
+    </script>
+    <script src="https://csdnimg.cn/public/common/libs/jquery/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <script src="https://csdnimg.cn/rabbit/exposure-click/main-1.0.6.js"></script>
+    <!-- 新版上报 -->
+    <script src="//g.csdnimg.cn/track/1.0.0/track.js" type="text/javascript"></script>
+    <!-- 新版上报end -->
+            <link rel="stylesheet" href="https://csdnimg.cn/public/sandalstrap/1.3/css/sandalstrap.min.css"> 
+    <style>
+        .MathJax, .MathJax_Message, .MathJax_Preview{
+            display: none
+        }
+    </style>
+</head>
+<body>    
+    <link rel="stylesheet" href="https://csdnimg.cn/public/common/toolbar/content_toolbar_css/content_toolbar.css">
+    <script id="toolbar-tpl-scriptId" src="https://csdnimg.cn/public/common/toolbar/js/content_toolbar.js" type="text/javascript" domain="https://blog.csdn.net/"></script>
+    <script src="https://csdnimg.cn/public/sandalstrap/1.3/fonts/csdnc/csdnc.js"></script><link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/blog_code-c3a0c33d5c.css">
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.css">
+<script type="text/javascript" src="//static.mediav.com/js/mvf_news_feed.js"></script>
+
+<header>
+	<div class="container d-flex clearfix">
+		<div class="title-box">
+			<h2 class="title-blog">
+				<a href="https://blog.csdn.net/cyq1162">路过秋天 - 理想很美好，现实很残酷，坚持在路上，只因初心仍存</a>
+			</h2>
+			<p class="description">坚持：.NET十年，理想：CYQ.Data框架普众成为企业项目的最优选择（没有之一），愿景：提升.NET行业整体竞争力！（联系QQ：272657997）...</p>
+		</div>
+		<div class="opt-box d-flex justify-content-end">
+			<a class="btn btn-sm" href="https://blog.csdn.net/cyq1162/rss/list">
+					<svg class="icon" aria-hidden="true">
+						<use xlink:href="#csdnc-rss"></use>
+					</svg>RSS订阅</a>
+					</div>
+	</div>
+</header><script src="https://dup.baidustatic.com/js/ds.js"></script>
+<div class="container clearfix pt0" id="mainBox">
+    <main>
+        <div class="blog-content-box">
+	<div class="article-title-box">
+			<span class="article-type type-1 float-left">原</span>		<h1 class="title-article">如何检测或判断一个文件或字节流（无BOM）是什么编码类型</h1>
+	</div>
+	<div class="article-info-box">
+		<div class="article-bar-top d-flex">
+												<span class="time">2018年06月14日 16:49:18</span>
+			<div class="float-right">
+				<span class="read-count">阅读数：1007</span>
+											</div>
+		</div>
+	</div>
+	<article>
+		<div id="article_content" class="article_content clearfix csdn-tracking-statistics" data-pid="blog"  data-mod=popu_307  data-dsm = "post" >
+                    <div class="markdown_views">
+                <h1 id="前言">前言：</h1>
+<p>昨天，在文章：<a id="cb_post_title_url" class="postTitle2" href="https://www.cnblogs.com/cyq1162/p/5639279.html" rel="nofollow" target="_blank">终于等到你：CYQ.Data V5系列 （ORM数据层，支持.NET Core）最新版本开源了</a>&nbsp;中，</p>
+<p>不小心看到一条留言：</p>
+<p><img src="https://images2018.cnblogs.com/blog/17408/201806/17408-20180614152726120-683783984.png" alt=""></p>
+<p>然后就去该地址看了一下，这一看，顺带折腾了一天。</p>
+<p>今天，就和大伙分享下折腾的感觉。</p>
+<p>在该开源地址中，代码有C++和C#两个版本，编码的整体风格倾向与于C++。</p>
+<p>主要的时间，花了在对于检测无BOM的部分，顺带重温了各种编码的基础。</p>
+<p>建议在看此文之前，先了解下编码、和BOM的概念。</p>
+<h1 id="有bom的编码检测">有BOM的编码检测</h1>
+<p>对于一个文件，或者字节流，就是一堆二进制：</p>
+<p><img src="https://images2018.cnblogs.com/blog/17408/201806/17408-20180614162310670-356717484.png" alt=""></p>
+<p>如果传输的过程，有指定BOM，就是前面两三个字节是固定的255,254之类的，那么解码起来就很简单了。</p>
+<p>像之前IOHelper内部读文件的代码是这么写的：</p>
+<div class="cnblogs_code">
+<pre> <span>///</span> <span>&lt;summary&gt;</span>
+        <span>///</span><span> 先自动识别UTF8，否则归到Default编码读取
+        </span><span>///</span> <span>&lt;/summary&gt;</span>
+        <span>///</span> <span>&lt;returns&gt;&lt;/returns&gt;</span>
+        <span>public</span> <span>static</span> <span>string</span> ReadAllText(<span>string</span><span> fileName)
+        {
+            </span><span>return</span><span> ReadAllText(fileName, DefaultEncoding);
+        }
+        </span><span>public</span> <span>static</span> <span>string</span> ReadAllText(<span>string</span><span> fileName, Encoding encoding)
+        {
+            </span><span>try</span><span>
+            {
+                </span><span>if</span> (!<span>File.Exists(fileName))
+                {
+                    </span><span>return</span> <span>string</span><span>.Empty;
+                }
+                Byte[] buff </span>= <span>null</span><span>;
+                </span><span>lock</span><span> (GetLockObj(fileName.Length))
+                {
+                    </span><span>if</span> (!File.Exists(fileName))<span>//</span><span>多线程情况处理</span>
+<span>                    {
+                        </span><span>return</span> <span>string</span><span>.Empty;
+                    }
+                    buff </span>=<span> File.ReadAllBytes(fileName);
+                }
+                </span><span>if</span> (buff.Length == <span>0</span>) { <span>return</span> <span>""</span><span>; }
+                </span><span>if</span> (buff[<span>0</span>] == <span>239</span> &amp;&amp; buff[<span>1</span>] == <span>187</span> &amp;&amp; buff[<span>2</span>] == <span>191</span><span>)
+                {
+                    </span><span>return</span> Encoding.UTF8.GetString(buff, <span>3</span>, buff.Length - <span>3</span><span>);
+                }
+                </span><span>else</span> <span>if</span> (buff[<span>0</span>] == <span>255</span> &amp;&amp; buff[<span>1</span>] == <span>254</span><span>)
+                {
+                    </span><span>return</span> Encoding.Unicode.GetString(buff, <span>2</span>, buff.Length - <span>2</span><span>);
+                }
+                </span><span>else</span> <span>if</span> (buff[<span>0</span>] == <span>254</span> &amp;&amp; buff[<span>1</span>] == <span>255</span><span>)
+                {
+                    </span><span>if</span> (buff.Length &gt; <span>3</span> &amp;&amp; buff[<span>2</span>] == <span>0</span> &amp;&amp; buff[<span>3</span>] == <span>0</span><span>)
+                    {
+                        </span><span>return</span> Encoding.UTF32.GetString(buff, <span>4</span>, buff.Length - <span>4</span><span>);
+                    }
+                    </span><span>return</span> Encoding.BigEndianUnicode.GetString(buff, <span>2</span>, buff.Length - <span>2</span><span>);
+                }
+                </span><span>return</span><span> encoding.GetString(buff);
+            }
+            </span><span>catch</span><span> (Exception err)
+            {
+                Log.WriteLogToTxt(err);
+            }
+            </span><span>return</span> <span>string</span><span>.Empty;
+        }</span></pre>
+</div>
+
+<p>代码说白了，就是检测BOM头，然后识别编码，用对应的编码解码。</p>
+
+<h2 id="测试的结果">测试的结果：</h2>
+
+<p><img src="https://images2018.cnblogs.com/blog/17408/201806/17408-20180614160558527-1578490907.png" alt=""></p>
+
+<p>中文都能正确显示。</p>
+
+<p>windows下文本的另存为只有：ANSI、UTF8､Unicode(UTF16LE)、BigEndianUnicode（UTF16BE）。</p>
+
+<p>这四种有BOM的都是轻松检测了。</p>
+
+<p>&nbsp;那如果文件或字节没有BOM头呢？如果用默认的编码，由有一定概率会乱码。</p>
+
+<h1 id="无bom的编码检测">无BOM的编码检测</h1>
+
+<p>如果一堆字节流，没有指定BOM，就要分析出编码类型，还是挺有难度的。</p>
+
+<p>这需要对各种编码的规则有一定的熟悉度。</p>
+
+<p>先看看网友给出的Github上的&nbsp;<a href="https://github.com/AutoItConsulting/text-encoding-detect/blob/master/TextEncodingDetect-C%23/TextEncodingDetect/TextEncodingDetect.cs" rel="nofollow" target="_blank">原始源码</a>：</p>
+
+<div class="cnblogs_Highlighter">
+<pre class="brush:csharp;gutter:true;">public Encoding DetectEncoding(byte[] buffer, int size)
+        {
+            // First check if we have a BOM and return that if so
+            Encoding encoding = CheckBom(buffer, size);
+            if (encoding != Encoding.None)
+            {
+                return encoding;
+            }
+
+            // Now check for valid UTF8
+            encoding = CheckUtf8(buffer, size);
+            if (encoding != Encoding.None)
+            {
+                return encoding;
+            }
+
+            // Now try UTF16 
+            encoding = CheckUtf16NewlineChars(buffer, size);
+            if (encoding != Encoding.None)
+            {
+                return encoding;
+            }
+
+            encoding = CheckUtf16Ascii(buffer, size);
+            if (encoding != Encoding.None)
+            {
+                return encoding;
+            }
+
+            // ANSI or None (binary) then
+            if (!DoesContainNulls(buffer, size))
+            {
+                return Encoding.Ansi;
+            }
+
+            // Found a null, return based on the preference in null_suggests_binary_
+            return _nullSuggestsBinary ? Encoding.None : Encoding.Ansi;
+        }
+</pre>
+</div>
+
+<p>代码流程（和内涵）翻译下来是这样的：</p>
+
+<div class="cnblogs_Highlighter">
+<pre class="brush:csharp;gutter:true;">1､检测BOM头，这个很Easy。
+
+2､检测UTF8编码（这个还是很有创意的），如果编码的规则完全符合UTF8,则认为是UTF8。
+
+3､检测字节中是否有换行符（根据换行符中的0的位置，区分是Utf16的BE大尾还是LE小尾）。
+
+这个概率要看字节抽样的长度，带不带换行符。
+
+4､检测字节中，单偶数出现的0的概率，设定了一个期望值来预判（对于中文而言，基本没用），大概是老外写的，只根据英文情况分析的概率。
+
+5､检测字节中，有没有出现0，如果没有，返回系统默认编码（不同系统环境编码是不同的）。
+</pre>
+</div>
+
+<p>首先，不得不说，原作者还是有一定想法的。</p>
+
+<p>虽然代码中除了UTF8按规则写的分析外，其它的都无法代入中文环境里通过。</p>
+
+<p>但至少思路上，就能得到不少启发。</p>
+
+<p>于是，坑了我大半天，进行重写，改造，代入中文环境测试。</p>
+
+<h1 id="无bom代码检测的改造过程">无BOM代码检测的改造过程：</h1>
+
+<p>改造后的代码流程是这样的：</p>
+
+<div class="cnblogs_code">
+<pre><span>public</span> Encoding DetectWithoutBom(<span>byte</span>[] buffer, <span>int</span><span> size)
+        {
+            </span><span>//</span><span> Now check for valid UTF8</span>
+            Encoding encoding =<span> CheckUtf8(buffer, size);
+            </span><span>if</span> (encoding !=<span> Encoding.None)
+            {
+                </span><span>return</span><span> encoding;
+            }
+
+            </span><span>//</span><span> ANSI or None (binary) then 一个零都没有情况。</span>
+            <span>if</span> (!<span>ContainsZero(buffer, size))
+            {
+                CheckChinese(buffer, size);
+                </span><span>return</span><span> Encoding.Ansi;
+            }
+
+            </span><span>//</span><span> Now try UTF16  按寻找换行字符先进行判断</span>
+            encoding =<span> CheckByNewLineChar(buffer, size);
+            </span><span>if</span> (encoding !=<span> Encoding.None)
+            {
+                </span><span>return</span><span> encoding;
+            }
+
+            </span><span>//</span><span> 没办法了，只能按0出现的次数比率，做大体的预判</span>
+            encoding =<span> CheckByZeroNumPercent(buffer, size);
+            </span><span>if</span> (encoding !=<span> Encoding.None)
+            {
+                </span><span>return</span><span> encoding;
+            }
+
+            </span><span>//</span><span> Found a null, return based on the preference in null_suggests_binary_</span>
+            <span>return</span><span> Encoding.None;
+        }</span></pre>
+</div>
+
+<p>用中文解释流程是这样的：</p>
+
+<div class="cnblogs_code">
+<pre><span>1</span><span>､UTF8编码的检测规则，这个是通用的有效，可以保留。
+
+</span><span>2</span><span>､调整顺序：先检测字节有没有0字节，若无，补一个是否中文的编码的检测（GB2312､GBK、Big5)。
+
+这个后续有点用。
+
+</span><span>3</span>､检测换行符：增加UTF-<span>32编码的检测（原来的思路只有UTF16)。
+
+</span><span>4</span>､预判概率：改造成同时适应中文环境。</pre>
+</div>
+
+<p>测试的结果是这样的：</p>
+
+<p>A、纯中文的：</p>
+
+<p><img src="https://images2018.cnblogs.com/blog/17408/201806/17408-20180614161034554-500444493.png" alt=""></p>
+
+<p>该测试下，对于BigEndianUnicode的会产生乱码。</p>
+
+<p>B、非纯中文的</p>
+
+<p><img src="https://images2018.cnblogs.com/blog/17408/201806/17408-20180614161125615-251840142.png" alt=""></p>
+
+<p>一切编码正常通用。</p>
+
+<h1 id="改进后的完整源码">改进后的完整源码：</h1>
+
+<div class="cnblogs_code">
+<pre><span>using</span><span> System;
+</span><span>using</span><span> System.Collections.Generic;
+</span><span>using</span><span> System.IO;
+</span><span>using</span><span> System.Text;
+
+</span><span>namespace</span><span> CYQ.Data.Tool
+{
+    </span><span>internal</span> <span>static</span> <span>class</span><span> IOHelper
+    {
+        </span><span>internal</span> <span>static</span> Encoding DefaultEncoding =<span> Encoding.Default;
+
+        </span><span>private</span> <span>static</span> List&lt;<span>object</span>&gt; tenObj = <span>new</span> List&lt;<span>object</span>&gt;(<span>10</span><span>);
+        </span><span>private</span> <span>static</span> List&lt;<span>object</span>&gt;<span> TenObj
+        {
+            </span><span>get</span><span>
+            {
+                </span><span>if</span> (tenObj.Count == <span>0</span><span>)
+                {
+                    </span><span>for</span> (<span>int</span> i = <span>0</span>; i &lt; <span>10</span>; i++<span>)
+                    {
+                        tenObj.Add(</span><span>new</span> <span>object</span><span>());
+                    }
+                }
+                </span><span>return</span><span> tenObj;
+            }
+        }
+        </span><span>private</span> <span>static</span> <span>object</span> GetLockObj(<span>int</span><span> length)
+        {
+            </span><span>int</span> i = length % <span>9</span><span>;
+            </span><span>return</span><span> TenObj[i];
+        }
+        </span><span>///</span> <span>&lt;summary&gt;</span>
+        <span>///</span><span> 先自动识别UTF8，否则归到Default编码读取
+        </span><span>///</span> <span>&lt;/summary&gt;</span>
+        <span>///</span> <span>&lt;returns&gt;&lt;/returns&gt;</span>
+        <span>public</span> <span>static</span> <span>string</span> ReadAllText(<span>string</span><span> fileName)
+        {
+            </span><span>return</span><span> ReadAllText(fileName, DefaultEncoding);
+        }
+        </span><span>public</span> <span>static</span> <span>string</span> ReadAllText(<span>string</span><span> fileName, Encoding encoding)
+        {
+            </span><span>try</span><span>
+            {
+                </span><span>if</span> (!<span>File.Exists(fileName))
+                {
+                    </span><span>return</span> <span>string</span><span>.Empty;
+                }
+                Byte[] buff </span>= <span>null</span><span>;
+                </span><span>lock</span><span> (GetLockObj(fileName.Length))
+                {
+                    </span><span>if</span> (!File.Exists(fileName))<span>//</span><span>多线程情况处理</span>
+<span>                    {
+                        </span><span>return</span> <span>string</span><span>.Empty;
+                    }
+                    buff </span>=<span> File.ReadAllBytes(fileName);
+                    </span><span>return</span><span> BytesToText(buff, encoding);
+                }
+
+            }
+            </span><span>catch</span><span> (Exception err)
+            {
+                Log.WriteLogToTxt(err);
+            }
+            </span><span>return</span> <span>string</span><span>.Empty;
+        }
+        </span><span>public</span> <span>static</span> <span>bool</span> Write(<span>string</span> fileName, <span>string</span><span> text)
+        {
+            </span><span>return</span> Save(fileName, text, <span>false</span>, DefaultEncoding, <span>true</span><span>);
+        }
+        </span><span>public</span> <span>static</span> <span>bool</span> Write(<span>string</span> fileName, <span>string</span><span> text, Encoding encode)
+        {
+            </span><span>return</span> Save(fileName, text, <span>false</span>, encode, <span>true</span><span>);
+        }
+        </span><span>public</span> <span>static</span> <span>bool</span> Append(<span>string</span> fileName, <span>string</span><span> text)
+        {
+            </span><span>return</span> Save(fileName, text, <span>true</span>, <span>true</span><span>);
+        }
+
+        </span><span>internal</span> <span>static</span> <span>bool</span> Save(<span>string</span> fileName, <span>string</span> text, <span>bool</span> isAppend, <span>bool</span><span> writeLogOnError)
+        {
+            </span><span>return</span> Save(fileName, text, <span>true</span><span>, DefaultEncoding, writeLogOnError);
+        }
+        </span><span>internal</span> <span>static</span> <span>bool</span> Save(<span>string</span> fileName, <span>string</span> text, <span>bool</span> isAppend, Encoding encode, <span>bool</span><span> writeLogOnError)
+        {
+            </span><span>try</span><span>
+            {
+                </span><span>string</span> folder =<span> Path.GetDirectoryName(fileName);
+                </span><span>if</span> (!<span>Directory.Exists(folder))
+                {
+                    Directory.CreateDirectory(folder);
+                }
+
+                </span><span>lock</span><span> (GetLockObj(fileName.Length))
+                {
+                    </span><span>using</span> (StreamWriter writer = <span>new</span><span> StreamWriter(fileName, isAppend, encode))
+                    {
+                        writer.Write(text);
+                    }
+                }
+                </span><span>return</span> <span>true</span><span>;
+            }
+            </span><span>catch</span><span> (Exception err)
+            {
+                </span><span>if</span><span> (writeLogOnError)
+                {
+                    Log.WriteLogToTxt(err);
+                }
+                </span><span>else</span><span>
+                {
+                    Error.Throw(</span><span>"</span><span>IOHelper.Save() : </span><span>"</span> +<span> err.Message);
+                }
+            }
+            </span><span>return</span> <span>false</span><span>;
+        }
+
+        </span><span>internal</span> <span>static</span> <span>bool</span> Delete(<span>string</span><span> fileName)
+        {
+            </span><span>try</span><span>
+            {
+                </span><span>if</span><span> (File.Exists(fileName))
+                {
+                    </span><span>lock</span><span> (GetLockObj(fileName.Length))
+                    {
+                        </span><span>if</span><span> (File.Exists(fileName))
+                        {
+                            File.Delete(fileName);
+                            </span><span>return</span> <span>true</span><span>;
+                        }
+                    }
+                }
+            }
+            </span><span>catch</span><span>
+            {
+
+            }
+            </span><span>return</span> <span>false</span><span>;
+        }
+
+        </span><span>public</span> <span>static</span> <span>bool</span> IsLastFileWriteTimeChanged(<span>string</span> fileName, <span>ref</span><span> DateTime compareTimeUtc)
+        {
+            </span><span>bool</span> isChanged = <span>false</span><span>;
+            IOInfo info </span>= <span>new</span><span> IOInfo(fileName);
+            </span><span>if</span> (info.Exists &amp;&amp; info.LastWriteTimeUtc !=<span> compareTimeUtc)
+            {
+                isChanged </span>= <span>true</span><span>;
+                compareTimeUtc </span>=<span> info.LastWriteTimeUtc;
+            }
+            </span><span>return</span><span> isChanged;
+        }
+        </span><span>public</span> <span>static</span> <span>string</span> BytesToText(<span>byte</span><span>[] buff, Encoding encoding)
+        {
+            </span><span>if</span> (buff.Length == <span>0</span>) { <span>return</span> <span>""</span><span>; }
+            </span><span>//</span><span>if (buff[0] == 239 &amp;&amp; buff[1] == 187 &amp;&amp; buff[2] == 191)
+            </span><span>//</span><span>{
+            </span><span>//</span><span>    return Encoding.UTF8.GetString(buff, 3, buff.Length - 3);
+            </span><span>//</span><span>}
+            </span><span>//</span><span>else if (buff[0] == 255 &amp;&amp; buff[1] == 254)
+            </span><span>//</span><span>{
+            </span><span>//</span><span>    return Encoding.Unicode.GetString(buff, 2, buff.Length - 2);
+            </span><span>//</span><span>}
+            </span><span>//</span><span>else if (buff[0] == 254 &amp;&amp; buff[1] == 255)
+            </span><span>//</span><span>{
+            </span><span>//</span><span>    if (buff.Length &gt; 3 &amp;&amp; buff[2] == 0 &amp;&amp; buff[3] == 0)
+            </span><span>//</span><span>    {
+            </span><span>//</span><span>        return Encoding.UTF32.GetString(buff, 4, buff.Length - 4);
+            </span><span>//</span><span>    }
+            </span><span>//</span><span>    return Encoding.BigEndianUnicode.GetString(buff, 2, buff.Length - 2);
+            </span><span>//</span><span>}
+            </span><span>//</span><span>else
+            </span><span>//</span><span>{</span>
+            TextEncodingDetect detect = <span>new</span><span> TextEncodingDetect();
+
+            </span><span>//</span><span>检测Bom</span>
+            <span>switch</span><span> (detect.DetectWithBom(buff))
+            {
+                </span><span>case</span><span> TextEncodingDetect.Encoding.Utf8Bom:
+                    </span><span>return</span> Encoding.UTF8.GetString(buff, <span>3</span>, buff.Length - <span>3</span><span>);
+                </span><span>case</span><span> TextEncodingDetect.Encoding.UnicodeBom:
+                    </span><span>return</span> Encoding.Unicode.GetString(buff, <span>2</span>, buff.Length - <span>2</span><span>);
+                </span><span>case</span><span> TextEncodingDetect.Encoding.BigEndianUnicodeBom:
+                    </span><span>return</span> Encoding.BigEndianUnicode.GetString(buff, <span>2</span>, buff.Length - <span>2</span><span>);
+                </span><span>case</span><span> TextEncodingDetect.Encoding.Utf32Bom:
+                    </span><span>return</span> Encoding.UTF32.GetString(buff, <span>4</span>, buff.Length - <span>4</span><span>);
+            }
+            </span><span>if</span> (encoding != DefaultEncoding &amp;&amp; encoding != Encoding.ASCII)<span>//</span><span>自定义设置编码，优先处理。</span>
+<span>            {
+                </span><span>return</span><span> encoding.GetString(buff);
+            }
+            </span><span>switch</span> (detect.DetectWithoutBom(buff, buff.Length &gt; <span>1000</span> ? <span>1000</span> : buff.Length))<span>//</span><span>自动检测。</span>
+<span>            {
+
+                </span><span>case</span><span> TextEncodingDetect.Encoding.Utf8Nobom:
+                    </span><span>return</span><span> Encoding.UTF8.GetString(buff);
+
+                </span><span>case</span><span> TextEncodingDetect.Encoding.UnicodeNoBom:
+                    </span><span>return</span><span> Encoding.Unicode.GetString(buff);
+
+                </span><span>case</span><span> TextEncodingDetect.Encoding.BigEndianUnicodeNoBom:
+                    </span><span>return</span><span> Encoding.BigEndianUnicode.GetString(buff);
+
+                </span><span>case</span><span> TextEncodingDetect.Encoding.Utf32NoBom:
+                    </span><span>return</span><span> Encoding.UTF32.GetString(buff);
+
+                </span><span>case</span><span> TextEncodingDetect.Encoding.Ansi:
+                    </span><span>if</span> (IsChineseEncoding(DefaultEncoding) &amp;&amp; !<span>IsChineseEncoding(encoding))
+                    {
+                        </span><span>if</span><span> (detect.IsChinese)
+                        {
+                            </span><span>return</span> Encoding.GetEncoding(<span>"</span><span>gbk</span><span>"</span><span>).GetString(buff);
+                        }
+                        </span><span>else</span><span>//</span><span>非中文时，默认选一个。</span>
+<span>                        {
+                            </span><span>return</span><span> Encoding.Unicode.GetString(buff);
+                        }
+                    }
+                    </span><span>else</span><span>
+                    {
+                        </span><span>return</span><span> encoding.GetString(buff);
+                    }
+
+                </span><span>case</span><span> TextEncodingDetect.Encoding.Ascii:
+                    </span><span>return</span><span> Encoding.ASCII.GetString(buff);
+
+                </span><span>default</span><span>:
+                    </span><span>return</span><span> encoding.GetString(buff);
+            }
+            </span><span>//</span><span> }</span>
+<span>        }
+        </span><span>private</span> <span>static</span> <span>bool</span><span> IsChineseEncoding(Encoding encoding)
+        {
+            </span><span>return</span> encoding == Encoding.GetEncoding(<span>"</span><span>gb2312</span><span>"</span>) || encoding == Encoding.GetEncoding(<span>"</span><span>gbk</span><span>"</span>) || encoding == Encoding.GetEncoding(<span>"</span><span>big5</span><span>"</span><span>);
+        }
+    }
+    </span><span>internal</span> <span>class</span><span> IOInfo : FileSystemInfo
+    {
+        </span><span>public</span> IOInfo(<span>string</span><span> fileName)
+        {
+            </span><span>base</span>.FullPath =<span> fileName;
+        }
+        </span><span>public</span> <span>override</span> <span>void</span><span> Delete()
+        {
+        }
+
+        </span><span>public</span> <span>override</span> <span>bool</span><span> Exists
+        {
+            </span><span>get</span><span>
+            {
+                </span><span>return</span> File.Exists(<span>base</span><span>.FullPath);
+            }
+        }
+
+        </span><span>public</span> <span>override</span> <span>string</span><span> Name
+        {
+            </span><span>get</span><span>
+            {
+                </span><span>return</span> <span>null</span><span>;
+            }
+        }
+    }
+    </span><span>///</span> <span>&lt;summary&gt;</span>
+    <span>///</span><span> 字节文本编码检测
+    </span><span>///</span> <span>&lt;/summary&gt;</span>
+    <span>internal</span> <span>class</span><span> TextEncodingDetect
+    {
+        </span><span>private</span> <span>readonly</span> <span>byte</span>[] _UTF8Bom =<span>
+        {
+            </span><span>0xEF</span><span>,
+            </span><span>0xBB</span><span>,
+            </span><span>0xBF</span><span>
+        };
+        </span><span>//</span><span>utf16le _UnicodeBom</span>
+        <span>private</span> <span>readonly</span> <span>byte</span>[] _UTF16LeBom =<span>
+        {
+            </span><span>0xFF</span><span>,
+            </span><span>0xFE</span><span>
+        };
+
+        </span><span>//</span><span>utf16be _BigUnicodeBom</span>
+        <span>private</span> <span>readonly</span> <span>byte</span>[] _UTF16BeBom =<span>
+        {
+            </span><span>0xFE</span><span>,
+            </span><span>0xFF</span><span>
+        };
+
+        </span><span>//</span><span>utf-32le</span>
+        <span>private</span> <span>readonly</span> <span>byte</span>[] _UTF32LeBom =<span>
+        {
+            </span><span>0xFF</span><span>,
+            </span><span>0xFE</span><span>,
+            </span><span>0x00</span><span>,
+            </span><span>0x00</span><span>
+        };
+        </span><span>//</span><span>utf-32Be
+        </span><span>//</span><span>private readonly byte[] _UTF32BeBom =
+        </span><span>//</span><span>{
+        </span><span>//</span><span>    0x00,
+        </span><span>//</span><span>    0x00,
+        </span><span>//</span><span>    0xFE,
+        </span><span>//</span><span>    0xFF
+        </span><span>//</span><span>};</span>
+        <span>///</span> <span>&lt;summary&gt;</span>
+        <span>///</span><span> 是否中文
+        </span><span>///</span> <span>&lt;/summary&gt;</span>
+        <span>public</span> <span>bool</span> IsChinese = <span>false</span><span>;
+
+        </span><span>public</span> <span>enum</span><span> Encoding
+        {
+            None, </span><span>//</span><span> Unknown or binary</span>
+            Ansi, <span>//</span><span> 0-255</span>
+            Ascii, <span>//</span><span> 0-127</span>
+            Utf8Bom, <span>//</span><span> UTF8 with BOM</span>
+            Utf8Nobom, <span>//</span><span> UTF8 without BOM</span>
+            UnicodeBom, <span>//</span><span> UTF16 LE with BOM</span>
+            UnicodeNoBom, <span>//</span><span> UTF16 LE without BOM</span>
+            BigEndianUnicodeBom, <span>//</span><span> UTF16-BE with BOM</span>
+            BigEndianUnicodeNoBom, <span>//</span><span> UTF16-BE without BOM</span>
+<span>
+            Utf32Bom,</span><span>//</span><span>UTF-32LE with BOM</span>
+            Utf32NoBom <span>//</span><span>UTF-32 without BOM</span>
+<span>
+        }
+
+        </span><span>public</span> Encoding DetectWithBom(<span>byte</span><span>[] buffer)
+        {
+            </span><span>if</span> (buffer != <span>null</span><span>)
+            {
+                </span><span>int</span> size =<span> buffer.Length;
+                </span><span>//</span><span> Check for BOM</span>
+                <span>if</span> (size &gt;= <span>2</span> &amp;&amp; buffer[<span>0</span>] == _UTF16LeBom[<span>0</span>] &amp;&amp; buffer[<span>1</span>] == _UTF16LeBom[<span>1</span><span>])
+                {
+                    </span><span>return</span><span> Encoding.UnicodeBom;
+                }
+
+                </span><span>if</span> (size &gt;= <span>2</span> &amp;&amp; buffer[<span>0</span>] == _UTF16BeBom[<span>0</span>] &amp;&amp; buffer[<span>1</span>] == _UTF16BeBom[<span>1</span><span>])
+                {
+                    </span><span>if</span> (size &gt;= <span>4</span> &amp;&amp; buffer[<span>2</span>] == _UTF32LeBom[<span>2</span>] &amp;&amp; buffer[<span>3</span>] == _UTF32LeBom[<span>3</span><span>])
+                    {
+                        </span><span>return</span><span> Encoding.Utf32Bom;
+                    }
+                    </span><span>return</span><span> Encoding.BigEndianUnicodeBom;
+                }
+
+                </span><span>if</span> (size &gt;= <span>3</span> &amp;&amp; buffer[<span>0</span>] == _UTF8Bom[<span>0</span>] &amp;&amp; buffer[<span>1</span>] == _UTF8Bom[<span>1</span>] &amp;&amp; buffer[<span>2</span>] == _UTF8Bom[<span>2</span><span>])
+                {
+                    </span><span>return</span><span> Encoding.Utf8Bom;
+                }
+            }
+            </span><span>return</span><span> Encoding.None;
+        }
+
+        </span><span>///</span> <span>&lt;summary&gt;</span>
+        <span>///</span><span>     Automatically detects the Encoding type of a given byte buffer.
+        </span><span>///</span> <span>&lt;/summary&gt;</span>
+        <span>///</span> <span>&lt;param name="buffer"&gt;</span><span>The byte buffer.</span><span>&lt;/param&gt;</span>
+        <span>///</span> <span>&lt;param name="size"&gt;</span><span>The size of the byte buffer.</span><span>&lt;/param&gt;</span>
+        <span>///</span> <span>&lt;returns&gt;</span><span>The Encoding type or Encoding.None if unknown.</span><span>&lt;/returns&gt;</span>
+        <span>public</span> Encoding DetectWithoutBom(<span>byte</span>[] buffer, <span>int</span><span> size)
+        {
+            </span><span>//</span><span> Now check for valid UTF8</span>
+            Encoding encoding =<span> CheckUtf8(buffer, size);
+            </span><span>if</span> (encoding !=<span> Encoding.None)
+            {
+                </span><span>return</span><span> encoding;
+            }
+
+            </span><span>//</span><span> ANSI or None (binary) then 一个零都没有情况。</span>
+            <span>if</span> (!<span>ContainsZero(buffer, size))
+            {
+                CheckChinese(buffer, size);
+                </span><span>return</span><span> Encoding.Ansi;
+            }
+
+            </span><span>//</span><span> Now try UTF16  按寻找换行字符先进行判断</span>
+            encoding =<span> CheckByNewLineChar(buffer, size);
+            </span><span>if</span> (encoding !=<span> Encoding.None)
+            {
+                </span><span>return</span><span> encoding;
+            }
+
+            </span><span>//</span><span> 没办法了，只能按0出现的次数比率，做大体的预判</span>
+            encoding =<span> CheckByZeroNumPercent(buffer, size);
+            </span><span>if</span> (encoding !=<span> Encoding.None)
+            {
+                </span><span>return</span><span> encoding;
+            }
+
+            </span><span>//</span><span> Found a null, return based on the preference in null_suggests_binary_</span>
+            <span>return</span><span> Encoding.None;
+        }
+
+        </span><span>///</span> <span>&lt;summary&gt;</span>
+        <span>///</span><span>     Checks if a buffer contains text that looks like utf16 by scanning for
+        </span><span>///</span><span>     newline chars that would be present even in non-english text.
+        </span><span>///</span><span>     以检测换行符标识来判断。
+        </span><span>///</span> <span>&lt;/summary&gt;</span>
+        <span>///</span> <span>&lt;param name="buffer"&gt;</span><span>The byte buffer.</span><span>&lt;/param&gt;</span>
+        <span>///</span> <span>&lt;param name="size"&gt;</span><span>The size of the byte buffer.</span><span>&lt;/param&gt;</span>
+        <span>///</span> <span>&lt;returns&gt;</span><span>Encoding.none, Encoding.Utf16LeNoBom or Encoding.Utf16BeNoBom.</span><span>&lt;/returns&gt;</span>
+        <span>private</span> <span>static</span> Encoding CheckByNewLineChar(<span>byte</span>[] buffer, <span>int</span><span> size)
+        {
+            </span><span>if</span> (size &lt; <span>2</span><span>)
+            {
+                </span><span>return</span><span> Encoding.None;
+            }
+
+            </span><span>//</span><span> Reduce size by 1 so we don't need to worry about bounds checking for pairs of bytes</span>
+            size--<span>;
+
+            </span><span>int</span> le16 = <span>0</span><span>;
+            </span><span>int</span> be16 = <span>0</span><span>;
+            </span><span>int</span> le32 = <span>0</span>;<span>//</span><span>检测是否utf32le。</span>
+            <span>int</span> zeroCount = <span>0</span>;<span>//</span><span>utf32le 每4位后面多数是0</span>
+            <span>uint</span> pos = <span>0</span><span>;
+            </span><span>while</span> (pos &lt;<span> size)
+            {
+                </span><span>byte</span> ch1 = buffer[pos++<span>];
+                </span><span>byte</span> ch2 = buffer[pos++<span>];
+
+                </span><span>if</span> (ch1 == <span>0</span><span>)
+                {
+                    </span><span>if</span> (ch2 == <span>0x0a</span> || ch2 == <span>0x0d</span>)<span>//</span><span>\r \t 换行检测。</span>
+<span>                    {
+                        </span>++<span>be16;
+                    }
+                }
+                </span><span>if</span> (ch2 == <span>0</span><span>)
+                {
+                    zeroCount</span>++<span>;
+                    </span><span>if</span> (ch1 == <span>0x0a</span> || ch1 == <span>0x0d</span><span>)
+                    {
+                        </span>++<span>le16;
+                        </span><span>if</span> (pos + <span>1</span> &lt;= size &amp;&amp; buffer[pos] == <span>0</span> &amp;&amp; buffer[pos + <span>1</span>] == <span>0</span><span>)
+                        {
+                            </span>++<span>le32;
+                        }
+
+                    }
+                }
+
+                </span><span>//</span><span> If we are getting both LE and BE control chars then this file is not utf16</span>
+                <span>if</span> (le16 &gt; <span>0</span> &amp;&amp; be16 &gt; <span>0</span><span>)
+                {
+                    </span><span>return</span><span> Encoding.None;
+                }
+            }
+
+            </span><span>if</span> (le16 &gt; <span>0</span><span>)
+            {
+                </span><span>if</span> (le16 == le32 &amp;&amp; buffer.Length % <span>4</span> == <span>0</span><span>)
+                {
+                    </span><span>return</span><span> Encoding.Utf32NoBom;
+                }
+                </span><span>return</span><span> Encoding.UnicodeNoBom;
+            }
+            </span><span>else</span> <span>if</span> (be16 &gt; <span>0</span><span>)
+            {
+                </span><span>return</span><span> Encoding.BigEndianUnicodeNoBom;
+            }
+            </span><span>else</span> <span>if</span> (buffer.Length % <span>4</span> == <span>0</span> &amp;&amp; zeroCount &gt;= buffer.Length / <span>4</span><span>)
+            {
+                </span><span>return</span><span> Encoding.Utf32NoBom;
+            }
+            </span><span>return</span><span> Encoding.None;
+        }
+
+        </span><span>///</span> <span>&lt;summary&gt;</span>
+        <span>///</span><span> Checks if a buffer contains any nulls. Used to check for binary vs text data.
+        </span><span>///</span> <span>&lt;/summary&gt;</span>
+        <span>///</span> <span>&lt;param name="buffer"&gt;</span><span>The byte buffer.</span><span>&lt;/param&gt;</span>
+        <span>///</span> <span>&lt;param name="size"&gt;</span><span>The size of the byte buffer.</span><span>&lt;/param&gt;</span>
+        <span>private</span> <span>static</span> <span>bool</span> ContainsZero(<span>byte</span>[] buffer, <span>int</span><span> size)
+        {
+            </span><span>uint</span> pos = <span>0</span><span>;
+            </span><span>while</span> (pos &lt;<span> size)
+            {
+                </span><span>if</span> (buffer[pos++] == <span>0</span><span>)
+                {
+                    </span><span>return</span> <span>true</span><span>;
+                }
+            }
+
+            </span><span>return</span> <span>false</span><span>;
+        }
+
+        </span><span>///</span> <span>&lt;summary&gt;</span>
+        <span>///</span><span>     Checks if a buffer contains text that looks like utf16. This is done based
+        </span><span>///</span><span>     on the use of nulls which in ASCII/script like text can be useful to identify.
+        </span><span>///</span><span>     按照一定的空0数的概率来预测。
+        </span><span>///</span> <span>&lt;/summary&gt;</span>
+        <span>///</span> <span>&lt;param name="buffer"&gt;</span><span>The byte buffer.</span><span>&lt;/param&gt;</span>
+        <span>///</span> <span>&lt;param name="size"&gt;</span><span>The size of the byte buffer.</span><span>&lt;/param&gt;</span>
+        <span>///</span> <span>&lt;returns&gt;</span><span>Encoding.none, Encoding.Utf16LeNoBom or Encoding.Utf16BeNoBom.</span><span>&lt;/returns&gt;</span>
+        <span>private</span> Encoding CheckByZeroNumPercent(<span>byte</span>[] buffer, <span>int</span><span> size)
+        {
+            </span><span>//</span><span>单数</span>
+            <span>int</span> oddZeroCount = <span>0</span><span>;
+            </span><span>//</span><span>双数</span>
+            <span>int</span> evenZeroCount = <span>0</span><span>;
+
+            </span><span>//</span><span> Get even nulls</span>
+            <span>uint</span> pos = <span>0</span><span>;
+            </span><span>while</span> (pos &lt;<span> size)
+            {
+                </span><span>if</span> (buffer[pos] == <span>0</span><span>)
+                {
+                    evenZeroCount</span>++<span>;
+                }
+
+                pos </span>+= <span>2</span><span>;
+            }
+
+            </span><span>//</span><span> Get odd nulls</span>
+            pos = <span>1</span><span>;
+            </span><span>while</span> (pos &lt;<span> size)
+            {
+                </span><span>if</span> (buffer[pos] == <span>0</span><span>)
+                {
+                    oddZeroCount</span>++<span>;
+                }
+
+                pos </span>+= <span>2</span><span>;
+            }
+
+            </span><span>double</span> evenZeroPercent = evenZeroCount * <span>2.0</span> /<span> size;
+            </span><span>double</span> oddZeroPercent = oddZeroCount * <span>2.0</span> /<span> size;
+
+            </span><span>//</span><span> Lots of odd nulls, low number of even nulls 这里的条件做了修改</span>
+            <span>if</span> (evenZeroPercent &lt; <span>0.1</span> &amp;&amp; oddZeroPercent &gt; <span>0</span><span>)
+            {
+                </span><span>return</span><span> Encoding.UnicodeNoBom;
+            }
+
+            </span><span>//</span><span> Lots of even nulls, low number of odd nulls 这里的条件也做了修改</span>
+            <span>if</span> (oddZeroPercent &lt; <span>0.1</span> &amp;&amp; evenZeroPercent &gt; <span>0</span><span>)
+            {
+                </span><span>return</span><span> Encoding.BigEndianUnicodeNoBom;
+            }
+
+            </span><span>//</span><span> Don't know</span>
+            <span>return</span><span> Encoding.None;
+        }
+
+        </span><span>///</span> <span>&lt;summary&gt;</span>
+        <span>///</span><span>     Checks if a buffer contains valid utf8.
+        </span><span>///</span><span>     以UTF8 的字节范围来检测。
+        </span><span>///</span> <span>&lt;/summary&gt;</span>
+        <span>///</span> <span>&lt;param name="buffer"&gt;</span><span>The byte buffer.</span><span>&lt;/param&gt;</span>
+        <span>///</span> <span>&lt;param name="size"&gt;</span><span>The size of the byte buffer.</span><span>&lt;/param&gt;</span>
+        <span>///</span> <span>&lt;returns&gt;</span>
+        <span>///</span><span>     Encoding type of Encoding.None (invalid UTF8), Encoding.Utf8NoBom (valid utf8 multibyte strings) or
+        </span><span>///</span><span>     Encoding.ASCII (data in 0.127 range).
+        </span><span>///</span> <span>&lt;/returns&gt;</span>
+        <span>///</span> <span>&lt;returns&gt;</span><span>2</span><span>&lt;/returns&gt;</span>
+        <span>private</span> Encoding CheckUtf8(<span>byte</span>[] buffer, <span>int</span><span> size)
+        {
+            </span><span>//</span><span> UTF8 Valid sequences
+            </span><span>//</span><span> 0xxxxxxx  ASCII
+            </span><span>//</span><span> 110xxxxx 10xxxxxx  2-byte
+            </span><span>//</span><span> 1110xxxx 10xxxxxx 10xxxxxx  3-byte
+            </span><span>//</span><span> 11110xxx 10xxxxxx 10xxxxxx 10xxxxxx  4-byte
+            </span><span>//</span>
+            <span>//</span><span> Width in UTF8
+            </span><span>//</span><span> Decimal      Width
+            </span><span>//</span><span> 0-127        1 byte
+            </span><span>//</span><span> 194-223      2 bytes
+            </span><span>//</span><span> 224-239      3 bytes
+            </span><span>//</span><span> 240-244      4 bytes
+            </span><span>//</span>
+            <span>//</span><span> Subsequent chars are in the range 128-191</span>
+            <span>bool</span> onlySawAsciiRange = <span>true</span><span>;
+            </span><span>uint</span> pos = <span>0</span><span>;
+
+            </span><span>while</span> (pos &lt;<span> size)
+            {
+                </span><span>byte</span> ch = buffer[pos++<span>];
+
+                </span><span>if</span> (ch == <span>0</span><span>)
+                {
+                    </span><span>return</span><span> Encoding.None;
+                }
+
+                </span><span>int</span><span> moreChars;
+                </span><span>if</span> (ch &lt;= <span>127</span><span>)
+                {
+                    </span><span>//</span><span> 1 byte</span>
+                    moreChars = <span>0</span><span>;
+                }
+                </span><span>else</span> <span>if</span> (ch &gt;= <span>194</span> &amp;&amp; ch &lt;= <span>223</span><span>)
+                {
+                    </span><span>//</span><span> 2 Byte</span>
+                    moreChars = <span>1</span><span>;
+                }
+                </span><span>else</span> <span>if</span> (ch &gt;= <span>224</span> &amp;&amp; ch &lt;= <span>239</span><span>)
+                {
+                    </span><span>//</span><span> 3 Byte</span>
+                    moreChars = <span>2</span><span>;
+                }
+                </span><span>else</span> <span>if</span> (ch &gt;= <span>240</span> &amp;&amp; ch &lt;= <span>244</span><span>)
+                {
+                    </span><span>//</span><span> 4 Byte</span>
+                    moreChars = <span>3</span><span>;
+                }
+                </span><span>else</span><span>
+                {
+                    </span><span>return</span> Encoding.None; <span>//</span><span> Not utf8</span>
+<span>                }
+
+                </span><span>//</span><span> Check secondary chars are in range if we are expecting any</span>
+                <span>while</span> (moreChars &gt; <span>0</span> &amp;&amp; pos &lt;<span> size)
+                {
+                    onlySawAsciiRange </span>= <span>false</span>; <span>//</span><span> Seen non-ascii chars now</span>
+<span>
+                    ch </span>= buffer[pos++<span>];
+                    </span><span>if</span> (ch &lt; <span>128</span> || ch &gt; <span>191</span><span>)
+                    {
+                        </span><span>return</span> Encoding.None; <span>//</span><span> Not utf8</span>
+<span>                    }
+
+                    </span>--<span>moreChars;
+                }
+            }
+
+            </span><span>//</span><span> If we get to here then only valid UTF-8 sequences have been processed
+
+            </span><span>//</span><span> If we only saw chars in the range 0-127 then we can't assume UTF8 (the caller will need to decide)</span>
+            <span>return</span> onlySawAsciiRange ?<span> Encoding.Ascii : Encoding.Utf8Nobom;
+        }
+        </span><span>///</span> <span>&lt;summary&gt;</span>
+        <span>///</span><span> 是否中文编码（GB2312、GBK、Big5）
+        </span><span>///</span> <span>&lt;/summary&gt;</span>
+        <span>private</span> <span>void</span> CheckChinese(<span>byte</span>[] buffer, <span>int</span><span> size)
+        {
+            IsChinese </span>= <span>false</span><span>;
+            </span><span>if</span> (size &lt; <span>2</span><span>)
+            {
+                </span><span>return</span><span>;
+            }
+
+            </span><span>//</span><span> Reduce size by 1 so we don't need to worry about bounds checking for pairs of bytes</span>
+            size--<span>;
+            </span><span>uint</span> pos = <span>0</span><span>;
+            </span><span>bool</span> isCN = <span>false</span><span>;
+            </span><span>while</span> (pos &lt;<span> size)
+            {
+                </span><span>//</span><span>GB2312
+                </span><span>//</span><span>0xB0-0xF7(176-247)
+                </span><span>//</span><span>0xA0-0xFE（160-254）
+
+                </span><span>//</span><span>GBK
+                </span><span>//</span><span>0x81-0xFE（129-254）
+                </span><span>//</span><span>0x40-0xFE（64-254）
+
+                </span><span>//</span><span>Big5
+                </span><span>//</span><span>0x81-0xFE（129-255）
+                </span><span>//</span><span>0x40-0x7E（64-126）  OR 0xA1－0xFE（161-254）</span>
+                <span>byte</span> ch1 = buffer[pos++<span>];
+                </span><span>byte</span> ch2 = buffer[pos++<span>];
+                isCN </span>= (ch1 &gt;= <span>176</span> &amp;&amp; ch1 &lt;= <span>247</span> &amp;&amp; ch2 &gt;= <span>160</span> &amp;&amp; ch2 &lt;= <span>254</span><span>)
+                    </span>|| (ch1 &gt;= <span>129</span> &amp;&amp; ch1 &lt;= <span>254</span> &amp;&amp; ch2 &gt;= <span>64</span> &amp;&amp; ch2 &lt;= <span>254</span><span>)
+                    </span>|| (ch1 &gt;= <span>129</span> &amp;&amp; ((ch2 &gt;= <span>64</span> &amp;&amp; ch2 &lt;= <span>126</span>) || (ch2 &gt;= <span>161</span> &amp;&amp; ch2 &lt;= <span>254</span><span>)));
+                </span><span>if</span> (!<span>isCN)
+                {
+                    </span><span>return</span><span>;
+                }
+
+            }
+            IsChinese </span>= <span>true</span><span>;
+        }
+    }
+}</span></pre>
+</div>
+
+<p>后续更新地址：<br><a href="https://github.com/cyq1162/cyqdata/blob/master/Tool/IOHelper.cs" rel="nofollow" target="_blank">https://github.com/cyq1162/cyqdata/blob/master/Tool/IOHelper.cs</a></p>
+
+<h1 id="总结">总结：</h1>
+
+<p>1、考虑到UTF7已经过时了，所以直接无视了。</p>
+
+<p>2、对于纯中文情况，UTF16下是BE还是LE，暂时没有想到好的检测方法，所以默认返回了常用的LE，即Unicode。</p>
+
+<p>3、其它一切都安好，全国公开的C#版本，应该就此一份了。</p>            </div>
+            <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/markdown_views-ea0013b516.css" />
+                </div>
+				<div class="hide-article-box text-center csdn-tracking-statistics tracking-click" data-mod="popu_376">
+			<a class="btn btn-red-hollow" id="btn-readmore">阅读更多</a>
+		</div>
+        	</article>
+	
+		<div class="article-bar-bottom">
+				<div class="article-copyright">
+			版权声明：本文为博主原创文章，未经博主允许不得转载，联系QQ：272657997			https://blog.csdn.net/cyq1162/article/details/80695110		</div>
+									</div>
+	
+	<!-- !empty($pre_next_article[0]) -->
+		</div>
+<script>
+    $(".MathJax").remove();
+</script>
+
+<script type="text/javascript" src="https://static-blog.csdn.net/mdeditor/public/res/bower-libs/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+			"HTML-CSS": {
+					linebreaks: { automatic: true, width: "94%container" },
+					imageFont: null
+			},
+			tex2jax: {
+				preview: "none"
+			},
+			mml2jax: {
+				preview: 'none'
+			}
+	});
+</script>
+<script>
+	(function(){
+		var btnReadmore = $("#btn-readmore");
+		if(btnReadmore.length>0){
+			var winH = $(window).height();
+			var articleBox = $("div.article_content");
+			var artH = articleBox.height();
+			if(artH > winH*2){
+				articleBox.css({
+					'height':winH*2+'px',
+					'overflow':'hidden'
+				})
+				btnReadmore.click(function(){
+					articleBox.removeAttr("style");
+					$(this).parent().remove();
+				})
+			}else{
+				btnReadmore.parent().remove();
+			}
+		}
+	})()
+</script>        <div data-track-view='{"mod":"popu_625","con": ",https://blog.csdn.net/cyq1162/article/details/80695110,from_360"}' style="margin-top: 8px;padding: 20px;background-color: #fff;overflow: hidden;" id="adt0"></div>
+                            <script>
+                                var adWidth = $("div.blog-content-box").outerWidth() - 40;
+                                NEWS_FEED({
+                                    w: adWidth,
+                                    h : 130,
+                                    showid : "s02a31",
+                                    placeholderId: "adt0",
+                                    inject : "define",
+                                    define : {
+                                    imagePosition : "right",
+                                    imageBorderRadius : 0,
+                                    imageWidth: 231,
+                                    imageHeight: 130,
+                                    imageFill : "clip",
+                                    displayImage : true,
+                                    displayTitle : true,
+                                    titleFontSize: 20,
+                                    titleFontColor: "#333",
+                                    titleFontFamily : "Microsoft Yahei",
+                                    titleFontWeight: "bold",
+                                    titlePaddingTop : 0,
+                                    titlePaddingRight : 0,
+                                    titlePaddingBottom : 10,
+                                    titlePaddingLeft : 0,
+                                    displayDesc : true,
+                                    descFontSize: 14,
+                                    descFontColor: "#6b6b6b",
+                                    descFontFamily : "Microsoft Yahei",
+                                    paddingTop : 0,
+                                    paddingRight : 0,
+                                    paddingBottom : 0,
+                                    paddingLeft : 0,
+                                    backgroundColor: "#fff",
+                                    hoverColor: "#ca0c16"
+                                    }
+                                })
+                            </script>        <a id="commentBox"></a>
+<div class="comment-box">
+	  	<div class="unlogin-box text-center">
+		想对作者说点什么？
+		<!-- $curl 当前地址 -->
+		<a href="https://passport.csdn.net/account/login?from=https://blog.csdn.net/cyq1162/article/details/80695110#commentBox" class="btn btn-sm btn-red">我来说一句</a>
+	</div>
+			<div class="comment-list-container">
+		<a id="comments"></a>
+		<div class="comment-list-box">
+		</div>
+		<div id="commentPage" class="pagination-box d-none"></div>
+		<div class="opt-box text-center">
+			<button class="btn btn-sm btn-link-blue" id="btnMoreComment"></button>
+		</div>
+	</div>
+</div>        <div class="recommend-box">
+            		<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/ybhjx/article/details/52205939" target="_blank" strategy="BlogCommendFromQuerySearch_1">
+				C#怎么<em>判断</em><em>一个</em><em>文件</em>的<em>编码</em>格式是UTF-8 without <em>BOM</em>的啊			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/ybhjx/article/details/52205939" target="_blank" >
+				文本<em>文件</em>的开头头三个字节存放<em>编码</em>格式，这三个字节就叫做 <em>BOM</em>。
+
+当头部开始的两个字节为 0xff 0xfe 0x41 时，是Unicode的小尾<em>编码</em>；
+当头部的两个字节为        0xfe ...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/ybhjx" title="ybhjx" target="_blank">
+					<img src="https://avatar.csdn.net/B/8/C/3_ybhjx.jpg" alt="ybhjx" class="avatar-pic">
+					<span class="name">ybhjx</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2016-08-14 19:46:38</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：2221</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/rocky0503/article/details/74991717" target="_blank" strategy="BlogCommendFromQuerySearch_3">
+				在QT中，当<em>BOM</em>头不存在的时候，<em>判断</em><em>一个</em><em>文件</em>是否为UTF-8<em>编码</em>格式			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/rocky0503/article/details/74991717" target="_blank" >
+				在QT中<em>判断</em><em>一个</em><em>文件</em>的字符<em>编码</em>格式，通常状况下，我们都可以根据<em>文件</em><em>BOM</em>头来<em>判断</em>
+下面是<em>BOM</em>头不存在的情况<em>判断</em>方式.  
+QTextCodec::ConverterState state;
+ ...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/rocky0503" title="rocky0503" target="_blank">
+					<img src="https://avatar.csdn.net/F/6/E/3_rocky0503.jpg" alt="rocky0503" class="avatar-pic">
+					<span class="name">rocky0503</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2017-07-11 18:37:21</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：599</span>
+			</p>
+		</div>
+	</div>
+								<div class="recommend-item-box recommend-ad-box" id="ad1"></div>
+				<script>
+				  var width = $("div.recommend-box").outerWidth() - 48;
+					NEWS_FEED({
+						w: width,
+						h : 90,
+						showid : 'GNKXx7',
+						placeholderId: "ad1",
+						inject : 'define',
+						define : {
+							imagePosition : 'right',
+							imageBorderRadius : 0,
+							imageWidth: 120,
+							imageHeight: 90,
+							imageFill : 'clip',
+							displayImage : true,
+							displayTitle : true,
+							titleFontSize: 20,
+							titleFontColor: '#333',
+							titleFontFamily : 'Microsoft Yahei',
+							titleFontWeight: 'bold',
+							titlePaddingTop : 0,
+							titlePaddingRight : 0,
+							titlePaddingBottom : 10,
+							titlePaddingLeft : 0,
+							displayDesc : true,
+							descFontSize: 14,
+							descFontColor: '#6b6b6b',
+							descFontFamily : 'Microsoft Yahei',
+							paddingTop : 0,
+							paddingRight : 0,
+							paddingBottom : 0,
+							paddingLeft : 0,
+							backgroundColor: '#fff',
+							hoverColor: '#ca0c16'
+						}
+					})
+				</script>
+
+			
+				<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/yanjianming2005/article/details/52793066" target="_blank" strategy="BlogCommendFromQuerySearch_7">
+				C#<em>判断</em>文本<em>文件</em><em>编码</em>是ANSI还是无<em>BOM</em>的UTF8			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/yanjianming2005/article/details/52793066" target="_blank" >
+				Encoding GetBytesEncoding(byte[] bs)
+{
+    int len = bs.Length;
+    if (len &gt;= 3 &amp;&amp; bs[0] == 0xEF &amp;&amp;...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/yanjianming2005" title="yanjianming2005" target="_blank">
+					<img src="https://avatar.csdn.net/F/7/3/3_yanjianming2005.jpg" alt="yanjianming2005" class="avatar-pic">
+					<span class="name">yanjianming2005</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2016-10-11 23:19:07</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：1523</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/oicqxiesidilieric/article/details/8464630" target="_blank" strategy="BlogCommendFromQuerySearch_11">
+				Java正确判别出<em>文件</em>的字符集（尤其是带<em>BOM</em>和不带<em>BOM</em>的UTF-8字符)			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/oicqxiesidilieric/article/details/8464630" target="_blank" >
+				前几天在项目中需要读取用户上传过来的txt<em>文件</em>，但不确定txt<em>文件</em>的字符集
+UTF-16、UTF-8(带<em>BOM</em>)、Unicode可以根据前三个字节区别 
+ 
+public String getT...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/oicqxiesidilieric" title="oicqxiesidilieric" target="_blank">
+					<img src="https://avatar.csdn.net/7/0/B/3_oicqxiesidilieric.jpg" alt="oicqxiesidilieric" class="avatar-pic">
+					<span class="name">oicqxiesidilieric</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2013-01-04 14:57:50</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：8484</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/ios_xumin/article/details/60872898" target="_blank" strategy="BlogCommendFromBaidu_0">
+				<em>判断</em>是哪一种<em>编码</em>格式			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/ios_xumin/article/details/60872898" target="_blank" >
+				截取出来的字符串中文乱码
+
+
+#if 0
+
+    NSString *retStr;
+
+    
+
+    // 1，utf8<em>编码</em>的
+
+    NSStringEncoding...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/ios_xumin" title="ios_xumin" target="_blank">
+					<img src="https://avatar.csdn.net/B/F/0/3_ios_xumin.jpg" alt="ios_xumin" class="avatar-pic">
+					<span class="name">ios_xumin</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2017-03-08 15:18:56</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：632</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/dongping8887/article/details/79053100" target="_blank" strategy="BlogCommendFromQuerySearch_2">
+				Java正确判别出<em>文件</em>的字符集（尤其是UTF-8(无<em>BOM</em>)和GBK的<em>判断</em>）			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/dongping8887/article/details/79053100" target="_blank" >
+				最近在项目开发过程中遇到<em>一个</em><em>编码</em>上的问题，原流程是用户上传csv数据并对数据入库。我们不知道用户会使用哪种<em>编码</em>的格式进行<em>文件</em>上传，而直接规定用户必须使用固定<em>编码</em>进行上传又感觉不够友好。所以需要我们程序...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/dongping8887" title="dongping8887" target="_blank">
+					<img src="https://avatar.csdn.net/F/E/1/3_dongping8887.jpg" alt="dongping8887" class="avatar-pic">
+					<span class="name">dongping8887</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2018-01-13 19:22:23</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：638</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box recommend-ad-box" id="a_d_feed_0"></div>
+			<script>
+				var width = $("div.recommend-box").outerWidth() - 48;
+				NEWS_FEED({
+					w: width,
+					h: 90,
+					showid: 'Afihld',
+					placeholderId: 'a_d_feed_0',
+					inject: 'define',
+					define: {
+						imagePosition: 'right',
+						imageBorderRadius: 0,
+						imageWidth: 120,
+						imageHeight: 90,
+						imageFill: 'clip',
+						displayImage: true,
+						displayTitle: true,
+						titleFontSize: 20,
+						titleFontColor: '#333',
+						titleFontFamily: 'Microsoft Yahei',
+						titleFontWeight: 'bold',
+						titlePaddingTop: 0,
+						titlePaddingRight: 0,
+						titlePaddingBottom: 10,
+						titlePaddingLeft: 0,
+						displayDesc: true,
+						descFontSize: 14,
+						descFontColor: '#6b6b6b',
+						descFontFamily: 'Microsoft Yahei',
+						paddingTop: 0,
+						paddingRight: 0,
+						paddingBottom: 0,
+						paddingLeft: 0,
+						backgroundColor: '#fff',
+						hoverColor: '#ca0c16'
+					}
+				})
+			</script>
+				<div class="recommend-item-box recommend-download-box csdn-tracking-statistics clearfix" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+			<div class="content float-left">
+				<h4 class="text-truncate">
+					<a href="https://download.csdn.net/download/dong273844632/8532557" target="_blank" strategy="BlogCommendFromQuerySearch_4">
+						java获取<em>文件</em><em>编码</em>（<em>判断</em>有无<em>BOM</em>）					</a>
+				</h4>
+				<p>
+					<span class="data">2015年03月25日 </span>
+					<span class="size">499KB</span>
+					<span class="type">下载</span>
+				</p>
+			</div>
+			<div class="img-box float-right">
+				<a href="https://download.csdn.net/download/dong273844632/8532557" target="_blank" strategy="BlogCommendFromQuerySearch_4">
+					<img src="http://csdnimg.cn/release/download/old_static/images/minetype/rar.svg" alt="">
+				</a>
+			</div>
+		</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/srests/article/details/50751481" target="_blank" strategy="BlogCommendFromQuerySearch_5">
+				JAVA 无<em>BOM</em> utf8<em>文件</em><em>编码</em><em>判断</em>			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/srests/article/details/50751481" target="_blank" >
+				/**
+	 * @Comments ：获取<em>文件</em><em>编码</em>格式
+	 * @param fileName
+	 * @return
+	 */
+	private static String getCharset(F...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/srests" title="srests" target="_blank">
+					<img src="https://avatar.csdn.net/2/A/1/3_srests.jpg" alt="srests" class="avatar-pic">
+					<span class="name">srests</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2016-02-26 17:27:02</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：1122</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/fhzaitian/article/details/51482556" target="_blank" strategy="BlogCommendFromQuerySearch_6">
+				UTF-8格式<em>编码</em>与UTF-8无<em>BOM</em>格式<em>编码</em>的区别（包括java<em>文件</em>）			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/fhzaitian/article/details/51482556" target="_blank" >
+				<em>BOM</em>——Byte Order Mark，就是字节序标记
+
+在UCS <em>编码</em>中有<em>一个</em>叫做&quot;ZERO WIDTH NO-BREAK SPACE&quot;的字符，它的<em>编码</em>是FEFF。而FFFE在UCS中是不存在的字...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/fhzaitian" title="fhzaitian" target="_blank">
+					<img src="https://avatar.csdn.net/E/7/9/3_fhzaitian.jpg" alt="fhzaitian" class="avatar-pic">
+					<span class="name">fhzaitian</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2016-05-25 09:07:51</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：5678</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/lufubo/article/details/8232234" target="_blank" strategy="BlogCommendFromQuerySearch_8">
+				无<em>BOM</em>的条件下C语言<em>判断</em><em>一个</em><em>文件</em>是否为UTF-8<em>编码</em>代码（windows,linux通用）			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/lufubo/article/details/8232234" target="_blank" >
+				大家知道<em>判断</em><em>一个</em><em>文件</em><em>编码</em>如若有<em>BOM</em>位（方便编辑器识别是何种<em>编码</em>，在<em>文件</em>开头处加的标志位，我是这样理解<em>BOM</em>的，并且我们用一般的编辑器打开是看不到<em>BOM</em>位的，我们必须用能二进制编辑的编辑器打开才看得到...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/lufubo" title="lufubo" target="_blank">
+					<img src="https://avatar.csdn.net/9/B/F/3_lufubo.jpg" alt="lufubo" class="avatar-pic">
+					<span class="name">lufubo</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2012-11-27 22:47:56</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：1919</span>
+			</p>
+		</div>
+	</div>
+			            <!-- 第四范式SDK -->
+<script src="https://nbrecsys.4paradigm.com/resource/js/sdk-csdn-smallflow.js" async defer></script>
+            <div class="recommend-loading-box">
+                <img src='https://csdnimg.cn/release/phoenix/images/feedLoading.gif'>
+            </div>
+            <div class="recommend-end-box">
+                <p class="text-center">没有更多推荐了，<a href="https://blog.csdn.net/" class="c-blue c-blue-hover c-blue-focus">返回首页</a></p>
+            </div>
+        </div>
+    </main>
+    <aside>
+		    <div id="asideProfile" class="aside-box">
+    <h3 class="aside-title">个人资料</h3>
+    <div class="profile-intro d-flex">
+        <div class="avatar-box d-flex justify-content-center flex-column">
+            <a href="https://blog.csdn.net/cyq1162">
+                <img src="https://avatar.csdn.net/6/3/B/3_cyq1162.jpg" class="avatar_pic">
+            </a>
+        </div>
+        <div class="user-info d-flex justify-content-center flex-column">
+            <p class="name csdn-tracking-statistics tracking-click" data-mod="popu_379">
+                <a href="https://blog.csdn.net/cyq1162" target="_blank" class="text-truncate" id="uid">cyq1162</a>
+            </p>
+                    </div>
+                <div class="opt-box d-flex justify-content-center flex-column">
+            <span  class="csdn-tracking-statistics tracking-click" data-mod="popu_379">
+                                <a class="btn btn-sm btn-red-hollow" href="https://passport.csdn.net/account/login?from=https://blog.csdn.net/cyq1162/article/details/80695110" target="_self">关注</a>
+                            </span>
+                    </div>
+            </div>
+    <div class="data-info d-flex item-tiling">
+                <dl class="text-center" title="515">
+                        <dt><a href="https://blog.csdn.net/cyq1162?t=1">原创</a></dt>
+            <dd><a href="https://blog.csdn.net/cyq1162?t=1"><span class="count">515</span></a></dd>
+                    </dl>
+        <dl class="text-center" title="179">
+            <dt>粉丝</dt>
+            <dd><span class="count" id="fan">179</span></dd>
+        </dl>
+        <dl class="text-center" title="131">
+            <dt>喜欢</dt>
+            <dd><span class="count">131</span></dd>
+        </dl>
+        <dl class="text-center" title="187">
+            <dt>评论</dt>
+            <dd><span class="count">187</span></dd>
+        </dl>
+    </div>
+    <div class="grade-box clearfix">
+        <dl>
+            <dt>等级：</dt>
+            <dd>
+                <a href="https://blog.csdn.net/home/help.html#level" title="5级,点击查看等级说明" target="_blank">
+                    <svg class="icon icon-level" aria-hidden="true">
+                        <use xlink:href="#csdnc-bloglevel-5"></use>
+                    </svg>
+                </a>
+            </dd>
+        </dl>
+        <dl>
+            <dt>访问：</dt>
+            <dd title="208555">
+                20万+            </dd>
+        </dl>
+        <dl>
+            <dt>积分：</dt>
+            <dd title="2495">
+                2495            </dd>
+        </dl>
+        <dl title="19056">
+            <dt>排名：</dt>
+            <dd>1万+</dd>
+        </dl>
+    </div>
+        <div class="badge-box d-flex">
+        <span>勋章：</span>
+                        <a class="icon-badge" title="持之以恒">
+            <svg class="icon" aria-hidden="true">
+                <use xlink:href="#csdnc-m-lasting"></use>
+            </svg>
+            <div class="icon-arrow"></div>
+            <div class="grade-detail-box item2">
+                <div class="pos-box">
+                    <div class="left-box d-flex justify-content-center align-items-center flex-column">
+                        <svg class="icon" aria-hidden="true">
+                            <use xlink:href="#csdnc-m-lasting"></use>
+                        </svg>
+                        <p>持之以恒</p>
+                    </div>
+                    <div class="right-box d-flex justify-content-center align-items-center">
+                        授予每个自然月内发布4篇或4篇以上原创或翻译IT博文的用户。不积跬步无以至千里，不积小流无以成江海，程序人生的精彩需要坚持不懈地积累！
+                    </div>
+                </div>
+            </div>
+        </a>
+                            </div>
+    </div>		    <div class="csdn-tracking-statistics mb8 box-shadow" data-pid="blog" data-mod="popu_4" style="height:250px;">
+    <div class="aside-content text-center" id="cpro_u2734133">
+        <!-- 投放代码 -->
+        <script type="text/javascript" src="//cee1.iteye.com/lgyyovfyh.js"></script>
+    </div>
+</div>
+		    <div id="asideNewArticle" class="aside-box">
+    <h3 class="aside-title">最新文章</h3>
+    <div class="aside-content">
+        <ul class="inf_list clearfix csdn-tracking-statistics tracking-click" data-mod="popu_382">
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/cyq1162/article/details/80451761" target="_blank">说好的百万年薪的华为技术大神，竟然是骗子！</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/cyq1162/article/details/80433738" target="_blank">谈谈.NET架构师面试及如何设计面试题</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/cyq1162/article/details/80415181" target="_blank">发现一个逆天功能：网页里挂载浏览器怎么做到的呢？</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/cyq1162/article/details/80340730" target="_blank">IT连创业系列：小魔术功能调整</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/cyq1162/article/details/80338664" target="_blank">想想就好：我感觉我欠下的代码，再写十年也写不完</a>
+            </li>
+                    </ul>
+    </div>
+</div>
+		    		    <div id="asideCategory" class="aside-box flexible-box">
+    <h3 class="aside-title">个人分类</h3>
+    <div class="aside-content">
+        <ul>
+                        <li>
+                <a href="https://blog.csdn.net/cyq1162/article/category/6756357">
+                    IT连创业历程系列                    <span class="count float-right">15篇</span>
+                </a>
+            </li>
+                        <li>
+                <a href="https://blog.csdn.net/cyq1162/article/category/6537888">
+                    ASP.NET Aries 系列                    <span class="count float-right">19篇</span>
+                </a>
+            </li>
+                        <li>
+                <a href="https://blog.csdn.net/cyq1162/article/category/6756368">
+                    ASP.NET Taurus.MVC 系列                    <span class="count float-right">5篇</span>
+                </a>
+            </li>
+                        <li>
+                <a href="https://blog.csdn.net/cyq1162/article/category/729669">
+                    CYQ.Data 数据层（ORM）系列                    <span class="count float-right">14篇</span>
+                </a>
+            </li>
+                        <li>
+                <a href="https://blog.csdn.net/cyq1162/article/category/729670">
+                    Silverlight+WCF 网络象棋实战系列                    <span class="count float-right">5篇</span>
+                </a>
+            </li>
+                        <li>
+                <a href="https://blog.csdn.net/cyq1162/article/category/792112">
+                    秋色园QBlog技术原理解析系列                    <span class="count float-right">10篇</span>
+                </a>
+            </li>
+                        <li>
+                <a href="https://blog.csdn.net/cyq1162/article/category/6537889">
+                    记录点滴                    <span class="count float-right">9篇</span>
+                </a>
+            </li>
+                        <li>
+                <a href="https://blog.csdn.net/cyq1162/article/category/6915635">
+                    IOS                    <span class="count float-right">4篇</span>
+                </a>
+            </li>
+                    </ul>
+    </div>
+        <p class="text-center">
+        <a class="btn btn-link-blue flexible-btn" data-fbox="aside-archive">展开</a>
+    </p>
+    </div>
+		    <div id="asideArchive" class="aside-box flexible-box">
+    <h3 class="aside-title">归档</h3>
+    <div class="aside-content">
+        <ul class="archive-list">
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/cyq1162/article/month/2018/06">
+                    2018年6月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/cyq1162/article/month/2018/05">
+                    2018年5月                    <span class="count float-right">5篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/cyq1162/article/month/2018/03">
+                    2018年3月                    <span class="count float-right">4篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/cyq1162/article/month/2017/11">
+                    2017年11月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/cyq1162/article/month/2017/09">
+                    2017年9月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/cyq1162/article/month/2017/08">
+                    2017年8月                    <span class="count float-right">3篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/cyq1162/article/month/2017/06">
+                    2017年6月                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/cyq1162/article/month/2017/05">
+                    2017年5月                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/cyq1162/article/month/2017/03">
+                    2017年3月                    <span class="count float-right">6篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/cyq1162/article/month/2016/12">
+                    2016年12月                    <span class="count float-right">4篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/cyq1162/article/month/2016/11">
+                    2016年11月                    <span class="count float-right">469篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/cyq1162/article/month/2014/02">
+                    2014年2月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/cyq1162/article/month/2011/03">
+                    2011年3月                    <span class="count float-right">10篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/cyq1162/article/month/2010/09">
+                    2010年9月                    <span class="count float-right">6篇</span>
+                </a>
+            </li>
+                    </ul>
+    </div>
+        <p class="text-center">
+        <a class="btn btn-link-blue flexible-btn" data-fbox="aside-archive">展开</a>
+    </p>
+    </div>
+		    <div id="asideHotArticle" class="aside-box">
+	<h3 class="aside-title">热门文章</h3>
+	<div class="aside-content">
+		<ul class="hotArticle-list csdn-tracking-statistics tracking-click" data-mod="popu_521">
+							<li>
+					<a href="https://blog.csdn.net/cyq1162/article/details/62041884">一个想法照进现实-《IT连》创业项目：三天的风投对接活动内幕分享</a>
+					<p class="read">阅读量：<span>11069</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/cyq1162/article/details/64919386">一个想法照进现实-《IT连》创业项目：关于团队组建</a>
+					<p class="read">阅读量：<span>10427</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/cyq1162/article/details/60578454">一个想法照进现实-《IT连》创业项目：万事开头难</a>
+					<p class="read">阅读量：<span>7176</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/cyq1162/article/details/71208393">一个想法照进现实-《IT连》创业项目：创业时该不该用新手程序员</a>
+					<p class="read">阅读量：<span>5875</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/cyq1162/article/details/59112197">一个想法：成立草根技术联盟对开发人员进行技术定级解决企业员工招聘难问题！</a>
+					<p class="read">阅读量：<span>4674</span></p>
+				</li>
+					</ul>
+	</div>
+</div>
+		    <div id="asideNewComments" class="aside-box">
+    <h3 class="aside-title">最新评论</h3>
+    <div class="aside-content">
+        <ul class="newcomment-list">
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/cyq1162/article/details/80695110#comments">如何检测或判断一个文件或字节流（无...</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/zhao4zhong1" class="user-name" target="_blank">zhao4zhong1</a>：[code=cpp]
+            pML-&amp;gt;GetCodePageDes...                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/cyq1162/article/details/80695110#comments">如何检测或判断一个文件或字节流（无...</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/zhao4zhong1" class="user-name" target="_blank">zhao4zhong1</a>：[code=cpp]
+#define _UNICODE 1
+#pragma warning(dis...                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/cyq1162/article/details/80451761#comments">说好的百万年薪的华为技术大神，竟然...</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/liudehuaii18" class="user-name" target="_blank">liudehuaii18</a>：[reply]cyq1162[/reply]
+要是经常有伪装大佬进去发红包，想想就是福利群                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/cyq1162/article/details/80451761#comments">说好的百万年薪的华为技术大神，竟然...</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/elvaking" class="user-name" target="_blank">elvaking</a>：哈哈哈哈想加群了                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/cyq1162/article/details/80451761#comments">说好的百万年薪的华为技术大神，竟然...</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/u013985879" class="user-name" target="_blank">u013985879</a>：涨知识了，，，                </p>
+            </li>
+                    </ul>
+    </div>
+</div>
+		    <!--自定义模块-->
+<div id="asideCustom972648" class="aside-box custom-box">
+    <h3 class="aside-title">技术博客链接</h3>
+    <div class="aside-content clearfix">
+        <ul><li><a href="http://www.cnblogs.com/cyq1162/" target=_blank>路过秋天-博客园</a> (<a href="http://www.cnblogs.com/cyq1162/rss" target=_blank>RSS</a>)</li><li><a href="http://www.cyqdata.com" target=_blank>秋色园QBlog</a> (<a href="http://www.cyqdata.com/rss" target=_blank>RSS</a>)</li></ul>    </div>
+</div>
+		<div id="asideFooter">
+			
+		<div class="aside-box">
+						<script type="text/javascript" src="//cee1.iteye.com/avneunkwb.js"></script>
+					</div>
+				<div class="aside-box">
+			<div class="persion_article">
+			</div>
+		</div>
+	</div>
+</aside>
+<script src="https://csdnimg.cn/pubfooter/js/publib_footer-1.0.3.js" data-isfootertrack="false" type="text/javascript"></script>
+<script>
+	$("a.flexible-btn").click(function(){
+		$(this).parents('div.aside-box').removeClass('flexible-box');
+		$(this).remove();
+	})
+</script>
+</div>
+<div class="mask-dark"></div>
+<div class="pulllog-box" style="display: block;">
+	<div class="pulllog clearfix">
+		<span class="text float-left">加入CSDN，享受更精准的内容推荐，与500万程序员共同成长！</span>
+		<div class="pulllog-btn float-right clearfix">
+            <button class="pulllog-login float-left csdn-tracking-statistics tracking-click" data-mod="popu_557">
+                登录
+            </button>
+            <div class="pulllog-sigin float-left csdn-tracking-statistics tracking-click" data-mod="popu_558">
+                <a href="https://passport.csdn.net/account/mobileregister" target="_blank">注册</a>
+            </div>
+            <button class="btn-close">
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#csdnc-times"></use>
+                </svg>
+            </button>
+		</div>
+	</div>
+</div>
+<div id="loginWrap" style="display:none"></div>
+<div class="tool-box">
+	<ul class="meau-list">
+		<li>
+			<button class="btn-like " title="点赞">
+				<svg class="icon active" aria-hidden="true">
+					<use xlink:href="#csdnc-thumbsup-ok"></use>
+				</svg><svg class="icon no-active" aria-hidden="true">
+					<use xlink:href="#csdnc-thumbsup"></use>
+				</svg>
+				<p>1</p>
+			</button>
+		</li>
+		<li class="toc-container-box" id="liTocBox">
+			<button class="btn-toc" title="目录">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-contents"></use>
+				</svg><br>目录
+			</button>
+			<div class="toc-container">
+				<div class="pos-box">
+					<div class="icon-arrow"></div>
+					<div class="scroll-box">
+						<div class="toc-box"></div>
+					</div>
+				</div>
+				<div class="opt-box">
+					<button class="btn-opt prev nomore" title="向上">
+						<svg class="icon" aria-hidden="true">
+							<use xlink:href="#csdnc-chevronup"></use>
+						</svg>
+					</button>
+					<button class="btn-opt next">
+						<svg class="icon" aria-hidden="true">
+							<use xlink:href="#csdnc-chevrondown"></use>
+						</svg>
+					</button>
+				</div>
+			</div>
+		</li>
+		<li>
+			<button class="btn-bookmark" title="收藏">
+				<svg class="icon active" aria-hidden="true">
+					<use xlink:href="#csdnc-bookmark-ok"></use>
+				</svg><svg class="icon no-active" aria-hidden="true">
+					<use xlink:href="#csdnc-bookmark"></use>
+				</svg><br>收藏
+			</button>
+		</li>
+		<li>
+			<a class="btn-comments" title="评论" href="#commentBox">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-comments"></use>
+				</svg><br>评论
+			</a>
+		</li>
+				<li class="bdsharebuttonbox">
+			<a class="btn-comments bds_weixin" data-cmd="weixin" title="微信分享">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-wechat"></use>
+				</svg><br>微信
+			</a>
+		</li>
+		<li class="bdsharebuttonbox">
+			<a class="btn-comments bds_tsina" data-cmd="tsina" title="微博分享">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-weibo"></use>
+				</svg><br>微博
+			</a>
+		</li>
+		<li class="bdsharebuttonbox">
+			<a class="btn-comments bds_qzone" data-cmd="qzone" title="QQ分享">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-qq"></use>
+				</svg><br>QQ
+			</a>
+		</li>
+	</ul>
+</div>
+<script>window._bd_share_config = { "common": { "bdSnsKey": {}, "bdText": "", "bdMini": "1", "bdMiniList": false, "bdPic": "", "bdStyle": "0", "bdSize": "16" }, "share": {} }; with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'https://csdnimg.cn/static/api/js/share.js?v=89860594'];</script>
+<script>
+    var recommendCount = 10;
+    recommendCount = recommendCount > 1 ? (recommendCount + (recommendCount>6 ? 2 : 1)) : recommendCount;
+    var articleTit = "如何检测或判断一个文件或字节流（无BOM）是什么编码类型";
+    var ChannelId = 31;
+    var articleId = "80695110";
+    var commentscount = 2;
+    var islock = false;
+    var curentUrl = "https://blog.csdn.net/cyq1162/article/details/80695110";
+    var myUrl = "https://my.csdn.net/";
+    //1禁止评论，2正常
+    var commentAuth = 2;
+    //百度搜索
+    var baiduKey = "%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E4%B8%80%E4%B8%AA%E5%8F%98%E9%87%8F%E6%98%AF%E6%96%87%E4%BB%B6%E6%88%96%E8%80%85%E5%AD%97%E8%8A%82%E6%B5%81";
+    var needInsertBaidu = true;
+</script>
+<script src="https://csdnimg.cn/public/sandalstrap/1.3/js/sandalstrap.min.js"></script>
+<script src="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.js"></script>
+<script src='https://csdnimg.cn/public/common/gotop/js/goTop-v1.0.min.js?v201803151422'></script>
+<script>
+    GoTop({
+        right: 8,
+        hasReport: true,
+        reportFun: function() {
+            showReport(false,"如何检测或判断一个文件或字节流（无BOM）是什么编码类型");
+        }
+    })
+</script>
+<script src="https://csdnimg.cn/release/phoenix/template/js/common-bd54b21308.min.js"></script>
+<script src="https://csdnimg.cn/release/phoenix/template/js/detail-effe72036e.min.js"></script>
+<script src="https://csdnimg.cn/release/phoenix/themes/skin3-template/skin3-template-46c7bd3d86.min.js"></script>
+<script src="https://csdnimg.cn/search/baidu_search-1.1.2.js?v=201802071056&autorun=true&install=true&keyword=%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E4%B8%80%E4%B8%AA%E5%8F%98%E9%87%8F%E6%98%AF%E6%96%87%E4%BB%B6%E6%88%96%E8%80%85%E5%AD%97%E8%8A%82%E6%B5%81"  type="text/javascript"></script>
+</body>
+<div class="box-box-default">
+    <a class="btn-remove">
+        关闭
+    </a>
+    <script type="text/javascript" src="//cee1.iteye.com/mhzzjepzz.js"></script>
+</div>
+<div class="box-box-large">
+    <a class="btn-remove">
+        关闭
+    </a>
+    <script type="text/javascript" src="//cee1.iteye.com/idvveasfs.js"></script>
+</div>
+</html>

@@ -16,7 +16,7 @@
 #
 # </div>
 
-# 代码实现：
+# 代码实现：@@重要：验证一个网站是否需要UA代理
 #先验证一下 ，不添加UA 代理是否可以访问
 # import  urllib.request
 # import re
@@ -27,6 +27,7 @@
 # http.client.RemoteDisconnected: Remote end closed connection without response
 
 
+# @@需求的最终实现：
 # 下面通过添加UA代理的方法来爬取：
 import urllib.request
 import re
@@ -40,6 +41,7 @@ urllib.request.install_opener(opener)
 #_________________________
 url="https://www.qiushibaike.com/"
 for i in range(0,35):
+    print(i)
     thisurl="https://www.qiushibaike.com/8hr/page/"+str(i+1)+"/"
     # print(thisurl)
     data=urllib.request.urlopen(thisurl).read().decode("utf-8","ignore")
@@ -52,3 +54,4 @@ for i in range(0,35):
         print("------")
 
 ##备注，网站好像做了反扒的手段，爬取多页时会出错，此代码待继续调试 。。。。？
+#只爬取5页时，确认没有问题。

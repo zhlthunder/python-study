@@ -15,17 +15,18 @@ uapools=[
     "Mozilla/5.0(Macintosh;IntelMacOSX10_7_0)AppleWebKit/535.11(KHTML,likeGecko)Chrome/17.0.963.5"
 ]
 
+# @@
 def ua(uapools):
     thisua=random.choice(uapools)
     print(thisua)
     headers=("User-Agent",thisua)
-    opener=urllib.request.build_opener()
-    opener.addheaders=[headers]
-    urllib.request.install_opener(opener)
+    opener=urllib.request.build_opener() #实例化一个opener对象；
+    opener.addheaders=[headers]  ##添加头信息
+    urllib.request.install_opener(opener)  ##将头信息安装为全局：
 
 ##下面调用糗事百科爬虫的例子
 url="https://www.qiushibaike.com/"
-for i in range(0,2):
+for i in range(0,35):
     ua(uapools)
     thisurl="https://www.qiushibaike.com/8hr/page/"+str(i+1)+"/"
     # print(thisurl)
@@ -38,4 +39,4 @@ for i in range(0,2):
         print(ret[j])
         print("------")
 
-##备注： 这个爬取糗事百科式，也存在报错的问题，待继续排查。。。。。？
+##备注： 这个爬取糗事百科式，也存在报错的问题，待继续排查。。。。。？ ==》具体的问题现象是，当爬取页面比较多时，后面的页面爬取的内容都是相同的。

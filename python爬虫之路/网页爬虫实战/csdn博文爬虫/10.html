@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <link rel="canonical" href="https://blog.csdn.net/sD7O95O/article/details/80603647"/> 
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="referrer" content="always">
+    <meta name="description" content="
+  
+    
+                    
+
+                    
+
+                    
+                    
+                    前言借书正式出版之际，完整回顾下从写博客到写书整个历程，也算是对自己近三年在技术上的一个总结，整个历程可通过三个万万没想到来概括，请耐心阅读。写博、写书完整历程回顾从20..." />
+    <meta name="keywords" content="" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+    <meta name="shenma-site-verification" content="5a59773ab8077d4a62bf469ab966a63b_1497598848">
+    <script src="https://csdnimg.cn/release/phoenix/vendor/tingyun/tingyun-rum-blog.js"></script>
+
+    <link href="https://csdnimg.cn/public/favicon.ico" rel="SHORTCUT ICON">
+    <title>《你必须掌握的Entity Framework 6.x与Core 2.0》正式出版感想 - CSDN博客</title>
+    
+            <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/detail-60a2c245da.min.css">
+        <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/themes/skin3-template/skin3-template-88717cedf2.min.css">
+
+    <script type="text/javascript">
+        var username = "sd7o95o";
+        var blog_address = "https://blog.csdn.net/sd7o95o";
+        var static_host = "https://csdnimg.cn/release/phoenix/";
+        var currentUserName = ""; 
+        var isShowAds = true;
+        var isOwner = false;
+        var loginUrl = "https://passport.csdn.net/account/login?from=https://blog.csdn.net/sD7O95O/article/details/80603647"
+        var blogUrl = "https://blog.csdn.net/";
+        var curSkin = "skin3-template";
+    </script>
+    <script type="text/javascript">
+        // Traffic Stats of the entire Web site By baidu
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?6bcd52f51e9b3dce32bec4a3997715ac";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+        // Traffic Stats of the entire Web site By baidu end
+    </script>
+    <script src="https://csdnimg.cn/public/common/libs/jquery/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <script src="https://csdnimg.cn/rabbit/exposure-click/main-1.0.6.js"></script>
+    <!-- 新版上报 -->
+    <script src="//g.csdnimg.cn/track/1.0.0/track.js" type="text/javascript"></script>
+    <!-- 新版上报end -->
+            <link rel="stylesheet" href="https://csdnimg.cn/public/sandalstrap/1.3/css/sandalstrap.min.css"> 
+    <style>
+        .MathJax, .MathJax_Message, .MathJax_Preview{
+            display: none
+        }
+    </style>
+</head>
+<body>    
+    <link rel="stylesheet" href="https://csdnimg.cn/public/common/toolbar/content_toolbar_css/content_toolbar.css">
+    <script id="toolbar-tpl-scriptId" src="https://csdnimg.cn/public/common/toolbar/js/content_toolbar.js" type="text/javascript" domain="https://blog.csdn.net/"></script>
+    <script src="https://csdnimg.cn/public/sandalstrap/1.3/fonts/csdnc/csdnc.js"></script><link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/blog_code-c3a0c33d5c.css">
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.css">
+<script type="text/javascript" src="//static.mediav.com/js/mvf_news_feed.js"></script>
+
+<header>
+	<div class="container d-flex clearfix">
+		<div class="title-box">
+			<h2 class="title-blog">
+				<a href="https://blog.csdn.net/sd7o95o">dotNET跨平台</a>
+			</h2>
+			<p class="description">在这里你可以谈微软.NET;Mono的跨平台开发技术,也可以谈谈其他的跨平台技术.;;在这里可以让你的.NET项目有新的思路,不局限于微软的技术栈,横跨Windows,Linux主流平台...</p>
+		</div>
+		<div class="opt-box d-flex justify-content-end">
+			<a class="btn btn-sm" href="https://blog.csdn.net/sd7o95o/rss/list">
+					<svg class="icon" aria-hidden="true">
+						<use xlink:href="#csdnc-rss"></use>
+					</svg>RSS订阅</a>
+					</div>
+	</div>
+</header><script src="https://dup.baidustatic.com/js/ds.js"></script>
+<div class="container clearfix pt0" id="mainBox">
+    <main>
+        <div class="blog-content-box">
+	<div class="article-title-box">
+			<span class="article-type type-2 float-left">转</span>		<h1 class="title-article">《你必须掌握的Entity Framework 6.x与Core 2.0》正式出版感想</h1>
+	</div>
+	<div class="article-info-box">
+		<div class="article-bar-top d-flex">
+												<span class="time">2018年06月07日 07:00:00</span>
+			<div class="float-right">
+				<span class="read-count">阅读数：2852</span>
+											</div>
+		</div>
+	</div>
+	<article>
+		<div id="article_content" class="article_content clearfix csdn-tracking-statistics" data-pid="blog"  data-mod=popu_307  data-dsm = "post" >
+                    <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/htmledit_views-0a60691e80.css" />
+            <div class="htmledit_views">
+                
+    <div class="rich_media_content">
+                    
+
+                    
+
+                    
+                    
+                    <h2 style="margin-top:10px;margin-bottom:5px;padding-left:15px;font-weight:bold;color:rgb(255,255,255);line-height:1.5;font-size:21px;font-family:'微软雅黑', '宋体', '黑体', Arial;white-space:normal;background:rgb(111,168,51);">前言</h2><p style="margin:10px auto;color:rgb(17,17,17);">借书正式出版之际，完整回顾下从写博客到写书整个历程，也算是对自己近三年在技术上的一个总结，整个历程可通过三个万万没想到来概括，请耐心阅读。</p><h2 style="margin-top:10px;margin-bottom:5px;padding-left:15px;font-weight:bold;color:rgb(255,255,255);line-height:1.5;font-size:21px;font-family:'微软雅黑', '宋体', '黑体', Arial;white-space:normal;background:rgb(111,168,51);">写博、写书完整历程回顾</h2><p style="margin:10px auto;color:rgb(17,17,17);">从2013年12月注册博客园账号，注册博客园账号还是在学校兼职时，带我们的经理要我们经常多看看这个平台上的文章学习学习，于是乎就注册了账号，但是一直未启用，直到2015年7月才开始才正式开始写博文，那时的想法和大多数注册博客园账号童鞋的想法一样，记录自己学习和积累的点滴，遇到什么问题就不用到处各种找寻资料，同时写的博文能够得到大神们的指点将是再好不过。写博客截止今日接近有三年的时间，博文数量加上本篇博文总共212篇博文，已有2171个评论，写的方向侧重于后端着重在EntityFramework 6.x、EntityFramework Core、ASP.NET MVC、ASP.NET WebAPi、SQL Server、ASP.NET Core等，当时头脑发热想重新学习前端写了一点点JavaScript，现在看一下当时写的JavaScript都不知道写的些什么玩意、而后工作用到AngularJs又重新学习了AngularJs。 </p><p style="margin:10px auto;color:rgb(17,17,17);">最初所写博文也遭到前辈们的严厉批评，而后开始比较严谨的去叙述所写博文，后面开始着手写了几篇EntityFramework 6.x博文，具体时间忘记了，应该是在2015年底或者2016初吧，通过所写EntityFramework 6.x博文有几篇上了编辑推荐，然后成为了推荐博客，这是我<span style="color:rgb(255,0,0);">万万没想到</span>的事情。至此对自身要求更高了，对博文的错别字我算是比较挑剔，一篇博文写完，我会仔细看几遍基本保证不会出现太多错别字，对园友负责也是对自己负责，既然写了一篇博文，那么无论是代码也好抑或是言语表达也好都应该认真去对待。 </p><p style="margin:10px auto;color:rgb(17,17,17);">然后时间到了2016年，这一年算是我写博文数量最多的一年，估计是那时候不太忙，哈哈，同时在这个过程中看到有大佬们通过博文方式告知已获得MVP荣誉，抱歉，之前确实不知道MVP这是什么，最后还是看的张善友大哥博文得知MVP是什么，当时心里热血澎湃想想啥时候我也能够获得个MVP，2016年年底刚开始只是询问张大哥有关MVP的问题，张大哥要我可以试一试，那就试一试吧，找了张大哥作为推荐人，后来因为MVP申请恰巧在这个时候进行了改革，目前MVP申请变为每月可申请，至此时间到了2017年4月份，这个时候填写了相关申请资料，至于结果完全没放心里，也没当回事，因为没啥竞争力啊，肯定上不了。</p><p style="margin:10px auto;color:rgb(17,17,17);"> </p><p style="margin:10px auto;color:rgb(17,17,17);">从申请到结果出来不到一个星期的时间，然后通知我通过了，微软中国MVP负责人当时微信通知我过了，我一脸懵逼，非常淡定的几次确认通过了么，因为我不敢相信，这是我<span style="color:rgb(255,0,0);">万万没想到</span>的事情，而后具体得知刚好在2016年这整整一年写的博文数量达到了七十几篇（主要是写了SQLServer系列，哈哈），访问量也还行，对于VS方向上申请的人数特多，最终就靠博文数量和质量以及访问量来作为竞争力，若是在Github上有开源项目，这样机会会更大，而我只是写了几个Demo而已，刚好踩线通过。</p><p style="margin:10px auto;color:rgb(17,17,17);"> </p><p style="margin:10px auto;color:rgb(17,17,17);">从写博客初始到至今写的最多的博文算是EntityFramework 6.x和EntityFramework Core，工作之外私下对EF和EF Core和关注和研究也最多，但是我从未想过我会出一本技术书，这是我<span style="color:rgb(255,0,0);">万万没想到</span>的事情，写书的目的很简单就是在我学习EntityFramework 6.x时发现国内资料太少，当然在博客园平台上也有不少EntityFramework 6.x的好文，我也是跟随前辈们的脚步在持续前行中，但是前辈们都没有持续更新且有些已经过时，写博客都很耗费时间更何况是写书呢？所以这也是很多低调的大佬们不写博客的原因。刚好也碰上EntityFramework Core的出现，借此良机我竭尽最大的能力写一本系统学习EntityFramework 6.x和EntityFramework Core的参考资料，里面包含了大部分我对EF和EF Core的理解，若您看后感觉不过尔尔，那我只能说能力至此，实属抱歉，若您看后感觉收获颇丰，那我成就感满满，也是对我的认可。</p><p style="margin:10px auto;color:rgb(17,17,17);"> </p><p style="margin:10px auto;color:rgb(17,17,17);">写书是一桩太耗时间和精力的事情，除非是工作要加班和特别忙的时候就会搁置一下，除此之外将所有时间全部用在了写书上，基本都是熬夜到凌晨几点。刚开始我还是斗志昂扬，奋劲十足，越到后面明显感觉后劲不足，这就像喝了二锅头似的，后劲很烧脑，不过还是坚持了下来。同时呢，对于书中言语理应言简意赅，在表达上也更加苛刻，我们写博文可以随心所欲，反正是给自己看，无考虑其他。</p><p style="margin:10px auto;color:rgb(17,17,17);"> </p><p style="margin:10px auto;color:rgb(17,17,17);">写书是一个重新梳理技术自成体系的过程，在写EF 6.x时为了兼顾到EF 6、EF 6.1、EF 6.2不同版本之间的差异性，在不同版本之间进行切换，这需要我通过查询大量相关资料去核对和验证，同时让我也对不同版本之间特性也有了一定的了解，虽然现在有些忘记了，脑海中还是有印象。</p><p style="margin:10px auto;color:rgb(17,17,17);"> </p><h2 style="margin-top:10px;margin-bottom:5px;padding-left:15px;font-weight:bold;color:rgb(255,255,255);line-height:1.5;font-size:21px;font-family:'微软雅黑', '宋体', '黑体', Arial;white-space:normal;background:rgb(111,168,51);">写博、写书感受</h2><p style="margin:10px auto;color:rgb(17,17,17);">无论是写博还是写书都需要我在技术的这条道路上一直不停迭代更新，也就是所说的持续学习，读过无论是人生抑或是技术相关的书感觉依然无法把握好自己的人生。不知您是否有和我有一样的感触和懊恼。 </p><p style="margin:10px auto;color:rgb(17,17,17);"><span style="color:rgb(255,0,0);">为什么周围的人一直在不断的成长，而且成长的速度我们也可见，而有的人却依然毫无长进。</span> </p><p style="margin:10px auto;color:rgb(17,17,17);">我们每每都会看到这样的新闻，许多运动员退役之后穷困潦倒，但是有的人却能干出一番事业比如李宁。同样是写文章，比如在简书上，为何有的人写了两年就出书了，而且成为了畅销书作家，而有的人埋头苦写依然毫无作为呢？是不是因为他们背后有如天助神力或者说天生就是吃这口饭的人呢？在我看来，显然不是这样。 </p><p style="margin:10px auto;color:rgb(17,17,17);"><span style="color:rgb(255,0,0);">除开极少数比如少年班的神童，绝大多数在我们看起来非常厉害的人，虽然所从事领域不同，但是他们身上似乎有某种共性，造成的这种差异并非偶然，可能有潜在的必然。</span><span style="color:rgb(255,0,0);">这种共性我们可称之为思维模式上的不同即-成长型思维</span> </p><p style="margin:10px auto;color:rgb(17,17,17);">成长型思维的人认为无论出身环境如何，自身天赋如何，笃定都可以通过自身的努力来改变并且成长。固定思维的人认为从成长的环境就决定了自己的命运，不管后期如何努力，结局都不会得到改变。</p><p style="margin:10px auto;color:rgb(17,17,17);"> </p><p style="margin:10px auto;color:rgb(17,17,17);">在《异类》这本书中通过大量的实例证明一个结论，任何事情通过一万小时理论基本都会得到实现，一万小时理论中所注重的是刻意练习，反观成长型思维其实刻意练习也是建立在此之上。那么对于固定思维的人和成长型思维的人在处理事情的方式上有何不同呢？对于固定思维的人，遇到问题时往往会唯唯诺诺，最终则是放弃。对于成长型思维的人，他们想的是利用什么手段来达到自己的目的，从而突破自己。 </p><p style="margin:10px auto;color:rgb(17,17,17);"><span style="color:rgb(255,0,0);">当固定思维的人说这不可能的时候，成长型思维的人正为将不可能的事情演变成可能忙的不可开交。</span> </p><p style="margin:10px auto;color:rgb(17,17,17);">有些人可能对此进行反驳或者更加有疑惑了，我很努力了啊，为什么依然毫无起色，我只能说可能是你的方法不恰当导致。比如我们在看一篇技术博客时，我们应该先看到它的好处，再批评它的坏处，任何东西都有好与坏、正与反，这和我们吃东西一样，只有经过了消化才能摄取营养。与成长型思维等同的则是开放性心态，秉承开发性心态的人，会有更强的好奇心。他们的态度则是去探索或者寻找事物背后隐藏的逻辑和原因。他们乐于去接受一个新知的世界，并且把未知看做是一种冒险。与固定思维等同的则是封闭性心态，简而言之，就是用自己熟悉的概念，去解释新事物。他们喜欢从不同的事物之间寻求相同，从而提取其共性，自以为抓住了事物的规律和本质。他们乐于将一个新知的世界，改造成自己熟悉且稳定的世界。那么封闭性心态或者固定思维是不是一定就是不好的呢？很显然也不是，我们将未知的事物通过我们以往的经验解释成我们熟悉的资源，这样可以降低注意力上的消耗，帮助我们将精力放在更重要的事情上。 </p><p style="margin:10px auto;color:rgb(17,17,17);"><span style="color:rgb(255,0,0);">但是，封闭性心态，是每每遇到一个新的概念，都会将其拆解，并用自己已有的知识网络结构来解释和替代，它会不断强化固有的知识网络节点，但是并不会增加任何节点，所以到头来收获不到什么。</span><span style="color:rgb(255,0,0);">而，开放性心态，是每每遇到一个新的概念，哪怕暂时无法解释，也会将其纳入大脑体系，同时新增一个节点，再然后不断尝试将它和固有的知识节点建立强有力的联系，最终会不断增加新节点，扩大知识网络范围。</span><span style="color:rgb(255,0,0);">如果我们大脑中的知识网络越广，越来越丰富，我们对事物的理解就会越全面，越加有效，所以开放性心态优于封闭性心态。</span><span style="color:rgb(255,0,0);">开放性心态的人完全不会担心自己的认知会被颠覆，因为他们无时无刻都在怀疑和修补自己的认知，相比稳定感即安逸感，他们更乐于追求新鲜和未知的东西。</span> </p><p style="margin:10px auto;color:rgb(17,17,17);">成长型思维或者开放性心态的人在面对挑战和困难时，往往抱着试一试的心态。固定思维或者封闭心态的人，非常害怕挑战，他们害怕自己的表现比如自己想象中的那么优秀。 </p><p style="margin:10px auto;color:rgb(17,17,17);">当领导安排事情给我们时，如果这件事情我们之前从未接触过，此时对于封闭性心态的人则会推脱或者避开。因为封闭性心态害怕尝试挑战自己不熟悉的工作，觉得这不是我擅长的事情，觉得我无法胜任，觉得我根本做不好，最终导致失去了提升能力的机会，长此以往，久而久之，在熟悉的岗位做着自己烂熟于心的事情，结果将是工作能力未提升，技能也停滞不前。 </p><p style="margin:10px auto;color:rgb(17,17,17);">大卫.库伯提出过一个库伯学习圈。他认为学习一个新的技能和概念，需要经过如下这么一个循环。 </p><p style="margin:10px auto;color:rgb(17,17,17);"><span style="color:rgb(255,0,0);">具体经验-----------------------------------------&gt;反思-----------------------------------------------&gt;抽象性概括--------------------------------------------------&gt;应用于实践</span> </p><p style="margin:10px auto;color:rgb(17,17,17);">只有走完这一个流程，才能学会某一个知识点，这就叫做内化。走完整个流程最终形成自己的一套体系，只有这样，我们才能不断更新、完善自己的知识体系网络。大多数人都在追求快速高效，这并不是真正的学习方式，只是在缓解学习不足而带来的焦虑感而已。</p><p style="margin:10px auto;color:rgb(17,17,17);"> </p><p style="margin:10px auto;color:rgb(17,17,17);"><span style="color:rgb(255,0,0);">学习的本质，在于获取新知，而聚焦于知道。</span></p><h2 style="margin-top:10px;margin-bottom:5px;padding-left:15px;font-weight:bold;color:rgb(255,255,255);line-height:1.5;font-size:21px;font-family:'微软雅黑', '宋体', '黑体', Arial;white-space:normal;background:rgb(111,168,51);">再次致谢</h2><p style="margin:10px auto;color:rgb(17,17,17);">只见过张善友大哥，与其他几位大佬素未谋面，不知是否能够得到大佬们的认可，怀着忐忑的心情去找大佬们写推荐，结果大佬们很快写完就交给我了，在此表示感谢，感谢dudu老大、何镇汐大哥，张善友大哥，赵培（好基友），邹琼俊大哥，感谢大佬们在百忙之中抽空为本书做推荐，感谢大佬们对本书的认可和支持。这里额外打个小广告：何镇汐大哥现作为.NET Core中国社区项目成员之一，以一己之力开发.NET Core平台下的应用框架（https://github.com/dotnetcore/Util），感谢何镇汐大哥对.NET Core所作出的贡献，同时也期待有志之士能够参与进来，共建.NET Core生态圈。同时也感谢博客园平台给我机会和大家分享技术，感谢每一位阅读我博文的园友们，是你们的支持和批评使我在技术的道路上越走越远。</p><h2 style="margin-top:10px;margin-bottom:5px;padding-left:15px;font-weight:bold;color:rgb(255,255,255);line-height:1.5;font-size:21px;font-family:'微软雅黑', '宋体', '黑体', Arial;white-space:normal;background:rgb(111,168,51);">评论送书规则</h2><p style="margin:10px auto;color:rgb(17,17,17);">6月、6、7、8总计3天，在本帖，每天10点的第一个回帖评论者，分别赠送本书1本（如果您要签名留作纪念的话在评论中可告知，虽然我字写的很丑）。请阅读原文到作者文章后面回帖评论。</p><p style="margin:10px auto;color:rgb(17,17,17);">同一ID不可以重复参与活动，重复的话，取紧接着的下一个人。<span style="color:rgb(255,0,0);">不允许用程序刷屏，一旦发现，取消资格。</span></p><p style="margin:10px auto;color:rgb(17,17,17);">明确确认您满足以上规则后，请写下您的地址、姓名、邮编、手机号给我，以便后续邮寄。</p><h2 style="margin-top:10px;margin-bottom:5px;padding-left:15px;font-weight:bold;color:rgb(255,255,255);line-height:1.5;font-size:21px;font-family:'微软雅黑', '宋体', '黑体', Arial;white-space:normal;background:rgb(111,168,51);">出版购买通知</h2><p style="margin:10px auto;color:rgb(17,17,17);">现可在淘宝、京东上购买《你必须掌握的Entity Framework 6.x与Core 2.0》书籍，博客右侧给了京东上面的一个购买链接 <strong>https://item.jd.com/28881803501.html</strong>，后面陆续可在亚马逊等上购买，想要购买电子版的童鞋可能还需要再等一等，我也在等出版社那边对电子版出版的通知。同时即将推出ASP.NET Core MVC课程，详情可扫描下方右边二维码关注我，有任何课程方面的疑问可加我QQ了解。</p><p style="margin:10px auto;color:rgb(17,17,17);"><img style="border-width:0px;" src="https://ss.csdn.net/p?https://mmbiz.qpic.cn/mmbiz_jpg/gak2lhVxV6JLkXyDUukv3Spbia8BxjlhSbraJLeW13yVhrRibHbaUX38aZboXowhpaWnUADkibhGXuDDxNOD2ZSaQ/640?wx_fmt=jpeg" alt="640?wx_fmt=jpeg" /></p><p style="white-space:normal;min-height:1em;color:rgb(51,51,51);">原文地址: https://www.cnblogs.com/CreateMyself/p/9141931.html</p><hr style="white-space:normal;" /><pre style="margin-top:0px;margin-bottom:0px;padding:0px;background-color:rgb(255,255,255);color:rgb(51,51,51);font-size:17px;letter-spacing:.544px;text-align:justify;"></pre><p style="min-height:1em;"><span style="font-size:14px;">.NET社区新闻，深度好文，欢迎访问公众号文章汇总 http://www.csharpkit.com </span><br /></p><p style="min-height:1em;"><img src="https://ss.csdn.net/p?https://mmbiz.qpic.cn/mmbiz_jpg/gak2lhVxV6Ll3Rjypick8DKRBSUpPIgFyCxeb5deosVPTBP2DJO7FENibZQVoweibm12hN3icfjxz4TVrPoZCpUVWA/640?wx_fmt=jpeg" alt="640?wx_fmt=jpeg" /></p>
+                </div>
+              </div>
+                </div>
+				<div class="hide-article-box text-center csdn-tracking-statistics tracking-click" data-mod="popu_376">
+			<a class="btn btn-red-hollow" id="btn-readmore">阅读更多</a>
+		</div>
+        	</article>
+	
+	
+	<!-- !empty($pre_next_article[0]) -->
+		</div>
+<script>
+    $(".MathJax").remove();
+</script>
+
+<script type="text/javascript" src="https://static-blog.csdn.net/mdeditor/public/res/bower-libs/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+			"HTML-CSS": {
+					linebreaks: { automatic: true, width: "94%container" },
+					imageFont: null
+			},
+			tex2jax: {
+				preview: "none"
+			},
+			mml2jax: {
+				preview: 'none'
+			}
+	});
+</script>
+<script>
+	(function(){
+		var btnReadmore = $("#btn-readmore");
+		if(btnReadmore.length>0){
+			var winH = $(window).height();
+			var articleBox = $("div.article_content");
+			var artH = articleBox.height();
+			if(artH > winH*2){
+				articleBox.css({
+					'height':winH*2+'px',
+					'overflow':'hidden'
+				})
+				btnReadmore.click(function(){
+					articleBox.removeAttr("style");
+					$(this).parent().remove();
+				})
+			}else{
+				btnReadmore.parent().remove();
+			}
+		}
+	})()
+</script>        <div class="edu-promotion"></div>
+<script type="text/javascript">
+	var edu_ad_is_big_data = 0;
+	var edu_ad_id_mapping = {"0":["https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=python1","https:\/\/edu.csdn.net\/sp\/blog.php?type=618"],"1":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=web1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit","https:\/\/edu.csdn.net\/sp\/blog.php?type=web1","https:\/\/edu.csdn.net\/sp\/blog.php?type=web1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=618"],"8":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit"],"2":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=python1"],"3":["https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=618"],"6":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit"],"12":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit"],"14":["https:\/\/edu.csdn.net\/sp\/blog.php?type=web1","https:\/\/edu.csdn.net\/sp\/blog.php?type=python1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcweb","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=web1","https:\/\/edu.csdn.net\/sp\/blog.php?type=618"],"15":["https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcjg","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1"],"16":["https:\/\/edu.csdn.net\/sp\/blog.php?type=web1","https:\/\/edu.csdn.net\/sp\/blog.php?type=python1"],"28":["https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=python1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcai","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=python1","https:\/\/edu.csdn.net\/sp\/blog.php?type=618"],"29":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1"],"30":["https:\/\/edu.csdn.net\/sp\/blog.php?type=python1","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1"],"32":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=python1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcaq"],"33":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gccxrs","https:\/\/edu.csdn.net\/sp\/blog.php?type=python1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1"],"35":["https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit"],"37":["https:\/\/edu.csdn.net\/sp\/blog.php?type=web1","https:\/\/edu.csdn.net\/sp\/blog.php?type=python1"],"7":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=web1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=web1","https:\/\/edu.csdn.net\/sp\/blog.php?type=web1","https:\/\/edu.csdn.net\/sp\/blog.php?type=618"],"17":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1"],"34":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=python1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcbt"],"36":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit"],"31":["https:\/\/edu.csdn.net\/sp\/blog.php?type=python1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit"],"19":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit"],"20":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit"]};
+</script>        <a id="commentBox"></a>
+<div class="comment-box">
+	  	<div class="unlogin-box text-center">
+		想对作者说点什么？
+		<!-- $curl 当前地址 -->
+		<a href="https://passport.csdn.net/account/login?from=https://blog.csdn.net/sD7O95O/article/details/80603647#commentBox" class="btn btn-sm btn-red">我来说一句</a>
+	</div>
+			<div class="comment-list-container">
+		<a id="comments"></a>
+		<div class="comment-list-box">
+		</div>
+		<div id="commentPage" class="pagination-box d-none"></div>
+		<div class="opt-box text-center">
+			<button class="btn btn-sm btn-link-blue" id="btnMoreComment"></button>
+		</div>
+	</div>
+</div>        <div class="recommend-box">
+            		<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/sD7O95O/article/details/78096744" target="_blank" strategy="BlogCommendFromQuerySearch_3">
+				Visual Studio 2017 ASP.NET <em>Core</em>开发			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/sD7O95O/article/details/78096744" target="_blank" >
+				Visual Studio 2017 ASP.NET <em>Core</em>开发,Visual Studio 2017 已经内置ASP.NET <em>Core</em> 开发工具. 
+     在选择.NET <em>Core</em> 功能安装以...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/sD7O95O" title="sD7O95O" target="_blank">
+					<img src="https://avatar.csdn.net/0/D/F/3_sd7o95o.jpg" alt="sD7O95O" class="avatar-pic">
+					<span class="name">sD7O95O</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2017-03-13 07:08:53</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：168</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/sD7O95O/article/details/78328107" target="_blank" strategy="BlogCommendFromQuerySearch_4">
+				<em>Entity</em> <em>Framework</em> <em>Core</em> <em>2.0</em> 使用入门			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/sD7O95O/article/details/78328107" target="_blank" >
+				一.前言
+<em>Entity</em> <em>Framework</em>（后面简称EF）作为微软家的ORM，自然而然从.NET <em>Framework</em>延续到了.NET <em>Core</em>。以前我也嫌弃EF太重而不去使用它，但是EF <em>Core</em>（...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/sD7O95O" title="sD7O95O" target="_blank">
+					<img src="https://avatar.csdn.net/0/D/F/3_sd7o95o.jpg" alt="sD7O95O" class="avatar-pic">
+					<span class="name">sD7O95O</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2017-10-24 00:00:00</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：2579</span>
+			</p>
+		</div>
+	</div>
+								<div class="recommend-item-box recommend-ad-box" id="ad1"></div>
+				<script>
+				  var width = $("div.recommend-box").outerWidth() - 48;
+					NEWS_FEED({
+						w: width,
+						h : 90,
+						showid : 'GNKXx7',
+						placeholderId: "ad1",
+						inject : 'define',
+						define : {
+							imagePosition : 'right',
+							imageBorderRadius : 0,
+							imageWidth: 120,
+							imageHeight: 90,
+							imageFill : 'clip',
+							displayImage : true,
+							displayTitle : true,
+							titleFontSize: 20,
+							titleFontColor: '#333',
+							titleFontFamily : 'Microsoft Yahei',
+							titleFontWeight: 'bold',
+							titlePaddingTop : 0,
+							titlePaddingRight : 0,
+							titlePaddingBottom : 10,
+							titlePaddingLeft : 0,
+							displayDesc : true,
+							descFontSize: 14,
+							descFontColor: '#6b6b6b',
+							descFontFamily : 'Microsoft Yahei',
+							paddingTop : 0,
+							paddingRight : 0,
+							paddingBottom : 0,
+							paddingLeft : 0,
+							backgroundColor: '#fff',
+							hoverColor: '#ca0c16'
+						}
+					})
+				</script>
+
+			
+				<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/sD7O95O/article/details/79180212" target="_blank" strategy="BlogCommendFromQuerySearch_6">
+				浅析<em>Entity</em> <em>Framework</em> <em>Core</em><em>2.0</em>的日志记录与动态查询条件			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/sD7O95O/article/details/79180212" target="_blank" >
+				一、 <em>Entity</em> <em>Framework</em> <em>Core</em><em>2.0</em>的日志记录早在<em>Entity</em> <em>Framework</em> <em>Core</em>1.0 ,我们就使用相关的ILoggerProvider ILogger 这些基础接口类....			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/sD7O95O" title="sD7O95O" target="_blank">
+					<img src="https://avatar.csdn.net/0/D/F/3_sd7o95o.jpg" alt="sD7O95O" class="avatar-pic">
+					<span class="name">sD7O95O</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2018-01-26 00:00:00</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：304</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/sD7O95O/article/details/79327568" target="_blank" strategy="BlogCommendFromQuerySearch_9">
+				ASP.NET <em>CORE</em> 微服务(简化版）实战系列-没有比这性价比再高的实战课程了			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/sD7O95O/article/details/79327568" target="_blank" >
+				ASP.NET <em>CORE</em> 微服务(简化版）实战系列，最后1天298，现在注册购买再减50。作者jesse 腾飞在2.14 早上我买了他的课程后，他才做了下面这个活动：作者jesse 腾飞花了大量的时间...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/sD7O95O" title="sD7O95O" target="_blank">
+					<img src="https://avatar.csdn.net/0/D/F/3_sd7o95o.jpg" alt="sD7O95O" class="avatar-pic">
+					<span class="name">sD7O95O</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2018-02-15 00:00:00</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：431</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/sD7O95O/article/details/80240207" target="_blank" strategy="BlogCommendFromBaidu_0">
+				《你<em>必须</em><em>掌握</em>的<em>Entity</em> <em>Framework</em> <em>6.x</em>与<em>Core</em> <em>2.0</em>》书籍<em>出版</em>			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/sD7O95O/article/details/80240207" target="_blank" >
+				
+  
+    
+                    
+
+                    
+
+                    
+                    
+     ...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/sD7O95O" title="sD7O95O" target="_blank">
+					<img src="https://avatar.csdn.net/0/D/F/3_sd7o95o.jpg" alt="sD7O95O" class="avatar-pic">
+					<span class="name">sD7O95O</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2018-05-08 15:18:04</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：284</span>
+			</p>
+		</div>
+	</div>
+						<div class="recommend-item-box recommend-download-box csdn-tracking-statistics clearfix" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+			<div class="content float-left">
+				<h4 class="text-truncate">
+					<a href="https://download.csdn.net/download/lxh504/10350322" target="_blank" strategy="BlogCommendFromBaidu_1">
+						<em>Entity</em> <em>Framework</em> <em>Core</em> <em>2.0</em>最新国外电子书PDF					</a>
+				</h4>
+				<p>
+					<span class="data">2018年04月15日 </span>
+					<span class="size">7.7MB</span>
+					<span class="type">下载</span>
+				</p>
+			</div>
+			<div class="img-box float-right">
+				<a href="https://download.csdn.net/download/lxh504/10350322" target="_blank" strategy="BlogCommendFromBaidu_1">
+					<img src="http://csdnimg.cn/release/download/old_static/images/minetype/pdf.svg" alt="">
+				</a>
+			</div>
+		</div>
+					<div class="recommend-item-box recommend-ad-box" id="a_d_feed_0"></div>
+			<script>
+				var width = $("div.recommend-box").outerWidth() - 48;
+				NEWS_FEED({
+					w: width,
+					h: 90,
+					showid: 'Afihld',
+					placeholderId: 'a_d_feed_0',
+					inject: 'define',
+					define: {
+						imagePosition: 'right',
+						imageBorderRadius: 0,
+						imageWidth: 120,
+						imageHeight: 90,
+						imageFill: 'clip',
+						displayImage: true,
+						displayTitle: true,
+						titleFontSize: 20,
+						titleFontColor: '#333',
+						titleFontFamily: 'Microsoft Yahei',
+						titleFontWeight: 'bold',
+						titlePaddingTop: 0,
+						titlePaddingRight: 0,
+						titlePaddingBottom: 10,
+						titlePaddingLeft: 0,
+						displayDesc: true,
+						descFontSize: 14,
+						descFontColor: '#6b6b6b',
+						descFontFamily: 'Microsoft Yahei',
+						paddingTop: 0,
+						paddingRight: 0,
+						paddingBottom: 0,
+						paddingLeft: 0,
+						backgroundColor: '#fff',
+						hoverColor: '#ca0c16'
+					}
+				})
+			</script>
+			<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/h_k10086/article/details/80358884" target="_blank" strategy="BlogCommendFromBaidu_2">
+				你<em>必须</em>知道的<em>Entity</em><em>Framework</em> <em>6.x</em>和<em>Entity</em><em>Framework</em> <em>Core</em>变更追踪状态			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/h_k10086/article/details/80358884" target="_blank" >
+				前言只要有时间就会时不时去看最新EF <em>Core</em>的进展情况，同时也会去看下基础，把握好基础至关重要，本节我们对比看看如标题EF <em>6.x</em>和EF <em>Core</em>的不同，希望对正在学习EF <em>Core</em>的同行能有所帮助...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/h_k10086" title="h_k10086" target="_blank">
+					<img src="https://avatar.csdn.net/A/6/9/3_h_k10086.jpg" alt="h_k10086" class="avatar-pic">
+					<span class="name">h_k10086</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2018-05-18 01:06:38</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：136</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/lijianwei4444/article/details/55049978" target="_blank" strategy="BlogCommendFromQuerySearch_5">
+				ASP.NET <em>Core</em> MVC6+<em>Entity</em><em>Framework</em><em>Core</em>+MySql 最最最入门			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/lijianwei4444/article/details/55049978" target="_blank" >
+				本文纯为萌新编写，大神请略过，主要指导萌新创建mvc6+ef<em>core</em>+mysql
+准备工作：
+1、vs2015<em>必须</em>升级为update3版本
+下载地址：https://www.visualstudio....			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/lijianwei4444" title="lijianwei4444" target="_blank">
+					<img src="https://avatar.csdn.net/E/7/8/3_lijianwei4444.jpg" alt="lijianwei4444" class="avatar-pic">
+					<span class="name">lijianwei4444</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2017-02-13 16:17:19</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：8829</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/sD7O95O/article/details/78096657" target="_blank" strategy="BlogCommendFromQuerySearch_7">
+				<em>Entity</em><em>Framework</em> <em>Core</em>不得不注意的性能优化意外收获，你会用错？			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/sD7O95O/article/details/78096657" target="_blank" >
+				前言 
+这两天在着实研究EF <em>Core</em>项目当中对于一些查询也没实际去检测，于是想着利用放假时间去实际测试下，结果本文就出来了，too young,too simple，后续博主会从底层翻译表达式树弄起...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/sD7O95O" title="sD7O95O" target="_blank">
+					<img src="https://avatar.csdn.net/0/D/F/3_sd7o95o.jpg" alt="sD7O95O" class="avatar-pic">
+					<span class="name">sD7O95O</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2017-04-05 07:17:01</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：121</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/sD7O95O/article/details/78096120" target="_blank" strategy="BlogCommendFromQuerySearch_8">
+				<em>Entity</em> <em>Framework</em> <em>Core</em> <em>2.0</em> 特性介绍和使用指南			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/sD7O95O/article/details/78096120" target="_blank" >
+				前言 
+这是.Net <em>Core</em> <em>2.0</em>生态生态介绍的最后一篇，EF一直是我喜欢的一个ORM框架，随着版本升级EF也发展到EF<em>6.x</em>，<em>Entity</em> <em>Framework</em> <em>Core</em>是一个支持跨平台的全新版本...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/sD7O95O" title="sD7O95O" target="_blank">
+					<img src="https://avatar.csdn.net/0/D/F/3_sd7o95o.jpg" alt="sD7O95O" class="avatar-pic">
+					<span class="name">sD7O95O</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2017-08-24 07:04:59</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：196</span>
+			</p>
+		</div>
+	</div>
+			            <!-- 第四范式SDK -->
+<script src="https://nbrecsys.4paradigm.com/resource/js/sdk-csdn-smallflow.js" async defer></script>
+            <div class="recommend-loading-box">
+                <img src='https://csdnimg.cn/release/phoenix/images/feedLoading.gif'>
+            </div>
+            <div class="recommend-end-box">
+                <p class="text-center">没有更多推荐了，<a href="https://blog.csdn.net/" class="c-blue c-blue-hover c-blue-focus">返回首页</a></p>
+            </div>
+        </div>
+    </main>
+    <aside>
+		    <div id="asideProfile" class="aside-box">
+    <h3 class="aside-title">个人资料</h3>
+    <div class="profile-intro d-flex">
+        <div class="avatar-box d-flex justify-content-center flex-column">
+            <a href="https://blog.csdn.net/sd7o95o">
+                <img src="https://avatar.csdn.net/0/D/F/3_sd7o95o.jpg" class="avatar_pic">
+            </a>
+        </div>
+        <div class="user-info d-flex justify-content-center flex-column">
+            <p class="name csdn-tracking-statistics tracking-click" data-mod="popu_379">
+                <a href="https://blog.csdn.net/sd7o95o" target="_blank" class="text-truncate" id="uid">sd7o95o</a>
+            </p>
+                    </div>
+                <div class="opt-box d-flex justify-content-center flex-column">
+            <span  class="csdn-tracking-statistics tracking-click" data-mod="popu_379">
+                                <a class="btn btn-sm btn-red-hollow" href="https://passport.csdn.net/account/login?from=https://blog.csdn.net/sD7O95O/article/details/80603647" target="_self">关注</a>
+                            </span>
+                    </div>
+            </div>
+    <div class="data-info d-flex item-tiling">
+                <dl class="text-center" title="1506">
+                        <dt><a href="https://blog.csdn.net/sd7o95o?t=1">原创</a></dt>
+            <dd><a href="https://blog.csdn.net/sd7o95o?t=1"><span class="count">1506</span></a></dd>
+                    </dl>
+        <dl class="text-center" title="258">
+            <dt>粉丝</dt>
+            <dd><span class="count" id="fan">258</span></dd>
+        </dl>
+        <dl class="text-center" title="123">
+            <dt>喜欢</dt>
+            <dd><span class="count">123</span></dd>
+        </dl>
+        <dl class="text-center" title="317">
+            <dt>评论</dt>
+            <dd><span class="count">317</span></dd>
+        </dl>
+    </div>
+    <div class="grade-box clearfix">
+        <dl>
+            <dt>等级：</dt>
+            <dd>
+                <a href="https://blog.csdn.net/home/help.html#level" title="7级,点击查看等级说明" target="_blank">
+                    <svg class="icon icon-level" aria-hidden="true">
+                        <use xlink:href="#csdnc-bloglevel-7"></use>
+                    </svg>
+                </a>
+            </dd>
+        </dl>
+        <dl>
+            <dt>访问：</dt>
+            <dd title="414885">
+                41万+            </dd>
+        </dl>
+        <dl>
+            <dt>积分：</dt>
+            <dd title="19025">
+                1万+            </dd>
+        </dl>
+        <dl title="616">
+            <dt>排名：</dt>
+            <dd>616</dd>
+        </dl>
+    </div>
+        <div class="badge-box d-flex">
+        <span>勋章：</span>
+                        <a class="icon-badge" title="持之以恒">
+            <svg class="icon" aria-hidden="true">
+                <use xlink:href="#csdnc-m-lasting"></use>
+            </svg>
+            <div class="icon-arrow"></div>
+            <div class="grade-detail-box item2">
+                <div class="pos-box">
+                    <div class="left-box d-flex justify-content-center align-items-center flex-column">
+                        <svg class="icon" aria-hidden="true">
+                            <use xlink:href="#csdnc-m-lasting"></use>
+                        </svg>
+                        <p>持之以恒</p>
+                    </div>
+                    <div class="right-box d-flex justify-content-center align-items-center">
+                        授予每个自然月内发布4篇或4篇以上原创或翻译IT博文的用户。不积跬步无以至千里，不积小流无以成江海，程序人生的精彩需要坚持不懈地积累！
+                    </div>
+                </div>
+            </div>
+        </a>
+                            </div>
+    </div>		    <div class="csdn-tracking-statistics mb8 box-shadow" data-pid="blog" data-mod="popu_4" style="height:250px;">
+    <div class="aside-content text-center" id="cpro_u2734133">
+        <!-- 投放代码 -->
+        <script type="text/javascript" src="//cee1.iteye.com/lgyyovfyh.js"></script>
+    </div>
+</div>
+		    <div id="asideNewArticle" class="aside-box">
+    <h3 class="aside-title">最新文章</h3>
+    <div class="aside-content">
+        <ul class="inf_list clearfix csdn-tracking-statistics tracking-click" data-mod="popu_382">
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/sD7O95O/article/details/80681679" target="_blank">.NET Core微服务之基于Ocelot实现API网关服务</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/sD7O95O/article/details/80649887" target="_blank">在ASP.NET Core中使用brotli压缩</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/sD7O95O/article/details/80649886" target="_blank">用ASP.NET Core 2.1 建立规范的 REST API -- 翻页/排序/过滤等</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/sD7O95O/article/details/80649883" target="_blank">Entity Framework Core 2.1带来更好的SQL语句生成方案</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/sD7O95O/article/details/80649862" target="_blank">.Net Core 环境下构建强大且易用的规则引擎</a>
+            </li>
+                    </ul>
+    </div>
+</div>
+		    		    		    <div id="asideArchive" class="aside-box flexible-box">
+    <h3 class="aside-title">归档</h3>
+    <div class="aside-content">
+        <ul class="archive-list">
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/sd7o95o/article/month/2018/06">
+                    2018年6月                    <span class="count float-right">12篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/sd7o95o/article/month/2018/05">
+                    2018年5月                    <span class="count float-right">53篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/sd7o95o/article/month/2018/04">
+                    2018年4月                    <span class="count float-right">103篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/sd7o95o/article/month/2018/03">
+                    2018年3月                    <span class="count float-right">74篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/sd7o95o/article/month/2018/02">
+                    2018年2月                    <span class="count float-right">59篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/sd7o95o/article/month/2018/01">
+                    2018年1月                    <span class="count float-right">69篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/sd7o95o/article/month/2017/12">
+                    2017年12月                    <span class="count float-right">78篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/sd7o95o/article/month/2017/11">
+                    2017年11月                    <span class="count float-right">85篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/sd7o95o/article/month/2017/10">
+                    2017年10月                    <span class="count float-right">76篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/sd7o95o/article/month/2017/09">
+                    2017年9月                    <span class="count float-right">105篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/sd7o95o/article/month/2017/08">
+                    2017年8月                    <span class="count float-right">102篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/sd7o95o/article/month/2017/07">
+                    2017年7月                    <span class="count float-right">102篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/sd7o95o/article/month/2017/06">
+                    2017年6月                    <span class="count float-right">81篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/sd7o95o/article/month/2017/05">
+                    2017年5月                    <span class="count float-right">83篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/sd7o95o/article/month/2017/04">
+                    2017年4月                    <span class="count float-right">90篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/sd7o95o/article/month/2017/03">
+                    2017年3月                    <span class="count float-right">92篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/sd7o95o/article/month/2017/02">
+                    2017年2月                    <span class="count float-right">67篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/sd7o95o/article/month/2017/01">
+                    2017年1月                    <span class="count float-right">58篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/sd7o95o/article/month/2016/12">
+                    2016年12月                    <span class="count float-right">80篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/sd7o95o/article/month/2016/11">
+                    2016年11月                    <span class="count float-right">72篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/sd7o95o/article/month/2016/10">
+                    2016年10月                    <span class="count float-right">63篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/sd7o95o/article/month/2016/09">
+                    2016年9月                    <span class="count float-right">66篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/sd7o95o/article/month/2016/08">
+                    2016年8月                    <span class="count float-right">66篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/sd7o95o/article/month/2016/07">
+                    2016年7月                    <span class="count float-right">66篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/sd7o95o/article/month/2016/06">
+                    2016年6月                    <span class="count float-right">60篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/sd7o95o/article/month/2016/05">
+                    2016年5月                    <span class="count float-right">68篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/sd7o95o/article/month/2016/04">
+                    2016年4月                    <span class="count float-right">64篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/sd7o95o/article/month/2016/03">
+                    2016年3月                    <span class="count float-right">24篇</span>
+                </a>
+            </li>
+                    </ul>
+    </div>
+        <p class="text-center">
+        <a class="btn btn-link-blue flexible-btn" data-fbox="aside-archive">展开</a>
+    </p>
+    </div>
+		    <div id="asideHotArticle" class="aside-box">
+	<h3 class="aside-title">热门文章</h3>
+	<div class="aside-content">
+		<ul class="hotArticle-list csdn-tracking-statistics tracking-click" data-mod="popu_521">
+							<li>
+					<a href="https://blog.csdn.net/sd7o95o/article/details/79579695">秘密：从程序员到领导者的微妙之处</a>
+					<p class="read">阅读量：<span>9280</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/sd7o95o/article/details/80288509">潘正磊：再过三五年 AI会变成开发人员的基本概念</a>
+					<p class="read">阅读量：<span>8122</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/sd7o95o/article/details/78096676">不可变集合</a>
+					<p class="read">阅读量：<span>7296</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/sd7o95o/article/details/78126414">SQL Server 2017 正式发布</a>
+					<p class="read">阅读量：<span>6715</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/sd7o95o/article/details/78190862">从头编写 asp.net core 2.0 web api 基础框架 (1)</a>
+					<p class="read">阅读量：<span>6330</span></p>
+				</li>
+					</ul>
+	</div>
+</div>
+		    <div id="asideNewComments" class="aside-box">
+    <h3 class="aside-title">最新评论</h3>
+    <div class="aside-content">
+        <ul class="newcomment-list">
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/sd7o95o/article/details/80603647#comments">《你必须掌握的Entity Fra...</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/qq_16149959" class="user-name" target="_blank">qq_16149959</a>：其实吧，还是偏向于配置了，我更想知道底层是如何将查询的结果打包成对象的，是否用了emit等等                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/sd7o95o/article/details/80603647#comments">《你必须掌握的Entity Fra...</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/playermaker" class="user-name" target="_blank">playermaker</a>：必须要支持我们的大神，特别是为数不多深入研究EF的大佬                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/sd7o95o/article/details/80603647#comments">《你必须掌握的Entity Fra...</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/as1072966956" class="user-name" target="_blank">as1072966956</a>：多读书，多写博客，共勉                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/sd7o95o/article/details/78096453#comments">TensorFlowSharp入门...</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/spw_1201" class="user-name" target="_blank">spw_1201</a>：你好，我换成自己的pb文件，显示问引用对象实例。
+出错是这一句话
+runner.AddInput(...                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/sd7o95o/article/details/80288509#comments">潘正磊：再过三五年 AI会变成开发...</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/gsfdjgji" class="user-name" target="_blank">gsfdjgji</a>：呵呵~~                </p>
+            </li>
+                    </ul>
+    </div>
+</div>
+		<div id="asideFooter">
+			
+		<div class="aside-box">
+						<script type="text/javascript" src="//cee1.iteye.com/avneunkwb.js"></script>
+					</div>
+				<div class="aside-box">
+			<div class="persion_article">
+			</div>
+		</div>
+	</div>
+</aside>
+<script src="https://csdnimg.cn/pubfooter/js/publib_footer-1.0.3.js" data-isfootertrack="false" type="text/javascript"></script>
+<script>
+	$("a.flexible-btn").click(function(){
+		$(this).parents('div.aside-box').removeClass('flexible-box');
+		$(this).remove();
+	})
+</script>
+</div>
+<div class="mask-dark"></div>
+<div class="pulllog-box" style="display: block;">
+	<div class="pulllog clearfix">
+		<span class="text float-left">加入CSDN，享受更精准的内容推荐，与500万程序员共同成长！</span>
+		<div class="pulllog-btn float-right clearfix">
+            <button class="pulllog-login float-left csdn-tracking-statistics tracking-click" data-mod="popu_557">
+                登录
+            </button>
+            <div class="pulllog-sigin float-left csdn-tracking-statistics tracking-click" data-mod="popu_558">
+                <a href="https://passport.csdn.net/account/mobileregister" target="_blank">注册</a>
+            </div>
+            <button class="btn-close">
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#csdnc-times"></use>
+                </svg>
+            </button>
+		</div>
+	</div>
+</div>
+<div id="loginWrap" style="display:none"></div>
+<div class="tool-box">
+	<ul class="meau-list">
+		<li>
+			<button class="btn-like " title="点赞">
+				<svg class="icon active" aria-hidden="true">
+					<use xlink:href="#csdnc-thumbsup-ok"></use>
+				</svg><svg class="icon no-active" aria-hidden="true">
+					<use xlink:href="#csdnc-thumbsup"></use>
+				</svg>
+				<p>0</p>
+			</button>
+		</li>
+		<li class="toc-container-box" id="liTocBox">
+			<button class="btn-toc" title="目录">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-contents"></use>
+				</svg><br>目录
+			</button>
+			<div class="toc-container">
+				<div class="pos-box">
+					<div class="icon-arrow"></div>
+					<div class="scroll-box">
+						<div class="toc-box"></div>
+					</div>
+				</div>
+				<div class="opt-box">
+					<button class="btn-opt prev nomore" title="向上">
+						<svg class="icon" aria-hidden="true">
+							<use xlink:href="#csdnc-chevronup"></use>
+						</svg>
+					</button>
+					<button class="btn-opt next">
+						<svg class="icon" aria-hidden="true">
+							<use xlink:href="#csdnc-chevrondown"></use>
+						</svg>
+					</button>
+				</div>
+			</div>
+		</li>
+		<li>
+			<button class="btn-bookmark" title="收藏">
+				<svg class="icon active" aria-hidden="true">
+					<use xlink:href="#csdnc-bookmark-ok"></use>
+				</svg><svg class="icon no-active" aria-hidden="true">
+					<use xlink:href="#csdnc-bookmark"></use>
+				</svg><br>收藏
+			</button>
+		</li>
+		<li>
+			<a class="btn-comments" title="评论" href="#commentBox">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-comments"></use>
+				</svg><br>评论
+			</a>
+		</li>
+				<li class="bdsharebuttonbox">
+			<a class="btn-comments bds_weixin" data-cmd="weixin" title="微信分享">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-wechat"></use>
+				</svg><br>微信
+			</a>
+		</li>
+		<li class="bdsharebuttonbox">
+			<a class="btn-comments bds_tsina" data-cmd="tsina" title="微博分享">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-weibo"></use>
+				</svg><br>微博
+			</a>
+		</li>
+		<li class="bdsharebuttonbox">
+			<a class="btn-comments bds_qzone" data-cmd="qzone" title="QQ分享">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-qq"></use>
+				</svg><br>QQ
+			</a>
+		</li>
+	</ul>
+</div>
+<script>window._bd_share_config = { "common": { "bdSnsKey": {}, "bdText": "", "bdMini": "1", "bdMiniList": false, "bdPic": "", "bdStyle": "0", "bdSize": "16" }, "share": {} }; with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'https://csdnimg.cn/static/api/js/share.js?v=89860594'];</script>
+<script>
+    var recommendCount = 10;
+    recommendCount = recommendCount > 1 ? (recommendCount + (recommendCount>6 ? 2 : 1)) : recommendCount;
+    var articleTit = "《你必须掌握的Entity Framework 6.x与Core 2.0》正式出版感想";
+    var ChannelId = 1;
+    var articleId = "80603647";
+    var commentscount = 3;
+    var islock = false;
+    var curentUrl = "https://blog.csdn.net/sD7O95O/article/details/80603647";
+    var myUrl = "https://my.csdn.net/";
+    //1禁止评论，2正常
+    var commentAuth = 0;
+    //百度搜索
+    var baiduKey = "entity+framework+core2.1+%E4%B8%8E+entity+framework+6";
+    var needInsertBaidu = false;
+</script>
+<script src="https://csdnimg.cn/public/sandalstrap/1.3/js/sandalstrap.min.js"></script>
+<script src="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.js"></script>
+<script src='https://csdnimg.cn/public/common/gotop/js/goTop-v1.0.min.js?v201803151422'></script>
+<script>
+    GoTop({
+        right: 8,
+        hasReport: true,
+        reportFun: function() {
+            showReport(false,"《你必须掌握的Entity Framework 6.x与Core 2.0》正式出版感想");
+        }
+    })
+</script>
+<script src="https://csdnimg.cn/release/phoenix/template/js/common-bd54b21308.min.js"></script>
+<script src="https://csdnimg.cn/release/phoenix/template/js/detail-effe72036e.min.js"></script>
+<script src="https://csdnimg.cn/release/phoenix/themes/skin3-template/skin3-template-46c7bd3d86.min.js"></script>
+<script src="https://csdnimg.cn/search/baidu_search-1.1.2.js?v=201802071056&autorun=true&install=true&keyword=entity+framework+core2.1+%E4%B8%8E+entity+framework+6"  type="text/javascript"></script>
+</body>
+<div class="box-box-default">
+    <a class="btn-remove">
+        关闭
+    </a>
+    <script type="text/javascript" src="//cee1.iteye.com/mhzzjepzz.js"></script>
+</div>
+<div class="box-box-large">
+    <a class="btn-remove">
+        关闭
+    </a>
+    <script type="text/javascript" src="//cee1.iteye.com/idvveasfs.js"></script>
+</div>
+</html>

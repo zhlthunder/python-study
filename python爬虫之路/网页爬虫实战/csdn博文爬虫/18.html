@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <link rel="canonical" href="https://blog.csdn.net/LrS62520kV/article/details/80684410"/> 
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="referrer" content="always">
+    <meta name="description" content="
+  
+    
+                    
+
+                    
+
+                    
+                    
+                    文章经授权转载自量子位（ID： QbitAI）站在2018年，图像分类准确率在95%以上的模型，已经遍地都是。回想2012年，Hinton带着学生们以ImageNet上1..." />
+    <meta name="keywords" content="" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+    <meta name="shenma-site-verification" content="5a59773ab8077d4a62bf469ab966a63b_1497598848">
+    <script src="https://csdnimg.cn/release/phoenix/vendor/tingyun/tingyun-rum-blog.js"></script>
+
+    <link href="https://csdnimg.cn/public/favicon.ico" rel="SHORTCUT ICON">
+    <title>机器学习5年大跃进，可能是个错觉 - CSDN博客</title>
+    
+            <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/detail-60a2c245da.min.css">
+        <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/themes/skin3-template/skin3-template-88717cedf2.min.css">
+
+    <script type="text/javascript">
+        var username = "lrs62520kv";
+        var blog_address = "https://blog.csdn.net/lrs62520kv";
+        var static_host = "https://csdnimg.cn/release/phoenix/";
+        var currentUserName = ""; 
+        var isShowAds = true;
+        var isOwner = false;
+        var loginUrl = "https://passport.csdn.net/account/login?from=https://blog.csdn.net/LrS62520kV/article/details/80684410"
+        var blogUrl = "https://blog.csdn.net/";
+        var curSkin = "skin3-template";
+    </script>
+    <script type="text/javascript">
+        // Traffic Stats of the entire Web site By baidu
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?6bcd52f51e9b3dce32bec4a3997715ac";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+        // Traffic Stats of the entire Web site By baidu end
+    </script>
+    <script src="https://csdnimg.cn/public/common/libs/jquery/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <script src="https://csdnimg.cn/rabbit/exposure-click/main-1.0.6.js"></script>
+    <!-- 新版上报 -->
+    <script src="//g.csdnimg.cn/track/1.0.0/track.js" type="text/javascript"></script>
+    <!-- 新版上报end -->
+            <link rel="stylesheet" href="https://csdnimg.cn/public/sandalstrap/1.3/css/sandalstrap.min.css"> 
+    <style>
+        .MathJax, .MathJax_Message, .MathJax_Preview{
+            display: none
+        }
+    </style>
+</head>
+<body>    
+    <link rel="stylesheet" href="https://csdnimg.cn/public/common/toolbar/content_toolbar_css/content_toolbar.css">
+    <script id="toolbar-tpl-scriptId" src="https://csdnimg.cn/public/common/toolbar/js/content_toolbar.js" type="text/javascript" domain="https://blog.csdn.net/"></script>
+    <script src="https://csdnimg.cn/public/sandalstrap/1.3/fonts/csdnc/csdnc.js"></script><link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/blog_code-c3a0c33d5c.css">
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.css">
+<script type="text/javascript" src="//static.mediav.com/js/mvf_news_feed.js"></script>
+
+<header>
+	<div class="container d-flex clearfix">
+		<div class="title-box">
+			<h2 class="title-blog">
+				<a href="https://blog.csdn.net/lrs62520kv">中国计算机报</a>
+			</h2>
+			<p class="description">关注IT行业技术和应用,聚焦新市场、新模式、新应用</p>
+		</div>
+		<div class="opt-box d-flex justify-content-end">
+			<a class="btn btn-sm" href="https://blog.csdn.net/lrs62520kv/rss/list">
+					<svg class="icon" aria-hidden="true">
+						<use xlink:href="#csdnc-rss"></use>
+					</svg>RSS订阅</a>
+					</div>
+	</div>
+</header><script src="https://dup.baidustatic.com/js/ds.js"></script>
+<div class="container clearfix pt0" id="mainBox">
+    <main>
+        <div class="blog-content-box">
+	<div class="article-title-box">
+			<span class="article-type type-2 float-left">转</span>		<h1 class="title-article">机器学习5年大跃进，可能是个错觉</h1>
+	</div>
+	<div class="article-info-box">
+		<div class="article-bar-top d-flex">
+												<span class="time">2018年06月13日 20:00:00</span>
+			<div class="float-right">
+				<span class="read-count">阅读数：945</span>
+											</div>
+		</div>
+	</div>
+	<article>
+		<div id="article_content" class="article_content clearfix csdn-tracking-statistics" data-pid="blog"  data-mod=popu_307  data-dsm = "post" >
+                    <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/htmledit_views-0a60691e80.css" />
+            <div class="htmledit_views">
+                
+    <div class="rich_media_content">
+                    
+
+                    
+
+                    
+                    
+                    <h5 style="text-align:center;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="color:rgb(39,39,39);font-size:15px;"></span></h5><p style="text-align:center;margin-left:8px;margin-right:8px;"><img src="https://ss.csdn.net/p?https://mmbiz.qpic.cn/mmbiz_gif/9UTuc0KvDXiaxoWGZRvIHVQ6dicVvAibolBgZHJdKGq4vel8icYRAHyliczo0dtkXxjrrdnXIBlIgzH5mbEA1icHSOZw/640?wx_fmt=gif" alt="640?wx_fmt=gif" /></p><h5 style="text-align:center;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="color:rgb(39,39,39);font-size:15px;"></span><br /></h5><h5 style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="font-size:14px;"><strong><span style="color:rgb(165,165,165);">文章经授权转载自量子位（ID： QbitAI）</span></strong></span><br /></h5><p><br /></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="color:rgb(39,39,39);font-size:15px;">站在2018年，图像分类准确率在95%以上的模型，已经遍地都是。</span></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="color:rgb(39,39,39);font-size:15px;"><br /></span></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="color:rgb(39,39,39);font-size:15px;">回想2012年，Hinton带着学生们以ImageNet上16.4%的错误率震惊计算机视觉研究界，似乎已经是远古时期的历史。</span></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="color:rgb(39,39,39);font-size:15px;"><br /></span></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="color:rgb(39,39,39);font-size:15px;">这些年来的突飞猛进，真的可信吗？</span></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="color:rgb(39,39,39);font-size:15px;"><br /></span></p><p style="text-align:center;margin-left:8px;margin-right:8px;line-height:1.75em;"><img src="https://ss.csdn.net/p?https://mmbiz.qpic.cn/mmbiz_png/YicUhk5aAGtCya4r4kbk6XL3m4o72IXAZvBOzPmzsVmaDLj00uWMnpBs6sbM3z7aWweCv6qteCg1tunbh9iaAzNg/640?wx_fmt=png" alt="640?wx_fmt=png" /></p><p style="text-align:center;margin-left:8px;margin-right:8px;line-height:1.75em;"><br /></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="color:rgb(39,39,39);font-size:15px;">最近一项研究引出了一些反思：这些进步很可疑。<br /></span></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="color:rgb(39,39,39);font-size:15px;"><br /></span></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="color:rgb(39,39,39);font-size:15px;">这项研究，就是加州大学伯克利分校和MIT的几名科学家在arXiv上公开的一篇论文：Do CIFAR-10 Classifiers Generalize to CIFAR-10？。</span></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="color:rgb(39,39,39);font-size:15px;"><br /></span></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="color:rgb(39,39,39);font-size:15px;">解释一下，这个看似诡异的问题——“CIFAR-10分类器能否泛化到CIFAR-10？”，针对的是当今深度学习研究的一个大缺陷：</span></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="color:rgb(39,39,39);font-size:15px;"><br /></span></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="color:rgb(39,39,39);font-size:15px;">看起来成绩不错的深度学习模型，在现实世界中不见得管用。因为很多模型和训练方法取得的好成绩，都来自对于那些著名基准验证集的<strong>过拟合</strong>。</span></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="color:rgb(39,39,39);font-size:15px;"><br /></span></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="color:rgb(39,39,39);font-size:15px;">论文指出，过去5年间，大多数发表的论文拥抱了这样一种范式：一种新的机器学习方法在几个关键基准测试中数据，就决定了它的地位。</span></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="color:rgb(39,39,39);font-size:15px;"><br /></span></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="color:rgb(39,39,39);font-size:15px;">然而，这种方法与前人相比，为什么会有这样的进步？却很少有人解释。我们对于进步的感知主要基于几个标准的基准测试，比如CIFAR-10、ImageNet、MuJoCo。</span></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="color:rgb(39,39,39);font-size:15px;"><br /></span></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="color:rgb(39,39,39);font-size:15px;">这就带来了一个关键的问题：我们目前对机器学习进步的衡量方法，有多可靠？</span></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="color:rgb(39,39,39);font-size:15px;">这个指控，几乎要质疑图像分类算法几年来的一切进步。</span></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="color:rgb(39,39,39);font-size:15px;"><br /></span></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="color:rgb(39,39,39);font-size:15px;"></span></p><p><strong>空口无凭，如何证明？</strong></p><p><span style="color:rgb(39,39,39);font-size:15px;"><br /></span></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="color:rgb(39,39,39);font-size:15px;">为了说明这个问题，几位作者拿出30个在CIFAR-10验证集上表现良好的图像分类模型，换一个数据集来测试它们，用结果说话。</span></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="color:rgb(39,39,39);font-size:15px;"><br /></span></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="color:rgb(39,39,39);font-size:15px;">CIFAR-10包含60000张32×32像素的彩色图像，平均分为5个训练批次（batch）和1个测试批次图像共有10类：飞机、小汽车、鸟、猫、鹿、狗、青蛙、……</span></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="color:rgb(39,39,39);font-size:15px;"><br /></span></p><p style="text-align:center;margin-left:8px;margin-right:8px;line-height:1.75em;"><img src="https://ss.csdn.net/p?https://mmbiz.qpic.cn/mmbiz_png/YicUhk5aAGtCya4r4kbk6XL3m4o72IXAZl7ojwicDYJoR6LobDpkF2n8MjawAHdvxYHqTJcMjfiaicRPCUvRRvkNFw/640?wx_fmt=png" alt="640?wx_fmt=png" /></p><p style="text-align:center;margin-left:8px;margin-right:8px;line-height:1.75em;"><br /></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="color:rgb(39,39,39);font-size:15px;">当然，如果随便找个数据集来测试，有欺负AI的嫌疑。他们为此专门造了一个和CIFAR-10非常相似的测试集，包含2000张新图片，一样的图片来源，一样的数据子类别分布，甚至连构建过程中的分工都学了过来。</span></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="color:rgb(39,39,39);font-size:15px;"><br /></span></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="color:rgb(39,39,39);font-size:15px;">这个新数据集，也就是论文标题中提到的第二个CIFAR-10，确切地说应该是“高仿CIFAR-10的小型测试集”。</span></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="color:rgb(39,39,39);font-size:15px;"><br /></span></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="color:rgb(39,39,39);font-size:15px;">新测试集给模型带来了明显的打击，战况如下：</span></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="color:rgb(39,39,39);font-size:15px;"><br /></span></p><p style="text-align:center;margin-left:8px;margin-right:8px;line-height:1.75em;"><img src="https://ss.csdn.net/p?https://mmbiz.qpic.cn/mmbiz_png/YicUhk5aAGtCya4r4kbk6XL3m4o72IXAZVQa3ibybg434UIPmr440ibmQmmoYIsdXxChIUmyDZIRBzmr0oLyWoFOQ/640?wx_fmt=png" alt="640?wx_fmt=png" /></p><p style="text-align:center;margin-left:8px;margin-right:8px;line-height:1.75em;"><br /></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="color:rgb(39,39,39);font-size:15px;">著名的VGG和ResNet，分类准确率从93%左右下降到了85%左右，8个百分点凭空消失。</span></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="color:rgb(39,39,39);font-size:15px;"><br /></span></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="color:rgb(39,39,39);font-size:15px;">各位作者还在准确率的差异上，发现了一个小趋势。在原版CIFAR-10上准确率比较高的那些新模型，在新测试集上的成绩下滑不那么明显。</span></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="color:rgb(39,39,39);font-size:15px;"><br /></span></p><p style="text-align:center;margin-left:8px;margin-right:8px;line-height:1.75em;"><img src="https://ss.csdn.net/p?https://mmbiz.qpic.cn/mmbiz_png/YicUhk5aAGtCya4r4kbk6XL3m4o72IXAZH8zz0uzKvVGY2x0qicEe2kJicxW1QrmJZklSjTc3GSPeqUW6icuW0ic6cQ/640?wx_fmt=png" alt="640?wx_fmt=png" /></p><p style="text-align:center;margin-left:8px;margin-right:8px;line-height:1.75em;"><br /></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="color:rgb(39,39,39);font-size:15px;">比如说成绩最好的Shake Shake模型，在新旧测试集上的准确率只差4个百分点。</span></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="color:rgb(39,39,39);font-size:15px;"><br /></span></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="color:rgb(39,39,39);font-size:15px;">论文中说，这个小趋势说明换个数据集成绩就下降可能不是因为基于适应性的过拟合，而是因为新旧测试集之间，数据的分布上有一些小变化。</span></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="color:rgb(39,39,39);font-size:15px;"><br /></span></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="color:rgb(39,39,39);font-size:15px;">但终究，那些为CIFAR-10打造的分类器，泛化性能依然堪忧。</span></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="color:rgb(39,39,39);font-size:15px;"><br /></span></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="color:rgb(39,39,39);font-size:15px;"></span></p><p><strong>质疑引热议</strong></p><p><span style="color:rgb(39,39,39);font-size:15px;"><br /></span></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="color:rgb(39,39,39);font-size:15px;">这个研究如同一枚深水炸弹。</span></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="color:rgb(39,39,39);font-size:15px;"><br /></span></p><p style="text-align:center;margin-left:8px;margin-right:8px;line-height:1.75em;"><img src="https://ss.csdn.net/p?https://mmbiz.qpic.cn/mmbiz_png/YicUhk5aAGtCya4r4kbk6XL3m4o72IXAZhNofKrh9I2Pjoiaibr36NpjmcLIb5TjaOyZD5YHDQbVzl4vOxGfsEDSg/640?wx_fmt=png" alt="640?wx_fmt=png" /></p><p style="text-align:center;margin-left:8px;margin-right:8px;line-height:1.75em;"><br /></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="color:rgb(39,39,39);font-size:15px;">前不久曾撰文唱衰人工智能的的Filip Piekniewski，称赞这篇论文是一个伟大的研究。他还把这个问题，称为“元过拟合”（meta-overfitting）。他还批评机器学习这几年只关注几个数据集，不关注现实情况。</span></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="color:rgb(39,39,39);font-size:15px;"><br /></span></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="color:rgb(39,39,39);font-size:15px;">俄勒冈州立大学教授Thomas G. Dietterich指出，不仅仅是CIFAR10，所有的测试数据集都被研究者们很快搞得过拟合了。测试基准需要不断有新的数据集注入。</span></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="color:rgb(39,39,39);font-size:15px;"><br /></span></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="color:rgb(39,39,39);font-size:15px;">“我在MNIST上也见过类似的情况。一个准确率达到99%的分类器，换一个全新的手写数据集，立刻掉到90%。”OpenAI的研究员Yaroslav Bulatov说。</span></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="color:rgb(39,39,39);font-size:15px;"><br /></span></p><p style="text-align:center;margin-left:8px;margin-right:8px;line-height:1.75em;"><img src="https://ss.csdn.net/p?https://mmbiz.qpic.cn/mmbiz_png/YicUhk5aAGtCya4r4kbk6XL3m4o72IXAZBcqpnlEFQWJ5E8Hc2ETNpCODoyAia1H2mIM9SMVZiaib9zIZVVgxibEMMA/640?wx_fmt=png" alt="640?wx_fmt=png" /></p><p style="text-align:center;margin-left:8px;margin-right:8px;line-height:1.75em;"><br /></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="color:rgb(39,39,39);font-size:15px;">Keras作者François Chollet显得更为激动。他说：“显而易见的是，一大票目前的深度学习tricks都对知名的基准测试集过拟合了，包括CIFAR10。至少从2015年以来，ImageNet也存在这个问题。”</span></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="color:rgb(39,39,39);font-size:15px;"><br /></span></p><blockquote><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="font-size:14px;color:rgb(78,76,76);">如果你的论文，需要固定的验证集，以及特定的方法、架构和超参数。那么这个就不是验证集，而是训练集。这种特定的方法，也不一定能泛化到真实数据上。</span></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="font-size:14px;color:rgb(78,76,76);"><br /></span></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="font-size:14px;color:rgb(78,76,76);">深度学习的研究，很多时候使用了并不科学的方法。验证集过拟合是一个值得注意的地方。其他问题还包括：基准太弱、实证结果不支持论文想法、大多数论文存在可重复性问题、结果后选等。</span></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="font-size:14px;color:rgb(78,76,76);"><br /></span></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="font-size:14px;color:rgb(78,76,76);">比方你参加Kaggle竞赛时，如果只根据验证集（public leaderboard）数据来调整你的模型，那么你在测试集（private leaderboard）只会一直表现不佳。这在更广泛的研究领域也是如此。</span></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="font-size:14px;color:rgb(78,76,76);"><br /></span></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="font-size:14px;color:rgb(78,76,76);">最后给一个非常简单的建议，可以克服这些问题：使用高熵验证过程，例如k-fold验证，或者更进一步，使用带shuffling的递归k-fold验证。只在最后用官方验证集上检查结果。</span></p></blockquote><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="color:rgb(39,39,39);font-size:15px;"><br /></span></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="color:rgb(39,39,39);font-size:15px;">“当然，这样做成本更高。但成本本身就是一个正则因子：它迫使你谨慎行动，而不是把一大坨面条扔到墙上，看最后哪根能粘住。”François Chollet说。</span></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="color:rgb(39,39,39);font-size:15px;"><br /></span></p><p style="text-align:center;margin-left:8px;margin-right:8px;line-height:1.75em;"><img style="color:rgb(62,62,62);font-family:arial, sans-serif;font-size:16px;letter-spacing:1px;white-space:normal;word-spacing:1px;background-color:rgb(255,255,255);" src="https://ss.csdn.net/p?https://mmbiz.qpic.cn/mmbiz_png/YicUhk5aAGtCya4r4kbk6XL3m4o72IXAZLSU1YcoZCStgub6JYOmzc1Yuxaz0uaEOX8JNKkLAtZIFaNibGUtQ0nA/640?wx_fmt=png" alt="640?wx_fmt=png" /></p><p style="text-align:center;margin-left:8px;margin-right:8px;line-height:1.75em;"><br /></p><p><strong>不止图像分类</strong></p><p><span style="color:rgb(39,39,39);font-size:15px;"><br /></span></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="color:rgb(39,39,39);font-size:15px;">其实，这个过拟合的问题并不是只出现在图像分类研究上，其他模型同样无法幸免。</span></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="color:rgb(39,39,39);font-size:15px;"><br /></span></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="color:rgb(39,39,39);font-size:15px;">今年年初，微软亚洲研究院和阿里巴巴的NLP团队，在机器阅读理解数据集SQuAD上的成绩超越了人类。<br /></span></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="color:rgb(39,39,39);font-size:15px;"><br /></span></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="color:rgb(39,39,39);font-size:15px;">当时，SQuAD阅读理解水平测试的主办方，斯坦福NLP小组就</span><a href="http://mp.weixin.qq.com/s?__biz=MzIzNjc1NzUzMw==&amp;mid=2247493419&amp;idx=1&amp;sn=73425fec04482f14f6b9b7316e425e63&amp;chksm=e8d05059dfa7d94fc1457a36d4f62cb1b8a057ce18388fbad448aa6b53f4dbb1299cfd697724&amp;scene=21#wechat_redirect" style="font-size:15px;color:rgb(39,39,39);text-decoration:none;"><strong><span style="font-size:15px;color:rgb(39,39,39);">对自己的数据集产生了怀疑</span></strong><strong><span style="font-size:15px;color:rgb(39,39,39);"></span></strong></a><span style="color:rgb(39,39,39);font-size:15px;">。他们转发的一条Twitter说：</span></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="color:rgb(39,39,39);font-size:15px;"><br /></span></p><p style="text-align:center;margin-left:8px;margin-right:8px;line-height:1.75em;"><img style="color:rgb(62,62,62);font-family:arial, sans-serif;font-size:16px;letter-spacing:1px;white-space:normal;word-spacing:1px;text-align:justify;border-style:none;" src="https://ss.csdn.net/p?https://mmbiz.qpic.cn/mmbiz_png/YicUhk5aAGtD6fFYcb6DzyJFYv9qXbIXricIx3UuwXA6EiaMaoBgJaoZTVpEcumg5nz3JX8GibxWpao1VtDpiaknZibw/640?wx_fmt=png" alt="640?wx_fmt=png" /></p><p style="text-align:center;margin-left:8px;margin-right:8px;line-height:1.75em;"><br /></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="color:rgb(39,39,39);font-size:15px;">好像整个研究界都在这个数据集上过拟合了。</span></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="color:rgb(39,39,39);font-size:15px;"><br /></span></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="color:rgb(39,39,39);font-size:15px;">Google Brain研究员David Ha也说，很期待在文本和翻译领域也有类似的研究，他说如果在PTB上也看到类似的结果，那可真是一个好消息，也许更好的泛化方法会被发现。 </span></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="color:rgb(39,39,39);font-size:15px;"><br /></span></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="color:rgb(39,39,39);font-size:15px;"></span></p><p><strong>论文</strong></p><p><span style="color:rgb(39,39,39);font-size:15px;"><br /></span></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="color:rgb(39,39,39);font-size:15px;">这篇论文的作者，包括来自UC Berkeley的Benjamin Recht、Rebecca Roelofs、Vaishaal Shankar，以及来自MIT的Ludwig Schmidt。</span></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="color:rgb(39,39,39);font-size:15px;"><br /></span></p><p style="text-align:center;margin-left:8px;margin-right:8px;line-height:1.75em;"><img src="https://ss.csdn.net/p?https://mmbiz.qpic.cn/mmbiz_png/YicUhk5aAGtCya4r4kbk6XL3m4o72IXAZx6JmVvCdicy28701IKTWxyic3hQFBDD2rsiarKM6rYiaDNlFDZk2V7xnJw/640?wx_fmt=png" alt="640?wx_fmt=png" /></p><p style="text-align:center;margin-left:8px;margin-right:8px;line-height:1.75em;"><br /></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><strong><span style="color:rgb(78,76,76);font-size:14px;">论文传送门：</span></strong></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="color:rgb(78,76,76);font-size:14px;">https://arxiv.org/abs/1806.00451</span></p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><span style="color:rgb(39,39,39);font-size:15px;"><br /></span></p><p>END</p><p style="text-align:justify;margin-left:8px;margin-right:8px;line-height:1.75em;"><strong><span style="color:rgb(165,165,165);font-size:14px;">以上文章为转载，不代表本报观点</span></strong></p><p style="text-align:center;margin-left:8px;margin-right:8px;line-height:1.75em;"><br /></p><p style="text-align:center;margin-left:8px;margin-right:8px;"><img src="https://ss.csdn.net/p?https://mmbiz.qpic.cn/mmbiz_jpg/9UTuc0KvDXiaxoWGZRvIHVQ6dicVvAibolBn7ER1JwgHOvBgUIIeLPNGZtPFGufDLbv2jheNNWkOmXBsutcrnKEYQ/640?wx_fmt=jpeg" alt="640?wx_fmt=jpeg" /></p>
+                </div>
+              </div>
+                </div>
+				<div class="hide-article-box text-center csdn-tracking-statistics tracking-click" data-mod="popu_376">
+			<a class="btn btn-red-hollow" id="btn-readmore">阅读更多</a>
+		</div>
+        	</article>
+	
+	
+	<!-- !empty($pre_next_article[0]) -->
+		</div>
+<script>
+    $(".MathJax").remove();
+</script>
+
+<script type="text/javascript" src="https://static-blog.csdn.net/mdeditor/public/res/bower-libs/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+			"HTML-CSS": {
+					linebreaks: { automatic: true, width: "94%container" },
+					imageFont: null
+			},
+			tex2jax: {
+				preview: "none"
+			},
+			mml2jax: {
+				preview: 'none'
+			}
+	});
+</script>
+<script>
+	(function(){
+		var btnReadmore = $("#btn-readmore");
+		if(btnReadmore.length>0){
+			var winH = $(window).height();
+			var articleBox = $("div.article_content");
+			var artH = articleBox.height();
+			if(artH > winH*2){
+				articleBox.css({
+					'height':winH*2+'px',
+					'overflow':'hidden'
+				})
+				btnReadmore.click(function(){
+					articleBox.removeAttr("style");
+					$(this).parent().remove();
+				})
+			}else{
+				btnReadmore.parent().remove();
+			}
+		}
+	})()
+</script>                <a id="commentBox"></a>
+<div class="comment-box">
+	  	<div class="unlogin-box text-center">
+		想对作者说点什么？
+		<!-- $curl 当前地址 -->
+		<a href="https://passport.csdn.net/account/login?from=https://blog.csdn.net/LrS62520kV/article/details/80684410#commentBox" class="btn btn-sm btn-red">我来说一句</a>
+	</div>
+			<div class="comment-list-container">
+		<a id="comments"></a>
+		<div class="comment-list-box">
+		</div>
+		<div id="commentPage" class="pagination-box d-none"></div>
+		<div class="opt-box text-center">
+			<button class="btn btn-sm btn-link-blue" id="btnMoreComment"></button>
+		</div>
+	</div>
+</div>        <div class="recommend-box">
+            		<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/dev_csdn/article/details/78469354" target="_blank" strategy="BlogCommendFromQuerySearch_1">
+				视觉设计中发现的11种光学<em>错觉</em>			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/dev_csdn/article/details/78469354" target="_blank" >
+				原文：11 Optical Illusions Found in Visual Design 
+  作者：Balraj Chana 
+  翻译：Vincent 
+  文章内容不为空文章内容不为空文章内...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/dev_csdn" title="dev_csdn" target="_blank">
+					<img src="https://avatar.csdn.net/3/3/A/3_dev_csdn.jpg" alt="dev_csdn" class="avatar-pic">
+					<span class="name">dev_csdn</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2017-11-07 16:32:25</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：7230</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/tMb8Z9Vdm66wH68VX1/article/details/80649897" target="_blank" strategy="BlogCommendFromQuerySearch_0">
+				泼冷水：反思<em>机器学习</em><em>5年</em><em>大跃进</em>（附论文）			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/tMb8Z9Vdm66wH68VX1/article/details/80649897" target="_blank" >
+				
+  
+    
+                    
+
+                    
+
+                    
+                    
+     ...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/tMb8Z9Vdm66wH68VX1" title="tMb8Z9Vdm66wH68VX1" target="_blank">
+					<img src="https://avatar.csdn.net/8/9/2/3_tmb8z9vdm66wh68vx1.jpg" alt="tMb8Z9Vdm66wH68VX1" class="avatar-pic">
+					<span class="name">tMb8Z9Vdm66wH68VX1</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2018-06-08 14:34:33</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：87</span>
+			</p>
+		</div>
+	</div>
+								<div class="recommend-item-box recommend-ad-box" id="ad1"></div>
+				<script>
+				  var width = $("div.recommend-box").outerWidth() - 48;
+					NEWS_FEED({
+						w: width,
+						h : 90,
+						showid : 'GNKXx7',
+						placeholderId: "ad1",
+						inject : 'define',
+						define : {
+							imagePosition : 'right',
+							imageBorderRadius : 0,
+							imageWidth: 120,
+							imageHeight: 90,
+							imageFill : 'clip',
+							displayImage : true,
+							displayTitle : true,
+							titleFontSize: 20,
+							titleFontColor: '#333',
+							titleFontFamily : 'Microsoft Yahei',
+							titleFontWeight: 'bold',
+							titlePaddingTop : 0,
+							titlePaddingRight : 0,
+							titlePaddingBottom : 10,
+							titlePaddingLeft : 0,
+							displayDesc : true,
+							descFontSize: 14,
+							descFontColor: '#6b6b6b',
+							descFontFamily : 'Microsoft Yahei',
+							paddingTop : 0,
+							paddingRight : 0,
+							paddingBottom : 0,
+							paddingLeft : 0,
+							backgroundColor: '#fff',
+							hoverColor: '#ca0c16'
+						}
+					})
+				</script>
+
+			
+				<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/yuxin6866/article/details/53147819" target="_blank" strategy="BlogCommendFromQuerySearch_2">
+				毕业五年总结（转载的别人帖子，挺励志）			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/yuxin6866/article/details/53147819" target="_blank" >
+				以下都是转载：
+
+
+每年都是国庆浪完后才能静下心来写写总结收收心，感觉知行都没啥人看了，但还是写一下资深学渣五年总结，记录一下，
+应该也是我知行上最后一个总结帖了吧，以后总结就写evernot...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/yuxin6866" title="yuxin6866" target="_blank">
+					<img src="https://avatar.csdn.net/1/7/1/3_yuxin6866.jpg" alt="yuxin6866" class="avatar-pic">
+					<span class="name">yuxin6866</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2016-11-13 10:59:49</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：2273</span>
+			</p>
+		</div>
+	</div>
+						<div class="recommend-item-box recommend-download-box csdn-tracking-statistics clearfix" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+			<div class="content float-left">
+				<h4 class="text-truncate">
+					<a href="https://download.csdn.net/download/weixin_37300907/10450830" target="_blank" strategy="BlogCommendFromQuerySearch_3">
+						本地追踪的隐私保护技术					</a>
+				</h4>
+				<p>
+					<span class="data">2018年05月31日 </span>
+					<span class="size">1.13MB</span>
+					<span class="type">下载</span>
+				</p>
+			</div>
+			<div class="img-box float-right">
+				<a href="https://download.csdn.net/download/weixin_37300907/10450830" target="_blank" strategy="BlogCommendFromQuerySearch_3">
+					<img src="http://csdnimg.cn/release/download/old_static/images/minetype/pdf.svg" alt="">
+				</a>
+			</div>
+		</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/pA2elX78qaJTADH/article/details/78956183" target="_blank" strategy="BlogCommendFromQuerySearch_4">
+				值得收藏 | 关于<em>机器学习</em>，这<em>可能是</em>目前最全面最无痛的入门路径和资源！			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/pA2elX78qaJTADH/article/details/78956183" target="_blank" >
+				前言：本文作者@李杰克，是我们“AI产品经理大本营”成员，下面是他分享的第2篇文章，以飨读者。最近有不少童鞋给李杰克留言，说自己对<em>机器学习</em>很感兴趣却无从下手，想知道我的学习路径，也希望我可以分享一些适...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/pA2elX78qaJTADH" title="pA2elX78qaJTADH" target="_blank">
+					<img src="https://avatar.csdn.net/1/D/8/3_pa2elx78qajtadh.jpg" alt="pA2elX78qaJTADH" class="avatar-pic">
+					<span class="name">pA2elX78qaJTADH</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2017-12-21 00:00:00</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：1163</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/xywlpo/article/details/6439050" target="_blank" strategy="BlogCommendFromQuerySearch_5">
+				看不见的大猩猩（1.注意<em>错觉</em>）			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/xywlpo/article/details/6439050" target="_blank" >
+				《看不见的大猩猩》是全球顶尖商业思想家必读的10本新锐经典之一，“看不见的大猩猩”是心理学史上最知名的实验之一。作者克里斯托弗·查布里斯(Christopher F.Chabris)，在哈佛大学获得博...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/xywlpo" title="xywlpo" target="_blank">
+					<img src="https://avatar.csdn.net/8/C/8/3_xywlpo.jpg" alt="xywlpo" class="avatar-pic">
+					<span class="name">xywlpo</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2011-05-23 10:19:00</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：3076</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box recommend-ad-box" id="a_d_feed_0"></div>
+			<script>
+				var width = $("div.recommend-box").outerWidth() - 48;
+				NEWS_FEED({
+					w: width,
+					h: 90,
+					showid: 'Afihld',
+					placeholderId: 'a_d_feed_0',
+					inject: 'define',
+					define: {
+						imagePosition: 'right',
+						imageBorderRadius: 0,
+						imageWidth: 120,
+						imageHeight: 90,
+						imageFill: 'clip',
+						displayImage: true,
+						displayTitle: true,
+						titleFontSize: 20,
+						titleFontColor: '#333',
+						titleFontFamily: 'Microsoft Yahei',
+						titleFontWeight: 'bold',
+						titlePaddingTop: 0,
+						titlePaddingRight: 0,
+						titlePaddingBottom: 10,
+						titlePaddingLeft: 0,
+						displayDesc: true,
+						descFontSize: 14,
+						descFontColor: '#6b6b6b',
+						descFontFamily: 'Microsoft Yahei',
+						paddingTop: 0,
+						paddingRight: 0,
+						paddingBottom: 0,
+						paddingLeft: 0,
+						backgroundColor: '#fff',
+						hoverColor: '#ca0c16'
+					}
+				})
+			</script>
+			<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/lttclaw_/article/details/42463817" target="_blank" strategy="BlogCommendFromQuerySearch_6">
+				<em>错觉</em>思维			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/lttclaw_/article/details/42463817" target="_blank" >
+				<em>错觉</em>相关（ilusory correlation）——当我们期待发现某种重要的联系时，我们很容易会将符合我们期待的随机事件联系起来。
+这种现象也是常见到数不清：
+比如相恋中的两人，当一人正想给另一...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/lttclaw_" title="lttclaw_" target="_blank">
+					<img src="https://avatar.csdn.net/E/C/7/3_lttclaw_.jpg" alt="lttclaw_" class="avatar-pic">
+					<span class="name">lttclaw_</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2015-01-06 20:18:43</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：676</span>
+			</p>
+		</div>
+	</div>
+						<div class="recommend-item-box recommend-download-box csdn-tracking-statistics clearfix" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+			<div class="content float-left">
+				<h4 class="text-truncate">
+					<a href="https://download.csdn.net/download/baidu_33529343/9379210" target="_blank" strategy="BlogCommendFromQuerySearch_7">
+						车轮<em>错觉</em>效应The wagon wheel illusion in movies and reality.pdf					</a>
+				</h4>
+				<p>
+					<span class="data">2015年12月27日 </span>
+					<span class="size">169KB</span>
+					<span class="type">下载</span>
+				</p>
+			</div>
+			<div class="img-box float-right">
+				<a href="https://download.csdn.net/download/baidu_33529343/9379210" target="_blank" strategy="BlogCommendFromQuerySearch_7">
+					<img src="http://csdnimg.cn/release/download/old_static/images/minetype/pdf.svg" alt="">
+				</a>
+			</div>
+		</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/futudeniaodan/article/details/52228356" target="_blank" strategy="BlogCommendFromQuerySearch_8">
+				近<em>5年</em>133个java面试题			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/futudeniaodan/article/details/52228356" target="_blank" >
+				转载自：http://www.codeceo.com/article/133-java-interview-5-years.html
+
+Java 面试随着时间的改变而改变。在过去的日子里，当你知道...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/futudeniaodan" title="futudeniaodan" target="_blank">
+					<img src="https://avatar.csdn.net/E/1/1/3_futudeniaodan.jpg" alt="futudeniaodan" class="avatar-pic">
+					<span class="name">futudeniaodan</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2016-08-17 10:14:19</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：2727</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/sonictl/article/details/45482821" target="_blank" strategy="BlogCommendFromQuerySearch_9">
+				Patrick Hughes - <em>错觉</em>3D雕塑艺术			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/sonictl/article/details/45482821" target="_blank" >
+				Pictures
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Patrick Hughes (artist)
+
+From Wikipedia, the free encyclopedia
+
+
+
+
+
+
+...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/sonictl" title="sonictl" target="_blank">
+					<img src="https://avatar.csdn.net/C/1/0/3_sonictl.jpg" alt="sonictl" class="avatar-pic">
+					<span class="name">sonictl</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2015-05-04 16:42:26</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：1330</span>
+			</p>
+		</div>
+	</div>
+			            <!-- 第四范式SDK -->
+<script src="https://nbrecsys.4paradigm.com/resource/js/sdk-csdn-smallflow.js" async defer></script>
+            <div class="recommend-loading-box">
+                <img src='https://csdnimg.cn/release/phoenix/images/feedLoading.gif'>
+            </div>
+            <div class="recommend-end-box">
+                <p class="text-center">没有更多推荐了，<a href="https://blog.csdn.net/" class="c-blue c-blue-hover c-blue-focus">返回首页</a></p>
+            </div>
+        </div>
+    </main>
+    <aside>
+		    <div id="asideProfile" class="aside-box">
+    <h3 class="aside-title">个人资料</h3>
+    <div class="profile-intro d-flex">
+        <div class="avatar-box d-flex justify-content-center flex-column">
+            <a href="https://blog.csdn.net/lrs62520kv">
+                <img src="https://avatar.csdn.net/E/4/9/3_lrs62520kv.jpg" class="avatar_pic">
+            </a>
+        </div>
+        <div class="user-info d-flex justify-content-center flex-column">
+            <p class="name csdn-tracking-statistics tracking-click" data-mod="popu_379">
+                <a href="https://blog.csdn.net/lrs62520kv" target="_blank" class="text-truncate" id="uid">lrs62520kv</a>
+            </p>
+                    </div>
+                <div class="opt-box d-flex justify-content-center flex-column">
+            <span  class="csdn-tracking-statistics tracking-click" data-mod="popu_379">
+                                <a class="btn btn-sm btn-red-hollow" href="https://passport.csdn.net/account/login?from=https://blog.csdn.net/LrS62520kV/article/details/80684410" target="_self">关注</a>
+                            </span>
+                    </div>
+            </div>
+    <div class="data-info d-flex item-tiling">
+                <dl class="text-center" title="113">
+                        <dt><a href="https://blog.csdn.net/lrs62520kv?t=1">原创</a></dt>
+            <dd><a href="https://blog.csdn.net/lrs62520kv?t=1"><span class="count">113</span></a></dd>
+                    </dl>
+        <dl class="text-center" title="27">
+            <dt>粉丝</dt>
+            <dd><span class="count" id="fan">27</span></dd>
+        </dl>
+        <dl class="text-center" title="21">
+            <dt>喜欢</dt>
+            <dd><span class="count">21</span></dd>
+        </dl>
+        <dl class="text-center" title="29">
+            <dt>评论</dt>
+            <dd><span class="count">29</span></dd>
+        </dl>
+    </div>
+    <div class="grade-box clearfix">
+        <dl>
+            <dt>等级：</dt>
+            <dd>
+                <a href="https://blog.csdn.net/home/help.html#level" title="4级,点击查看等级说明" target="_blank">
+                    <svg class="icon icon-level" aria-hidden="true">
+                        <use xlink:href="#csdnc-bloglevel-4"></use>
+                    </svg>
+                </a>
+            </dd>
+        </dl>
+        <dl>
+            <dt>访问：</dt>
+            <dd title="88476">
+                8万+            </dd>
+        </dl>
+        <dl>
+            <dt>积分：</dt>
+            <dd title="1786">
+                1786            </dd>
+        </dl>
+        <dl title="28985">
+            <dt>排名：</dt>
+            <dd>2万+</dd>
+        </dl>
+    </div>
+        <div class="badge-box d-flex">
+        <span>勋章：</span>
+                        <a class="icon-badge" title="持之以恒">
+            <svg class="icon" aria-hidden="true">
+                <use xlink:href="#csdnc-m-lasting"></use>
+            </svg>
+            <div class="icon-arrow"></div>
+            <div class="grade-detail-box item2">
+                <div class="pos-box">
+                    <div class="left-box d-flex justify-content-center align-items-center flex-column">
+                        <svg class="icon" aria-hidden="true">
+                            <use xlink:href="#csdnc-m-lasting"></use>
+                        </svg>
+                        <p>持之以恒</p>
+                    </div>
+                    <div class="right-box d-flex justify-content-center align-items-center">
+                        授予每个自然月内发布4篇或4篇以上原创或翻译IT博文的用户。不积跬步无以至千里，不积小流无以成江海，程序人生的精彩需要坚持不懈地积累！
+                    </div>
+                </div>
+            </div>
+        </a>
+                            </div>
+    </div>		    <div class="csdn-tracking-statistics mb8 box-shadow" data-pid="blog" data-mod="popu_4" style="height:250px;">
+    <div class="aside-content text-center" id="cpro_u2734133">
+        <!-- 投放代码 -->
+        <script type="text/javascript" src="//cee1.iteye.com/lgyyovfyh.js"></script>
+    </div>
+</div>
+		    <div id="asideNewArticle" class="aside-box">
+    <h3 class="aside-title">最新文章</h3>
+    <div class="aside-content">
+        <ul class="inf_list clearfix csdn-tracking-statistics tracking-click" data-mod="popu_382">
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/LrS62520kV/article/details/80681417" target="_blank">互联网巨头终极战场：得开发者得天下</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/LrS62520kV/article/details/80657320" target="_blank">从BAT到ATM，蚂蚁金服的逻辑和风险</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/LrS62520kV/article/details/80649762" target="_blank">中计播客 | ​长三角将率先打造全球5G网络建设和应用高地</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/LrS62520kV/article/details/80616986" target="_blank">关注 | 摩尔定律到底还能走多远？</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/LrS62520kV/article/details/80602912" target="_blank">微信生态爆发：流量的狂欢与红线</a>
+            </li>
+                    </ul>
+    </div>
+</div>
+		    		    		    <div id="asideArchive" class="aside-box flexible-box">
+    <h3 class="aside-title">归档</h3>
+    <div class="aside-content">
+        <ul class="archive-list">
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/lrs62520kv/article/month/2018/06">
+                    2018年6月                    <span class="count float-right">9篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/lrs62520kv/article/month/2018/05">
+                    2018年5月                    <span class="count float-right">27篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/lrs62520kv/article/month/2018/04">
+                    2018年4月                    <span class="count float-right">61篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/lrs62520kv/article/month/2018/03">
+                    2018年3月                    <span class="count float-right">42篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/lrs62520kv/article/month/2018/02">
+                    2018年2月                    <span class="count float-right">23篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/lrs62520kv/article/month/2018/01">
+                    2018年1月                    <span class="count float-right">55篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/lrs62520kv/article/month/2017/12">
+                    2017年12月                    <span class="count float-right">55篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/lrs62520kv/article/month/2017/11">
+                    2017年11月                    <span class="count float-right">46篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/lrs62520kv/article/month/2017/06">
+                    2017年6月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/lrs62520kv/article/month/2017/04">
+                    2017年4月                    <span class="count float-right">7篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/lrs62520kv/article/month/2017/03">
+                    2017年3月                    <span class="count float-right">3篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/lrs62520kv/article/month/2017/01">
+                    2017年1月                    <span class="count float-right">9篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/lrs62520kv/article/month/2016/12">
+                    2016年12月                    <span class="count float-right">3篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/lrs62520kv/article/month/2016/09">
+                    2016年9月                    <span class="count float-right">4篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/lrs62520kv/article/month/2016/08">
+                    2016年8月                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/lrs62520kv/article/month/2016/07">
+                    2016年7月                    <span class="count float-right">4篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/lrs62520kv/article/month/2016/06">
+                    2016年6月                    <span class="count float-right">7篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/lrs62520kv/article/month/2016/05">
+                    2016年5月                    <span class="count float-right">12篇</span>
+                </a>
+            </li>
+                    </ul>
+    </div>
+        <p class="text-center">
+        <a class="btn btn-link-blue flexible-btn" data-fbox="aside-archive">展开</a>
+    </p>
+    </div>
+		    <div id="asideHotArticle" class="aside-box">
+	<h3 class="aside-title">热门文章</h3>
+	<div class="aside-content">
+		<ul class="hotArticle-list csdn-tracking-statistics tracking-click" data-mod="popu_521">
+							<li>
+					<a href="https://blog.csdn.net/lrs62520kv/article/details/79999999">阿里无人车，正在高速过弯</a>
+					<p class="read">阅读量：<span>3645</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/lrs62520kv/article/details/78968329">报告 | 2018中国数字经济发展及投资价值</a>
+					<p class="read">阅读量：<span>2467</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/lrs62520kv/article/details/78987168">中计播客｜滴滴共享单车月底开城，传将收购小蓝单车</a>
+					<p class="read">阅读量：<span>2199</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/lrs62520kv/article/details/78940814">ICT 2017 | 斑马网络郝飞：当汽车走进智联网时代</a>
+					<p class="read">阅读量：<span>2172</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/lrs62520kv/article/details/78486339">2030年打败燃油车！一组动图告诉你新能源汽车五大变革</a>
+					<p class="read">阅读量：<span>2088</span></p>
+				</li>
+					</ul>
+	</div>
+</div>
+		    <div id="asideNewComments" class="aside-box">
+    <h3 class="aside-title">最新评论</h3>
+    <div class="aside-content">
+        <ul class="newcomment-list">
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/lrs62520kv/article/details/80684410#comments">机器学习5年大跃进，可能是个错觉</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/weixin_42474447" class="user-name" target="_blank">weixin_42474447</a>：真的耶！                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/lrs62520kv/article/details/80059404#comments">自动驾驶处理器是人工智能产业的珠穆...</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/sinat_32817149" class="user-name" target="_blank">sinat_32817149</a>：现在还是人工智能的初级形态                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/lrs62520kv/article/details/80059403#comments">科大讯飞举办翻译战略暨新品发布会，...</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/qq_42337394" class="user-name" target="_blank">qq_42337394</a>：推荐大家一个靠谱的论文检测平台。重复的部分有详细出处以及具体修改意见，能直接在文章上做修改，全部改...                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/lrs62520kv/article/details/80059403#comments">科大讯飞举办翻译战略暨新品发布会，...</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/a1029602653" class="user-name" target="_blank">a1029602653</a>：讯飞的语音做的还是挺厉害的                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/lrs62520kv/article/details/80059404#comments">自动驾驶处理器是人工智能产业的珠穆...</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/wg779115475" class="user-name" target="_blank">wg779115475</a>：人工智能是不是又一次的工业革命呢！                </p>
+            </li>
+                    </ul>
+    </div>
+</div>
+		<div id="asideFooter">
+			
+		<div class="aside-box">
+						<script type="text/javascript" src="//cee1.iteye.com/avneunkwb.js"></script>
+					</div>
+				<div class="aside-box">
+			<div class="persion_article">
+			</div>
+		</div>
+	</div>
+</aside>
+<script src="https://csdnimg.cn/pubfooter/js/publib_footer-1.0.3.js" data-isfootertrack="false" type="text/javascript"></script>
+<script>
+	$("a.flexible-btn").click(function(){
+		$(this).parents('div.aside-box').removeClass('flexible-box');
+		$(this).remove();
+	})
+</script>
+</div>
+<div class="mask-dark"></div>
+<div class="pulllog-box" style="display: block;">
+	<div class="pulllog clearfix">
+		<span class="text float-left">加入CSDN，享受更精准的内容推荐，与500万程序员共同成长！</span>
+		<div class="pulllog-btn float-right clearfix">
+            <button class="pulllog-login float-left csdn-tracking-statistics tracking-click" data-mod="popu_557">
+                登录
+            </button>
+            <div class="pulllog-sigin float-left csdn-tracking-statistics tracking-click" data-mod="popu_558">
+                <a href="https://passport.csdn.net/account/mobileregister" target="_blank">注册</a>
+            </div>
+            <button class="btn-close">
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#csdnc-times"></use>
+                </svg>
+            </button>
+		</div>
+	</div>
+</div>
+<div id="loginWrap" style="display:none"></div>
+<div class="tool-box">
+	<ul class="meau-list">
+		<li>
+			<button class="btn-like " title="点赞">
+				<svg class="icon active" aria-hidden="true">
+					<use xlink:href="#csdnc-thumbsup-ok"></use>
+				</svg><svg class="icon no-active" aria-hidden="true">
+					<use xlink:href="#csdnc-thumbsup"></use>
+				</svg>
+				<p>1</p>
+			</button>
+		</li>
+		<li class="toc-container-box" id="liTocBox">
+			<button class="btn-toc" title="目录">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-contents"></use>
+				</svg><br>目录
+			</button>
+			<div class="toc-container">
+				<div class="pos-box">
+					<div class="icon-arrow"></div>
+					<div class="scroll-box">
+						<div class="toc-box"></div>
+					</div>
+				</div>
+				<div class="opt-box">
+					<button class="btn-opt prev nomore" title="向上">
+						<svg class="icon" aria-hidden="true">
+							<use xlink:href="#csdnc-chevronup"></use>
+						</svg>
+					</button>
+					<button class="btn-opt next">
+						<svg class="icon" aria-hidden="true">
+							<use xlink:href="#csdnc-chevrondown"></use>
+						</svg>
+					</button>
+				</div>
+			</div>
+		</li>
+		<li>
+			<button class="btn-bookmark" title="收藏">
+				<svg class="icon active" aria-hidden="true">
+					<use xlink:href="#csdnc-bookmark-ok"></use>
+				</svg><svg class="icon no-active" aria-hidden="true">
+					<use xlink:href="#csdnc-bookmark"></use>
+				</svg><br>收藏
+			</button>
+		</li>
+		<li>
+			<a class="btn-comments" title="评论" href="#commentBox">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-comments"></use>
+				</svg><br>评论
+			</a>
+		</li>
+				<li class="bdsharebuttonbox">
+			<a class="btn-comments bds_weixin" data-cmd="weixin" title="微信分享">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-wechat"></use>
+				</svg><br>微信
+			</a>
+		</li>
+		<li class="bdsharebuttonbox">
+			<a class="btn-comments bds_tsina" data-cmd="tsina" title="微博分享">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-weibo"></use>
+				</svg><br>微博
+			</a>
+		</li>
+		<li class="bdsharebuttonbox">
+			<a class="btn-comments bds_qzone" data-cmd="qzone" title="QQ分享">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-qq"></use>
+				</svg><br>QQ
+			</a>
+		</li>
+	</ul>
+</div>
+<script>window._bd_share_config = { "common": { "bdSnsKey": {}, "bdText": "", "bdMini": "1", "bdMiniList": false, "bdPic": "", "bdStyle": "0", "bdSize": "16" }, "share": {} }; with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'https://csdnimg.cn/static/api/js/share.js?v=89860594'];</script>
+<script>
+    var recommendCount = 10;
+    recommendCount = recommendCount > 1 ? (recommendCount + (recommendCount>6 ? 2 : 1)) : recommendCount;
+    var articleTit = "机器学习5年大跃进，可能是个错觉";
+    var ChannelId = 36;
+    var articleId = "80684410";
+    var commentscount = 1;
+    var islock = false;
+    var curentUrl = "https://blog.csdn.net/LrS62520kV/article/details/80684410";
+    var myUrl = "https://my.csdn.net/";
+    //1禁止评论，2正常
+    var commentAuth = 0;
+    //百度搜索
+    var baiduKey = "";
+    var needInsertBaidu = true;
+</script>
+<script src="https://csdnimg.cn/public/sandalstrap/1.3/js/sandalstrap.min.js"></script>
+<script src="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.js"></script>
+<script src='https://csdnimg.cn/public/common/gotop/js/goTop-v1.0.min.js?v201803151422'></script>
+<script>
+    GoTop({
+        right: 8,
+        hasReport: true,
+        reportFun: function() {
+            showReport(false,"机器学习5年大跃进，可能是个错觉");
+        }
+    })
+</script>
+<script src="https://csdnimg.cn/release/phoenix/template/js/common-bd54b21308.min.js"></script>
+<script src="https://csdnimg.cn/release/phoenix/template/js/detail-effe72036e.min.js"></script>
+<script src="https://csdnimg.cn/release/phoenix/themes/skin3-template/skin3-template-46c7bd3d86.min.js"></script>
+</body>
+<div class="box-box-default">
+    <a class="btn-remove">
+        关闭
+    </a>
+    <script type="text/javascript" src="//cee1.iteye.com/mhzzjepzz.js"></script>
+</div>
+<div class="box-box-large">
+    <a class="btn-remove">
+        关闭
+    </a>
+    <script type="text/javascript" src="//cee1.iteye.com/idvveasfs.js"></script>
+</div>
+</html>

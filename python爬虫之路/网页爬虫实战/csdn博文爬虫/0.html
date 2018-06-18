@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <link rel="canonical" href="https://blog.csdn.net/superwebmaster/article/details/80678590"/> 
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="referrer" content="always">
+    <meta name="description" content="现在所有主流的网站，基本上都用到了ajax技术，通过异步请求数据已经是一个很普及的实现方式。市面上主流的web前端框架也都有自己封装的ajax，而且都是大同小异的。也就是说，Ajax这个轮子已经是多的不能再多了，那为什么我们还要自己封装一个Ajax呢？
+想要了解一个技术或者某个功能的实现原理，只有动手实践才能真正的了解。就如我在csdn上第一篇博客的博文描述。探索技术的路上本应该自己造轮子，即使市面上有再多的选择，自己动手尝试也是必要的，第一次尝试必然会问题众多，但你不觉得解决他是一件很有成就感的事情吗，" />
+    <meta name="keywords" content="" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+    <meta name="shenma-site-verification" content="5a59773ab8077d4a62bf469ab966a63b_1497598848">
+    <script src="https://csdnimg.cn/release/phoenix/vendor/tingyun/tingyun-rum-blog.js"></script>
+
+    <link href="https://csdnimg.cn/public/favicon.ico" rel="SHORTCUT ICON">
+    <title>从0到1 JavaScript封装一个自己的Ajax并完善与拓展Ajax - CSDN博客</title>
+    
+            <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/detail-60a2c245da.min.css">
+        <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/themes/skin3-template/skin3-template-88717cedf2.min.css">
+
+    <script type="text/javascript">
+        var username = "superwebmaster";
+        var blog_address = "https://blog.csdn.net/superwebmaster";
+        var static_host = "https://csdnimg.cn/release/phoenix/";
+        var currentUserName = ""; 
+        var isShowAds = true;
+        var isOwner = false;
+        var loginUrl = "https://passport.csdn.net/account/login?from=https://blog.csdn.net/superwebmaster/article/details/80678590"
+        var blogUrl = "https://blog.csdn.net/";
+        var curSkin = "skin3-template";
+    </script>
+    <script type="text/javascript">
+        // Traffic Stats of the entire Web site By baidu
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?6bcd52f51e9b3dce32bec4a3997715ac";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+        // Traffic Stats of the entire Web site By baidu end
+    </script>
+    <script src="https://csdnimg.cn/public/common/libs/jquery/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <script src="https://csdnimg.cn/rabbit/exposure-click/main-1.0.6.js"></script>
+    <!-- 新版上报 -->
+    <script src="//g.csdnimg.cn/track/1.0.0/track.js" type="text/javascript"></script>
+    <!-- 新版上报end -->
+            <link rel="stylesheet" href="https://csdnimg.cn/public/sandalstrap/1.3/css/sandalstrap.min.css"> 
+    <style>
+        .MathJax, .MathJax_Message, .MathJax_Preview{
+            display: none
+        }
+    </style>
+</head>
+<body>    
+    <link rel="stylesheet" href="https://csdnimg.cn/public/common/toolbar/content_toolbar_css/content_toolbar.css">
+    <script id="toolbar-tpl-scriptId" src="https://csdnimg.cn/public/common/toolbar/js/content_toolbar.js" type="text/javascript" domain="https://blog.csdn.net/"></script>
+    <script src="https://csdnimg.cn/public/sandalstrap/1.3/fonts/csdnc/csdnc.js"></script><link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/blog_code-c3a0c33d5c.css">
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.css">
+<script type="text/javascript" src="//static.mediav.com/js/mvf_news_feed.js"></script>
+
+<header>
+	<div class="container d-flex clearfix">
+		<div class="title-box">
+			<h2 class="title-blog">
+				<a href="https://blog.csdn.net/superwebmaster">Master</a>
+			</h2>
+			<p class="description">思维基于认知！</p>
+		</div>
+		<div class="opt-box d-flex justify-content-end">
+			<a class="btn btn-sm" href="https://blog.csdn.net/superwebmaster/rss/list">
+					<svg class="icon" aria-hidden="true">
+						<use xlink:href="#csdnc-rss"></use>
+					</svg>RSS订阅</a>
+					</div>
+	</div>
+</header><script src="https://dup.baidustatic.com/js/ds.js"></script>
+<div class="container clearfix pt0" id="mainBox">
+    <main>
+        <div class="blog-content-box">
+	<div class="article-title-box">
+			<span class="article-type type-1 float-left">原</span>		<h1 class="title-article">从0到1 JavaScript封装一个自己的Ajax并完善与拓展Ajax</h1>
+	</div>
+	<div class="article-info-box">
+		<div class="article-bar-top d-flex">
+						<span class="c-gray">置顶</span>
+												<span class="time">2018年06月14日 15:32:30</span>
+			<div class="float-right">
+				<span class="read-count">阅读数：1496</span>
+											</div>
+		</div>
+	</div>
+	<article>
+		<div id="article_content" class="article_content clearfix csdn-tracking-statistics" data-pid="blog"  data-mod=popu_307  data-dsm = "post" >
+                    <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/htmledit_views-0a60691e80.css" />
+            <div class="htmledit_views">
+                <p><span style="font-size:14px;">现在所有主流的网站，基本上都用到了ajax技术，通过异步请求数据已经是一个很普及的实现方式。市面上主流的web前端框架也都有自己封装的ajax，而且都是大同小异的。也就是说，Ajax这个轮子已经是多的不能再多了，那为什么我们还要自己封装一个Ajax呢？</span></p><p><span style="font-size:14px;">想要了解一个技术或者某个功能的实现原理，只有动手实践才能真正的了解。就如我在csdn上第一篇博客的博文描述。<strong>探索技术的路上本应该自己造轮子，即使市面上有再多的选择，自己动手尝试也是必要的，第一次尝试必然会问题众多，但你不觉得解决他是一件很有成就感的事情吗，这样才能带给你更大的进步和更深刻的领悟。</strong></span></p><p><span style="font-size:14px;">废话不说，先来写一个最基础的ajax：</span></p><pre class="javascript">	function ajax(a){
+		var ajax = new XMLHttpRequest();
+		ajax.onreadystatechange = function(){
+			if (ajax.readyState == 4 &amp;&amp; ajax.status == 200) {
+				a.success(JSON.stringify(ajax.responseText))
+			}
+		}
+		ajax.open(a.method, a.url,true)
+		ajax.send(a.data)
+	}
+
+	ajax({
+		method:'get',
+		url:'http://127.0.0.1:8081/test',
+		success:function(res){
+			console.log(res)
+		}
+	})</pre><p><span style="font-family:'Arial Black';"><span style="font-size:14px;">一个ajax出炉了，通过调用、填写参数即可请求到服务器。先来分析一下这个ajax的结构，可以看得出来，其实很简单，只是new了一个XMLHttpRequest对象，然后通过onreadystatechange方法来处理返回值，现在我们只是做了一个判断，当请求成功时就调用success方法，如果请求失败，我们还没有写上去，后面我们慢慢完善这个ajax的逻辑。</span></span></p><p><span style="font-family:'Arial Black';"><span style="font-size:14px;">然后调用ajax的open方法，open方法里有三个参数，第一个是请求方式（如：get或post），第二个是请求的url地址，第三个是一个bool值，是否要异步请求。</span></span></p><p><span style="font-family:'Arial Black';"><span style="font-size:14px;">最后使用send方法带上参数发送请求即可。</span></span></p><p><span style="font-family:'Arial Black';"><span style="font-size:14px;">这是，我的服务器已经收到一个请求，但他报了404错误，也就是找不到对应的页面或路由，这时success方法也不会被调用执行。</span></span></p><p><img src="https://img-blog.csdn.net/2018061409222363?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3N1cGVyd2VibWFzdGVy/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" width="600" alt="" /><br /></p><p><span style="font-family:'Arial Black';"><span style="font-size:14px;">那我们再来完善一下这个新生的ajax。我们只需要在onreadystatechange方法里增加一个条件，当请求不成功时调用自身的error方法：</span></span></p><pre class="javascript">		ajax.onreadystatechange = function(){
+			if (ajax.readyState == 4 &amp;&amp; ajax.status == 200) {
+				a.success(JSON.stringify(ajax.responseText))
+			}else{
+				a.error(ajax)
+			}
+		}</pre><p><span style="font-family:'Arial Black';"><span style="font-size:14px;">这样我们就可以在ajax请求的时候加上error方法，当ajax请求失败的时候执行我们想要执行的操作。现在我们抛除跨域请求的问题，当你发送post请求时，你会发现后台接收不到传过来的参数，调用如下：</span></span></p><pre class="javascript">	ajax({
+		method:'get',
+		url:'http://localhost:8081/test',
+		data:'a=1',
+		success:function(res){
+			console.log(res)
+		},
+		error:function(res){
+			console.log(res)
+		}
+	})</pre><p><span style="font-family:'Arial Black';"><span style="font-size:14px;">后端打印一下传过来的参数，为空。</span></span></p><p><img src="https://img-blog.csdn.net/20180614100111994?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3N1cGVyd2VibWFzdGVy/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="" /></p><p><span style="font-family:'Arial Black';"><span style="font-size:14px;">出现这个问题的原因主要是请求头没有声明，这时候我们需要初始化声明一下请求头，那我们加入一行代码：</span></span></p><pre class="javascript">		ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");</pre><p><span style="font-family:'Arial Black';"><span style="font-size:14px;">设置Conten-type为application/x-www-form-urlencoded，现在后端应该是已经可以收到参数了。那我们现在的ajax调用时实在太繁琐，有些东西我们不想填的我们应该给他设置一个默认值，不然就会报错。</span></span></p><p><span style="font-family:'Arial Black';"><span style="font-size:14px;">比如error方法、method、还有是否异步的bool值等等。那我们再加入一些默认值，现在的ajax是这样的：</span></span></p><pre class="javascript">	function ajax(a){
+		a.method = a.method || 'get';
+		a.ajax = a.ajax || true;
+		a.error = a.error || function(){
+			console.warn('Ajax请求失败');
+		};
+		var ajax = new XMLHttpRequest();
+		ajax.onreadystatechange = function(){
+			if (ajax.readyState == 4 &amp;&amp; ajax.status == 200) {
+				a.success(JSON.stringify(ajax.responseText))
+			}else{
+				a.error(ajax)
+			}
+		}
+		ajax.open(a.method, a.url,a.ajax)
+		ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		ajax.send(a.data)
+	}</pre><p><span style="font-family:'Arial Black';font-size:14px;">现在的ajax还存在一个问题，在post请求的时候，如果我们要传参，是需要通过字符串传参的。那这种的书写规则并不是很友好的：</span></p><pre class="javascript">a=1&amp;b=2</pre><p><span style="font-family:'Arial Black';font-size:14px;">而一般框架的传参都是通过json的格式来输入的，我们也不能偏离大众习惯搞独立，当然我们也要保留字符串的传参方式，只是要扩展功能。</span></p><p><span style="font-family:'Arial Black';font-size:14px;">那我们需要加一个控制格式的参数，我们这里用dataType这个参数来控制传参格式，默认是字符串格式传参好了，可以选择json格式进行传参即可。如果是json格式传参，我们需要把json转化成字符串类型，代码如下：</span></p><pre class="javascript">		a.dataType = a.dataType || 'string';
+		var data = a.data;
+		if (a.dataType == 'json') {
+			var nowData = "";
+			for (var i in data) {
+				nowData += (nowData != ''?'&amp;':'')+i+'='+data[i];
+			}
+			data = nowData;
+		}</pre><p><span style="font-family:'Arial Black';font-size:14px;">这样，我们的ajax也就可以通过json格式进行传参了。现在的ajax完整代码和调用方式如下：</span></p><pre class="javascript">	function ajax(a){
+		a.method = a.method || 'get';
+		a.ajax = a.ajax || true;
+		a.dataType = a.dataType || 'string';
+		a.error = a.error || function(){
+			console.warn('Ajax请求失败');
+		};
+		var ajax = new XMLHttpRequest();
+		ajax.onreadystatechange = function(){
+			if (ajax.readyState == 4 &amp;&amp; ajax.status == 200) {
+				a.success(JSON.stringify(ajax.responseText))
+			}else{
+				a.error(ajax)
+			}
+		}
+		var data = a.data;
+		if (a.dataType == 'json') {
+			var nowData = "";
+			for (var i in data) {
+				nowData += (nowData != ''?'&amp;':'')+i+'='+data[i];
+			}
+			data = nowData;
+		}
+		ajax.open(a.method, a.url,a.ajax)
+		ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		ajax.send(data)
+	}
+ //调用Ajax示例
+	ajax({
+		method:'post',
+		url:'http://localhost:8081/test',
+		dataType:'json',
+		data:{
+			a:'1',
+			b:'2'
+		},
+		success:function(res){
+			console.log(res)
+		}
+	})</pre><p><span style="font-family:'Arial Black';font-size:14px;">现在这个Ajax基本上已经可以满足业务上的所以需求，不过还有一点没有实现，我们的Ajax不能设置请求头？！为了一些特殊需求的情况下，我们还是要把这一功能加上的：</span></p><pre class="javascript">		if (a.requestHeader) {
+			for (var i in a.requestHeader) {
+				ajax.setRequestHeader(i,a.requestHeader[i])
+			}
+		}</pre><p><span style="font-family:'Arial Black';">现在的完整代码入下：</span></p><pre class="javascript">	function ajax(a){
+		a.method = a.method || 'get';
+		a.ajax = a.ajax || true;
+		a.dataType = a.dataType || 'string';
+		a.error = a.error || function(){
+			console.warn('Ajax请求失败');
+		};
+		var ajax = new XMLHttpRequest();
+		ajax.onreadystatechange = function(){
+			if (ajax.readyState == 4 &amp;&amp; ajax.status == 200) {
+				a.success(JSON.parse(ajax.responseText))
+			}else if (ajax.readyState != 4 &amp;&amp; ajax.status != 200){
+				a.error(ajax)
+			}
+		}
+		var data = a.data;
+		if (a.dataType == 'json') {
+			var nowData = "";
+			for (var i in data) {
+				nowData += (nowData != ''?'&amp;':'')+i+'='+data[i];
+			}
+			data = nowData;
+		}
+		ajax.open(a.method, a.url,a.ajax)
+		if (a.requestHeader) {
+			for (var i in a.requestHeader) {
+				ajax.setRequestHeader(i,a.requestHeader[i])
+			}
+		}
+		ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		ajax.send(data)
+	}</pre><p>完整示例代码文件：<a href="https://download.csdn.net/download/superwebmaster/10478875">JavaScript封装Ajax完整示例代码</a></p><p>相关技术小扩展：<a href="https://blog.csdn.net/superwebmaster/article/details/80665249">https://blog.csdn.net/superwebmaster/article/details/80665249</a></p><p><span style="font-family:'Arial Black';font-size:12px;"><br /></span></p><p><span style="font-family:'Arial Black';font-size:12px;"><br /></span></p><p><span style="font-family:'Arial Black';font-size:12px;"><br /></span></p>            </div>
+                </div>
+				<div class="hide-article-box text-center csdn-tracking-statistics tracking-click" data-mod="popu_376">
+			<a class="btn btn-red-hollow" id="btn-readmore">阅读更多</a>
+		</div>
+        	</article>
+	
+<a id="chatqa"></a>
+<div class="answer-box d-flex">
+  <div class="img-qrcode-box">
+    <img src="http://images.gitbook.cn/951fd9e0-57e5-11e8-8b79-57986d8fe268" alt="">
+    <p>扫码向博主提问</p>
+  </div>
+
+      <a href="https://mp.csdn.net/ask" class="btn btn-sm btn-link-blue btn-op-answer" target="_blank">去开通我的Chat快问</a>
+    
+  <div class="content-box  d-flex flex-column justify-content-center">
+    <div class="info-box d-flex">
+      <img src="https://avatar.csdn.net/9/D/7/3_superwebmaster.jpg" alt="" class="avatar-pic">
+      <p class="name d-flex align-items-center">superwebmaster</p>
+          </div>
+    <div class="remark text-truncate">
+      非学，无以致疑；非问，无以广识    </div>
+          <ul class="expertise-list d-flex align-content-start flex-wrap">
+            <li class="title">擅长领域：</li>
+                              <li>Web开发     </li>
+                              <li>Web前端     </li>
+                              <li>Golang    </li>
+                              <li>JavaScript</li>
+                              <li>beego     </li>
+                    </ul>
+      </div>
+</div>
+
+		<div class="article-bar-bottom">
+				<div class="article-copyright">
+			版权声明：原创文章转载请标明出处			https://blog.csdn.net/superwebmaster/article/details/80678590		</div>
+									</div>
+	
+	<!-- !empty($pre_next_article[0]) -->
+		</div>
+<script>
+    $(".MathJax").remove();
+</script>
+
+<script type="text/javascript" src="https://static-blog.csdn.net/mdeditor/public/res/bower-libs/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+			"HTML-CSS": {
+					linebreaks: { automatic: true, width: "94%container" },
+					imageFont: null
+			},
+			tex2jax: {
+				preview: "none"
+			},
+			mml2jax: {
+				preview: 'none'
+			}
+	});
+</script>
+<script>
+	(function(){
+		var btnReadmore = $("#btn-readmore");
+		if(btnReadmore.length>0){
+			var winH = $(window).height();
+			var articleBox = $("div.article_content");
+			var artH = articleBox.height();
+			if(artH > winH*2){
+				articleBox.css({
+					'height':winH*2+'px',
+					'overflow':'hidden'
+				})
+				btnReadmore.click(function(){
+					articleBox.removeAttr("style");
+					$(this).parent().remove();
+				})
+			}else{
+				btnReadmore.parent().remove();
+			}
+		}
+	})()
+</script>        <div class="edu-promotion"></div>
+<script type="text/javascript">
+	var edu_ad_is_big_data = 0;
+	var edu_ad_id_mapping = {"0":["https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=python1","https:\/\/edu.csdn.net\/sp\/blog.php?type=618"],"1":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=web1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit","https:\/\/edu.csdn.net\/sp\/blog.php?type=web1","https:\/\/edu.csdn.net\/sp\/blog.php?type=web1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=618"],"8":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit"],"2":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=python1"],"3":["https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=618"],"6":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit"],"12":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit"],"14":["https:\/\/edu.csdn.net\/sp\/blog.php?type=web1","https:\/\/edu.csdn.net\/sp\/blog.php?type=python1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcweb","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=web1","https:\/\/edu.csdn.net\/sp\/blog.php?type=618"],"15":["https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcjg","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1"],"16":["https:\/\/edu.csdn.net\/sp\/blog.php?type=web1","https:\/\/edu.csdn.net\/sp\/blog.php?type=python1"],"28":["https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=python1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcai","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=python1","https:\/\/edu.csdn.net\/sp\/blog.php?type=618"],"29":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1"],"30":["https:\/\/edu.csdn.net\/sp\/blog.php?type=python1","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1"],"32":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=python1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcaq"],"33":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gccxrs","https:\/\/edu.csdn.net\/sp\/blog.php?type=python1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1"],"35":["https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit"],"37":["https:\/\/edu.csdn.net\/sp\/blog.php?type=web1","https:\/\/edu.csdn.net\/sp\/blog.php?type=python1"],"7":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=web1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=web1","https:\/\/edu.csdn.net\/sp\/blog.php?type=web1","https:\/\/edu.csdn.net\/sp\/blog.php?type=618"],"17":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1"],"34":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=python1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcbt"],"36":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=ai1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit"],"31":["https:\/\/edu.csdn.net\/sp\/blog.php?type=python1","https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit"],"19":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit"],"20":["https:\/\/edu.csdn.net\/sp\/blog.php?type=bigdata1","https:\/\/edu.csdn.net\/sp\/blog.php?type=gcit"]};
+</script>        <a id="commentBox"></a>
+<div class="comment-box">
+	  	<div class="unlogin-box text-center">
+		想对作者说点什么？
+		<!-- $curl 当前地址 -->
+		<a href="https://passport.csdn.net/account/login?from=https://blog.csdn.net/superwebmaster/article/details/80678590#commentBox" class="btn btn-sm btn-red">我来说一句</a>
+	</div>
+			<div class="comment-list-container">
+		<a id="comments"></a>
+		<div class="comment-list-box">
+		</div>
+		<div id="commentPage" class="pagination-box d-none"></div>
+		<div class="opt-box text-center">
+			<button class="btn btn-sm btn-link-blue" id="btnMoreComment"></button>
+		</div>
+	</div>
+</div>        <div class="recommend-box">
+            		<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/lxk_qzgcs/article/details/54647654" target="_blank" strategy="BlogCommendFromQuerySearch_6">
+				原生js实现对<em>Ajax</em>的<em>封装</em>(模仿jquery)			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/lxk_qzgcs/article/details/54647654" target="_blank" >
+				本文转载自 http://www.jianshu.com/p/cd77f723990f
+前言众所周知，jquery在我们日常开发中的使用频率非常高，与js相比，我们省去了冗长的获取元素的代码，不用考虑...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/lxk_qzgcs" title="lxk_qzgcs" target="_blank">
+					<img src="https://avatar.csdn.net/9/B/F/3_lxk_qzgcs.jpg" alt="lxk_qzgcs" class="avatar-pic">
+					<span class="name">lxk_qzgcs</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2017-01-21 21:52:20</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：3204</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/qq20004604/article/details/60640908" target="_blank" strategy="BlogCommendFromQuerySearch_4">
+				像jQuery那样<em>封装</em><em>一个</em><em>ajax</em>			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/qq20004604/article/details/60640908" target="_blank" >
+				<em>ajax</em>的手写、<em>封装</em>和自定义设置			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/qq20004604" title="qq20004604" target="_blank">
+					<img src="https://avatar.csdn.net/5/1/3/3_qq20004604.jpg" alt="qq20004604" class="avatar-pic">
+					<span class="name">qq20004604</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2017-03-07 00:30:33</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：899</span>
+			</p>
+		</div>
+	</div>
+								<div class="recommend-item-box recommend-ad-box" id="ad1"></div>
+				<script>
+				  var width = $("div.recommend-box").outerWidth() - 48;
+					NEWS_FEED({
+						w: width,
+						h : 90,
+						showid : 'GNKXx7',
+						placeholderId: "ad1",
+						inject : 'define',
+						define : {
+							imagePosition : 'right',
+							imageBorderRadius : 0,
+							imageWidth: 120,
+							imageHeight: 90,
+							imageFill : 'clip',
+							displayImage : true,
+							displayTitle : true,
+							titleFontSize: 20,
+							titleFontColor: '#333',
+							titleFontFamily : 'Microsoft Yahei',
+							titleFontWeight: 'bold',
+							titlePaddingTop : 0,
+							titlePaddingRight : 0,
+							titlePaddingBottom : 10,
+							titlePaddingLeft : 0,
+							displayDesc : true,
+							descFontSize: 14,
+							descFontColor: '#6b6b6b',
+							descFontFamily : 'Microsoft Yahei',
+							paddingTop : 0,
+							paddingRight : 0,
+							paddingBottom : 0,
+							paddingLeft : 0,
+							backgroundColor: '#fff',
+							hoverColor: '#ca0c16'
+						}
+					})
+				</script>
+
+			
+				<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/h330531987/article/details/66257144" target="_blank" strategy="BlogCommendFromQuerySearch_8">
+				<em>自己</em>做工具--用原生js<em>封装</em><em>一个</em><em>AJAX</em>插件			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/h330531987/article/details/66257144" target="_blank" >
+				采用面向对象的思想<em>封装</em>,兼容get/post方式
+
+1.get和post区别
+
+（1）get方式通过url地址栏传递参数，post通过表单形式传递数据
+
+
+（2）传输的数据大小，get方式：普通浏览器...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/h330531987" title="h330531987" target="_blank">
+					<img src="https://avatar.csdn.net/9/9/E/3_h330531987.jpg" alt="h330531987" class="avatar-pic">
+					<span class="name">h330531987</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2017-03-26 02:36:14</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：1732</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/abeeeee/article/details/77419044" target="_blank" strategy="BlogCommendFromQuerySearch_3">
+				如何<em>自己</em><em>封装</em><em>一个</em><em>ajax</em>函数			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/abeeeee/article/details/77419044" target="_blank" >
+				用<em>ajax</em>的局部刷新来给网站提升用户体验我们已经用过很多了，<em>ajax</em>已然成为了前端开发最重要的“工具”之一。
+
+　　但是，我想应该会有不少人在使用<em>ajax</em>的时候都在依赖于jQuery或者proto...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/abeeeee" title="abeeeee" target="_blank">
+					<img src="https://avatar.csdn.net/D/8/9/3_abeeeee.jpg" alt="abeeeee" class="avatar-pic">
+					<span class="name">abeeeee</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2017-08-20 00:53:25</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：694</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/u010427666/article/details/53946972" target="_blank" strategy="BlogCommendFromQuerySearch_5">
+				<em>封装</em><em>自己</em>的jsonp、元素<em>Ajax</em>			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/u010427666/article/details/53946972" target="_blank" >
+				在<em>封装</em><em>自己</em>的JSONP 服务之前，我们要先明白，什么是同源？为什么要跨越？ 
+首先我们要明白，同源策略是浏览器的一种安全策略，所谓同源是指，域名、协议、端口完全相同。 
+为什么要跨越？在开始前简单介绍...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/u010427666" title="u010427666" target="_blank">
+					<img src="https://avatar.csdn.net/4/C/6/3_u010427666.jpg" alt="u010427666" class="avatar-pic">
+					<span class="name">u010427666</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2016-12-30 22:59:40</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：1032</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/yang295242361/article/details/78142302" target="_blank" strategy="BlogCommendFromQuerySearch_14">
+				Vue.js插件axios——<em>封装</em><em>一个</em>可以灵活使用的<em>ajax</em>			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/yang295242361/article/details/78142302" target="_blank" >
+				http://baijiahao.baidu.com/s?id=1565789540282546&amp;wfr=spider&amp;for=pc
+
+
+目录
+
+<em>ajax</em>简介axios介绍手把手<em>封装</em><em>一个</em>aj...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/yang295242361" title="yang295242361" target="_blank">
+					<img src="https://avatar.csdn.net/3/0/8/3_yang295242361.jpg" alt="yang295242361" class="avatar-pic">
+					<span class="name">yang295242361</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2017-09-30 14:17:35</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：1669</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box recommend-ad-box" id="a_d_feed_0"></div>
+			<script>
+				var width = $("div.recommend-box").outerWidth() - 48;
+				NEWS_FEED({
+					w: width,
+					h: 90,
+					showid: 'Afihld',
+					placeholderId: 'a_d_feed_0',
+					inject: 'define',
+					define: {
+						imagePosition: 'right',
+						imageBorderRadius: 0,
+						imageWidth: 120,
+						imageHeight: 90,
+						imageFill: 'clip',
+						displayImage: true,
+						displayTitle: true,
+						titleFontSize: 20,
+						titleFontColor: '#333',
+						titleFontFamily: 'Microsoft Yahei',
+						titleFontWeight: 'bold',
+						titlePaddingTop: 0,
+						titlePaddingRight: 0,
+						titlePaddingBottom: 10,
+						titlePaddingLeft: 0,
+						displayDesc: true,
+						descFontSize: 14,
+						descFontColor: '#6b6b6b',
+						descFontFamily: 'Microsoft Yahei',
+						paddingTop: 0,
+						paddingRight: 0,
+						paddingBottom: 0,
+						paddingLeft: 0,
+						backgroundColor: '#fff',
+						hoverColor: '#ca0c16'
+					}
+				})
+			</script>
+			<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/u011500356/article/details/50614300" target="_blank" strategy="BlogCommendFromQuerySearch_0">
+				<em>Ajax</em>实战总结——用原生<em>JavaScript</em>代码<em>封装</em><em>自己</em>的<em>Ajax</em>核心对象			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/u011500356/article/details/50614300" target="_blank" >
+				目前已有了很好的<em>Ajax</em><em>封装</em>，例如：JQuery框架中的<em>Ajax</em>，那么为什么还要<em>自己</em><em>封装</em>一下下呢？原因很简单，一是了解人家的<em>封装</em>过程，二是<em>自己</em>熟悉代码，三是更加深刻对<em>Ajax</em>核心对象的理解，以及使用A...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/u011500356" title="u011500356" target="_blank">
+					<img src="https://avatar.csdn.net/C/7/1/3_u011500356.jpg" alt="u011500356" class="avatar-pic">
+					<span class="name">u011500356</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2016-02-02 14:52:19</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：2947</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/luqin1988/article/details/8212379" target="_blank" strategy="BlogCommendFromQuerySearch_1">
+				<em>JavaScript</em><em>自己</em><em>封装</em><em>ajax</em>的js			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/luqin1988/article/details/8212379" target="_blank" >
+				/**   
+      * 执行基本<em>ajax</em>请求,返回XMLHttpRequest   
+      *  <em>Ajax</em>.request({   
+      *  url
+      *  async...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/luqin1988" title="luqin1988" target="_blank">
+					<img src="https://avatar.csdn.net/8/A/D/3_luqin1988.jpg" alt="luqin1988" class="avatar-pic">
+					<span class="name">luqin1988</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2012-11-22 14:50:26</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：6549</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/birdflyto206/article/details/51606543" target="_blank" strategy="BlogCommendFromQuerySearch_2">
+				<em>自己</em><em>封装</em><em>ajax</em>			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/birdflyto206/article/details/51606543" target="_blank" >
+				/** 全局<em>ajax</em>对象 */
+var <em>ajax</em> = new Object();
+var <em>ajax</em>Core = null;/**
+ * @see 创建<em>ajax</em>核心对象,兼容浏览器有：IE6,7,8,9...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/birdflyto206" title="birdflyto206" target="_blank">
+					<img src="https://avatar.csdn.net/A/A/3/3_birdflyto206.jpg" alt="birdflyto206" class="avatar-pic">
+					<span class="name">birdflyto206</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2016-06-07 20:48:14</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：1802</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/Holzpp/article/details/79058130" target="_blank" strategy="BlogCommendFromQuerySearch_7">
+				利用原生js<em>封装</em><em>一个</em><em>ajax</em> api（一）			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/Holzpp/article/details/79058130" target="_blank" >
+				如何用原生js去实现<em>一个</em><em>ajax</em>请求，以及如何<em>自己</em><em>封装</em><em>一个</em><em>ajax</em> api，在这篇文章中我们会先做前提准备，了解如何用原生js实现<em>一个</em><em>Ajax</em>请求，在下一篇中，了解如何<em>封装</em><em>一个</em><em>ajax</em> api...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/Holzpp" title="Holzpp" target="_blank">
+					<img src="https://avatar.csdn.net/5/B/9/3_holzpp.jpg" alt="Holzpp" class="avatar-pic">
+					<span class="name">Holzpp</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2018-01-14 18:26:36</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：306</span>
+			</p>
+		</div>
+	</div>
+			            <!-- 第四范式SDK -->
+<script src="https://nbrecsys.4paradigm.com/resource/js/sdk-csdn-smallflow.js" async defer></script>
+            <div class="recommend-loading-box">
+                <img src='https://csdnimg.cn/release/phoenix/images/feedLoading.gif'>
+            </div>
+            <div class="recommend-end-box">
+                <p class="text-center">没有更多推荐了，<a href="https://blog.csdn.net/" class="c-blue c-blue-hover c-blue-focus">返回首页</a></p>
+            </div>
+        </div>
+    </main>
+    <aside>
+		    <div id="asideProfile" class="aside-box">
+    <h3 class="aside-title">个人资料</h3>
+    <div class="profile-intro d-flex">
+        <div class="avatar-box d-flex justify-content-center flex-column">
+            <a href="https://blog.csdn.net/superwebmaster">
+                <img src="https://avatar.csdn.net/9/D/7/3_superwebmaster.jpg" class="avatar_pic">
+            </a>
+        </div>
+        <div class="user-info d-flex justify-content-center flex-column">
+            <p class="name csdn-tracking-statistics tracking-click" data-mod="popu_379">
+                <a href="https://blog.csdn.net/superwebmaster" target="_blank" class="text-truncate" id="uid">superwebmaster</a>
+            </p>
+                    </div>
+                <div class="opt-box d-flex justify-content-center flex-column">
+            <span  class="csdn-tracking-statistics tracking-click" data-mod="popu_379">
+                                <a class="btn btn-sm btn-red-hollow" href="https://passport.csdn.net/account/login?from=https://blog.csdn.net/superwebmaster/article/details/80678590" target="_self">关注</a>
+                            </span>
+                        <span  class="csdn-tracking-statistics tracking-click" data-mod="">
+                <a class="btn btn-sm btn-yellow-hollow" id="btnAsk" href="#chatqa" target="_self">向TA提问</a>
+            </span>
+                    </div>
+            </div>
+    <div class="data-info d-flex item-tiling">
+                <dl class="text-center" title="9">
+                        <dt><a href="https://blog.csdn.net/superwebmaster?t=1">原创</a></dt>
+            <dd><a href="https://blog.csdn.net/superwebmaster?t=1"><span class="count">9</span></a></dd>
+                    </dl>
+        <dl class="text-center" title="27">
+            <dt>粉丝</dt>
+            <dd><span class="count" id="fan">27</span></dd>
+        </dl>
+        <dl class="text-center" title="39">
+            <dt>喜欢</dt>
+            <dd><span class="count">39</span></dd>
+        </dl>
+        <dl class="text-center" title="26">
+            <dt>评论</dt>
+            <dd><span class="count">26</span></dd>
+        </dl>
+    </div>
+    <div class="grade-box clearfix">
+        <dl>
+            <dt>等级：</dt>
+            <dd>
+                <a href="https://blog.csdn.net/home/help.html#level" title="2级,点击查看等级说明" target="_blank">
+                    <svg class="icon icon-level" aria-hidden="true">
+                        <use xlink:href="#csdnc-bloglevel-2"></use>
+                    </svg>
+                </a>
+            </dd>
+        </dl>
+        <dl>
+            <dt>访问：</dt>
+            <dd title="14817">
+                1万+            </dd>
+        </dl>
+        <dl>
+            <dt>积分：</dt>
+            <dd title="295">
+                295            </dd>
+        </dl>
+        <dl title="274323">
+            <dt>排名：</dt>
+            <dd>27万+</dd>
+        </dl>
+    </div>
+        <div class="badge-box d-flex">
+        <span>勋章：</span>
+                        <a class="icon-badge" title="持之以恒">
+            <svg class="icon" aria-hidden="true">
+                <use xlink:href="#csdnc-m-lasting"></use>
+            </svg>
+            <div class="icon-arrow"></div>
+            <div class="grade-detail-box item2">
+                <div class="pos-box">
+                    <div class="left-box d-flex justify-content-center align-items-center flex-column">
+                        <svg class="icon" aria-hidden="true">
+                            <use xlink:href="#csdnc-m-lasting"></use>
+                        </svg>
+                        <p>持之以恒</p>
+                    </div>
+                    <div class="right-box d-flex justify-content-center align-items-center">
+                        授予每个自然月内发布4篇或4篇以上原创或翻译IT博文的用户。不积跬步无以至千里，不积小流无以成江海，程序人生的精彩需要坚持不懈地积累！
+                    </div>
+                </div>
+            </div>
+        </a>
+                            </div>
+    </div>		    <div class="csdn-tracking-statistics mb8 box-shadow" data-pid="blog" data-mod="popu_4" style="height:250px;">
+    <div class="aside-content text-center" id="cpro_u2734133">
+        <!-- 投放代码 -->
+        <script type="text/javascript" src="//cee1.iteye.com/lgyyovfyh.js"></script>
+    </div>
+</div>
+		    <!--自定义模块-->
+<div id="asideCustom64966627" class="aside-box custom-box">
+    <h3 class="aside-title">俞圣磊</h3>
+    <div class="aside-content clearfix">
+        <ul>
+<li><a href="http://my.comelt.cn" target="_blank">我的个人主页</a></li>
+<li><a href="https://github.com/Master-Kevin" target="_blank">我的Github</a></li>
+<li><a href="https://blog.csdn.net/superwebmaster" target="_blank">我的博客</a></li>
+</ul>    </div>
+</div>
+		    <div id="asideNewArticle" class="aside-box">
+    <h3 class="aside-title">最新文章</h3>
+    <div class="aside-content">
+        <ul class="inf_list clearfix csdn-tracking-statistics tracking-click" data-mod="popu_382">
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/superwebmaster/article/details/80677593" target="_blank">JavaScript三元运算符的使用 进阶三元运算逻辑拓展篇</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/superwebmaster/article/details/80665249" target="_blank">beego框架下的IsAjax()函数解析 为什么我的ajax返回false</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/superwebmaster/article/details/80661162" target="_blank">beego如何在Linux系统后台运行以及调回前台运行 nohup bg fg 命令的使用</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/superwebmaster/article/details/80497896" target="_blank">Golang基于beego框架开发Web APP的访问日志记录模块</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/superwebmaster/article/details/80494161" target="_blank">JavaScript中的this指针 理论化this指针的定义</a>
+            </li>
+                    </ul>
+    </div>
+</div>
+		    		    <div id="asideCategory" class="aside-box flexible-box">
+    <h3 class="aside-title">个人分类</h3>
+    <div class="aside-content">
+        <ul>
+                        <li>
+                <a href="https://blog.csdn.net/superwebmaster/article/category/7665151">
+                    Golang                    <span class="count float-right">5篇</span>
+                </a>
+            </li>
+                        <li>
+                <a href="https://blog.csdn.net/superwebmaster/article/category/7697876">
+                    JavaScript                    <span class="count float-right">4篇</span>
+                </a>
+            </li>
+                        <li>
+                <a href="https://blog.csdn.net/superwebmaster/article/category/7729683">
+                    Linux                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <li>
+                <a href="https://blog.csdn.net/superwebmaster/article/category/7698400">
+                    Web开发                    <span class="count float-right">4篇</span>
+                </a>
+            </li>
+                        <li>
+                <a href="https://blog.csdn.net/superwebmaster/article/category/7736008">
+                    Web前端                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <li>
+                <a href="https://blog.csdn.net/superwebmaster/article/category/7729684">
+                    beego                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <li>
+                <a href="https://blog.csdn.net/superwebmaster/article/category/7697339">
+                    区块链技术                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <li>
+                <a href="https://blog.csdn.net/superwebmaster/article/category/7730487">
+                    Ajax                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <li>
+                <a href="https://blog.csdn.net/superwebmaster/article/category/7677047">
+                    工作效率                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                    </ul>
+    </div>
+        <p class="text-center">
+        <a class="btn btn-link-blue flexible-btn" data-fbox="aside-archive">展开</a>
+    </p>
+    </div>
+		    <div id="asideArchive" class="aside-box">
+    <h3 class="aside-title">归档</h3>
+    <div class="aside-content">
+        <ul class="archive-list">
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/superwebmaster/article/month/2018/06">
+                    2018年6月                    <span class="count float-right">4篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/superwebmaster/article/month/2018/05">
+                    2018年5月                    <span class="count float-right">5篇</span>
+                </a>
+            </li>
+                    </ul>
+    </div>
+    </div>
+		    <div id="asideHotArticle" class="aside-box">
+	<h3 class="aside-title">热门文章</h3>
+	<div class="aside-content">
+		<ul class="hotArticle-list csdn-tracking-statistics tracking-click" data-mod="popu_521">
+							<li>
+					<a href="https://blog.csdn.net/superwebmaster/article/details/80319502">Golang原生爬虫 简单爬虫实现 不依赖第三方包库 方便理解技术原理 （一）</a>
+					<p class="read">阅读量：<span>4545</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/superwebmaster/article/details/80494161">JavaScript中的this指针 理论化this指针的定义</a>
+					<p class="read">阅读量：<span>2322</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/superwebmaster/article/details/80677593">JavaScript三元运算符的使用 进阶三元运算逻辑拓展篇</a>
+					<p class="read">阅读量：<span>1986</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/superwebmaster/article/details/80324442">Golang原生爬虫 简单爬虫实现 不依赖第三方包库 方便理解技术原理 （二）</a>
+					<p class="read">阅读量：<span>1730</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/superwebmaster/article/details/80491049">浅谈区块链技术 为什么把区块链称之为区块链技术</a>
+					<p class="read">阅读量：<span>1452</span></p>
+				</li>
+					</ul>
+	</div>
+</div>
+		    <div id="asideNewComments" class="aside-box">
+    <h3 class="aside-title">最新评论</h3>
+    <div class="aside-content">
+        <ul class="newcomment-list">
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/superwebmaster/article/details/80678590#comments">从0到1 JavaScript封装...</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/aiaigerui" class="user-name" target="_blank">aiaigerui</a>：这也算原理嘛，大家都知道                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/superwebmaster/article/details/80678590#comments">从0到1 JavaScript封装...</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/clark_kidd" class="user-name" target="_blank">clark_kidd</a>：我能不能问问为什么不用jquery的$.ajax?                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/superwebmaster/article/details/80678590#comments">从0到1 JavaScript封装...</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/linan5173" class="user-name" target="_blank">linan5173</a>：厉害了                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/superwebmaster/article/details/80678590#comments">从0到1 JavaScript封装...</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/linan5173" class="user-name" target="_blank">linan5173</a>：厉害了                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/superwebmaster/article/details/80677593#comments">JavaScript三元运算符的使...</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/superwebmaster" class="user-name" target="_blank">superwebmaster</a>：存在即合理，合理的运用起来才是重点 ^_^                </p>
+            </li>
+                    </ul>
+    </div>
+</div>
+		<div id="asideFooter">
+			
+		<div class="aside-box">
+						<script type="text/javascript" src="//cee1.iteye.com/avneunkwb.js"></script>
+					</div>
+				<div class="aside-box">
+			<div class="persion_article">
+			</div>
+		</div>
+	</div>
+</aside>
+<script src="https://csdnimg.cn/pubfooter/js/publib_footer-1.0.3.js" data-isfootertrack="false" type="text/javascript"></script>
+<script>
+	$("a.flexible-btn").click(function(){
+		$(this).parents('div.aside-box').removeClass('flexible-box');
+		$(this).remove();
+	})
+</script>
+</div>
+<div class="mask-dark"></div>
+<div class="pulllog-box" style="display: block;">
+	<div class="pulllog clearfix">
+		<span class="text float-left">加入CSDN，享受更精准的内容推荐，与500万程序员共同成长！</span>
+		<div class="pulllog-btn float-right clearfix">
+            <button class="pulllog-login float-left csdn-tracking-statistics tracking-click" data-mod="popu_557">
+                登录
+            </button>
+            <div class="pulllog-sigin float-left csdn-tracking-statistics tracking-click" data-mod="popu_558">
+                <a href="https://passport.csdn.net/account/mobileregister" target="_blank">注册</a>
+            </div>
+            <button class="btn-close">
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#csdnc-times"></use>
+                </svg>
+            </button>
+		</div>
+	</div>
+</div>
+<div id="loginWrap" style="display:none"></div>
+<div class="tool-box">
+	<ul class="meau-list">
+		<li>
+			<button class="btn-like " title="点赞">
+				<svg class="icon active" aria-hidden="true">
+					<use xlink:href="#csdnc-thumbsup-ok"></use>
+				</svg><svg class="icon no-active" aria-hidden="true">
+					<use xlink:href="#csdnc-thumbsup"></use>
+				</svg>
+				<p>6</p>
+			</button>
+		</li>
+		<li class="toc-container-box" id="liTocBox">
+			<button class="btn-toc" title="目录">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-contents"></use>
+				</svg><br>目录
+			</button>
+			<div class="toc-container">
+				<div class="pos-box">
+					<div class="icon-arrow"></div>
+					<div class="scroll-box">
+						<div class="toc-box"></div>
+					</div>
+				</div>
+				<div class="opt-box">
+					<button class="btn-opt prev nomore" title="向上">
+						<svg class="icon" aria-hidden="true">
+							<use xlink:href="#csdnc-chevronup"></use>
+						</svg>
+					</button>
+					<button class="btn-opt next">
+						<svg class="icon" aria-hidden="true">
+							<use xlink:href="#csdnc-chevrondown"></use>
+						</svg>
+					</button>
+				</div>
+			</div>
+		</li>
+		<li>
+			<button class="btn-bookmark" title="收藏">
+				<svg class="icon active" aria-hidden="true">
+					<use xlink:href="#csdnc-bookmark-ok"></use>
+				</svg><svg class="icon no-active" aria-hidden="true">
+					<use xlink:href="#csdnc-bookmark"></use>
+				</svg><br>收藏
+			</button>
+		</li>
+		<li>
+			<a class="btn-comments" title="评论" href="#commentBox">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-comments"></use>
+				</svg><br>评论
+			</a>
+		</li>
+				<li>
+			<a class="btn-comments" title="快问" href="#chatqa">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-chat-qa"></use>
+				</svg><br>快问
+			</a>
+		</li>
+				<li class="bdsharebuttonbox">
+			<a class="btn-comments bds_weixin" data-cmd="weixin" title="微信分享">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-wechat"></use>
+				</svg><br>微信
+			</a>
+		</li>
+		<li class="bdsharebuttonbox">
+			<a class="btn-comments bds_tsina" data-cmd="tsina" title="微博分享">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-weibo"></use>
+				</svg><br>微博
+			</a>
+		</li>
+		<li class="bdsharebuttonbox">
+			<a class="btn-comments bds_qzone" data-cmd="qzone" title="QQ分享">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-qq"></use>
+				</svg><br>QQ
+			</a>
+		</li>
+	</ul>
+</div>
+<script>window._bd_share_config = { "common": { "bdSnsKey": {}, "bdText": "", "bdMini": "1", "bdMiniList": false, "bdPic": "", "bdStyle": "0", "bdSize": "16" }, "share": {} }; with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'https://csdnimg.cn/static/api/js/share.js?v=89860594'];</script>
+<script>
+    var recommendCount = 10;
+    recommendCount = recommendCount > 1 ? (recommendCount + (recommendCount>6 ? 2 : 1)) : recommendCount;
+    var articleTit = "从0到1 JavaScript封装一个自己的Ajax并完善与拓展Ajax";
+    var ChannelId = 16;
+    var articleId = "80678590";
+    var commentscount = 5;
+    var islock = false;
+    var curentUrl = "https://blog.csdn.net/superwebmaster/article/details/80678590";
+    var myUrl = "https://my.csdn.net/";
+    //1禁止评论，2正常
+    var commentAuth = 2;
+    //百度搜索
+    var baiduKey = "";
+    var needInsertBaidu = true;
+</script>
+<script src="https://csdnimg.cn/public/sandalstrap/1.3/js/sandalstrap.min.js"></script>
+<script src="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.js"></script>
+<script src='https://csdnimg.cn/public/common/gotop/js/goTop-v1.0.min.js?v201803151422'></script>
+<script>
+    GoTop({
+        right: 8,
+        hasReport: true,
+        reportFun: function() {
+            showReport(false,"从0到1 JavaScript封装一个自己的Ajax并完善与拓展Ajax");
+        }
+    })
+</script>
+<script src="https://csdnimg.cn/release/phoenix/template/js/common-bd54b21308.min.js"></script>
+<script src="https://csdnimg.cn/release/phoenix/template/js/detail-effe72036e.min.js"></script>
+<script src="https://csdnimg.cn/release/phoenix/themes/skin3-template/skin3-template-46c7bd3d86.min.js"></script>
+</body>
+<div class="box-box-default">
+    <a class="btn-remove">
+        关闭
+    </a>
+    <script type="text/javascript" src="//cee1.iteye.com/mhzzjepzz.js"></script>
+</div>
+<div class="box-box-large">
+    <a class="btn-remove">
+        关闭
+    </a>
+    <script type="text/javascript" src="//cee1.iteye.com/idvveasfs.js"></script>
+</div>
+</html>

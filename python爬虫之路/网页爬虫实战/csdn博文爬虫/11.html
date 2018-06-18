@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <link rel="canonical" href="https://blog.csdn.net/oh5W6HinUg43JvRhhB/article/details/80652487"/> 
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="referrer" content="always">
+    <meta name="description" content="
+  
+    
+                    
+
+                    
+
+                    
+                    
+                    ----------喜大普奔----------1、董付国老师Python系列教材，亚马逊、京东、当当、天猫均有销售：1）《Python程序设计（第2版）》（2018年5..." />
+    <meta name="keywords" content="" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+    <meta name="shenma-site-verification" content="5a59773ab8077d4a62bf469ab966a63b_1497598848">
+    <script src="https://csdnimg.cn/release/phoenix/vendor/tingyun/tingyun-rum-blog.js"></script>
+
+    <link href="https://csdnimg.cn/public/favicon.ico" rel="SHORTCUT ICON">
+    <title>Python使用秦九韶算法求解多项式的值 - CSDN博客</title>
+    
+            <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/detail-60a2c245da.min.css">
+        <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/themes/skin3-template/skin3-template-88717cedf2.min.css">
+
+    <script type="text/javascript">
+        var username = "oh5w6hinug43jvrhhb";
+        var blog_address = "https://blog.csdn.net/oh5w6hinug43jvrhhb";
+        var static_host = "https://csdnimg.cn/release/phoenix/";
+        var currentUserName = ""; 
+        var isShowAds = true;
+        var isOwner = false;
+        var loginUrl = "https://passport.csdn.net/account/login?from=https://blog.csdn.net/oh5W6HinUg43JvRhhB/article/details/80652487"
+        var blogUrl = "https://blog.csdn.net/";
+        var curSkin = "skin3-template";
+    </script>
+    <script type="text/javascript">
+        // Traffic Stats of the entire Web site By baidu
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?6bcd52f51e9b3dce32bec4a3997715ac";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+        // Traffic Stats of the entire Web site By baidu end
+    </script>
+    <script src="https://csdnimg.cn/public/common/libs/jquery/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <script src="https://csdnimg.cn/rabbit/exposure-click/main-1.0.6.js"></script>
+    <!-- 新版上报 -->
+    <script src="//g.csdnimg.cn/track/1.0.0/track.js" type="text/javascript"></script>
+    <!-- 新版上报end -->
+            <link rel="stylesheet" href="https://csdnimg.cn/public/sandalstrap/1.3/css/sandalstrap.min.css"> 
+    <style>
+        .MathJax, .MathJax_Message, .MathJax_Preview{
+            display: none
+        }
+    </style>
+</head>
+<body>    
+    <link rel="stylesheet" href="https://csdnimg.cn/public/common/toolbar/content_toolbar_css/content_toolbar.css">
+    <script id="toolbar-tpl-scriptId" src="https://csdnimg.cn/public/common/toolbar/js/content_toolbar.js" type="text/javascript" domain="https://blog.csdn.net/"></script>
+    <script src="https://csdnimg.cn/public/sandalstrap/1.3/fonts/csdnc/csdnc.js"></script><link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/blog_code-c3a0c33d5c.css">
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.css">
+<script type="text/javascript" src="//static.mediav.com/js/mvf_news_feed.js"></script>
+
+<header>
+	<div class="container d-flex clearfix">
+		<div class="title-box">
+			<h2 class="title-blog">
+				<a href="https://blog.csdn.net/oh5w6hinug43jvrhhb">Python小屋</a>
+			</h2>
+			<p class="description"></p>
+		</div>
+		<div class="opt-box d-flex justify-content-end">
+			<a class="btn btn-sm" href="https://blog.csdn.net/oh5w6hinug43jvrhhb/rss/list">
+					<svg class="icon" aria-hidden="true">
+						<use xlink:href="#csdnc-rss"></use>
+					</svg>RSS订阅</a>
+					</div>
+	</div>
+</header><script src="https://dup.baidustatic.com/js/ds.js"></script>
+<div class="container clearfix pt0" id="mainBox">
+    <main>
+        <div class="blog-content-box">
+	<div class="article-title-box">
+			<span class="article-type type-1 float-left">原</span>		<h1 class="title-article">Python使用秦九韶算法求解多项式的值</h1>
+	</div>
+	<div class="article-info-box">
+		<div class="article-bar-top d-flex">
+												<span class="time">2018年06月11日 14:57:05</span>
+			<div class="float-right">
+				<span class="read-count">阅读数：813</span>
+											</div>
+		</div>
+	</div>
+	<article>
+		<div id="article_content" class="article_content clearfix csdn-tracking-statistics" data-pid="blog"  data-mod=popu_307  data-dsm = "post" >
+                    <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/htmledit_views-0a60691e80.css" />
+            <div class="htmledit_views">
+                
+    <div class="rich_media_content">
+                    
+
+                    
+
+                    
+                    
+                    <p><img src="http://ss.csdn.net/p?https://mmbiz.qpic.cn/mmbiz_png/xXrickrc6JTPOM1vJwkaNL7FHBM9cY1KfC9hZQ6vDeFicuE5iaXvOSGOOg0Xv9PWN3wicy1NABdAOMSMmVb0y40hDA/640?wx_fmt=png" alt="640?wx_fmt=png" /></p><p><img src="http://ss.csdn.net/p?https://mmbiz.qpic.cn/mmbiz_png/xXrickrc6JTPOM1vJwkaNL7FHBM9cY1Kf7m7mF7uQ1bJiafFdBh2ZRoL8iaTY9QxJibHhfBIiaLNxBNabrxdxMib75oA/640?wx_fmt=png" alt="640?wx_fmt=png" /></p><p><br /></p><p><br /></p><p class="bizsvr_15" style="max-width:100%;min-height:1em;color:rgb(51,51,51);"><span class="bizsvr_16" style="max-width:100%;color:rgb(0,82,255);text-indent:34px;">----------喜大普奔----------</span><br class="bizsvr_17" style="max-width:100%;" /></p><p class="bizsvr_15" style="max-width:100%;min-height:1em;color:rgb(51,51,51);">1、董付国老师Python系列教材，亚马逊、京东、当当、天猫均有销售：<br class="bizsvr_17" style="max-width:100%;" /></p><p class="bizsvr_15" style="max-width:100%;min-height:1em;color:rgb(51,51,51);"><span class="bizsvr_21" style="max-width:100%;color:rgb(255,41,65);">1）《Python程序设计（第2版）》<span class="bizsvr_16" style="max-width:100%;">（2018年5月第6次印刷）</span></span></p><p class="bizsvr_15" style="max-width:100%;min-height:1em;color:rgb(51,51,51);"><span class="bizsvr_24" style="max-width:100%;color:rgb(0,0,0);">出版社官方链接（亚马逊、京东、当当均有销售）：</span><span class="bizsvr_16" style="max-width:100%;color:rgb(0,82,255);text-indent:34px;">https://detail.tmall.com/item.htm?spm=a1z10.3-b-s.w4011-16232114860.18.24a52226hIi8Bj&amp;id=534581929248&amp;rn=9311dcbc68fffcf57b7ae352800e485d&amp;abbucket=6</span></p><p class="bizsvr_15" style="max-width:100%;min-height:1em;color:rgb(51,51,51);"><span class="bizsvr_21" style="max-width:100%;color:rgb(255,41,65);">2）《Python可以这样学》<span class="bizsvr_16" style="max-width:100%;">（2018年2月第5次印刷）（本书已发行繁体版）</span></span></p><p class="bizsvr_15" style="max-width:100%;min-height:1em;color:rgb(51,51,51);"><span class="bizsvr_16" style="max-width:100%;color:rgb(0,82,255);text-indent:34px;"><span class="bizsvr_31" style="max-width:100%;">出版社官方链接（亚马逊、京东、当当均有销售）：</span>https://detail.tmall.com/item.htm?spm=a1z10.3-b-s.w4011-16232114860.16.24a52226hIi8Bj&amp;id=544817105410&amp;rn=9311dcbc68fffcf57b7ae352800e485d&amp;abbucket=6<br class="bizsvr_17" style="max-width:100%;" /></span></p><p class="bizsvr_15" style="max-width:100%;min-height:1em;color:rgb(51,51,51);"><span class="bizsvr_21" style="max-width:100%;color:rgb(255,41,65);">3）</span><span class="bizsvr_21" style="max-width:100%;color:rgb(255,41,65);">《Python程序设计基础（第2版）》</span><span class="bizsvr_16" style="max-width:100%;color:rgb(0,82,255);text-indent:34px;">（2018年5月第2次印刷）</span></p><p class="bizsvr_15" style="white-space:normal;max-width:100%;min-height:1em;color:rgb(51,51,51);"><span class="bizsvr_16" style="max-width:100%;color:rgb(0,82,255);text-indent:34px;"><span class="bizsvr_31" style="max-width:100%;">出版社官方链接（亚马逊、京东、当当均有销售）：</span>https://detail.tmall.com/item.htm?spm=a1z10.3-b-s.w4011-16232114860.24.24a52226hIi8Bj&amp;id=565581275846&amp;rn=9311dcbc68fffcf57b7ae352800e485d&amp;abbucket=6</span></p><p class="bizsvr_15" style="max-width:100%;min-height:1em;color:rgb(51,51,51);"><span style="color:rgb(255,41,65);">4）《中学生可以这样学Python》</span><span class="bizsvr_41" style="color:rgb(255,41,65);max-width:100%;">2018年5月第2次印刷）</span><br /></p><p class="bizsvr_15" style="max-width:100%;min-height:1em;color:rgb(51,51,51);"><span class="bizsvr_24" style="max-width:100%;color:rgb(0,0,0);">出版社官方链接（亚马逊、京东、当当均有销售）：</span><span class="bizsvr_16" style="max-width:100%;color:rgb(0,82,255);text-indent:34px;">https://detail.tmall.com/item.htm?spm=a1z10.3-b-s.w4011-16232114860.20.24a52226hIi8Bj&amp;id=560808221053&amp;rn=9311dcbc68fffcf57b7ae352800e485d&amp;abbucket=6</span></p><p class="bizsvr_15" style="max-width:100%;min-height:1em;color:rgb(51,51,51);"><span class="bizsvr_21" style="max-width:100%;color:rgb(255,41,65);">5）</span><span style="color:rgb(255,41,65);">《Python程序设计开发宝典》</span><span class="bizsvr_16" style="color:rgb(255,41,65);max-width:100%;">（2018年2月第3次印刷）</span></p><p class="bizsvr_15" style="white-space:normal;max-width:100%;min-height:1em;color:rgb(51,51,51);"><span class="bizsvr_16" style="max-width:100%;color:rgb(0,82,255);text-indent:34px;"><span class="bizsvr_31" style="max-width:100%;">出版社官方链接（亚马逊、京东、当当均有销售）：</span>https://detail.tmall.com/item.htm?spm=a1z10.3-b-s.w4011-16232114860.52.24a52226hIi8Bj&amp;id=556093887133&amp;rn=9311dcbc68fffcf57b7ae352800e485d&amp;abbucket=6</span></p><p class="bizsvr_15" style="max-width:100%;min-height:1em;color:rgb(51,51,51);"><span class="bizsvr_21" style="max-width:100%;color:rgb(255,41,65);">6）《玩转Python轻松过二级》</span><span class="bizsvr_16" style="max-width:100%;color:rgb(0,82,255);text-indent:34px;">（2018年5月隆重上架）</span><span class="bizsvr_21" style="max-width:100%;color:rgb(255,41,65);"></span></p><p class="bizsvr_15" style="max-width:100%;min-height:1em;color:rgb(51,51,51);"><span class="bizsvr_16" style="max-width:100%;color:rgb(0,82,255);text-indent:34px;"><span class="bizsvr_31" style="max-width:100%;">出版社官方链接（亚马逊、京东、当当均有销售）：</span>https://detail.tmall.com/item.htm?spm=a1z10.3-b-s.w4011-16232114860.84.24a52226hIi8Bj&amp;id=569250004069&amp;rn=9311dcbc68fffcf57b7ae352800e485d&amp;abbucket=6</span></p><p class="bizsvr_15" style="max-width:100%;min-height:1em;color:rgb(51,51,51);"><span class="bizsvr_16" style="max-width:100%;color:rgb(0,82,255);text-indent:34px;"><br class="bizsvr_17" style="max-width:100%;" /></span></p><p class="bizsvr_15" style="max-width:100%;min-height:1em;color:rgb(51,51,51);"><a href="http://mp.weixin.qq.com/s?__biz=MzI4MzM2MDgyMQ==&amp;mid=2247484813&amp;idx=1&amp;sn=357d8158d29338703ed83b88473ecd2e&amp;chksm=eb8aaed7dcfd27c1dc5cb98fa5452903201082431a9c7fdef827284ff3ddb364dddb4b8f5981&amp;scene=21#wechat_redirect" style="color:rgb(87,107,149);max-width:100%;">董付国老师6本Python系列图书阅读指南</a><br class="bizsvr_17" style="max-width:100%;" /></p><p class="bizsvr_15" style="max-width:100%;min-height:1em;color:rgb(51,51,51);"><a href="http://mp.weixin.qq.com/s?__biz=MzI4MzM2MDgyMQ==&amp;mid=2247485813&amp;idx=1&amp;sn=9a764a6abc582515d8efe5c061daf3ee&amp;chksm=eb8aa22fdcfd2b399ca53e933289ebe79004134569c9cc0bb28e7672576da02300de8e39bd91&amp;scene=21#wechat_redirect" style="color:rgb(87,107,149);max-width:100%;">董付国老师6本Python系列教材被北大、复旦等近百所高校选作教材</a></p><p class="bizsvr_15" style="max-width:100%;min-height:1em;color:rgb(51,51,51);"><a href="http://mp.weixin.qq.com/s?__biz=MzI4MzM2MDgyMQ==&amp;mid=2247485877&amp;idx=2&amp;sn=2ed90cbaf602778b726b5c5e8be00a22&amp;chksm=eb8aa2efdcfd2bf945c62e77c5165de4ab0b16637cdc5827f61a00a09d5cc12eace6f8e83a68&amp;scene=21#wechat_redirect" style="color:rgb(87,107,149);max-width:100%;">热烈庆祝《Python可以这样学》在台湾发行繁体版</a></p><p class="bizsvr_15" style="max-width:100%;min-height:1em;color:rgb(51,51,51);"><br class="bizsvr_17" style="max-width:100%;" /></p><p class="bizsvr_15" style="max-width:100%;min-height:1em;color:rgb(51,51,51);">2、董老师120课免费视频地址： https://pan.baidu.com/s/1jJeAs8Q 密码: px59</p><p class="bizsvr_15" style="max-width:100%;min-height:1em;color:rgb(51,51,51);"><br class="bizsvr_17" style="max-width:100%;" /></p><p class="bizsvr_15" style="max-width:100%;min-height:1em;color:rgb(51,51,51);"><span class="bizsvr_16" style="max-width:100%;color:rgb(0,82,255);text-indent:34px;">----------相关阅读----------</span><br class="bizsvr_17" style="max-width:100%;" /></p><p class="bizsvr_15" style="max-width:100%;min-height:1em;color:rgb(51,51,51);"><span class="bizsvr_73" style="max-width:100%;font-size:20px;">教学课件</span></p><p class="bizsvr_15" style="max-width:100%;min-height:1em;color:rgb(51,51,51);"><a href="http://mp.weixin.qq.com/s?__biz=MzI4MzM2MDgyMQ==&amp;mid=2247484969&amp;idx=1&amp;sn=1d8c9ea0b29b8a0355a1f1a85d253342&amp;chksm=eb8aad73dcfd2465c61d51f2f55eab4a7a40cc1644f7aff198af149357318365a732e8c95d35&amp;scene=21#wechat_redirect" style="color:rgb(87,107,149);max-width:100%;">1900页Python系列PPT分享一：基础知识（106页）</a><br class="bizsvr_17" style="max-width:100%;" /></p><p class="bizsvr_15" style="max-width:100%;min-height:1em;color:rgb(51,51,51);"><a href="http://mp.weixin.qq.com/s?__biz=MzI4MzM2MDgyMQ==&amp;mid=2247485133&amp;idx=1&amp;sn=00260859a69af2836cf33c8706cd41b4&amp;chksm=eb8aad97dcfd2481929f5b48a135ab424b65bc1abd4c13db312d6f9db59e2217a1b97370b157&amp;scene=21#wechat_redirect" style="color:rgb(87,107,149);max-width:100%;">1900页Python系列PPT分享二：Python序列（列表、元组、字典、集合）（154页）</a><br class="bizsvr_17" style="max-width:100%;" /></p><p class="bizsvr_15" style="max-width:100%;min-height:1em;color:rgb(51,51,51);"><a href="http://mp.weixin.qq.com/s?__biz=MzI4MzM2MDgyMQ==&amp;mid=2247485243&amp;idx=1&amp;sn=0cf4455bbf9a82d96bec4d4a84141347&amp;chksm=eb8aac61dcfd2577ff700d2d2b5e00197f02f834af994ce429a80aff33faee081cc67fbf61c4&amp;scene=21#wechat_redirect" style="color:rgb(87,107,149);max-width:100%;">1900页Python系列PPT分享三：选择与循环结构语法及案例（96页）</a><br class="bizsvr_17" style="max-width:100%;" /></p><p class="bizsvr_15" style="max-width:100%;min-height:1em;color:rgb(51,51,51);"><a href="http://mp.weixin.qq.com/s?__biz=MzI4MzM2MDgyMQ==&amp;mid=2247485395&amp;idx=1&amp;sn=69fd710ccf17741c7fe0f7132a01aae5&amp;chksm=eb8aac89dcfd259fe5742d69c5867da9019910741248f9c8fb1bfa4d5cbc9f0febfc77133b56&amp;scene=21#wechat_redirect" style="color:rgb(87,107,149);max-width:100%;">1900页Python系列PPT分享四：字符串与正则表达式（109页）</a><br class="bizsvr_17" style="max-width:100%;" /></p><p class="bizsvr_15" style="max-width:100%;min-height:1em;color:rgb(51,51,51);"><a href="http://mp.weixin.qq.com/s?__biz=MzI4MzM2MDgyMQ==&amp;mid=2247485614&amp;idx=1&amp;sn=1aea46d362ed9da4b3248f4edfeed276&amp;chksm=eb8aa3f4dcfd2ae264bbfd16cfe6bce5961c9f2e93d9fcd7bec9d43243e8e9cf7d2456afdb3a&amp;scene=21#wechat_redirect" style="color:rgb(87,107,149);max-width:100%;">1900页Python系列PPT分享五：函数设计与应用（134页）</a><br class="bizsvr_17" style="max-width:100%;" /></p><p class="bizsvr_15" style="max-width:100%;min-height:1em;color:rgb(51,51,51);"><a href="http://mp.weixin.qq.com/s?__biz=MzI4MzM2MDgyMQ==&amp;mid=2247485755&amp;idx=1&amp;sn=7825ad73c53148a015e5dcaa53cda556&amp;chksm=eb8aa261dcfd2b770abd01e1c4a8260d3eac0aec153a027aee1212d2890de763de8e998d4cb4&amp;scene=21#wechat_redirect" style="color:rgb(87,107,149);max-width:100%;">1900页Python系列PPT分享六：面向对象程序设计（86页）</a></p><p class="bizsvr_15" style="max-width:100%;min-height:1em;color:rgb(51,51,51);"><a href="http://mp.weixin.qq.com/s?__biz=MzI4MzM2MDgyMQ==&amp;mid=2247486045&amp;idx=1&amp;sn=f54087b530f2364a0ae2d52b7160cd2b&amp;chksm=eb8aa107dcfd2811e0680b211b1f1d0263678a181fe1a0ac0de3c7ece42d1fa8a1082bad4e1f&amp;scene=21#wechat_redirect" style="color:rgb(87,107,149);max-width:100%;">1900页Python系列PPT分享七：文件操作（132页）</a></p><p class="bizsvr_15" style="max-width:100%;min-height:1em;color:rgb(51,51,51);"><a href="http://mp.weixin.qq.com/s?__biz=MzI4MzM2MDgyMQ==&amp;mid=2247486468&amp;idx=1&amp;sn=2b2927d6eb05fb9a4cfef24d2929afe9&amp;chksm=eb8aa75edcfd2e4869ed3bf3ce0bfb171bd308d5faac53d35d58168bde0d94e2201cd292604b&amp;scene=21#wechat_redirect" style="color:rgb(87,107,149);max-width:100%;">1900页Python系列PPT分享八：异常处理结构与程序调试、测试（70页）</a><br class="bizsvr_17" style="max-width:100%;" /></p><p class="bizsvr_15" style="max-width:100%;min-height:1em;color:rgb(51,51,51);"><a href="http://mp.weixin.qq.com/s?__biz=MzI4MzM2MDgyMQ==&amp;mid=2247486249&amp;idx=1&amp;sn=a37d079f541b194970428fb2fd7a1ed4&amp;chksm=eb8aa073dcfd2965f2d48c5ae9341a7f8a1c2ae2c79a68c7d2476d8573c91e1de2e237c98534&amp;scene=21#wechat_redirect" style="color:rgb(87,107,149);max-width:100%;">报告PPT（163页）：基于Python语言的课程群建设探讨与实践</a></p><p class="bizsvr_15" style="max-width:100%;min-height:1em;color:rgb(51,51,51);"><a href="http://mp.weixin.qq.com/s?__biz=MzI4MzM2MDgyMQ==&amp;mid=2247486738&amp;idx=1&amp;sn=c5624774190b7f707d04f36d15bd5552&amp;chksm=eb8aa648dcfd2f5ef922f832051b4782de195d161c40f3952042f5cab07a27075078936ccc2b&amp;scene=21#wechat_redirect" style="color:rgb(87,107,149);max-width:100%;">非计算机专业《Python程序设计基础》教学参考大纲</a><br class="bizsvr_17" style="max-width:100%;" /></p><p class="bizsvr_15" style="max-width:100%;min-height:1em;color:rgb(51,51,51);"><a href="http://mp.weixin.qq.com/s?__biz=MzI4MzM2MDgyMQ==&amp;mid=2247486795&amp;idx=1&amp;sn=ceae57c21f47ee3485f11c18ba0d03ea&amp;chksm=eb8aa611dcfd2f07ffbb73159e71063546276dc37cf69d32608bb1c89f090c01ce7de8670373&amp;scene=21#wechat_redirect" style="color:rgb(87,107,149);max-width:100%;">计算机相关专业“Python程序设计”教学大纲（参考）</a><br class="bizsvr_25" style="max-width:100%;" /></p><p class="bizsvr_15" style="max-width:100%;min-height:1em;color:rgb(51,51,51);"><a href="http://mp.weixin.qq.com/s?__biz=MzI4MzM2MDgyMQ==&amp;mid=2247486991&amp;idx=1&amp;sn=a4e6c86b9e956169fb6fa12a07642815&amp;chksm=eb8aa555dcfd2c4301a6ab376ec424bc96bc78bace7c48fbb83c8b1554e40bf55c0f46b78192&amp;scene=21#wechat_redirect" style="color:rgb(87,107,149);max-width:100%;">报告PPT（123页）：Python编程基础精要</a><br style="max-width:100%;" /></p><p class="bizsvr_15" style="max-width:100%;min-height:1em;color:rgb(51,51,51);"><br class="bizsvr_17" style="max-width:100%;" /></p><p class="bizsvr_15" style="max-width:100%;min-height:1em;color:rgb(51,51,51);"><span class="bizsvr_73" style="max-width:100%;font-size:20px;">系列题库分享</span></p><p class="bizsvr_15" style="max-width:100%;min-height:1em;color:rgb(51,51,51);"><a href="http://mp.weixin.qq.com/s?__biz=MzI4MzM2MDgyMQ==&amp;mid=2247486052&amp;idx=1&amp;sn=a1828201f5f1a5e7d894a6546c156c16&amp;chksm=eb8aa13edcfd2828b1482c51fa1541b1f5cab8216bc3ce055a8c1fe9ce78736bfda9c4324e5c&amp;scene=21#wechat_redirect" style="color:rgb(87,107,149);max-width:100%;">1000道Python题库系列分享一（17道）</a></p><p class="bizsvr_15" style="max-width:100%;min-height:1em;color:rgb(51,51,51);"><a href="http://mp.weixin.qq.com/s?__biz=MzI4MzM2MDgyMQ==&amp;mid=2247486076&amp;idx=1&amp;sn=2b406741d0a300ae71c76ac6fea68c45&amp;chksm=eb8aa126dcfd2830ff90c690822fe9c69a794ec03259a633f0274767f9fe9dd7d48dc8d65df5&amp;scene=21#wechat_redirect" style="color:rgb(87,107,149);max-width:100%;">1000道Python题库系列分享二（48道）</a></p><p class="bizsvr_15" style="max-width:100%;min-height:1em;color:rgb(51,51,51);"><a href="http://mp.weixin.qq.com/s?__biz=MzI4MzM2MDgyMQ==&amp;mid=2247486271&amp;idx=1&amp;sn=fc4e8ff56e80d81b9f06d398a00300df&amp;chksm=eb8aa065dcfd2973036a54eae70c8398fc57fe96aa6afd5d3bf1da93d9772244b1b856f0a0f0&amp;scene=21#wechat_redirect" style="color:rgb(87,107,149);max-width:100%;">1000道Python题库系列分享三（30道）</a><br class="bizsvr_17" style="max-width:100%;" /></p><p class="bizsvr_15" style="max-width:100%;min-height:1em;color:rgb(51,51,51);"><a href="http://mp.weixin.qq.com/s?__biz=MzI4MzM2MDgyMQ==&amp;mid=2247486276&amp;idx=1&amp;sn=effa03c5a6d72bcb1915baf7f2a4433e&amp;chksm=eb8aa01edcfd2908931a260cc62cb62b94dc8b8938475ee5d003e622e7233948703cce3cac9d&amp;scene=21#wechat_redirect" style="color:rgb(87,107,149);max-width:100%;">1000道Python题库系列分享四（40道）</a><br class="bizsvr_17" style="max-width:100%;" /></p><p class="bizsvr_15" style="max-width:100%;min-height:1em;color:rgb(51,51,51);"><a href="http://mp.weixin.qq.com/s?__biz=MzI4MzM2MDgyMQ==&amp;mid=2247486474&amp;idx=1&amp;sn=dff4ea7e8bee994c110785eff3f83d9a&amp;chksm=eb8aa750dcfd2e46349e947ae347eff73c519597775026d5cddda0f8da47ddc27640364358a9&amp;scene=21#wechat_redirect" style="color:rgb(87,107,149);max-width:100%;">1000道Python题库系列分享五（40道）</a><br class="bizsvr_17" style="max-width:100%;" /></p><p class="bizsvr_15" style="max-width:100%;min-height:1em;color:rgb(51,51,51);"><a href="http://mp.weixin.qq.com/s?__biz=MzI4MzM2MDgyMQ==&amp;mid=2247486484&amp;idx=1&amp;sn=6406f184972c67082acd3e4c201c915c&amp;chksm=eb8aa74edcfd2e58ec611a0bbcf06adf7b672c8086a6650ea2b760fd7ecebc89b50c12b546d0&amp;scene=21#wechat_redirect" style="color:rgb(87,107,149);max-width:100%;">1000道Python题库系列分享六（40道）</a><br class="bizsvr_17" style="max-width:100%;" /></p><p class="bizsvr_15" style="max-width:100%;min-height:1em;color:rgb(51,51,51);"><a href="http://mp.weixin.qq.com/s?__biz=MzI4MzM2MDgyMQ==&amp;mid=2247486495&amp;idx=1&amp;sn=40f8f62169b00a2e772b12efa20e9d62&amp;chksm=eb8aa745dcfd2e5323d9da830f4ee6c69819bd722e03f2e12381bfbb54c392ecb6f7e4351b70&amp;scene=21#wechat_redirect" style="color:rgb(87,107,149);max-width:100%;">1000道Python题库系列分享七（30道）</a></p><p class="bizsvr_15" style="max-width:100%;min-height:1em;color:rgb(51,51,51);"><a href="http://mp.weixin.qq.com/s?__biz=MzI4MzM2MDgyMQ==&amp;mid=2247486526&amp;idx=1&amp;sn=a89c537bfcda1ef01e82aa2963294039&amp;chksm=eb8aa764dcfd2e72651fee076629b6c46fd2277383111df21008b069ccb63a218e52e1490745&amp;scene=21#wechat_redirect" style="color:rgb(87,107,149);max-width:100%;">1000道Python题库系列分享八（29道）</a><br class="bizsvr_17" style="max-width:100%;" /></p><p class="bizsvr_15" style="max-width:100%;min-height:1em;color:rgb(51,51,51);"><a href="http://mp.weixin.qq.com/s?__biz=MzI4MzM2MDgyMQ==&amp;mid=2247486568&amp;idx=1&amp;sn=495c224fc7b77989411b9f7c8aa88875&amp;chksm=eb8aa732dcfd2e24ccbbccce060b9e8dff1c252f1694038cc45e4d7965c7ca3cc2cc1d7c571d&amp;scene=21#wechat_redirect" style="color:rgb(87,107,149);max-width:100%;">1000道Python题库系列分享九（31道）</a></p><p class="bizsvr_15" style="max-width:100%;min-height:1em;color:rgb(51,51,51);"><a href="http://mp.weixin.qq.com/s?__biz=MzI4MzM2MDgyMQ==&amp;mid=2247486669&amp;idx=1&amp;sn=a56b8c8e38fb78df60e40075f205f1aa&amp;chksm=eb8aa797dcfd2e8113199383917dfdf0170b506fcda55c5c3352ffc9f7e4170b7d38cfcca732&amp;scene=21#wechat_redirect" style="color:rgb(87,107,149);max-width:100%;">1000道Python题库系列分享十（37道）</a><br class="bizsvr_17" style="max-width:100%;" /></p><p class="bizsvr_15" style="max-width:100%;min-height:1em;color:rgb(51,51,51);"><a href="http://mp.weixin.qq.com/s?__biz=MzI4MzM2MDgyMQ==&amp;mid=2247486734&amp;idx=1&amp;sn=0ab41f2e0af3b66bb12644458f30e421&amp;chksm=eb8aa654dcfd2f42413564078fa3320181d924c436cb1911a7861bd6e300b1de70483ef00707&amp;scene=21#wechat_redirect" style="color:rgb(87,107,149);max-width:100%;">1000道Python题库系列分享十一（9道）</a></p><p class="bizsvr_15" style="max-width:100%;min-height:1em;color:rgb(51,51,51);"><br class="bizsvr_17" style="max-width:100%;" /></p><p class="bizsvr_15" style="max-width:100%;min-height:1em;color:rgb(51,51,51);"><span class="bizsvr_73" style="max-width:100%;font-size:20px;">相关阅读</span></p><p style="max-width:100%;min-height:1em;color:rgb(51,51,51);"><a href="http://mp.weixin.qq.com/s?__biz=MzI4MzM2MDgyMQ==&amp;mid=2247486664&amp;idx=1&amp;sn=1d36a1f640e976104b091e0af92729f2&amp;chksm=eb8aa792dcfd2e84bfe15077375b4aa1bd6b1d2139d137af77afa03bac198a3dcff2b2cab466&amp;scene=21#wechat_redirect" style="color:rgb(87,107,149);max-width:100%;">使用Python查看汉诺塔移动详细过程</a><a href="http://mp.weixin.qq.com/s?__biz=MzI4MzM2MDgyMQ==&amp;mid=2247486998&amp;idx=1&amp;sn=88a78e04be783137f61c2e0982e1b9a8&amp;chksm=eb8aa54cdcfd2c5a1bf23ba08fcdbf20b7804cd0a854aa8fa4855086c261ed205ce0b1c1c8fe&amp;scene=21#wechat_redirect" style="color:rgb(87,107,149);max-width:100%;"></a></p><p style="max-width:100%;min-height:1em;color:rgb(51,51,51);"><a href="http://mp.weixin.qq.com/s?__biz=MzI4MzM2MDgyMQ==&amp;mid=2247486654&amp;idx=1&amp;sn=f5716f134bbe0d3f340943946dd3a21f&amp;chksm=eb8aa7e4dcfd2ef2f83ef41944062c32083c373beabbfdfd543ce21a2989a9b90fe08ab03176&amp;scene=21#wechat_redirect" style="color:rgb(87,107,149);max-width:100%;">Python版插入排序算法</a><br style="max-width:100%;" /></p><p style="max-width:100%;min-height:1em;color:rgb(51,51,51);"><a href="http://mp.weixin.qq.com/s?__biz=MzI4MzM2MDgyMQ==&amp;mid=2247486597&amp;idx=1&amp;sn=ebaecd826282b497968a155d885bfad2&amp;chksm=eb8aa7dfdcfd2ec906d35337038069f3d5de73581a8fe20c4a9305685777af05a2698dc375b1&amp;scene=21#wechat_redirect" style="color:rgb(87,107,149);max-width:100%;">“好串”求解算法优化原理与Python实现</a></p><p style="max-width:100%;min-height:1em;color:rgb(51,51,51);"><a href="http://mp.weixin.qq.com/s?__biz=MzI4MzM2MDgyMQ==&amp;mid=2247486371&amp;idx=1&amp;sn=7fd3519404eaea070a9c1e2b89518870&amp;chksm=eb8aa0f9dcfd29efa18e00205b5f6f4240edc6629ed283162a56762dc4838b8079163ddaefae&amp;scene=21#wechat_redirect" style="color:rgb(87,107,149);max-width:100%;">Python使用超高效算法查找所有类似123-45-67+89=100的组合</a></p><p style="max-width:100%;min-height:1em;color:rgb(51,51,51);"><a href="http://mp.weixin.qq.com/s?__biz=MzI4MzM2MDgyMQ==&amp;mid=2247486366&amp;idx=1&amp;sn=494acccad02d742a2ca95a09cc00b753&amp;chksm=eb8aa0c4dcfd29d21620690d57b10f0e4f24dc17748a6a28b82432355469730e329808e493cc&amp;scene=21#wechat_redirect" style="color:rgb(87,107,149);max-width:100%;">Python查找所有类似于123-45-67+89 = 100的组合</a></p><p style="max-width:100%;min-height:1em;color:rgb(51,51,51);"><a href="http://mp.weixin.qq.com/s?__biz=MzI4MzM2MDgyMQ==&amp;mid=2247486292&amp;idx=1&amp;sn=7d842ee5309e969a3d499fa70bc439df&amp;chksm=eb8aa00edcfd291846f528a6d83daca773ced6e42764cd5fcf861492f9862a8f335b4127fe4a&amp;scene=21#wechat_redirect" style="color:rgb(87,107,149);max-width:100%;">数学老师从没这么教过，乘法竖式中进位可以是多位（附Python实现与测试源码）</a></p><p style="max-width:100%;min-height:1em;color:rgb(51,51,51);"><a href="http://mp.weixin.qq.com/s?__biz=MzI4MzM2MDgyMQ==&amp;mid=2247485439&amp;idx=1&amp;sn=cef96e6f09751e6203d24707f8910b46&amp;chksm=eb8aaca5dcfd25b3e7012419682ff941ea775f258c152eda0bc2a3ba72c9d5f0619071daeeff&amp;scene=21#wechat_redirect" style="color:rgb(87,107,149);max-width:100%;">计算Fibonacci数列第n项的第8种方法（数学推导与Python实现）</a><br style="max-width:100%;" /></p><p style="max-width:100%;min-height:1em;color:rgb(51,51,51);"><a href="http://mp.weixin.qq.com/s?__biz=MzI4MzM2MDgyMQ==&amp;mid=2247485283&amp;idx=1&amp;sn=cda8dbdad863c84fcfc05474c5b04c3c&amp;chksm=eb8aac39dcfd252f3761763d0516423e221f4540eb3ad0531b60149ca2ae7fff690ddde11c96&amp;scene=21#wechat_redirect" style="color:rgb(87,107,149);max-width:100%;">使用Python模拟伪随机数生成原理</a></p><p style="max-width:100%;min-height:1em;color:rgb(51,51,51);"><a href="http://mp.weixin.qq.com/s?__biz=MzI4MzM2MDgyMQ==&amp;mid=2247485278&amp;idx=1&amp;sn=c3b5ffba89da320fd08480079a8bf11f&amp;chksm=eb8aac04dcfd2512eb2ff59ff7bf6e15a34fc4a15a948b113573f4d48c7abe752124b350e3b0&amp;scene=21#wechat_redirect" style="color:rgb(87,107,149);max-width:100%;">使用Python模拟蒙蒂霍尔悖论游戏</a></p><p style="max-width:100%;min-height:1em;color:rgb(51,51,51);"><a href="http://mp.weixin.qq.com/s?__biz=MzI4MzM2MDgyMQ==&amp;mid=2247485268&amp;idx=1&amp;sn=327fa1c8ff3d3575698a285fa6272985&amp;chksm=eb8aac0edcfd251864df8add43af666e87cb9552588fc8c5c1eeeddacc69238a761862746c51&amp;scene=21#wechat_redirect" style="color:rgb(87,107,149);max-width:100%;">使用Python编写一个聪明的尼姆游戏</a></p><p style="max-width:100%;min-height:1em;color:rgb(51,51,51);"><a href="http://mp.weixin.qq.com/s?__biz=MzI4MzM2MDgyMQ==&amp;mid=2247485140&amp;idx=1&amp;sn=910897bf7ec9f219c5ddb1f51ab5085d&amp;chksm=eb8aad8edcfd2498534af7ccadd7c981705806ee132d2e2b9f1a7757d6b8aa6fd106631ef3d7&amp;scene=21#wechat_redirect" style="color:rgb(87,107,149);max-width:100%;">蒙特.卡罗方法求解圆周率近似值原理与Python实现</a></p><p style="max-width:100%;min-height:1em;color:rgb(51,51,51);"><a href="http://mp.weixin.qq.com/s?__biz=MzI4MzM2MDgyMQ==&amp;mid=2247486834&amp;idx=1&amp;sn=ddfd0aea7553947e1b65fced8a5742a8&amp;chksm=eb8aa628dcfd2f3eb1c57ed5e11486188851608754f0d13b38f8e5d8aa0c4aaeb969897b4a26&amp;scene=21#wechat_redirect" style="color:rgb(87,107,149);max-width:100%;"></a><br /></p><p><br /></p>
+                </div>
+              </div>
+                </div>
+				<div class="hide-article-box text-center csdn-tracking-statistics tracking-click" data-mod="popu_376">
+			<a class="btn btn-red-hollow" id="btn-readmore">阅读更多</a>
+		</div>
+        	</article>
+	
+		<div class="article-bar-bottom">
+				<div class="article-copyright">
+			版权声明：本文为博主原创文章，未经博主允许不得转载。			https://blog.csdn.net/oh5W6HinUg43JvRhhB/article/details/80652487		</div>
+									</div>
+	
+	<!-- !empty($pre_next_article[0]) -->
+		</div>
+<script>
+    $(".MathJax").remove();
+</script>
+
+<script type="text/javascript" src="https://static-blog.csdn.net/mdeditor/public/res/bower-libs/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+			"HTML-CSS": {
+					linebreaks: { automatic: true, width: "94%container" },
+					imageFont: null
+			},
+			tex2jax: {
+				preview: "none"
+			},
+			mml2jax: {
+				preview: 'none'
+			}
+	});
+</script>
+<script>
+	(function(){
+		var btnReadmore = $("#btn-readmore");
+		if(btnReadmore.length>0){
+			var winH = $(window).height();
+			var articleBox = $("div.article_content");
+			var artH = articleBox.height();
+			if(artH > winH*2){
+				articleBox.css({
+					'height':winH*2+'px',
+					'overflow':'hidden'
+				})
+				btnReadmore.click(function(){
+					articleBox.removeAttr("style");
+					$(this).parent().remove();
+				})
+			}else{
+				btnReadmore.parent().remove();
+			}
+		}
+	})()
+</script>                <a id="commentBox"></a>
+<div class="comment-box">
+	  	<div class="unlogin-box text-center">
+		想对作者说点什么？
+		<!-- $curl 当前地址 -->
+		<a href="https://passport.csdn.net/account/login?from=https://blog.csdn.net/oh5W6HinUg43JvRhhB/article/details/80652487#commentBox" class="btn btn-sm btn-red">我来说一句</a>
+	</div>
+			<div class="comment-list-container">
+		<a id="comments"></a>
+		<div class="comment-list-box">
+		</div>
+		<div id="commentPage" class="pagination-box d-none"></div>
+		<div class="opt-box text-center">
+			<button class="btn btn-sm btn-link-blue" id="btnMoreComment"></button>
+		</div>
+	</div>
+</div>        <div class="recommend-box">
+            		<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/lijun5635/article/details/14103527" target="_blank" strategy="BlogCommendFromQuerySearch_16">
+				<em>多项式</em>求值的Horner算法			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/lijun5635/article/details/14103527" target="_blank" >
+				3*x^4+6*x^3+2*x^2+5*x+6
+求值的过程为
+3
+3*x + 6
+3*x^2 +6*x+2
+3*x^3 +6*x^2+2*x+5
+3*x^4 +6*x^3+2*x^2+5*...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/lijun5635" title="lijun5635" target="_blank">
+					<img src="https://avatar.csdn.net/4/5/0/3_lijun5635.jpg" alt="lijun5635" class="avatar-pic">
+					<span class="name">lijun5635</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2013-11-03 12:09:41</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：2247</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/ccDLlyy/article/details/52502202" target="_blank" strategy="BlogCommendFromQuerySearch_0">
+				计算<em>多项式</em>值的<em>秦九韶</em>算法			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/ccDLlyy/article/details/52502202" target="_blank" >
+				//计算<em>多项式</em>值的<em>秦九韶</em>算法
+double getresult(double array[],int n,double x)//double array[];//存系数,a[0]为常数项
+{
+    ...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/ccDLlyy" title="ccDLlyy" target="_blank">
+					<img src="https://avatar.csdn.net/F/F/E/3_ccdllyy.jpg" alt="ccDLlyy" class="avatar-pic">
+					<span class="name">ccDLlyy</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2016-09-11 08:26:59</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：473</span>
+			</p>
+		</div>
+	</div>
+								<div class="recommend-item-box recommend-ad-box" id="ad1"></div>
+				<script>
+				  var width = $("div.recommend-box").outerWidth() - 48;
+					NEWS_FEED({
+						w: width,
+						h : 90,
+						showid : 'GNKXx7',
+						placeholderId: "ad1",
+						inject : 'define',
+						define : {
+							imagePosition : 'right',
+							imageBorderRadius : 0,
+							imageWidth: 120,
+							imageHeight: 90,
+							imageFill : 'clip',
+							displayImage : true,
+							displayTitle : true,
+							titleFontSize: 20,
+							titleFontColor: '#333',
+							titleFontFamily : 'Microsoft Yahei',
+							titleFontWeight: 'bold',
+							titlePaddingTop : 0,
+							titlePaddingRight : 0,
+							titlePaddingBottom : 10,
+							titlePaddingLeft : 0,
+							displayDesc : true,
+							descFontSize: 14,
+							descFontColor: '#6b6b6b',
+							descFontFamily : 'Microsoft Yahei',
+							paddingTop : 0,
+							paddingRight : 0,
+							paddingBottom : 0,
+							paddingLeft : 0,
+							backgroundColor: '#fff',
+							hoverColor: '#ca0c16'
+						}
+					})
+				</script>
+
+			
+					<div class="recommend-item-box recommend-download-box csdn-tracking-statistics clearfix" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+			<div class="content float-left">
+				<h4 class="text-truncate">
+					<a href="https://download.csdn.net/download/xiaobiesan3/3088819" target="_blank" strategy="BlogCommendFromQuerySearch_1">
+						用<em>秦九韶</em>算法编写通用程序能够求任意<em>多项式</em>在任意一点的值					</a>
+				</h4>
+				<p>
+					<span class="data">2011年03月13日 </span>
+					<span class="size">365B</span>
+					<span class="type">下载</span>
+				</p>
+			</div>
+			<div class="img-box float-right">
+				<a href="https://download.csdn.net/download/xiaobiesan3/3088819" target="_blank" strategy="BlogCommendFromQuerySearch_1">
+					<img src="http://csdnimg.cn/release/download/old_static/images/minetype/unkonw.svg" alt="">
+				</a>
+			</div>
+		</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/Mrfive555/article/details/79450336" target="_blank" strategy="BlogCommendFromQuerySearch_2">
+				<em>秦九韶</em>算法求<em>多项式</em>某一点处的值或导数			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/Mrfive555/article/details/79450336" target="_blank" >
+				设法减少算法中乘法或加法的数量，是提升算法性能的方法之一。<em>秦九韶</em>算法就是其中的范例。 
+设给定<em>多项式</em> 
+p(x)=a0xn+a1xn−1+⋯+an−1x+an(1)(1)p(x)=a0xn+a1xn−...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/Mrfive555" title="Mrfive555" target="_blank">
+					<img src="https://avatar.csdn.net/1/7/4/3_mrfive555.jpg" alt="Mrfive555" class="avatar-pic">
+					<span class="name">Mrfive555</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2018-03-05 20:08:22</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：366</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/u010255642/article/details/35783233" target="_blank" strategy="BlogCommendFromQuerySearch_3">
+				数学之路-<em>python</em>计算实战(3)-霍纳法则			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/u010255642/article/details/35783233" target="_blank" >
+				假设有n+2个实数a0，a1，…，an,和x的序列，要对<em>多项式</em>Pn(x)= anx ^n+a(n－1)x^(n-1)+…+a1x+a0求值，直接方法是对每一项分别求值，并把每一项求的值累加起来，这种方...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/u010255642" title="u010255642" target="_blank">
+					<img src="https://avatar.csdn.net/C/7/8/3_u010255642.jpg" alt="u010255642" class="avatar-pic">
+					<span class="name">u010255642</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2014-06-29 11:53:36</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：1944</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/Petershusheng/article/details/51661510" target="_blank" strategy="BlogCommendFromQuerySearch_4">
+				霍纳法则--计算<em>多项式</em>的值			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/Petershusheng/article/details/51661510" target="_blank" >
+				先来个实例: 
+ 
+计算x=7时p(x)的值.
+解法1:我们想到的就是直接将x=7代入方程,然后算出结果:4314.()
+解法2: <em>使用</em>霍纳法则: 
+ 步骤: 
+1.建立二维表格,将公式的系数填入第一...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/Petershusheng" title="Petershusheng" target="_blank">
+					<img src="https://avatar.csdn.net/4/9/4/3_petershusheng.jpg" alt="Petershusheng" class="avatar-pic">
+					<span class="name">Petershusheng</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2016-06-14 00:04:04</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：3120</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box recommend-ad-box" id="a_d_feed_0"></div>
+			<script>
+				var width = $("div.recommend-box").outerWidth() - 48;
+				NEWS_FEED({
+					w: width,
+					h: 90,
+					showid: 'Afihld',
+					placeholderId: 'a_d_feed_0',
+					inject: 'define',
+					define: {
+						imagePosition: 'right',
+						imageBorderRadius: 0,
+						imageWidth: 120,
+						imageHeight: 90,
+						imageFill: 'clip',
+						displayImage: true,
+						displayTitle: true,
+						titleFontSize: 20,
+						titleFontColor: '#333',
+						titleFontFamily: 'Microsoft Yahei',
+						titleFontWeight: 'bold',
+						titlePaddingTop: 0,
+						titlePaddingRight: 0,
+						titlePaddingBottom: 10,
+						titlePaddingLeft: 0,
+						displayDesc: true,
+						descFontSize: 14,
+						descFontColor: '#6b6b6b',
+						descFontFamily: 'Microsoft Yahei',
+						paddingTop: 0,
+						paddingRight: 0,
+						paddingBottom: 0,
+						paddingLeft: 0,
+						backgroundColor: '#fff',
+						hoverColor: '#ca0c16'
+					}
+				})
+			</script>
+			<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/songhengli/article/details/52195022" target="_blank" strategy="BlogCommendFromQuerySearch_5">
+				2-10 霍纳法则(<em>秦九韶</em>算法)--求<em>多项式</em>			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/songhengli/article/details/52195022" target="_blank" >
+				P(n) = a0 * x0  +  a1* x1  +  a2 * x2 + … + an * xn
+定义tmp = an+1 = 0 
+
+上推一步：an+1  *  x   +   an     ...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/songhengli" title="songhengli" target="_blank">
+					<img src="https://avatar.csdn.net/7/A/B/3_songhengli.jpg" alt="songhengli" class="avatar-pic">
+					<span class="name">songhengli</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2016-08-14 17:23:15</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：846</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/qingyuanluofeng/article/details/47189185" target="_blank" strategy="BlogCommendFromQuerySearch_6">
+				算法设计与分析：第二章 递归 2.7<em>多项式</em>求值问题			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/qingyuanluofeng/article/details/47189185" target="_blank" >
+				/*
+<em>多项式</em>求值问题:
+有如下<em>多项式</em>:
+P (x)= An*x^n + An-1*x^(n-1) + ... +a1*x + a0
+如果分别对每一项求职，需要n*(n+1)/2个乘法，效率很低
+
+关键...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/qingyuanluofeng" title="qingyuanluofeng" target="_blank">
+					<img src="https://avatar.csdn.net/0/D/D/3_qingyuanluofeng.jpg" alt="qingyuanluofeng" class="avatar-pic">
+					<span class="name">qingyuanluofeng</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2015-08-05 09:48:36</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：981</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/fulivia/article/details/20309375" target="_blank" strategy="BlogCommendFromQuerySearch_7">
+				<em>秦九韶</em>算法解<em>多项式</em>			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/fulivia/article/details/20309375" target="_blank" >
+				对于<em>多项式</em>
+
+传统的做法需要n(n+1)/2次乘法和n次加法，而<em>秦九韶</em>算法：
+
+
+只需n次加法和n次乘法。
+
+
+/**
+ *<em>秦九韶</em>算法解<em>多项式</em>
+ *假设ak=k
+ *公式为：Sn=an...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/fulivia" title="fulivia" target="_blank">
+					<img src="https://avatar.csdn.net/9/0/A/3_fulivia.jpg" alt="fulivia" class="avatar-pic">
+					<span class="name">fulivia</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2014-03-02 21:28:24</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：1008</span>
+			</p>
+		</div>
+	</div>
+					<div class="recommend-item-box csdn-tracking-statistics" data-mod="popu_387" data-poputype="feed"  data-feed-show="false"  data-dsm="post">
+		<h4 class="text-truncate">
+			<a href="https://blog.csdn.net/u011327397/article/details/51987097" target="_blank" strategy="BlogCommendFromQuerySearch_8">
+				【noip】解方程 <em>秦九韶</em>算法			</a>
+		</h4>
+		<p class="content">
+			<a href="https://blog.csdn.net/u011327397/article/details/51987097" target="_blank" >
+				解方程
+  
+  描述
+  
+  已知<em>多项式</em>方程： 
+  a0+a1x+a2x2+…+anxn=0a0+a1x+a2x2+…+anxn=0 
+  求这个方程在[1, m]内的整数解（n 和 m 均为正...			</a>
+		</p>
+		<div class="info-box d-flex align-content-center">
+			<p>
+				<a class="avatar" src="https://blog.csdn.net/u011327397" title="u011327397" target="_blank">
+					<img src="https://avatar.csdn.net/5/6/A/3_u011327397.jpg" alt="u011327397" class="avatar-pic">
+					<span class="name">u011327397</span>
+				</a>
+			</p>
+			<p>
+				<span class="date">2016-07-21 22:05:45</span>
+			</p>
+			<p>
+				<span class="read-num">阅读数：708</span>
+			</p>
+		</div>
+	</div>
+			            <!-- 第四范式SDK -->
+<script src="https://nbrecsys.4paradigm.com/resource/js/sdk-csdn-smallflow.js" async defer></script>
+            <div class="recommend-loading-box">
+                <img src='https://csdnimg.cn/release/phoenix/images/feedLoading.gif'>
+            </div>
+            <div class="recommend-end-box">
+                <p class="text-center">没有更多推荐了，<a href="https://blog.csdn.net/" class="c-blue c-blue-hover c-blue-focus">返回首页</a></p>
+            </div>
+        </div>
+    </main>
+    <aside>
+		    <div id="asideProfile" class="aside-box">
+    <h3 class="aside-title">个人资料</h3>
+    <div class="profile-intro d-flex">
+        <div class="avatar-box d-flex justify-content-center flex-column">
+            <a href="https://blog.csdn.net/oh5w6hinug43jvrhhb">
+                <img src="https://avatar.csdn.net/5/E/F/3_oh5w6hinug43jvrhhb.jpg" class="avatar_pic">
+            </a>
+        </div>
+        <div class="user-info d-flex justify-content-center flex-column">
+            <p class="name csdn-tracking-statistics tracking-click" data-mod="popu_379">
+                <a href="https://blog.csdn.net/oh5w6hinug43jvrhhb" target="_blank" class="text-truncate" id="uid">oh5w6hinug43jvrhhb</a>
+            </p>
+                    </div>
+                <div class="opt-box d-flex justify-content-center flex-column">
+            <span  class="csdn-tracking-statistics tracking-click" data-mod="popu_379">
+                                <a class="btn btn-sm btn-red-hollow" href="https://passport.csdn.net/account/login?from=https://blog.csdn.net/oh5W6HinUg43JvRhhB/article/details/80652487" target="_self">关注</a>
+                            </span>
+                    </div>
+            </div>
+    <div class="data-info d-flex item-tiling">
+                <dl class="text-center" title="155">
+                        <dt><a href="https://blog.csdn.net/oh5w6hinug43jvrhhb?t=1">原创</a></dt>
+            <dd><a href="https://blog.csdn.net/oh5w6hinug43jvrhhb?t=1"><span class="count">155</span></a></dd>
+                    </dl>
+        <dl class="text-center" title="216">
+            <dt>粉丝</dt>
+            <dd><span class="count" id="fan">216</span></dd>
+        </dl>
+        <dl class="text-center" title="43">
+            <dt>喜欢</dt>
+            <dd><span class="count">43</span></dd>
+        </dl>
+        <dl class="text-center" title="27">
+            <dt>评论</dt>
+            <dd><span class="count">27</span></dd>
+        </dl>
+    </div>
+    <div class="grade-box clearfix">
+        <dl>
+            <dt>等级：</dt>
+            <dd>
+                <a href="https://blog.csdn.net/home/help.html#level" title="4级,点击查看等级说明" target="_blank">
+                    <svg class="icon icon-level" aria-hidden="true">
+                        <use xlink:href="#csdnc-bloglevel-4"></use>
+                    </svg>
+                </a>
+            </dd>
+        </dl>
+        <dl>
+            <dt>访问：</dt>
+            <dd title="106754">
+                10万+            </dd>
+        </dl>
+        <dl>
+            <dt>积分：</dt>
+            <dd title="1824">
+                1824            </dd>
+        </dl>
+        <dl title="28078">
+            <dt>排名：</dt>
+            <dd>2万+</dd>
+        </dl>
+    </div>
+        <div class="badge-box d-flex">
+        <span>勋章：</span>
+                        <a class="icon-badge" title="持之以恒">
+            <svg class="icon" aria-hidden="true">
+                <use xlink:href="#csdnc-m-lasting"></use>
+            </svg>
+            <div class="icon-arrow"></div>
+            <div class="grade-detail-box item2">
+                <div class="pos-box">
+                    <div class="left-box d-flex justify-content-center align-items-center flex-column">
+                        <svg class="icon" aria-hidden="true">
+                            <use xlink:href="#csdnc-m-lasting"></use>
+                        </svg>
+                        <p>持之以恒</p>
+                    </div>
+                    <div class="right-box d-flex justify-content-center align-items-center">
+                        授予每个自然月内发布4篇或4篇以上原创或翻译IT博文的用户。不积跬步无以至千里，不积小流无以成江海，程序人生的精彩需要坚持不懈地积累！
+                    </div>
+                </div>
+            </div>
+        </a>
+                            </div>
+    </div>		    <div class="csdn-tracking-statistics mb8 box-shadow" data-pid="blog" data-mod="popu_4" style="height:250px;">
+    <div class="aside-content text-center" id="cpro_u2734133">
+        <!-- 投放代码 -->
+        <script type="text/javascript" src="//cee1.iteye.com/lgyyovfyh.js"></script>
+    </div>
+</div>
+		    <div id="asideNewArticle" class="aside-box">
+    <h3 class="aside-title">最新文章</h3>
+    <div class="aside-content">
+        <ul class="inf_list clearfix csdn-tracking-statistics tracking-click" data-mod="popu_382">
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/oh5W6HinUg43JvRhhB/article/details/80681661" target="_blank">Python使用三种方法批量修改记事本文件编码格式</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/oh5W6HinUg43JvRhhB/article/details/80681659" target="_blank">Python一句话实现秦九韶算法快速计算多项式的值</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/oh5W6HinUg43JvRhhB/article/details/80650292" target="_blank">2018年全国高校教师“Python编程、应用及华为大数据”培训班</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/oh5W6HinUg43JvRhhB/article/details/80617090" target="_blank">Python+selenium+PhantomJS获取百度搜索结果真实链接地址</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/oh5W6HinUg43JvRhhB/article/details/80598916" target="_blank">Python 3.6模拟输入并爬取百度前10页密切相关链接</a>
+            </li>
+                    </ul>
+    </div>
+</div>
+		    		    		    <div id="asideArchive" class="aside-box flexible-box">
+    <h3 class="aside-title">归档</h3>
+    <div class="aside-content">
+        <ul class="archive-list">
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/oh5w6hinug43jvrhhb/article/month/2018/06">
+                    2018年6月                    <span class="count float-right">8篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/oh5w6hinug43jvrhhb/article/month/2018/05">
+                    2018年5月                    <span class="count float-right">21篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/oh5w6hinug43jvrhhb/article/month/2018/04">
+                    2018年4月                    <span class="count float-right">20篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/oh5w6hinug43jvrhhb/article/month/2018/03">
+                    2018年3月                    <span class="count float-right">22篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/oh5w6hinug43jvrhhb/article/month/2018/02">
+                    2018年2月                    <span class="count float-right">16篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/oh5w6hinug43jvrhhb/article/month/2018/01">
+                    2018年1月                    <span class="count float-right">21篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/oh5w6hinug43jvrhhb/article/month/2017/12">
+                    2017年12月                    <span class="count float-right">25篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/oh5w6hinug43jvrhhb/article/month/2017/11">
+                    2017年11月                    <span class="count float-right">25篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/oh5w6hinug43jvrhhb/article/month/2017/10">
+                    2017年10月                    <span class="count float-right">22篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/oh5w6hinug43jvrhhb/article/month/2017/09">
+                    2017年9月                    <span class="count float-right">10篇</span>
+                </a>
+            </li>
+                    </ul>
+    </div>
+        <p class="text-center">
+        <a class="btn btn-link-blue flexible-btn" data-fbox="aside-archive">展开</a>
+    </p>
+    </div>
+		    <div id="asideHotArticle" class="aside-box">
+	<h3 class="aside-title">热门文章</h3>
+	<div class="aside-content">
+		<ul class="hotArticle-list csdn-tracking-statistics tracking-click" data-mod="popu_521">
+							<li>
+					<a href="https://blog.csdn.net/oh5w6hinug43jvrhhb/article/details/78389809">Python+pandas计算数据相关系数</a>
+					<p class="read">阅读量：<span>7275</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/oh5w6hinug43jvrhhb/article/details/78796069">Python+pandas+matplotlib数据分析与可视化案例（附源码）</a>
+					<p class="read">阅读量：<span>5337</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/oh5w6hinug43jvrhhb/article/details/78474722">大学生们颤抖吧，中学生已经开始学Python了！</a>
+					<p class="read">阅读量：<span>4943</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/oh5w6hinug43jvrhhb/article/details/78683112">Python使用OCR技术识别图片中的文字（入门篇）</a>
+					<p class="read">阅读量：<span>3955</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/oh5w6hinug43jvrhhb/article/details/78838973">淡定！不要因为纳入了高考和二级考试甚至极个别小学课程就盲目夸大Python！</a>
+					<p class="read">阅读量：<span>3849</span></p>
+				</li>
+					</ul>
+	</div>
+</div>
+		    <div id="asideNewComments" class="aside-box">
+    <h3 class="aside-title">最新评论</h3>
+    <div class="aside-content">
+        <ul class="newcomment-list">
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/oh5w6hinug43jvrhhb/article/details/79416599#comments">暴力测试也疯狂——论Python代...</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/qq_30029665" class="user-name" target="_blank">qq_30029665</a>：我来一个最原始的，代码也很容易看懂
+[code=python]
+
+def v(num):
+    ...                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/oh5w6hinug43jvrhhb/article/details/78948886#comments">使用Python获取Excel文件...</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/NightMare_Qi" class="user-name" target="_blank">NightMare_Qi</a>：麻烦问一下，如果我更新了其中一门成绩，如何使得总成绩同步更新呢？                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/oh5w6hinug43jvrhhb/article/details/80523403#comments">使用Python分析最新2000封...</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/qq2667126427" class="user-name" target="_blank">qq2667126427</a>：原来可以这么水阅读量啊？！                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/oh5w6hinug43jvrhhb/article/details/80288364#comments">“Python字符串index()...</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/myy629464" class="user-name" target="_blank">myy629464</a>：归纳总结是知识积累的好方法之一。感谢博主。                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/oh5w6hinug43jvrhhb/article/details/78796069#comments">Python+pandas+mat...</a>
+                <p class="comment">
+                    <a href="https://my.csdn.net/vvvvvvvvvvvvvvv05" class="user-name" target="_blank">vvvvvvvvvvvvvvv05</a>：请问一下运行报错 KeyError: ['2017-01-01','2017-01-02', .....                </p>
+            </li>
+                    </ul>
+    </div>
+</div>
+		<div id="asideFooter">
+			
+		<div class="aside-box">
+						<script type="text/javascript" src="//cee1.iteye.com/avneunkwb.js"></script>
+					</div>
+				<div class="aside-box">
+			<div class="persion_article">
+			</div>
+		</div>
+	</div>
+</aside>
+<script src="https://csdnimg.cn/pubfooter/js/publib_footer-1.0.3.js" data-isfootertrack="false" type="text/javascript"></script>
+<script>
+	$("a.flexible-btn").click(function(){
+		$(this).parents('div.aside-box').removeClass('flexible-box');
+		$(this).remove();
+	})
+</script>
+</div>
+<div class="mask-dark"></div>
+<div class="pulllog-box" style="display: block;">
+	<div class="pulllog clearfix">
+		<span class="text float-left">加入CSDN，享受更精准的内容推荐，与500万程序员共同成长！</span>
+		<div class="pulllog-btn float-right clearfix">
+            <button class="pulllog-login float-left csdn-tracking-statistics tracking-click" data-mod="popu_557">
+                登录
+            </button>
+            <div class="pulllog-sigin float-left csdn-tracking-statistics tracking-click" data-mod="popu_558">
+                <a href="https://passport.csdn.net/account/mobileregister" target="_blank">注册</a>
+            </div>
+            <button class="btn-close">
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#csdnc-times"></use>
+                </svg>
+            </button>
+		</div>
+	</div>
+</div>
+<div id="loginWrap" style="display:none"></div>
+<div class="tool-box">
+	<ul class="meau-list">
+		<li>
+			<button class="btn-like " title="点赞">
+				<svg class="icon active" aria-hidden="true">
+					<use xlink:href="#csdnc-thumbsup-ok"></use>
+				</svg><svg class="icon no-active" aria-hidden="true">
+					<use xlink:href="#csdnc-thumbsup"></use>
+				</svg>
+				<p>0</p>
+			</button>
+		</li>
+		<li class="toc-container-box" id="liTocBox">
+			<button class="btn-toc" title="目录">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-contents"></use>
+				</svg><br>目录
+			</button>
+			<div class="toc-container">
+				<div class="pos-box">
+					<div class="icon-arrow"></div>
+					<div class="scroll-box">
+						<div class="toc-box"></div>
+					</div>
+				</div>
+				<div class="opt-box">
+					<button class="btn-opt prev nomore" title="向上">
+						<svg class="icon" aria-hidden="true">
+							<use xlink:href="#csdnc-chevronup"></use>
+						</svg>
+					</button>
+					<button class="btn-opt next">
+						<svg class="icon" aria-hidden="true">
+							<use xlink:href="#csdnc-chevrondown"></use>
+						</svg>
+					</button>
+				</div>
+			</div>
+		</li>
+		<li>
+			<button class="btn-bookmark" title="收藏">
+				<svg class="icon active" aria-hidden="true">
+					<use xlink:href="#csdnc-bookmark-ok"></use>
+				</svg><svg class="icon no-active" aria-hidden="true">
+					<use xlink:href="#csdnc-bookmark"></use>
+				</svg><br>收藏
+			</button>
+		</li>
+		<li>
+			<a class="btn-comments" title="评论" href="#commentBox">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-comments"></use>
+				</svg><br>评论
+			</a>
+		</li>
+				<li class="bdsharebuttonbox">
+			<a class="btn-comments bds_weixin" data-cmd="weixin" title="微信分享">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-wechat"></use>
+				</svg><br>微信
+			</a>
+		</li>
+		<li class="bdsharebuttonbox">
+			<a class="btn-comments bds_tsina" data-cmd="tsina" title="微博分享">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-weibo"></use>
+				</svg><br>微博
+			</a>
+		</li>
+		<li class="bdsharebuttonbox">
+			<a class="btn-comments bds_qzone" data-cmd="qzone" title="QQ分享">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-qq"></use>
+				</svg><br>QQ
+			</a>
+		</li>
+	</ul>
+</div>
+<script>window._bd_share_config = { "common": { "bdSnsKey": {}, "bdText": "", "bdMini": "1", "bdMiniList": false, "bdPic": "", "bdStyle": "0", "bdSize": "16" }, "share": {} }; with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'https://csdnimg.cn/static/api/js/share.js?v=89860594'];</script>
+<script>
+    var recommendCount = 10;
+    recommendCount = recommendCount > 1 ? (recommendCount + (recommendCount>6 ? 2 : 1)) : recommendCount;
+    var articleTit = "Python使用秦九韶算法求解多项式的值";
+    var ChannelId = 28;
+    var articleId = "80652487";
+    var commentscount = 0;
+    var islock = false;
+    var curentUrl = "https://blog.csdn.net/oh5W6HinUg43JvRhhB/article/details/80652487";
+    var myUrl = "https://my.csdn.net/";
+    //1禁止评论，2正常
+    var commentAuth = 0;
+    //百度搜索
+    var baiduKey = "";
+    var needInsertBaidu = true;
+</script>
+<script src="https://csdnimg.cn/public/sandalstrap/1.3/js/sandalstrap.min.js"></script>
+<script src="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.js"></script>
+<script src='https://csdnimg.cn/public/common/gotop/js/goTop-v1.0.min.js?v201803151422'></script>
+<script>
+    GoTop({
+        right: 8,
+        hasReport: true,
+        reportFun: function() {
+            showReport(false,"Python使用秦九韶算法求解多项式的值");
+        }
+    })
+</script>
+<script src="https://csdnimg.cn/release/phoenix/template/js/common-bd54b21308.min.js"></script>
+<script src="https://csdnimg.cn/release/phoenix/template/js/detail-effe72036e.min.js"></script>
+<script src="https://csdnimg.cn/release/phoenix/themes/skin3-template/skin3-template-46c7bd3d86.min.js"></script>
+</body>
+<div class="box-box-default">
+    <a class="btn-remove">
+        关闭
+    </a>
+    <script type="text/javascript" src="//cee1.iteye.com/mhzzjepzz.js"></script>
+</div>
+<div class="box-box-large">
+    <a class="btn-remove">
+        关闭
+    </a>
+    <script type="text/javascript" src="//cee1.iteye.com/idvveasfs.js"></script>
+</div>
+</html>
