@@ -76,6 +76,7 @@
 #     print("finished")
 
 
+###################################################################
 ##ip 代理池的构建方式2： 适用于 代理IP不稳定的方式， 是通过API接口实时调用的
 #需要确认一下接口的访问时间间隔限制，如果有限制，可能会出现问题
 import urllib.request
@@ -88,6 +89,9 @@ def ip_api():
     urllib.request.install_opener(opener)
 
 
+
+
+###################################################################
 ##IP代理池构建的改进的方法，一次提取多个; 但下面的代码流程设计不是很高明，待摸索更好的方法；
 import urllib.request
 def ip_api_modify():
@@ -120,3 +124,51 @@ for i in range(0,35):
             ip_proxy(ippool,x%10)
     except Exception as err:
         print(err)
+
+###################################################################
+
+###################################################################
+# 改进方法：同时使用用户代理池和IP代理池的方法：
+uapools=[
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36",
+    "Opera/9.80(Macintosh;IntelMacOSX10.6.8;U;en)Presto/2.8.131Version/11.11",
+    "Mozilla/5.0(Macintosh;IntelMacOSX10_7_0)AppleWebKit/535.11(KHTML,likeGecko)Chrome/17.0.963.5"
+]
+
+
+import urllib.request
+import random
+def ip_api_modify():
+    url='http://tvp.daxiangdaili.com/ip/?tid=123456&num=2&foreign=only'
+    ippools=[]
+    ip_list=urllib.request.urlopen(url).read().decode('utf-8','ignore')
+    for thisip in ip_list:
+        print(thisip.decode('utf-8','ignore'))
+        ippools.append(thisip.decode('utf-8','ignore'))
+    return ippools
+
+
+
+
+def ip_proxy(ippools,time,pools):
+    thisip=ippools[time]
+    ua=random.choice(pools)
+    headers=("User-Agent",ua)
+    proxy=urllib.request.ProxyHandler({"http":thisip}) #设置代理IP
+    opener=urllib.request.build_opener(proxy,urllib.request.HTTPHandler)
+    opener.addheaders=[headers]
+    urllib.request.install_opener(opener)
+
+
+# 改进的IP构建方法如何调用：
+x=0
+for i in range(0,35):
+    try:
+        if x%10==0:
+            ippool=ip_api_modify()
+            ip_proxy(ippool,x%10,uapools)
+        else:
+            ip_proxy(ippool,x%10,uapools)
+    except Exception as err:
+        print(err)
+###################################################################

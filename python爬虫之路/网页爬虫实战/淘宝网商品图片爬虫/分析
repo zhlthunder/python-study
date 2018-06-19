@@ -1,0 +1,23 @@
+url分析：
+1.商品搜索信息：
+https://s.taobao.com/search?q=python&imgfile=&commend=all&ssid=s5-e&search_type=item&sourceId=tb.index&spm=a21bo.2017.201856-taobao-item.1&ie=utf8&initiative_id=tbindexz_20170306
+https://s.taobao.com/search?q=%E8%BF%9E%E8%A1%A3%E8%A3%99&imgfile=&commend=all&ssid=s5-e&search_type=item&sourceId=tb.index&spm=a21bo.2017.201856-taobao-item.1&ie=utf8&initiative_id=tbindexz_20170306
+
+==》
+q=python
+q=%E8%BF%9E%E8%A1%A3%E8%A3%99  为搜索的内容， 是中文的转码
+
+2.页面的分析：
+先对URL进行精简看看是否可以正常访问
+https://s.taobao.com/search?q=%E8%BF%9E%E8%A1%A3%E8%A3%99&imgfile=&commend=all&ssid=s5-e&search_type=item&sourceId=tb.index&spm=a21bo.2017.201856-taobao-item.1&ie=utf8&initiative_id=tbindexz_20170306&bcoffset=-9&ntoffset=-9&p4ppushleft=1%2C48&s=220
+==》
+https://s.taobao.com/search?q=%E8%BF%9E%E8%A1%A3%E8%A3%99&s=220  ==》结论：精简后可以正常访问
+页码的规律： （页数-1）*44
+
+3.图片地址的规律分析：
+
+图片地址：
+https://g-search3.alicdn.com/img/bao/uploaded/i4/i4/520408396/TB1VjCWxuOSBuNjy0FdXXbDnVXa_!!0-item_pic.jpg_230x230.jpg_.webp
+推测，其中最关键的部分应该是图片的ID,比如为这个：/TB1VjCWxuOSBuNjy0FdXXbDnVXa_!!0-item
+使用/TB1VjCWxuOSBuNjy0FdXXbDnVXa_!!0-item  在源码中搜索，发现可以找到。
+"pic_url":"//g-search2.alicdn.com/img/bao/uploaded/i4/i4/520408396/TB1VjCWxuOSBuNjy0FdXXbDnVXa_!!0-item_pic.jpg"

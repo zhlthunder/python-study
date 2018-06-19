@@ -100,3 +100,4 @@ def spider_preporcess(url):
     else: ##page not using zip
         page_content=data.decode(decode_type,'ignore')
     return page_content
+

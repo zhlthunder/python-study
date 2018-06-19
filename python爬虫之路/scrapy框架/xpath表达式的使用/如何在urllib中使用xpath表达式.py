@@ -12,14 +12,16 @@
 #q&a:安装完lxml却无法导入etree的问题
 
 #重要：切记，python3.5及以上，在从lxml中导入etree时会提示“红色波浪线”，直接忽略，不影响正常使用
-# 如果是强迫症，可以参考Q&A中的方法解决
+# 如果是强迫症，可以参考Q&A中的方法解决 （https://www.qnjslm.com/ITHelp/883.html）
 
 import urllib.request
-from lxml import etree
+# from lxml import etree
+from lxml import html  ##解决etree波浪线的问题
 
 data=urllib.request.urlopen("http://www.baidu.com").read().decode("utf-8","ignore")
 print(len(data))
-treedata=etree.HTML(data)
+# treedata=etree.HTML(data)
+treedata=html.etree.HTML(data) ##解决etree波浪线的问题
 title=treedata.xpath("//title/text()")
 print(title)
 print(type(title))
@@ -30,3 +32,5 @@ else: ##如果是迭代器的形式，就需用下面的方法把它转换成列
 
 print(title)
 print(type(title))
+
+
