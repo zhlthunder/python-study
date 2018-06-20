@@ -1,0 +1,22 @@
+http://gzh.sogou.com/
+
+url确认：
+http://gzh.sogou.com/weixin?type=2&query=python&ie=utf8&s_from=input&_sug_=y&_sug_type_=&w=01019900&sut=1006&sst0=1529500475370&lkt=7%2C1529500474283%2C1529500475267
+http://gzh.sogou.com/weixin?query=python&_sug_type_=&sut=1006&lkt=7%2C1529500474283%2C1529500475267&s_from=input&_sug_=y&type=2&sst0=1529500475370&page=4&ie=utf8&w=01019900&dr=1
+
+==》网址精简：
+http://gzh.sogou.com/weixin?query=python&type=2&page=4&ie=utf81
+==>精简的网址确认可以访问：
+
+分析每个文字的URL的过滤方法如下：
+
+<div class="txt-box">
+<h3>
+<a target="_blank" href="http://mp.weixin.qq.com/s?src=11&amp;timestamp=1529500608&amp;ver=950&amp;signature=q*-DdPJU65FsTmwekk*QGUge2Pt1-Z7tz4L68tJzq*CGw4g1FM-zAJU4wmoVQxdSfFkBlfPybug0qiRsHKxj*dTWjlaFh2VlGULB8ZT2*am-i-Gv4xOvRj*dDYBo2l2Y&amp;new=1"
+
+
+但访问之后的实际URL有差异：
+https://mp.weixin.qq.com/s?src=11&amp;timestamp=1529500608&amp;ver=950&amp;signature=HvnR5LJt5DUl-eQnONZnQ4IVf526b26zGMZMPaTbPBFHeFwmDPhOfbTNZvqrX6tcSNq1OVA11HsnCkGVvXgZCGXArmM5o5Cvy6XcJP0xE*usujhNA6ANC287rjjPa83f&amp;new=1
+https://mp.weixin.qq.com/s?src=11&timestamp=1529500608&ver=950&signature=HvnR5LJt5DUl-eQnONZnQ4IVf526b26zGMZMPaTbPBFHeFwmDPhOfbTNZvqrX6tcSNq1OVA11HsnCkGVvXgZCGXArmM5o5Cvy6XcJP0xE*usujhNA6ANC287rjjPa83f&new=1
+
+==>结论：需要把其中的 amp; 替换为空字符；

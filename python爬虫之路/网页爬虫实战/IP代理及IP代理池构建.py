@@ -139,15 +139,13 @@ uapools=[
 import urllib.request
 import random
 def ip_api_modify():
-    url='http://tvp.daxiangdaili.com/ip/?tid=123456&num=2&foreign=only'
+    url='http://tvp.daxiangdaili.com/ip/?tid=123456&num=10&foreign=only'
     ippools=[]
     ip_list=urllib.request.urlopen(url).read().decode('utf-8','ignore')
     for thisip in ip_list:
         print(thisip.decode('utf-8','ignore'))
         ippools.append(thisip.decode('utf-8','ignore'))
     return ippools
-
-
 
 
 def ip_proxy(ippools,time,pools):
