@@ -1,1 +1,37 @@
-1.在python shell会话演示程序上下文的使用方法
+1.flask-bootstrap相关：
+参考：
+http://www.cnblogs.com/tywetyty/articles/4839320.html
+
+Flask-Bootstrap默认是加载CDN的css与js文件;
+在开发环境中非常的糟糕每次刷新页面都要访问到外网的cdn来获取css与js文件;
+
+
+查看包文件路径位置
+python
+>>> from flask.ext.bootstrap import Bootstrap
+>>> import inspect
+>>> print inspect.getsource(Bootstrap)
+
+
+
+下面配置Flask-Bootstrap启用加载本地的css与js文件:
+
+修改该包的初始化文件
+
+__init__.py
+
+我的开发环境是windows系统,
+完整路径是: C:\Python27\Lib\site-packages\flask_bootstrap\templates\bootstrap\__init__.py
+python3: C:\python3\Lib\site-packages\flask_bootstrap\__init__.py
+
+# 关闭CDN使用本地的静态文件
+# app.config.setdefault('BOOTSTRAP_SERVE_LOCAL', False)
+app.config.setdefault('BOOTSTRAP_SERVE_LOCAL', True)
+
+
+再刷几下果然生效了:
+
+http://127.0.0.1:5000/static/bootstrap/css/bootstrap.min.css?bootstrap=3.3.2.1
+
+加载了这个目录下的静态文件: C:\Python27\Lib\site-packages\flask_bootstrap\static\css\bootstrap.min.css
+并不是程序目录下的程序目录下的的/static/bootstrap/css/bootstrap.min.css的文件
