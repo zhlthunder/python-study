@@ -1,0 +1,25 @@
+深度评论：
+https://v.qq.com/x/cover/j6cgzhtkuonf6te/d0022fbmgl2.html?
+打开上面的页面，为浏览器配置代理服务器后， 打开fiddler, clear之后，
+拉到评论的位置，点击加载更多后，从fiddler 界面找js文件（JSON格式的数据），复制url如下：
+
+https://video.coral.qq.com/filmreviewr/c/upcomment/j6cgzhtkuonf6te?callback=_filmreviewrcupcommentj6cgzhtkuonf6te&reqnum=3&commentid=6227734628246412645&_=1529668797812
+第一步：精简url:
+https://video.coral.qq.com/filmreviewr/c/upcomment/j6cgzhtkuonf6te?commentid=6227734628246412645&reqnum=3
+
+第二步：指定关键字
+vid="j6cgzhtkuonf6te"
+cid='6227734628246412645'
+reqnum=3 每次提取的评论数
+
+提取 last":"6232162852904795079"  ，对应下一页的commentid
+
+
+
+短评：
+https://video.coral.qq.com/varticle/1743283224/comment/v2?cursor=6234007573961970622
+
+
+重要：
+如果源码中没有我们需要的信息，就需要打开fiddler，然后抓取其中的JS文件（JSON格式的文件），且一般
+JS文件是用unicode编码后的十六机制字符进行传输的，需要进行解码： eval(u"*****") , 将十六机制字符编码转换成我们可以识别的字符；
