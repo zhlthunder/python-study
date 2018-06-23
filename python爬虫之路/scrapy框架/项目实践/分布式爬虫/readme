@@ -1,0 +1,151 @@
+什么是分布式爬虫？
+就是应用多台机器同时实现爬虫任务， 这多台机器上的爬虫，整体称为分布式爬虫，可以知道，分布式爬虫是区别于单机爬虫的一种架构。
+
+分布式爬虫的难点不在于爬虫本身，而在于多台机器之间的通信，因为我们爬虫还是之前学过的爬虫技术，但是应用的环境是不一样的，
+效率也是大有不同。
+
+
+常见的几种分布式爬虫的类型：
+1.多台真实机器+爬虫（urllib,scrapy等）+爬虫共享中心
+架构如下：
+
+PC_A           PC_B       PC_C
+
+             PC_控制机（共享中心）
+             --包含所有待爬取的网址
+             --所有网址的爬取情况，供所有爬虫机器去查询，以避免重复爬取；
+爬取内容的存储方式：
+1）存储在各个节点；
+2）存在中心节点；
+
+2.多台虚拟机（或部分虚拟部分真实）+爬虫（urllib,scrapy等）+爬虫共享中心
+
+3.多台容器级虚拟化机器（或部分真实机器）+爬虫（urllib,scrapy等）+爬虫共享中心
+
+其中：任务的共享中心可以采用redis技术进行实现；
+其中：数据的存储方面，可以存储在各个节点，也可以存储在中心机器的数据库中。
+
+上面3中，常用的技术手段主要是：
+1） Docker+Redis+urllib+(Mysql)
+2)  Docker+Redis+Scrapy+Scrapy-Redis+(Mysql)
+  //备注： Scrapy-Redis 是一个第三方库扩展插件，将单机爬虫转换为分布式爬虫
+
+
+
+docker基础：
+
+
+yum install -y docker
+
+docker基础：
+
+@@启动docker:  systemctl start docker
+
+镜像： 不可以改变里面的内容；
+容器：可以改变里面的内容；相当于虚拟机，默认情况下彼此封闭；（各容器之间或容器和虚拟机之间是封闭的）
+
+总结：基于镜像来创建容器， 容器修改之后，可以重新封装成一个镜像；   所以，我们可以把需要的运行环境配置完成后，封装成一个镜像，之后就可以快速迁移及部署了；
+
+@@镜像搜索：
+docker search python  //从网络上的docker仓库中搜索与python相关的镜像， 模糊搜索
+
+docker search ubuntu
+
+@@从网上下载docker镜像；
+docker pull 镜像的NAME
+
+备注：镜像是分层的，是层层封装的。
+
+
+@@查看本地机器上的所有的镜像：
+docker images
+
+@@基于镜像创建容器
+
+docker run -tid  镜像的NAME或 IMAGE ID 的前4位
+
+//-ti  以交互的方式创建
+//-tid 创建容器并运行，但不进入这个容器
+
+
+@@查看当前的所有容器
+docker ps -a
+
+@@进入容器里面
+docker attach CONTAINER_ID的前4位
+
+@@退出容器：
+exit  //退出容器，且容器也同时停止运行；
+ctrl+p+q    //退出容器，但容器继续运行中；
+
+备注：每个容器是一个轻量级的虚拟机，也就是最小化的服务器。
+
+@@容器命名
+docker run -tid --name test_aaa  镜像的NAME或 IMAGE ID 的前4位 //创建容器时并命名
+
+
+@@启动一个已经停止的容器
+
+docker start CONTAINER_ID的前4位
+
+@@将修改后的容器重新封装为一个镜像：
+docker commit CONTAINER_ID的前4位  mytest:v1(为镜像的名字和版本)   之后再执行 docker images 就可以查看到新创建的镜像
+
+
+@@docker 网络配置基础：@@@重要
+容器和容器之间的通信使用 --link;
+
+源容器（比如分布式爬虫中的中心节点）
+
+部署步骤举例：
+docker run -tid --name h1 myest:v1  //创建源容器
+docker run -tid --name h2 --link h1 myest:v1  //创建一个新的容器，并且和h1通信；
+
+docker attach **** //进入h2容器
+cat /etc/hosts   //查看容器h2的网络情况，其中包含h1容器的IP地址等信息
+此时可以通过ping h1的IP地址，来验证网络是否通畅；
+
+
+
+
+Redis基础：以unbuntu系统为例
+apt-get update //升级apt-get
+apt-get  -y install redis-server  //安装redis-server
+
+启动：
+/etc/init.d/redis-server restart
+
+redis安装后，包含一个服务器端和一个客户端；
+上面的是启动服务端；
+然后执行
+ redis-cli  启动客户端连接服务器并进入交互模式；
+redis-cli -h 127.0.0.1 -p 6379  //连接方式2
+
+@@redis操作基础：
+执行 redis-cli -h 127.0.0.1 -p 6379 连接后进入交互模式：
+
+//键-值的存储方式
+set key 123   设置键和值
+get key     获取键对应的值
+strlen key  获取键对应的值的长度
+
+mset a 123 b 12 c hello 批量设置键值对
+mget a b c   批量获取键对应的值
+
+
+//哈希存储方式
+键-域-值 （key-field-value）  特点：同一个键下面可以有多个 域-值 对；
+
+hset title name hello   //设置 键，域，值
+hget title name   //获取键，域
+
+hset title sex boy  //设置title下的第二个 域-值 对；
+hget title sex //获取
+
+hmset title name abc id 890 sex boy //批量设置多个 域-值 对；
+hget title id
+hgetall title  //获取当前键下的所有 阈-值 对；
+
+
+
+

@@ -1,26 +1,26 @@
-�ȴ�����Ŀ������
+先创建项目及爬虫
 scrapy startproject jdgoods
 cd jdgoods
 scrapy genspider -t basic good jd.com
 
-���������
-�� https://book.jd.com/
+需求分析：
+打开 https://book.jd.com/
 
-ͼ�����ַ�� https://book.jd.com/
-��һ��������ַ��������ѧ�� https://channel.jd.com/p_wenxuezongheguan.html {��һ����ַ���Ժ���}
-�ڶ�������ַ�� ��ѧ���µ�С˵�еĹٳ� https://list.jd.com/list.html?cat=1713,3258,3316 ��С˵�⼶��ֻ�Ƿ�����ʾ�õı�ǩ�����Ժ��ԣ�
-  �ص��ע����� cat=1713,3258,3316  ��ΪƵ���ţ�
+图书的网址： https://book.jd.com/
+第一级子类网址：比如文学馆 https://channel.jd.com/p_wenxuezongheguan.html {这一级网址可以忽略}
+第二级子网址： 文学馆下的小说中的官场 https://list.jd.com/list.html?cat=1713,3258,3316 （小说这级，只是分类显示用的标签，可以忽略）
+  重点关注上面的 cat=1713,3258,3316  ，为频道号；
 
-  ���Դ��������ǣ�
-  �Ȼ�ȡƵ���ţ���ȡ��Ӧ��Ƶ����ҳ�棬Ȼ���ȡ���Ƶ������Ʒ��ҳ�棬���� ��1/172�������Ի��������"cat=1713,3258,3316&page=2"
+  所以处理流程是：
+  先获取频道号，爬取对应的频道的页面，然后获取这个频道的商品的页数，比如 “1/172”，所以基于下面的"cat=1713,3258,3316&page=2"
   https://list.jd.com/list.html?cat=1713,3258,3316&page=2&sort=sort_rank_asc&trans=1&JL=6_0_0#J_main
-  �Ϳ��Ի�ȡȫ����Ʒ��ҳ�棬Ȼ���ٶ�����Ҫץȡ����Ϣ��������Ʒ���ƣ��۸��������������磬���ߵȵ���Ϣ
+  就可以获取全部商品的页面，然后再定义需要抓取的信息，比如商品名称，价格，评论数，出版社，作者等等信息
 
 
-Ƶ������Ϣ���Դӵ�һ��������ַ������ https://channel.jd.com/p_wenxuezongheguan.html ��Դ���л�ȡ��
+频道号信息可以从第一级子类网址，比如 https://channel.jd.com/p_wenxuezongheguan.html 的源码中获取到
 
-==������˼·��
-����ȡ https://book.jd.com/ ҳ�棬��ȡ�����ݵ�URL (������ѧ�ݵȡ�����)
-������ȡ�����ݣ�Ȼ��õ�ÿ��Ƶ��ID
-��ȡÿ��Ƶ��ID����ȡÿ��Ƶ����ҳ��
-������ȡÿ��Ƶ��ID�µ�ÿ��ҳ�棬��ȡitems.py�ж������Ϣ
+==》总体思路：
+先爬取 https://book.jd.com/ 页面，提取各个馆的URL (比如文学馆等。。。)
+依次爬取各个馆，然后得到每个频道ID
+爬取每个频道ID，获取每个频道的页数
+依次爬取每个频道ID下的每个页面，提取items.py中定义的信息

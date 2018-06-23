@@ -25,7 +25,7 @@ class N1Spider(scrapy.Spider):
             yield Request(self.allurl[m],callback=self.next)
     ##，需要在parse函数中配置一个while循环，使用time.sleep()函数来控制延时；
 
-    ##next函数中解析没有栏目的js数据，从中提取中每个新闻的url,
+    ##next函数中解析每个栏目的js数据，从中提取中每个新闻的url,
     def next(self, response):
         data=response.body.decode("utf-8","ignore")
         pat1='"url":"(.*?)"'

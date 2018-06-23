@@ -38,6 +38,7 @@ class LoginSpider(scrapy.Spider):
         ##这里是登录成功的页面，而我们要访问的是个人中心，所以需要再提交一个请求，且是登录状态下
         print(response.xpath("/html/head/title/text()").extract())
         yield Request("http://edu.iqianyue.com/index_user_index.html",callback=self.next2,meta={"cookiejar":True})
+        # yield Request("http://edu.iqianyue.com/index_user_index.html",callback=self.next2) ##如果没有配置cookie,它会输出 “调整提示”，即无法访问到用户中心，切记，cookie的使用
         #"cookiejar":True 表示要保持登陆状态
     def next2(self,response):
         fh=open("2st_page.html",'wb')
@@ -45,3 +46,9 @@ class LoginSpider(scrapy.Spider):
         fh.write(data)
         fh.close()
         print(response.xpath("/html/head/title/text()").extract())
+
+"""
+此例重点总结：
+1.使用fiddler 抓取post提交到的URL地址和 字段格式
+2.多次请求过程中，需要记录cookie
+"""

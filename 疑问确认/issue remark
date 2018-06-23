@@ -1,0 +1,5 @@
+https://blog.csdn.net/yhj19920417/article/details/51916830
+解决办法：以管理员身份运行 cmd,后，重新开启即可：
+C:\WINDOWS\system32>net start mysql
+MySQL 服务正在启动 ..
+MySQL 服务已经启动成功。
