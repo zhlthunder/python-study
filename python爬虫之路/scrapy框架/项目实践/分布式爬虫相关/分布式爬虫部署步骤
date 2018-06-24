@@ -1,0 +1,121 @@
+采用docker虚拟容器技术；
+使用 Docker+Redis+Urllib+Mysql 架构进行部署；
+
+基础镜像使用ubuntu:14.04,有了基础镜像之后，我们必须在基础镜像上安装 python3, pip，mysql,redis, 也可以安装scrapy;
+
+yum (centos)==> apt-get(ubuntu)
+
+比如安装完上面这些的软件的镜像为 mycrawl.rar
+
+docker load --input mycrawl.rar  //将压缩文件还原为镜像；
+
+docker images //查看一下是否加载成功
+
+相反的：
+docker save -o /mytest.tar  IMAGE_ID的前4位  //将镜像封装为文件，便于文件的传输；
+
+
+step1:创建中心节点
+docker run -tid --name center IMAGE_ID的前4位
+docker ps -a //查看是否创建结束
+
+step2:配置中心节点， 默认redis和mysql不支持远程连接，需要进行配置；
+
+docker attach container_id前4位  //进入中心节点容器
+cat /etc/hosts  //查看当前容器的网络信息
+/etc/init.d/mysql restart  //开启mysql服务
+mysql -h 127.0.0.1 -u root -p ***  本地连接服务器，确认可以连接
+但使用非127.0.0.1的IP确认，拒绝连接；
+需要进行配置：
+vi /etc/mysql/my.cnf
+"bind-address=127.0.0.1" ==>"#bind-address=127.0.0.1" 注释掉这行
+/etc/init.d/mysql restart  //重启mysql服务
+继续使用非127.0.0.1的IP确认，此时IP可以连接，但是远程连接不允许使用root用户，这是mysql内部机制规定的（切记）
+所以，需要新创建一个用户用于远程连接用；
+先以root用户登录进入mysql交互模式下，再执行：
+create user "zhl"@"%" identified by "123456";  //创建一个新用户zhl,允许在任意主机上远程登录，密码为123456
+grant create,select,update,delete,insert on *.* to zhl; //为zhl用户在  所有的数据库.所有的表 上赋予create,select,update,delete,insert 这些权限；
+退出mysql后，使用非127.0.0.1，使用zhl用户进行连接确认， 确认正常，至此配置完成；
+
+
+step 3: 配置中心节点， 配置redis服务的远程连接；
+/etc/init.d/redis-server restart 启动服务
+redis-cli -h 127.0.0.1 -p 6379  //确认可以连接
+redis-cli -h 其它IP  -p 6379  //拒绝访问
+配置一下：
+vi /etc/redis/redis.conf
+"bind 127.0.0.1" ==>"#bind 127.0.0.1"  注释掉
+/etc/init.d/redis-server restart 重启服务
+继续确认：
+redis-cli -h 其它IP  -p 6379  //如果还是继续访问，那就需要把容器重启一下；
+重启容器的方法：
+退出容器，
+ docker stop container_id前4位
+  docker start container_id前4位
+  docker attach container_id前4位
+  /etc/init.d/redis-server restart 重启服务
+  再进行确认，应该就可以访问了。
+
+  不停止退出中心节点的容器： ctrl+p+q
+
+step4: 准备子节点并调试
+docker images //查看镜像
+docker run -tid --name c1 --link center IMAGE_ID的前4位 //创建子节点容器，特别关注 --link参数；
+docker attach container_id前4位 //进入子节点容器
+cat /etc/hosts  可以查看到center节点的IP信息， 可以确认一下是否可以ping通
+
+mysql -h 172.17.0.8(center节点的IP) -u zhl -p **  //确认中心节点上的mysql是否可以访问
+redis -h 172.17.0.8(center节点的IP) -p 6379   //确认中心节点上的redis是否可以连接；
+
+step 5:在子节点中部署分布式爬虫脚本；
+需求：编写一个简单的分布式爬虫取爬取17K的小说名；
+对应的文件为： 爬虫文件.py
+
+将爬虫文件.py 放到子节点的任意目录下，调试运行一下，确认可以运行即可；
+exit  退出当前的子节点容器；
+
+step 6:将当前已经调试好的子节点的容器封装为镜像；
+docker commit container_id前4位  crawl:zjd //提交镜像
+docker images   //查看提交后的镜像；
+
+step7: 使用新创建的镜像创建新的子节点容器
+docker run -tid --name c2 --link center image_id前4位
+docker run -tid --name c3 --link center image_id前4位
+docker run -tid --name c4 --link center image_id前4位
+
+docker ps -a 查看所有的子节点
+依次进入每个子节点，运行爬虫：
+docker attach c1
+python 爬虫文件.py
+不停止退出：ctrl+p+q
+
+docker attach c2
+python 爬虫文件.py
+不停止退出：ctrl+p+q
+
+.......
+
+
+然后进入center节点：
+docker attach center
+redis-cli 进入redis
+hgetall rst
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

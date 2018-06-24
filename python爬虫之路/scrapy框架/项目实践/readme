@@ -1,3 +1,9 @@
+各项目的状态：
+baidunews---待微调；
+其它都已经全部完成调试；
+
+
+
 任务：当当网商品爬取实战
 
 1.先找一个路径，执行scrapy startproject dangdang 创建一个项目；

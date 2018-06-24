@@ -8,4 +8,13 @@
 
 class JdgoodsPipeline(object):
     def process_item(self, item, spider):
-        return item
+        print(item['pd1'])
+        print(item['pd2'])
+        print(item['name'])
+        print(item['price'])
+        print(item['pnum'])
+        print(item['author'])
+        print(item['pub'])
+        print(item['seller'])
+
+        # return item

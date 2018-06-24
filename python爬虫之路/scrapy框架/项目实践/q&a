@@ -1,76 +1,86 @@
-ÏîÄ¿£ºbaidunews ÎÊÌâ£º
-1.ÔÚÔËĞĞÅÀ³æ¼¸´Îºó£¬¾ÍÔÙÒ²·ÃÎÊ²»ÁËÁË£¬ÍÆ²âÊÇ·şÎñÆ÷¶Ë×öÁËÏŞÖÆ£»
-2018-03-24 17:11:43 [scrapy.downloadermiddlewares.retry] DEBUG: Retrying <GET http://163.com/robots.txt> (failed 2 times): Connection was refused by other side: 10061: ÓÉÓÚÄ¿±ê¼ÆËã»ú»ı¼«¾Ü¾ø£¬ÎŞ·¨Á¬½Ó¡£.
-2018-03-24 17:11:44 [scrapy.downloadermiddlewares.retry] DEBUG: Gave up retrying <GET http://163.com/robots.txt> (failed 3 times): Connection was refused by other side: 10061: ÓÉÓÚÄ¿±ê¼ÆËã»ú»ı¼«¾Ü¾ø£¬ÎŞ·¨Á¬½Ó¡£.
-2018-03-24 17:11:44 [scrapy.downloadermiddlewares.robotstxt] ERROR: Error downloading <GET http://163.com/robots.txt>: Connection was refused by other side: 10061: ÓÉÓÚÄ¿±ê¼ÆËã»ú»ı¼«¾Ü¾ø£¬ÎŞ·¨Á¬½Ó¡£.
-twisted.internet.error.ConnectionRefusedError: Connection was refused by other side: 10061: ÓÉÓÚÄ¿±ê¼ÆËã»ú»ı¼«¾Ü¾ø£¬ÎŞ·¨Á¬½Ó¡£.
-2018-03-24 17:11:54 [scrapy.downloadermiddlewares.retry] DEBUG: Retrying <GET http://163.com/> (failed 1 times): Connection was refused by other side: 10061: ÓÉÓÚÄ¿±ê¼ÆËã»ú»ı¼«¾Ü¾ø£¬ÎŞ·¨Á¬½Ó¡£.
-2018-03-24 17:11:55 [scrapy.downloadermiddlewares.retry] DEBUG: Retrying <GET http://163.com/> (failed 2 times): Connection was refused by other side: 10061: ÓÉÓÚÄ¿±ê¼ÆËã»ú»ı¼«¾Ü¾ø£¬ÎŞ·¨Á¬½Ó¡£.
-2018-03-24 17:11:56 [scrapy.downloadermiddlewares.retry] DEBUG: Gave up retrying <GET http://163.com/> (failed 3 times): Connection was refused by other side: 10061: ÓÉÓÚÄ¿±ê¼ÆËã»ú»ı¼«¾Ü¾ø£¬ÎŞ·¨Á¬½Ó¡£.
-2018-03-24 17:11:56 [scrapy.core.scraper] ERROR: Error downloading <GET http://163.com/>: Connection was refused by other side: 10061: ÓÉÓÚÄ¿±ê¼ÆËã»ú»ı¼«¾Ü¾ø£¬ÎŞ·¨Á¬½Ó¡£.
+ï¿½ï¿½Ä¿ï¿½ï¿½baidunews ï¿½ï¿½ï¿½â£º
+1.ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½æ¼¸ï¿½Îºó£¬¾ï¿½ï¿½ï¿½Ò²ï¿½ï¿½ï¿½Ê²ï¿½ï¿½ï¿½ï¿½Ë£ï¿½ï¿½Æ²ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ£ï¿½
+2018-03-24 17:11:43 [scrapy.downloadermiddlewares.retry] DEBUG: Retrying <GET http://163.com/robots.txt> (failed 2 times): Connection was refused by other side: 10061: ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü¾ï¿½ï¿½ï¿½ï¿½Ş·ï¿½ï¿½ï¿½ï¿½Ó¡ï¿½.
+2018-03-24 17:11:44 [scrapy.downloadermiddlewares.retry] DEBUG: Gave up retrying <GET http://163.com/robots.txt> (failed 3 times): Connection was refused by other side: 10061: ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü¾ï¿½ï¿½ï¿½ï¿½Ş·ï¿½ï¿½ï¿½ï¿½Ó¡ï¿½.
+2018-03-24 17:11:44 [scrapy.downloadermiddlewares.robotstxt] ERROR: Error downloading <GET http://163.com/robots.txt>: Connection was refused by other side: 10061: ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü¾ï¿½ï¿½ï¿½ï¿½Ş·ï¿½ï¿½ï¿½ï¿½Ó¡ï¿½.
+twisted.internet.error.ConnectionRefusedError: Connection was refused by other side: 10061: ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü¾ï¿½ï¿½ï¿½ï¿½Ş·ï¿½ï¿½ï¿½ï¿½Ó¡ï¿½.
+2018-03-24 17:11:54 [scrapy.downloadermiddlewares.retry] DEBUG: Retrying <GET http://163.com/> (failed 1 times): Connection was refused by other side: 10061: ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü¾ï¿½ï¿½ï¿½ï¿½Ş·ï¿½ï¿½ï¿½ï¿½Ó¡ï¿½.
+2018-03-24 17:11:55 [scrapy.downloadermiddlewares.retry] DEBUG: Retrying <GET http://163.com/> (failed 2 times): Connection was refused by other side: 10061: ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü¾ï¿½ï¿½ï¿½ï¿½Ş·ï¿½ï¿½ï¿½ï¿½Ó¡ï¿½.
+2018-03-24 17:11:56 [scrapy.downloadermiddlewares.retry] DEBUG: Gave up retrying <GET http://163.com/> (failed 3 times): Connection was refused by other side: 10061: ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü¾ï¿½ï¿½ï¿½ï¿½Ş·ï¿½ï¿½ï¿½ï¿½Ó¡ï¿½.
+2018-03-24 17:11:56 [scrapy.core.scraper] ERROR: Error downloading <GET http://163.com/>: Connection was refused by other side: 10061: ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü¾ï¿½ï¿½ï¿½ï¿½Ş·ï¿½ï¿½ï¿½ï¿½Ó¡ï¿½.
 
-½â¾ö·½·¨²Î¿¼£ºhttps://blog.csdn.net/haipengdai/article/details/48545231
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î¿ï¿½ï¿½ï¿½https://blog.csdn.net/haipengdai/article/details/48545231
 
-ÔËĞĞÊ±Óöµ½µÄĞÂµÄÎÊÌâ½â¾öÇë²Î¿¼£º
+ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Âµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î¿ï¿½ï¿½ï¿½
 https://blog.csdn.net/x631617479/article/details/72519086
 
-ĞèÒª°ÑÉÏÃæµÄsetttingsÖĞµÄ example -->baidunews£¬Õâ¸ö¹ÊÕÏ¸ÄÉÆÁË¡£
-µ«¼ÌĞø²âÊÔÊ±£¬»¹ÊÇ±¨ÏàÍ¬µÄ´íÎó£¬¼´·şÎñÆ÷¾Ü¾ø·ÃÎÊ¡£
-==¡·×îÖÕ´ò¿ªfiddlerÈí¼şºó£¬¹ÊÕÏÏûÊ§ÁË£¬ºÃ¿ÓÑ½£¬ÔçÖªµÀÔçµã´ò¿ªfiddlerÁË£¬Ô­ÒòÊÇÊ²Ã´´ıºóĞø¼ÌĞøÈ·ÈÏ£¿£¿£¿£¿£¿£¿
+ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½setttingsï¿½Ğµï¿½ example -->baidunewsï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½Ç±ï¿½ï¿½ï¿½Í¬ï¿½Ä´ï¿½ï¿½ó£¬¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü¾ï¿½ï¿½ï¿½ï¿½Ê¡ï¿½
+==ï¿½ï¿½ï¿½ï¿½ï¿½Õ´ï¿½fiddlerï¿½ï¿½ï¿½ï¿½ó£¬¹ï¿½ï¿½ï¿½ï¿½ï¿½Ê§ï¿½Ë£ï¿½ï¿½Ã¿ï¿½Ñ½ï¿½ï¿½ï¿½ï¿½Öªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½fiddlerï¿½Ë£ï¿½Ô­ï¿½ï¿½ï¿½ï¿½Ê²Ã´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È·ï¿½Ï£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 
 2.
 
-ÔÚÍøÒ³¶à²ãµÄÇé¿öÏÂ£¬Ö»Ö´ĞĞÁË1²ã¡£µÚ¶ş²ãµÄyield Requset²»Ö´ĞĞ
-ÎÊÌâÃèÊö£ºÔÚn1ÅÀ³æÖĞ£¬ µÚÒ»²ãnextÖĞµÄreauest¿ÉÒÔÖ´ĞĞ£¬µÚ¶ş²ãnext2ÖĞµÄrequestÒ»Ö±Ã»ÓĞ·µ»Ø
-½â¾ö°ì·¨£º
-×·¼Ó²ÎÊı£ºdont_filter=True
+ï¿½ï¿½ï¿½ï¿½Ò³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â£ï¿½Ö»Ö´ï¿½ï¿½ï¿½ï¿½1ï¿½ã¡£ï¿½Ú¶ï¿½ï¿½ï¿½ï¿½yield Requsetï¿½ï¿½Ö´ï¿½ï¿½
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½n1ï¿½ï¿½ï¿½ï¿½ï¿½Ğ£ï¿½ ï¿½ï¿½Ò»ï¿½ï¿½nextï¿½Ğµï¿½reauestï¿½ï¿½ï¿½ï¿½Ö´ï¿½Ğ£ï¿½ï¿½Ú¶ï¿½ï¿½ï¿½next2ï¿½Ğµï¿½requestÒ»Ö±Ã»ï¿½Ğ·ï¿½ï¿½ï¿½
+ï¿½ï¿½ï¿½ï¿½ì·¨ï¿½ï¿½
+×·ï¿½Ó²ï¿½ï¿½ï¿½ï¿½ï¿½dont_filter=True
 
 before: Request(thisurl,callback=self.next2)
 after:  Request(thisurl,callback=self.next2,dont_filter=True)
 
-Ô­Òò½âÊÍ£º
+Ô­ï¿½ï¿½ï¿½ï¿½Í£ï¿½
 https://blog.csdn.net/honglicu123/article/details/75453107
-ĞÅÏ¢ÕªÂ¼ÈçÏÂ£º
-ÔÚ scrapy ÖĞ£¬
+ï¿½ï¿½Ï¢ÕªÂ¼ï¿½ï¿½ï¿½Â£ï¿½
+ï¿½ï¿½ scrapy ï¿½Ğ£ï¿½
 scrapy.Request(url, headers=self.header, callback=self.parse_detail)
-µ÷ÊÔµÄÊ±ºò£¬·¢ÏÖ»Øµ÷º¯Êı parse_detail Ã»ÓĞ±»µ÷ÓÃ£¬Õâ¿ÉÄÜ¾ÍÊÇ±»¹ıÂËµôÁË£¬²é¿´ scrapy µÄÊä³öÈÕÖ¾ offsite/filtered »áÏÔÊ¾¹ıÂËµÄÊıÄ¿¡£Õâ¸öÎÊÌâÈçºÎ½â¾öÄØ£¬²é¿´ÊÖ²á·¢ÏÖ(https://doc.scrapy.org/en/latest/faq.html?highlight=offsite%2Ffiltered)Õâ¸öÎÊÌâ£¬ÕâĞ©ÈÕÖ¾ĞÅÏ¢¶¼ÊÇÓÉ scrapy ÖĞµÄÒ»¸ö middleware Å×³öµÄ£¬Èç¹ûÃ»ÓĞ×Ô¶¨Òå£¬ÄÇÃ´Õâ¸ö middleware ¾ÍÊÇÄ¬ÈÏµÄ Offsite Spider Middleware£¬ËüµÄÄ¿µÄ¾ÍÊÇ¹ıÂËµôÄÇĞ©²»ÔÚ allowed_domains ÁĞ±íÖĞµÄÇëÇó requests¡£
+ï¿½ï¿½ï¿½Ôµï¿½Ê±ï¿½ò£¬·ï¿½ï¿½Ö»Øµï¿½ï¿½ï¿½ï¿½ï¿½ parse_detail Ã»ï¿½Ğ±ï¿½ï¿½ï¿½ï¿½Ã£ï¿½ï¿½ï¿½ï¿½ï¿½Ü¾ï¿½ï¿½Ç±ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½Ë£ï¿½ï¿½é¿´ scrapy ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¾ offsite/filtered ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½Ëµï¿½ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î½ï¿½ï¿½ï¿½Ø£ï¿½ï¿½é¿´ï¿½Ö²á·¢ï¿½ï¿½(https://doc.scrapy.org/en/latest/faq.html?highlight=offsite%2Ffiltered)ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½â£¬ï¿½ï¿½Ğ©ï¿½ï¿½Ö¾ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ scrapy ï¿½Ğµï¿½Ò»ï¿½ï¿½ middleware ï¿½×³ï¿½ï¿½Ä£ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½å£¬ï¿½ï¿½Ã´ï¿½ï¿½ï¿½ middleware ï¿½ï¿½ï¿½ï¿½Ä¬ï¿½Ïµï¿½ Offsite Spider Middlewareï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½Ä¾ï¿½ï¿½Ç¹ï¿½ï¿½Ëµï¿½ï¿½ï¿½Ğ©ï¿½ï¿½ï¿½ï¿½ allowed_domains ï¿½Ğ±ï¿½ï¿½Ğµï¿½ï¿½ï¿½ï¿½ï¿½ requestsï¿½ï¿½
 
-ÔÙ´Î²é¿´ÊÖ²áÖĞ¹ØÓÚ OffsiteMiddleware µÄ²¿·Ö(https://doc.scrapy.org/en/latest/topics/spider-middleware.html#scrapy.spidermiddlewares.offsite.OffsiteMiddleware)
-Á½ÖÖ·½·¨ÄÜ¹»Ê¹ requests ²»±»¹ıÂË:
-1. ÔÚ allowed_domains ÖĞ¼ÓÈë url
-2. ÔÚ scrapy.Request() º¯ÊıÖĞ½«²ÎÊı dont_filter=True ÉèÖÃÎª True
+ï¿½Ù´Î²é¿´ï¿½Ö²ï¿½ï¿½Ğ¹ï¿½ï¿½ï¿½ OffsiteMiddleware ï¿½Ä²ï¿½ï¿½ï¿½(https://doc.scrapy.org/en/latest/topics/spider-middleware.html#scrapy.spidermiddlewares.offsite.OffsiteMiddleware)
+ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½Ü¹ï¿½Ê¹ requests ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½:
+1. ï¿½ï¿½ allowed_domains ï¿½Ğ¼ï¿½ï¿½ï¿½ url
+2. ï¿½ï¿½ scrapy.Request() ï¿½ï¿½ï¿½ï¿½ï¿½Ğ½ï¿½ï¿½ï¿½ï¿½ï¿½ dont_filter=True ï¿½ï¿½ï¿½ï¿½Îª True
 
-ÈçÏÂÕª×ÔÊÖ²á
+ï¿½ï¿½ï¿½ï¿½Õªï¿½ï¿½ï¿½Ö²ï¿½
 
-If the spider doesn¡¯t define an allowed_domains attribute, or the attribute is empty, the offsite middleware will allow all requests.
+If the spider doesnï¿½ï¿½t define an allowed_domains attribute, or the attribute is empty, the offsite middleware will allow all requests.
 
 If the request has the dont_filter attribute set, the offsite middleware will allow the request even if its domain is not listed in allowed domains.
 
-3.doubanÏîÄ¿£¬ ÅÀÈ¡ÍøÒ³Ê±ÌáÊ¾£º
+3.doubanï¿½ï¿½Ä¿ï¿½ï¿½ ï¿½ï¿½È¡ï¿½ï¿½Ò³Ê±ï¿½ï¿½Ê¾ï¿½ï¿½
 2018-03-25 20:37:09 [scrapy.core.downloader.tls] WARNING: Remote certificate is not valid for hostname "accounts.douban.com"; '*.douban.com'!='accounts.douban.com'
 2018-03-25 20:37:09 [scrapy.core.engine] DEBUG: Crawled (403) <GET https://accounts.douban.com/login> (referer: None)
 2018-03-25 20:37:09 [scrapy.spidermiddlewares.httperror] INFO: Ignoring response <403 https://accounts.douban.com/login>: HTTP status code is not handled or not allowed
 
-ÀàËÆµÄ´íÎóÇë²Î¿¼:https://blog.csdn.net/iefreer/article/details/34631291
+ï¿½ï¿½ï¿½ÆµÄ´ï¿½ï¿½ï¿½ï¿½ï¿½Î¿ï¿½:https://blog.csdn.net/iefreer/article/details/34631291
 
-ÎÊÌâ
-×¥È¡Êı¾İÊ±£¬Í¨³£µ÷ÊÔĞÅÏ¢ÊÇ£º
+ï¿½ï¿½ï¿½ï¿½
+×¥È¡ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½Ç£ï¿½
 
 DEBUG: Crawled (200) <GET http://www.techbrood.com/> (referer: None)
 
-Èç¹û³öÏÖ
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 DEBUG: Crawled (403) <GET http://www.techbrood.com/> (referer: None)
 
-±íÊ¾ÍøÕ¾²ÉÓÃÁË·ÀÅÀ¼¼Êõanti-web-crawling technique£¨AmazonËùÓÃ£©£¬±È½Ï¼òµ¥¼´»á¼ì²éÓÃ»§´úÀí£¨User Agent£©ĞÅÏ¢¡£
+ï¿½ï¿½Ê¾ï¿½ï¿½Õ¾ï¿½ï¿½ï¿½ï¿½ï¿½Ë·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½anti-web-crawling techniqueï¿½ï¿½Amazonï¿½ï¿½ï¿½Ã£ï¿½ï¿½ï¿½ï¿½È½Ï¼òµ¥¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½User Agentï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½
 
 
-½â¾ö·½·¨
-ÔÚÇëÇóÍ·²¿¹¹ÔìÒ»¸öUser Agent£¬ÈçÏÂËùÊ¾£º
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½User Agentï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½
 
 def start_requests(self):
     yield Request("http://www.techbrood.com/",
                   headers={'User-Agent': "your agent string"})
 
 
+
+
+3.scrapyä½¿ç”¨æ—¶ï¼Œsettings.pyä¸­éœ€è¦é…ç½®çš„éƒ¨åˆ†åŒ…æ‹¬ï¼š
+##é…ç½®å…¨å±€çš„UA
+USER_AGENT = 'Mozilla/5.0 (Windows NT 6.2) AppleWebKit/536.6 (KHTML, like Gecko) Chrome/20.0.1090.0 Safari/536.6'
+
+ROBOTSTXT_OBEY = False  //ä»True æ”¹ä¸ºFalse
+
+
+4. å¼€å¯fiddlerä¼šå¯¼è‡´çˆ¬è™«è¿è¡Œè¯†åˆ«ï¼Œå¯ä»¥å…³æ³¨ä¸€ä¸‹ï¼Œå¦‚æœè¿è¡Œå¾ˆæ…¢ï¼Œå¯ä»¥æŠŠfiddlerå…³é—­åå†è¯•è¯•çœ‹ã€‚

@@ -106,6 +106,15 @@ cat /etc/hosts   //查看容器h2的网络情况，其中包含h1容器的IP地�
 此时可以通过ping h1的IP地址，来验证网络是否通畅；
 
 
+比如安装完上面这些的软件的镜像为 mycrawl.rar
+
+docker load --input mycrawl.rar  //将压缩文件还原为镜像；
+
+docker images //查看一下是否加载成功
+
+相反的：
+docker save -o /mytest.tar  IMAGE_ID的前4位  //将镜像封装为文件，便于文件的传输；
+
 
 
 Redis基础：以unbuntu系统为例

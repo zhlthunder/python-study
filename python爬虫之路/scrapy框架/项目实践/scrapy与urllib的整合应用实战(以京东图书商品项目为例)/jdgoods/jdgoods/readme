@@ -1,0 +1,47 @@
+https://channel.jd.com//p_wenxuezongheguan.html
+
+https://channel.jd.com/p_wenxuezongheguan.html
+
+https://channel.jd.com/p_Comprehensive.html
+
+
+https://book.jd.com//library//socialscience.html
+
+
+因为直接爬取https://book.jd.com/ 时，各个馆的URL都在javascript中，提取遇到的点问题，待继续排查，此处先手动获得各个馆的url
+
+https://channel.jd.com/p_wenxuezongheguan.html
+https://book.jd.com/children.html
+https://book.jd.com/education.html
+https://book.jd.com/library/socialscience.html
+https://channel.jd.com/p_Comprehensive.html
+https://channel.jd.com/1713-3267.html
+https://book.jd.com/library/life.html
+https://channel.jd.com/1713-3262.html
+https://book.jd.com/library/science.html
+https://channel.jd.com/1713-3287.html
+https://channel.jd.com/1713-4855.html
+https://channel.jd.com/1713-6929.html
+https://channel.jd.com/1713-14669.html
+
+
+  ##价格：价格在源码中没有，需用通过抓包分析来获得
+ 通过抓包分析，发现这个URL中保护价格的信息：
+ https://p.3.cn/prices/mgets?callback=jQuery4258333&type=1&area=12_904_905_52654&skuIds=J_30015723%2CJ_30310192%2CJ_30376556%2CJ_30382410%2CJ_30319227%2CJ_30319232%2CJ_30340671%2CJ_30382409%2CJ_30366759%2CJ_30337727%2CJ_30301132%2CJ_30231190%2CJ_30160863%2CJ_30190460%2CJ_30190478%2CJ_30186032%2CJ_30215897%2CJ_30221933%2CJ_30229986%2CJ_30231183%2CJ_30393905&pdbp=0&pdtk=&pdpin=jd_69d238209415e&pduid=1524964837246891877128&source=list_pc_front&_=1529822407289
+进一步分析发现，价格的URL中最关键的是skuIds= 后跟的字段
+然后试着用这个字段的一部分去页面源码中搜索，看看有什么发现；
+推测：页面源码中应该保护每个书籍的id的信息，然后通过json文件为每个书籍传递价格的参数；
+==》至此，可以得出一个通用的结论，一般涉及ID相关的，肯定不会是随机产生的，一定可以在源码中找到相关的信息，切记；
+==》最终得出每个商品价格的最简URL:https://p.3.cn/prices/mgets?callback=jQuery4258333&type=1&skuIds=J_12220352    ,只需求从源码中获取skuIds，组合URL后就可以获得价格了。
+
+通过分析源码：
+<a data-sku="11962983" href="//cart.jd.com/gate.action?pid=11962983&pcount=1&ptype=1"><i></i>加入购物车</a>
+ 发现这个字段中就包含每个上的skuIds，这就是我们要找的关联信息；
+
+
+##评论数，从源码中也找不到，需要进行抓包分析：
+
+经过分析，评论数应该保护在类似下面的这些URL中：
+https://club.jd.com/comment/productCommentSummaries.action?my=pinglun&referenceIds=12082337,12233812,12200833,12032751,11443719,11994876,12079950,12065873,11943030,12068921,11920270,11980654,12094689&callback=jQuery8661670&_=1529824675167
+精简的url:
+https://club.jd.com/comment/productCommentSummaries.action?my=pinglun&referenceIds=11443719

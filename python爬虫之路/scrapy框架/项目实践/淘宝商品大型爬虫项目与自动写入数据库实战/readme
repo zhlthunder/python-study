@@ -1,0 +1,61 @@
+C:\Users\lin\PycharmProjects\python_study_1s\python_study\git-zhl\python-study\python爬虫之路\scrapy框架\项目实践\淘宝商品大型爬虫项目与自动写入数据库实战>scrapy startproject shop
+New Scrapy project 'shop', using template directory 'c:\\python3\\lib\\site-packages\\scrapy\\templates\\project', created in:
+    C:\Users\lin\PycharmProjects\python_study_1s\python_study\git-zhl\python-study\python爬虫之路\scrapy框架\项目实践\淘宝商品大型爬虫项目与自动写入数据库实战\shop
+
+You can start your first spider with:
+    cd shop
+    scrapy genspider example example.com
+
+C:\Users\lin\PycharmProjects\python_study_1s\python_study\git-zhl\python-study\python爬虫之路\scrapy框架\项目实践\淘宝商品大型爬虫项目与自动写入数据库实战>cd shop
+
+C:\Users\lin\PycharmProjects\python_study_1s\python_study\git-zhl\python-study\python爬虫之路\scrapy框架\项目实践\淘宝商品大型爬虫项目与自动写入数据库实战\shop>scrapy genspider -t basic tb taobao.com
+Created spider 'tb' using template 'basic' in module:
+  shop.spiders.tb
+
+
+
+https://s.taobao.com/search?q=%E5%9D%9A%E6%9E%9C&imgfile=&js=1&stats_click=search_radio_all%3A1&initiative_id=staobaoz_20180624&ie=utf8
+==》
+精简url:
+https://s.taobao.com/search?q=%E5%9D%9A%E6%9E%9C&js=1&stats_click=search_radio_all%3A1&ie=utf8
+
+翻页：
+https://s.taobao.com/search?q=%E5%9D%9A%E6%9E%9C&imgfile=&js=1&stats_click=search_radio_all%3A1&initiative_id=staobaoz_20180624&ie=utf8&bcoffset=3&ntoffset=3&p4ppushleft=1%2C48&s=44
+https://s.taobao.com/search?q=%E5%9D%9A%E6%9E%9C&imgfile=&js=1&stats_click=search_radio_all%3A1&initiative_id=staobaoz_20180624&ie=utf8&bcoffset=0&ntoffset=6&p4ppushleft=1%2C48&s=88
+==》页码通过s字段控制的。
+
+==>最终url;
+https://s.taobao.com/search?q=%E5%9D%9A%E6%9E%9C&js=1&stats_click=search_radio_all%3A1&ie=utf8&s=n*44
+
+
+每一页上，如果要爬取商品的详细信息，建议点击商品的链接，进入每个商品的商品页。
+取一个商品页的URL:
+https://detail.tmall.com/item.htm?id=16204910274&cm_id=140105335569ed55e27b&abbucket=2&skuId=3846258118962
+==>精简：
+
+从这个URL进行分析，就会发现，商品的id是最重要的信息， 所有，我们首先需要做的就是从每一页的源码中获取全部商品的id，
+然后再构造每个商品页URL，爬取这个商品页的URL后，再获取需要的各种信息 ； ==》这就是这个需求的整个的思路。
+
+q&a:
+在网页多层的情况下，只执行了1层。第二层的yield Requset不执行
+问题描述：在n1爬虫中， 第一层next中的reauest可以执行，第二层next2中的request一直没有返回
+解决办法：
+追加参数：dont_filter=True
+
+before: Request(thisurl,callback=self.next2)
+after:  Request(thisurl,callback=self.next2,dont_filter=True)
+
+
+
+评论的URL:
+https://dsr-rate.tmall.com/list_dsr_info.htm?itemId=45709163020&spuId=337633134&sellerId=725677994&_ksTS=1529842349787_214&callback=jsonp215
+精简的url:
+https://dsr-rate.tmall.com/list_dsr_info.htm?itemId=45709163020
+
+
+创建数据库：
+mysql> create database tb DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+Query OK, 1 row affected (0.00 sec)
+
+执行下面的sql语句，创建一个数据表goods
+mysql> create table ttb(id int(32) auto_increment primary key,title varchar(100),link varchar(100) unique,price varchar(100),comment varchar(100))；

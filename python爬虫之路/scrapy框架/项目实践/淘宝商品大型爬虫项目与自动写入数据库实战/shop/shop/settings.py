@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Scrapy settings for jdgoods project
+# Scrapy settings for shop project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -9,15 +9,14 @@
 #     https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://doc.scrapy.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = 'jdgoods'
+BOT_NAME = 'shop'
 
-SPIDER_MODULES = ['jdgoods.spiders']
-NEWSPIDER_MODULE = 'jdgoods.spiders'
+SPIDER_MODULES = ['shop.spiders']
+NEWSPIDER_MODULE = 'shop.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = 'jdgoods (+http://www.yourdomain.com)'
-##配置全局的UA
+#USER_AGENT = 'shop (+http://www.yourdomain.com)'
 USER_AGENT = 'Mozilla/5.0 (Windows NT 6.2) AppleWebKit/536.6 (KHTML, like Gecko) Chrome/20.0.1090.0 Safari/536.6'
 
 # Obey robots.txt rules
@@ -49,13 +48,13 @@ ROBOTSTXT_OBEY = False
 # Enable or disable spider middlewares
 # See https://doc.scrapy.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
-#    'jdgoods.middlewares.JdgoodsSpiderMiddleware': 543,
+#    'shop.middlewares.ShopSpiderMiddleware': 543,
 #}
 
 # Enable or disable downloader middlewares
 # See https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
 #DOWNLOADER_MIDDLEWARES = {
-#    'jdgoods.middlewares.JdgoodsDownloaderMiddleware': 543,
+#    'shop.middlewares.ShopDownloaderMiddleware': 543,
 #}
 
 # Enable or disable extensions
@@ -66,12 +65,8 @@ ROBOTSTXT_OBEY = False
 
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    'jdgoods.pipelines.JdgoodsPipeline': 300,
-#}
-
 ITEM_PIPELINES = {
-   'jdgoods.pipelines.JdgoodsPipeline': 300,
+   'shop.pipelines.ShopPipeline': 300,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
