@@ -1,0 +1,15 @@
+介绍：
+beautifulsoup 和 xpath表达式功能类似，也是用于信息的筛选和提取用的。
+Beautiful Soup 是一个可以从HTML或XML文件中提取数据的Python库.它能够通过你喜欢
+的转换器实现惯用的文档导航,查找,修改文档的方式.Beautiful Soup会帮你节省数小时甚至数天的工作时间.
+
+
+模板安装：
+下载地址：https://pypi.org/project/beautifulsoup4/#files
+下载版本： beautifulsoup4-4.6.0-py3-none-any.whl
+安装：
+C:\Users\lin\PycharmProjects\python_study_1s\python_study\git-zhl\python-study\python爬虫之路\beautifulsoup基础>pip install beautifulsoup4-4.6.0-py3-none-any.whl
+Processing c:\users\lin\pycharmprojects\python_study_1s\python_study\git-zhl\python-study\python爬虫之路\beautifulsoup基础\beautifulsoup4-4.6.0-py3-none-any.whl
+Installing collected packages: beautifulsoup4
+Successfully installed beautifulsoup4-4.6.0
+
