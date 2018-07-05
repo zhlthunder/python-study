@@ -1,0 +1,24 @@
+
+"""
+在 多进程对象.py调用这个模块执行时，一直报下面的错误，
+排查结果：是因为这个模块的名字 subprocess和系统内置模块重名了，切记不要再犯类似的错误了；
+解决对策： 将subprocess.py ==>zhlprocess.py
+Traceback (most recent call last):
+  File "C:/Users/lin/PycharmProjects/python_study_1s/python_study/git-zhl/python-study/python 基础/进程和线程/9_封装多进程对象/多进程对象.py", line 13, in <module>
+    p.start()
+  File "C:\python3\lib\multiprocessing\process.py", line 105, in start
+    self._popen = self._Popen(self)
+  File "C:\python3\lib\multiprocessing\context.py", line 223, in _Popen
+    return _default_context.get_context().Process._Popen(process_obj)
+  File "C:\python3\lib\multiprocessing\context.py", line 321, in _Popen
+    from .popen_spawn_win32 import Popen
+  File "C:\python3\lib\multiprocessing\popen_spawn_win32.py", line 8, in <module>
+    from . import spawn
+  File "C:\python3\lib\multiprocessing\spawn.py", line 19, in <module>
+    from . import util
+  File "C:\python3\lib\multiprocessing\util.py", line 17, in <module>
+    from subprocess import _args_from_interpreter_flags
+ImportError: cannot import name '_args_from_interpreter_flags'
+
+
+"""
