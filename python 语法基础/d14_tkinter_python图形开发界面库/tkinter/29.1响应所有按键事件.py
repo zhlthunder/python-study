@@ -11,5 +11,12 @@ win.geometry("400x400+200+0")
 
 
 
+def func(event):
+    print("char=",event.char)
+    print("keycode=",event.keycode)
+
+##直接给整个窗口设置键盘事件；
+win.bind("<Key>",func)
+
 
 win.mainloop()
