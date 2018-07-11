@@ -28,6 +28,7 @@ def parse():
     praser = PDFParser(fp)
     # 创建一个PDF文档
     doc = PDFDocument()
+
     # 连接分析器 与文档对象
     praser.set_document(doc)
     doc.set_parser(praser)

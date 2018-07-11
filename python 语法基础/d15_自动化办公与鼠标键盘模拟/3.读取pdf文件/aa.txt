@@ -446,3 +446,227 @@ WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER OR NOT ADVISED O
 THE POSSIBILITY OF DAMAGE, AND ON ANY THEORY OF LIABILITY, ARISING OUT OF OR IN 
 CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. 
 
+ThirdParty Legal Notices 
+
+This product may include software licensed under terms that require Adobe to display the following notices: 
+Portions Licensed under Mozilla Public License Version 1.1, available at www.mozilla.org. 
+
+The contents of this file are subject to the Netscape Public 
+          License Version 1.1 (the "License"); you may not use this file 
+          except in compliance with the License. You may obtain a copy of 
+          the License at http://www.mozilla.org/NPL/ 
+
+          Software distributed under the License is distributed on an "AS 
+          IS" basis, WITHOUT WARRANTY OF ANY KIND, either express or 
+          implied. See the License for the specific language governing 
+          rights and limitations under the License. 
+
+          The Original Code is Mozilla Communicator client code, released 
+          March 31, 1998. 
+
+          The Initial Developer of the Original Code is Netscape 
+          Communications Corporation. Portions created by Netscape are 
+          Copyright (C) 1998-1999 Netscape Communications Corporation. All 
+          Rights Reserved. 
+
+Copyright (C) 1995-1997 Eric Young (eay@mincom.oz.au) All rights reserved. 
+
+This package is an SSL implementation written by Eric Young (eay@mincom.oz.au). 
+The implementation was written so as to conform with Netscapes SSL. 
+
+This library is free  for commercial and non-commercial use as long as the following conditions are adhered to. The 
+following conditions apply to all code found in this distribution including RC4, RSA, lhash, DES, etc... The SSL 
+documentation included with this distribution is covered by the same copyright terms except the  holder is Tim Hudson 
+(tjh@cryptosoft.com). 
+
+Copyright remains Eric Young's, and as such any Copyright notices in the code are not to be removed. 
+
+If this package is used in a product, Eric Young should be given attribution as the author of the parts of the library used. 
+This can be in the form of a textual message at program startup or in documentation (online or textual) provided with 
+the package. 
+
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the 
+following conditions are met: 
+
+1. Redistributions of source code must retain the copyright notice, this list of conditions and the following disclaimer. 
+ 2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following 
+disclaimer in the documentation and/or other materials provided with the distribution. 
+ 3. All advertising materials mentioning features or use of this software must display the following acknowledgement: 
+"This product includes cryptographic software written by Eric Young (eay@cryptsoft.com" 
+The word 'cryptographic' can be left out if the rouines from the library  being used are not cryptographic related :-). 
+ 4. If you include any Windows specific code (or a derivative thereof) from  the apps directory (application code) you 
+must include an acknowledgement:  "This product includes software written by Tim Hudson (tjh@cryptsoft.com)" 
+
+THIS SOFTWARE IS PROVIDED BY ERIC YOUNG "AS IS" AND ANY EXPRESS OR IMPLIED 
+WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
+MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT 
+SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+
+SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
+PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR 
+BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
+CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN 
+ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH 
+DAMAGE. 
+
+The licence and distribution terms for any publically available version or derivative of this code cannot be changed.  i.e. 
+this code cannot simply be copied and put under another distribution licence [including the GNU Public Licence.] 
+
+Copyright (c) 1988-1997 Sam Leffler 
+Copyright (c) 1991-1997 Silicon Graphics, Inc. 
+
+Permission to use, copy, modify, distribute, and sell this software and its documentation for any purpose is hereby 
+granted without fee, provided that (i) the above copyright notices and this permission notice appear in all copies of the 
+software and related documentation, and (ii) the names of Sam Leffler and Silicon Graphics may not be used in any 
+advertising or publicity relating to the software without the specific, prior written permission of Sam Leffler and 
+Silicon Graphics. 
+
+THE SOFTWARE IS PROVIDED "AS-IS" AND WITHOUT WARRANTY OF ANY KIND,  EXPRESS, IMPLIED 
+OR OTHERWISE, INCLUDING WITHOUT LIMITATION, ANY  WARRANTY OF MERCHANTABILITY OR 
+FITNESS FOR A PARTICULAR PURPOSE.   
+
+IN NO EVENT SHALL SAM LEFFLER OR SILICON GRAPHICS BE LIABLE FOR ANY SPECIAL, 
+INCIDENTAL, INDIRECT OR CONSEQUENTIAL DAMAGES OF ANY KIND, OR ANY DAMAGES 
+WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER OR NOT ADVISED OF 
+THE POSSIBILITY OF DAMAGE, AND ON ANY THEORY OF  LIABILITY, ARISING OUT OF OR IN 
+CONNECTION WITH THE USE OR PERFORMANCE  OF THIS SOFTWARE. 
+
+Copyright (c) 1998-2001 Greg Roelofs.  All rights reserved. 
+
+This software is provided "as is," without warranty of any kind, express or implied.  In no event shall the author or 
+contributors be held liable for any damages arising in any way from the use of this software. 
+
+Permission is granted to anyone to use this software for any purpose, including commercial applications, and to alter it 
+and redistribute it freely, subject to the following restrictions: 
+
+1. Redistributions of source code must retain the above copyright notice, disclaimer, and this list of conditions. 
+2. Redistributions in binary form must reproduce the above copyright notice, disclaimer, and this list of conditions in 
+the documentation and/or other materials provided with the distribution. 
+3. All advertising materials mentioning features or use of this software must display the following acknowledgment: 
+
+This product includes software developed by Greg Roelofs and contributors for the book, "PNG: The Definitive 
+Guide," published by O'Reilly and Associates. 
+
+This Software based in part on the work of the Independent JPEG Group. 
+
+This Software was developed in part by the University of Southern California, Information Sciences Institute. 
+
+Copyright (c) 1997 Greg Ward Larson 
+Copyright (c) 1997 Silicon Graphics, Inc. 
+
+Permission to use, copy, modify, distribute, and sell this software and its documentation for any purpose is hereby 
+granted without fee, provided that (i) the above copyright notices and this permission notice appear in all copies of the 
+
+software and related documentation, and (ii) the names of Sam Leffler, Greg Larson and Silicon Graphics may not be 
+used in any advertising or publicity relating to the software without the specific, prior written permission of Sam 
+Leffler, Greg Larson and Silicon Graphics. 
+
+THE SOFTWARE IS PROVIDED "AS-IS" AND WITHOUT WARRANTY OF ANY KIND,  
+EXPRESS, IMPLIED OR OTHERWISE, INCLUDING WITHOUT LIMITATION, ANY  
+WARRANTY OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.   
+
+IN NO EVENT SHALL SAM LEFFLER, GREG LARSON OR SILICON GRAPHICS BE LIABLE FOR ANY 
+SPECIAL, INCIDENTAL, INDIRECT OR CONSEQUENTIAL DAMAGES OF ANY KIND, OR ANY DAMAGES 
+WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER OR NOT ADVISED OF 
+THE POSSIBILITY OF DAMAGE, AND ON ANY THEORY OF LIABILITY, ARISING OUT OF OR IN 
+CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. 
+
+Copyright 1991 by the Massachusetts Institute of Technology 
+
+Permission to use, copy, modify, distribute, and sell this software and its documentation for any purpose is hereby 
+granted without fee, provided that the above copyright notice appear in all copies and that both that copyright notice 
+and this permission notice appear in supportingdocumentation, and that the name of M.I.T. not be used in advertising 
+orpublicity pertaining to distribution of the software without specific,written prior permission.  M.I.T. makes no 
+representations about thesuitability of this software for any purpose.  It is provided "as is"without express or implied 
+warranty. 
+
+Copyright (c) 1994 
+Hewlett-Packard Company 
+
+Permission to use, copy, modify, distribute and sell this software and its documentation for any purpose is hereby 
+granted without fee, provided that the above copyright notice appear in all copies and that both that copyright notice 
+and 
+this permission notice appear in supporting documentation. Hewlett-Packard Company makes no representations about 
+the suitability of this software for any purpose. It is provided "as is" without express or implied warranty. 
+
+Pool.c_Copyright 1987 - NeXT, Inc.      and   Graphics.c_Copyright  1988 NeXT, Inc. as an unpublished work.  All 
+Rights Reserved. 
+
+Copyright (c) 1990 The Regents of the University of California. 
+All rights reserved. 
+
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the 
+following conditions are met: 
+1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following 
+disclaimer. 
+2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following 
+disclaimer in the documentation and/or other materials provided with the distribution. 
+3. All advertising materials mentioning features or use of this software must display the following acknowledgement: 
+This product includes software developed by the University of California, Berkeley and its contributors. 
+4. Neither the name of the University nor the names of its contributors may be used to endorse or promote products 
+derived from this software without specific prior written permission. 
+
+THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR 
+IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF 
+MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT 
+SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, 
+PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR 
+BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
+
+CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN 
+ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH 
+DAMAGE. 
+
+Copyright 1990, David Koblas.                                     
+Permission to use, copy, modify, and distribute this software and its documentation for any purpose and without fee is 
+hereby granted, provided that the above copyright notice appear in all copies and that both that copyright notice and 
+this permission notice appear in supporting documentation.  This software is provided "as is" without express or 
+implied warranty. 
+
+Mach Operating System 
+Copyright (c) 1991,1990,1989 Carnegie Mellon University 
+All Rights Reserved. 
+
+Permission to use, copy, modify and distribute this software and its documentation is hereby granted, provided that 
+both the copyright notice and this permission notice appear in all copies of the software, derivative works or modified 
+versions, and any portions thereof, and that both notices appear in supporting documentation. 
+
+CARNEGIE MELLON ALLOWS FREE USE OF THIS SOFTWARE IN ITS "AS IS" CONDITION.  CARNEGIE 
+MELLON DISCLAIMS ANY LIABILITY OF ANY KIND FOR ANY DAMAGES WHATSOEVER RESULTING 
+FROM THE USE OF THIS SOFTWARE. 
+
+Carnegie Mellon requests users of this software to return to Software Distribution Coordinator  or  
+Software.Distribution@CS.CMU.EDU 
+School of Computer Science 
+Carnegie Mellon University 
+Pittsburgh PA 15213-3890 
+
+Any improvements or extensions that they make and grant Carnegie Mellon the rights to redistribute these changes. 
+
+Portions licensed from Apple Computer, Inc. under the terms of the Apple Public Source License, Version 1.1.  The 
+source code version of these portions and the license are available at http://www.opensource.apple.com/apsl/. 
+
+The Original Code is: OpenGL Sample Implementation, Version 1.2.1, released January 26, 2000, developed by 
+Silicon Graphics, Inc. The Original Code is Copyright (c) 1991-2000 Silicon Graphics, Inc. Copyright in any portions 
+created by third parties is as indicated elsewhere herein. All Rights Reserved. 
+
+Copyright (c) 1996-1997 Sam Leffler 
+Copyright (c) 1996 Pixar 
+
+Permission to use, copy, modify, distribute, and sell this software and its documentation for any purpose is hereby 
+granted without fee, provided that (i) the above copyright notices and this permission notice appear in all copies of the 
+software and related documentation, and (ii) the names of Pixar, Sam Leffler and Silicon Graphics may not be used in 
+any advertising or publicity relating to the software without the specific, prior written permission of Pixar, Sam Leffler 
+and Silicon Graphics. 
+
+THE SOFTWARE IS PROVIDED "AS-IS" AND WITHOUT WARRANTY OF ANY KIND,  EXPRESS, IMPLIED 
+OR OTHERWISE, INCLUDING WITHOUT LIMITATION, ANY WARRANTY OF MERCHANTABILITY OR 
+FITNESS FOR A PARTICULAR PURPOSE.   
+
+IN NO EVENT SHALL PIXAR, SAM LEFFLER OR SILICON GRAPHICS BE LIABLE FOR ANY SPECIAL, 
+INCIDENTAL, INDIRECT OR CONSEQUENTIAL DAMAGES OF ANY KIND, OR ANY DAMAGES 
+WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER OR NOT ADVISED OF 
+THE POSSIBILITY OF DAMAGE, AND ON ANY THEORY OF LIABILITY, ARISING OUT OF OR IN 
+CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. 
+
