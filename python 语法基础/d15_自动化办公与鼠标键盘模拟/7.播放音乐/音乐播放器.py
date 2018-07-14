@@ -54,20 +54,20 @@ def play():
 
 
 
-play=tkinter.Button(win,text="播放",command=play)
-play.pack()
+play=tkinter.Button(win,text="播  放",command=play)
+play.pack(anchor='nw',padx=80,pady=20)
 
 def pause():
     obj.pause()
 
-pause=tkinter.Button(win,text="暂停",command=pause)
-pause.pack()
+pause=tkinter.Button(win,text="暂  停",command=pause)
+pause.pack(anchor='nw',padx=80,pady=20)
 
 def stop():
     obj.stop()
 
-stop=tkinter.Button(win,text="停止",command=stop)
-stop.pack()
+stop=tkinter.Button(win,text="停  止",command=stop)
+stop.pack(anchor='nw',padx=80,pady=10)
 
 def next():
     # print("next")
@@ -87,10 +87,10 @@ def next():
     t.start()
 
 next=tkinter.Button(win,text="下一曲",command=next)
-next.pack()
+next.pack(anchor='nw',padx=80,pady=20)
 
-exit=tkinter.Button(win,text="退出",command=win.quit)
-exit.pack()
+exit=tkinter.Button(win,text="退  出",command=win.quit)
+exit.pack(anchor='nw',padx=80,pady=20)
 
 
 win.mainloop()
@@ -99,3 +99,6 @@ win.mainloop()
 # path=r'C:\Users\lin\PycharmProjects\python_study_1s\python_study\git-zhl\python-study\python 语法基础\d15_自动化办公与鼠标键盘模拟\7.播放音乐\我喜欢上你时的内心活动.mp3'
 # obj=Music(path)
 # obj.play()
+
+
+##布局相关，请承诺参考： https://www.cnblogs.com/zhangpengshou/p/3626137.html
