@@ -1,0 +1,139 @@
+1.项目，套件，测试用例创建
+test project --目录；
+test suit-文件；
+test case--文件；
+
+2. F5 打开API 帮助文档，查询支持的关键字信息；
+3.常用关键字：
+${a}	set variable	tom   //设置变量
+log	${a}	 //打印
+
+${hi}	catenate	hello	world	  //连接对象
+log	${hi}			
+${aa}	catenate	SEPARATOR=---	hello	world //带分隔符连接对象
+log	${aa}		
+
+说明：在每一行前面右击，可以选择：comment row ,即注释掉这行
+
+${abc}	Create List	a	b	c  //定义列表
+log	${abc}	 //打印整个列表		
+@{tt}	Create List	b	c	d  //通过@{}定义的列表，可以通过log many去打印每个元素
+log many	@{tt}	
+
+//获取当前时间及sleep 
+Comment	${t}	get time
+Comment	log	${t}
+${t}	get time	
+sleep	5	
+${t}	get time	
+
+//if语句；
+${a}	Set variable	59									
+run keyword if	${a}>=90	log	优秀	ELSE IF	${a}>=70	log	良好	ELSE	log	不及格	
+如果使用换行，在else if和else前面有三个点点点（...）
+
+//for语句：
+: FOR	${i}	IN RANGE	10
+	log	${i}	
+
+Comment	: FOR	${i}	IN RANGE	10
+Comment		log	${i}	
+@{abc}	Create List	a	b	c
+Comment	:FOR	${i}	in	@{abc}
+Comment		log	${i}	
+:FOR	${i}	in	@{abc}	
+	Exit For Loop If 	'${i}'=='c'		
+log	${i}			
+
+
+//强大的evaluate,通过它可以调用python中的方法
+//import library 导入本地文件
+
+Import Library	d:/aa.py		//导入本地文件
+${add}	add	4	5
+log	${add}		//输出45，即进行了字符串的连接
+${a}	Evaluate	int(4)	//调用python内置int方法，将字符转换为整形
+${b}	Evaluate	int(5)	
+${ab}	add	${a}	${b}
+log	${ab}		 //输出9
+		
+//添加screenshot标准库并执行
+添加标准库的方法：
+点击'测试套件',在edit处点击libray 添加标准库；
+执行的关键字：Take Screenshot
+然后就可以在执行结果的Log:     c:\users\lin\appdata\local\temp\RIDEnsd0ju.d\log.html 中找到截屏信息了；
+
+//collections库：提供的关键字主要用于列表，字典和索引的处理；
+
+${dicc}	Create Dictionary	a	1	b	2
+${items}	Get Dictionary Items	${dicc}			
+log	${items}				
+${keys}	Get Dictionary Keys	${dicc}			
+log	${keys}				
+${values}	Get Dictionary Values	${dicc}			
+log	${values}				
+${v}	Get From Dictionary 	${dicc}	a		
+log	${v}	
+
+
+测试套件下的edit中的选项说明：
+1.library 用于导入python 安装目录\lib\site-packages里的测试库；
+2.resource 用于导入资源，主要就是一些自定义的关键字文件，导入之后，就可以在左侧项目栏下的external resource中看到关键字文件和关键字了；
+3.定义变量  add scalar ，这里定义的变量可以被整个测试套件中的用来使用，是一个公共变量；
+
+
+robot中的关键字分为： 系统关键字和用户关键字，
+系统关键字需用通过脚本开发相应的类和方法， 这个我们将在后面的章节介绍；
+用户关键字的创建就要简单得多，它主要利用先用的系统关键字，根据不同的业务，把多个重复的步骤集合在一起组成用户关键字；
+
+1.创建用户关键字
+在测试套件上右击，选择 new user keyword, 编辑arguments (入参)及代码，
+然后调用这个用户关键字的方法：  循环  5
+
+2.创建资源 //封装多个用户关键字
+在项目上创建资源，然后在资源上创建关键字；关键字的创建方法同上，需要入参和代码；
+
+因为资源和测试套件是平级的，如果要在测试套件中调用资源，需要先导入资源；
+
+
+扩展库：
+//selenium2libray 用于web自动化测试
+使用web 浏览器功能时提示报错： q&a
+解决信息请参考：https://www.cnblogs.com/yousuosiyss/p/6882420.html?utm_source=itdadao&utm_medium=referral
+处理方法：
+从 https://github.com/mozilla/geckodriver/releases 下载geckodriver-v0.21.0-win64.zip ，放到fireforks的安装目录下，解压后，将路径添加
+到环境变量中，重启机器或重启ride.py 使得环境变量生效即可正常使用了；
+
+
+//autoitlibray库相关：  
+安装说明：https://www.cnblogs.com/laiyyy520/p/5779273.html
+安装问题参考： https://blog.csdn.net/bible_reader/article/details/52044345
+切记：必须以管理员身份打开cmd,然后进入解压后的目录，执行python setpu.py install，否则会报错；
+
+AutoIt 是一种自动控制工具。这在PC首次展示时非常有用，那时成百上千的机器需要被自动的安装。尽管有一些程序如 MS Office, Mcafee, IE4 等具有自动安装的组件，可还有太多的程序不具备自动安装的功能。那就是用到 AutoIt 的地方。AutoIt 也可以被用来在你的机器上完成简单的任务。
+
+AutoIt 运行时读取一个指定的脚本文件。这个脚本文件使得 AutoIt 完成一系列操作，包括：
+
+执行程序（Windows 应用程序，DOS命令，等等。）
+
+发出按键和鼠标点击（所有字符，不受键盘布局约束）。
+
+窗口操作（例如最小化，隐藏，恢复，等待，激活（同样适用 Win98/Win2000））。
+
+简单剪贴板文本操作。
+
+最值一提的是它很小（本身包含EXE件，没有DLL文件，没有注册表项）而且免费！ （并且将保持免费).
+
+2.1 版后新加入的Aut2Exe。 本程序可以从一个 AutoIt 脚本创建可执行程序！
+
+2.21版后，你可以发送十进制 ASCII 代码，就像 ALT 键加数字小键盘（比如 ALT+65='A'） 非常有用来发送特定的字符（比如 '~' 在一个意大利键盘上）。
+
+Au3脚本就是 Autoit v3 版的简称。
+
+
+
+
+
+
+
+

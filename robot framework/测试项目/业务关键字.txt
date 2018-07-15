@@ -1,0 +1,5 @@
+*** Keywords ***
+循环
+    [Arguments]    ${number}
+    :FOR    ${i}    in range    ${number}
+    \    log    ${i}

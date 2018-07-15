@@ -1,0 +1,93 @@
+*** Settings ***
+Library           Screenshot
+Library           Collections
+Resource          业务关键字.txt
+
+*** Variables ***
+${hi}             欢迎使用robot framework框架进行自动化测试开发
+@{student}        小明    小红    小华    小张
+
+*** Test Cases ***
+t1
+    ${a}    set variable    tom
+    log    ${a}
+
+t2_catenate
+    ${hi}    catenate    hello    world
+    log    ${hi}
+    ${aa}    catenate    SEPARATOR=---    hello    world
+    log    ${aa}
+
+t3_create list
+    ${abc}    Create List    a    b    c
+    log    ${abc}
+    @{tt}    Create List    b    c    d
+    log many    @{tt}
+
+t4_time sleep
+    Comment    ${t}    get time
+    Comment    log    ${t}
+    ${t}    get time
+    sleep    5
+    ${t}    get time
+
+t5_if
+    ${a}    Set variable    59
+    run keyword if    ${a}>=90    log    优秀
+    ...    ELSE IF    ${a}>=70    log    良好
+    ...    ELSE    log    不及格
+
+t6_for
+    Comment    : FOR    ${i}    IN RANGE    10
+    Comment    \    log    ${i}
+    @{abc}    Create List    a    b    c
+    Comment    :FOR    ${i}    in    @{abc}
+    Comment    \    log    ${i}
+    :FOR    ${i}    in    @{abc}
+    \    Exit For Loop If     '${i}'=='c'
+    log    ${i}
+
+t7_evaluate
+    ${d}    Evaluate    random.randint(100,999)    random
+    log    ${d}
+
+t9_screenshot
+    Take Screenshot
+
+t10_collections
+    ${dicc}    Create Dictionary    a    1    b    2
+    ${items}    Get Dictionary Items    ${dicc}
+    log    ${items}
+    ${keys}    Get Dictionary Keys    ${dicc}
+    log    ${keys}
+    ${values}    Get Dictionary Values    ${dicc}
+    log    ${values}
+    ${v}    Get From Dictionary     ${dicc}    a
+    log    ${v}
+
+t8_import library
+    Import Library    d:/aa.py
+    ${add}    add    4    5
+    log    ${add}
+    ${a}    Evaluate    int(4)
+    ${b}    Evaluate    int(5)
+    ${ab}    add    ${a}    ${b}
+    log    ${ab}
+
+t11_公共变量
+    log    小明 ${hi}
+    log    小李 ${hi}
+    Comment    列表变量
+    :FOR    ${i}    in    ${student}
+    \    log    ${i}
+
+t12_调用用户关键字
+    循环1    20
+    Comment    调用资源中关键字，需要先在测试套件下导入资源
+    循环    5
+
+*** Keywords ***
+循环1
+    [Arguments]    ${number}
+    :FOR    ${i}    in range    ${number}
+    \    log    ${i}
