@@ -1,0 +1,139 @@
+8.9###linux mysql 相关知识总结：
+yum install mysql* -y
+涉及的两个主要的包：
+mysql-server.x86_64 
+mysql-test.x86_64 （或 mysql-client）
+
+service mysqld start
+netstat -ntpl | grep -i 3306(Mysql默认的端口是3306)
+
+#登陆mysql
+启动命令： mysql
+mysql [-u username] [-h host] [-p[password]] [dbname] 
+username 与 password 分别是 MySQL 的用户名与密码，mysql的初始管理帐号是root，没有密码，注意：这个root用户不是Linux的系统用户。
+MySQL默认用户是root，由于 初始没有密码，第一次进时只需键入mysql即可。 
+
+##MySQL的几个重要目录
+它的数据库文件、配置文件和命令文件分别在不同的目录
+--数据库目录
+/var/lib/mysql/ 
+--配置文件 
+/usr/share /mysql（mysql.server命令及配置文件）
+--相关命令 
+/usr/bin(mysqladmin mysqldump等命令)
+--启动脚本
+/etc/rc.d/init.d/（启动脚本文件mysql的目录
+
+
+##修改登录密码
+设置密码命令：usr/bin/mysqladmin -u root password 'new-password'  （因为开始时root没有密码， 所以-p旧密码一项就可以省略了）
+
+修改密码格式：mysqladmin -u用户名 -p旧密码 password 新密码  (如果报错，用Q&A解决办法)
+
+
+## 启动服务：
+service mysqld start/stop/restart
+chkconfig mysqld on 
+chkconfig --list | grep -i mysql
+
+##更改mysql数据库文件存储目录
+比如从默认的/var/lib/mysql -->/home/data
+1）service mysqld stop
+2）mv /var/lib/mysql　/home/data/  （可能的步骤： chown -R mysql:mysql /home/data）
+3)修改配置文件：
+mv /etc/my.cnf /etc/my.cnf.bak
+cp /usr/share/mysql/my-medium.cnf　/etc/my.cnf
+vi /etc/my.cnf
+将其中两次出现的“socket=” 处修改为：
+socket  = /home/data/mysql/mysql.sock
+4）vi /etc/rc.d/init.d/mysqld
+将其中对应的位置修改为：
+get_mysql_option mysqld datadir "/home/data/mysql"
+5）
+service mysqld restart
+可以正常启动，则表示OK
+
+
+##数据库常用操作命令：
+show databases;
+use mysql;
+show tables;
+
+建库：create database zhl;
+建表：
+use zhl;
+//在刚创建的aaa库中建立表name,表中有id(序号，自动增 长)，xm（姓名）,xb（性别）,csny（出身年月）四个字段 
+create table student (id int(3) auto_increment not null primary key,xm char(8),xb char(2),csny date);
+//在刚创建的aaa库中建立表name,表中有id(序号，自动增 长)，xm（姓名）,xb（性别）,csny（出身年月）四个字段 
+//向表中增加记录：
+insert into student values('','jack','male','1999-11-11');
+//用select命令来验证结果
+select * from student;
+//修改记录：
+update student set csny='1000-1-1' where xm='tom';
+//删除记录：
+delete from student where xm='tom';
+//删库和删表
+drop database 库名; 
+drop table 表名；
+
+
+##增加mysql用户
+//增加一个用户user_1密码为123，让他可以在任何主机上登录，并对所有数据库有查询、插入、修改、删除的权限。首先用以root用户连入MySQL，然后键入以下命令
+mysql> grant select,insert,update,delete on *.* to user_1@"%" Identified by "123";
+
+[root@localhost test1]# mysql -u root -p
+Enter password: 
+ERROR 1045 (28000): Access denied for user 'root'@'localhost' (using password: YES)
+
+Q&A解决办法：
+# /etc/init.d/mysql stop
+# mysqld_safe --user=mysql --skip-grant-tables --skip-networking &
+# mysql -u root mysql
+mysql> UPDATE user SET Password=PASSWORD(’newpassword’) where USER=’root’;
+mysql> FLUSH PRIVILEGES;
+mysql> quit
+# /etc/init.d/mysql restart 
+# mysql -uroot -p
+Enter password: <输入新设的密码newpassword>
+mysql> 
+备注：使用这种方法后，不再支持匿名登陆了，即直接使用mysql 就无法登陆了；
+
+
+####增加新用户及解决新用户无法登陆问题
+----解决新用户无法登陆问题：
+增加普通用户后，用root用户先登陆，然后执行：
+mysql> use mysql
+mysql> delete from user where user='';
+mysql> flush privileges;
+意思是删除匿名用户。 
+
+---<<<<用户管理：>>>>>>
+1）创建用户：
+命令:CREATE USER 'username'@'host' IDENTIFIED BY 'password'; 
+说明:username - 你将创建的用户名, host - 指定该用户在哪个主机上可以登陆,如果是本地用户可用localhost, 如果想让该用户可以从任意远程主机登陆,可以使用通配符%. password - 该用户的登陆密码,密码可以为空,如果为空则该用户可以不需要密码登陆服务器. 
+
+范例：create user 'test'@'%' identified by '123';
+
+2）授权：
+命令:GRANT privileges ON databasename.tablename TO 'username'@'host
+说明: privileges - 用户的操作权限,如SELECT , INSERT , UPDATE 等(详细列表见该文最后面).如果要授予所的权限则使用ALL.;databasename - 数据库名,tablename-表名,如果要授予该用户对所有数据库和表的相应操作权限则可用*表示, 如*.*. 
+grant all on *.* to 'test'@'%';
+
+remark: 此时验证在另外一台主机上，使用mysql -u test -p -h 128.0.0.201 ，可以访问目标主机上的数据库文件；
+
+注意:用以上命令授权的用户不能给其它用户授权,如果想让该用户可以授权,用以下命令:
+GRANT privileges ON databasename.tablename TO 'username'@'host' WITH GRANT OPTION; 
+
+3）设置与更改用户密码
+命令:SET PASSWORD FOR 'username'@'host' = PASSWORD('newpassword');如果是当前登陆用户用SET PASSWORD = PASSWORD("newpassword"); 
+
+4）撤销用户权限 
+命令: REVOKE privilege ON databasename.tablename FROM 'username'@'host'; 
+说明: privilege, databasename, tablename - 同授权部分. 
+例子: REVOKE SELECT ON *.* FROM 'pig'@'%';
+
+注意: 假如你在给用户'pig'@'%'授权的时候是这样的(或类似的):GRANT SELECT ON test.user TO 'pig'@'%', 则在使用REVOKE SELECT ON *.* FROM 'pig'@'%';命令并不能撤销该用户对test数据库中user表的SELECT 操作.相反,如果授权使用的是GRANT SELECT ON *.* TO 'pig'@'%';则REVOKE SELECT ON test.user FROM 'pig'@'%';命令也不能撤销该用户对test数据库中user表的Select 权限. 
+
+5）删除用户 
+命令: DROP USER 'username'@'host';

@@ -1,0 +1,795 @@
+
+####命令行下查看和访问磁盘设备的命令：
+Disk part
+
+List disk
+List volume : 查看盘符
+
+盘符切换命令：  “F:” 直接切换到 f 盘
+
+
+
+###开启powershell 远程连接的命令：
+在server 的powershell 下执行：
+enable-psremoting
+在client的powershell下依次执行即可：
+set-item wsman:localhost\client\trustedhosts -value *
+enter-pssession -computername IP -credential administrator
+
+###powershell 管理命令：
+@@@@@@查询PowerShell查看当前版本、Windows版本、.NET版本信息
+有很多cmdlet或者cmdlet的参数，在PowerShell不同的版本中，支持得不一样。所以，弄清楚当前PowerShell的版本信息是非常重要的一件事情。那么怎么查看当前PowerShell的版本信息呢？洪哥向大家介绍两个方法：
+
+其实就是两个PowerShell的环境变量，一个是$psversiontable，另一个是$host。
+
+先看看$psversiontable，这个变量拆开来看就是ps-version-table，表示PowerShell中各组件的版本号列表。其中表示PowerShell自己的版本号（PSVersion），也包括.NET的版本号（CLRVersion），还有Windows版本号（BuildVersion），其它的洪哥就不一一数了，其实洪哥也没有完全搞明白，呵呵。
+
+PS C:\Users\zhanghong> $psversiontable
+
+Name                           Value
+----                           -----
+CLRVersion                     2.0.50727.4984
+BuildVersion                   6.1.7600.16385
+PSVersion                      2.0
+WSManStackVersion              2.0
+PSCompatibleVersions           {1.0, 2.0}
+SerializationVersion           1.1.0.1
+PSRemotingProtocolVersion      2.1
+
+接下来看看$host变量，里面一个Version，表示PowerShell的版本号。
+PS C:\Users\zhanghong> $host
+
+Name             : ConsoleHost
+Version          : 2.0
+InstanceId       : 38d7558e-1810-446d-a81c-41fb6d40ac13
+UI               : System.Management.Automation.Internal.Host.InternalHostUserI
+                  nterface
+CurrentCulture   : zh-CN
+CurrentUICulture : zh-CN
+PrivateData      : Microsoft.PowerShell.ConsoleHost+ConsoleColorProxy
+IsRunspacePushed : False
+Runspace         : System.Management.Automation.Runspaces.LocalRunspace
+
+好了，关于PowerShell如何查看版本号，如果获取Windows版本号，如何获取.NET框架的版本号，洪哥就介绍到这儿
+
+PowerShell 2.0 is included with Server 2008 R2. PowerShell 3.0 is included with Windows 8 and Server 2012. PowerShell 3.0 can be installed on Server 2008 R2.
+@@@@查看IP 信息：
+ipconfig
+
+@@@@查看服务器开启的端口：
+netstat -nao
+netstat
+netstat -nao | findstr -i 5985 (5985就是powshell远程服务器所使用的端口)
+
+@@@@netsh 
+关闭防火墙命令：
+netsh firewall set opmode mode=disable
+
+@@@@停止安全策略
+[129.0.0.19]: PS C:\Users\Administrator\Documents> net stop "IPsec Policy Agent"
+IPsec Policy Agent 服务正在停止..
+IPsec Policy Agent 服务已成功停止。
+
+@@@@windows电源状态配置命令相关：
+Windows7关机、重启、待机、休眠命令
+
+　　Windows7下一些关机、重启、待机、休眠命令，通过Autohotkey可实现快速关机等操作。
+
+　　;立即关机，无提示、延时。
+
+　　shutdown -p
+
+　　;立即重启
+
+　　shutdown -r -t 00
+
+　　;进入休眠状态，如有关闭休眠则进入待机状态
+
+　　rundll32.exe powrProf.dll,SetSuspendState
+
+　　Windows7关闭休眠功能，混合睡眠将不可用：
+
+　　powercfg -h off
+
+　　查看命令：
+
+　　powercfg -a
+
+####################################
+
+[129.0.0.111]: PS C:\bin_win_z> powercfg -hibernate on
+[129.0.0.111]: PS C:\bin_win_z> powercfg -a
+The following sleep states are available on this system:
+    Hibernate
+    Fast Startup
+	
+	
+	shutdown -l    注销    
+shutdown -s    关机    
+shutdown -r    重启    
+shutdown -h    休眠
+shutdown -a    取消系统关闭
+shutdown -f    强制关闭正在运行的程序
+shutdown -t    设置倒计时（按秒计算）默认为30
+用法：如定时关机，一小时后关机 shutdown -s -t 3600（注销 -l和-t同时使用，-t无效）
+定时重启 一分钟后重启 shutdown-r -t 60
+如设置了定时关机，想取消 shutdown -a
+更多参数可以在CMD输入shutdown /?查询
+
+@@@@ps 查询支持的命令：
+get-command 
+
+@@@@windows命令行下切换工作目录：
+##dos下从c-->d 方法："d:"
+
+@@@@网卡相关的配置命令：
+--查询网卡简要信息：
+[129.0.0.19]: PS C:\bin_win_z> Get-NetAdapter
+
+Name                      InterfaceDescription                    ifIndex Status       MacAddress             LinkSpeed
+----                      --------------------                    ------- ------       ----------             ---------
+以太网                       Intel(R) I350 千兆网络连接                         12 Up           4C-09-B4-07-25-14
+以太网 2                     Intel(R) I350 千兆网络连接 #2                      13 Up           4C-09-B4-07-25-13
+
+---查询网卡高级信息（查询协商速率并修改协商速率）
+[129.0.0.111]: PS C:\jperf-2.0.0\bin> Get-NetAdapterAdvancedProperty -name "ethernet 5"
+
+Name                      DisplayName                    DisplayValue                   RegistryKeyword RegistryValue
+----                      -----------                    ------------                   --------------- -------------
+Ethernet 5                Flow Control                   Rx & Tx Enabled                *FlowControl    {3}
+Ethernet 5                Interrupt Moderation           Enabled                        *InterruptMo... {1}
+Ethernet 5                IPv4 Checksum Offload          Rx & Tx Enabled                *IPChecksumO... {3}
+Ethernet 5                Jumbo Packet                   Disabled                       *JumboPacket    {1514}
+Ethernet 5                Large Send Offload V2 (IPv4)   Enabled                        *LsoV2IPv4      {1}
+Ethernet 5                Large Send Offload V2 (IPv6)   Enabled                        *LsoV2IPv6      {1}
+Ethernet 5                Maximum number of RSS Proce... 8                              *MaxRssProce... {8}
+Ethernet 5                Preferred NUMA node            System Default                 *NumaNodeId     {65535}
+Ethernet 5                Maximum Number of RSS Queues   2 Queues                       *NumRssQueues   {2}
+Ethernet 5                ARP Offload                    Enabled                        *PMARPOffload   {1}
+Ethernet 5                NS Offload                     Enabled                        *PMNSOffload    {1}
+Ethernet 5                Packet Priority & VLAN         Packet Priority & VLAN Enabled *PriorityVLA... {3}
+Ethernet 5                Receive Buffers                256                            *ReceiveBuffers {256}
+Ethernet 5                Receive Side Scaling           Enabled                        *RSS            {1}
+Ethernet 5                RSS Base Processor Number      0                              *RssBaseProc... {0}
+Ethernet 5                Maximum RSS Processor Number   63                             *RssMaxProcN... {63}
+Ethernet 5                RSS load balancing profile     NUMAScalingStatic              *RSSProfile     {4}
+Ethernet 5                Speed & Duplex                 Auto Negotiation               *SpeedDuplex    {0}
+设置命令：
+[129.0.0.111]: PS C:\jperf-2.0.0\bin> Set-NetAdapterAdvancedProperty -name "ethernet 5" -displayname "Speed & Duplex" -displayvalue "disable"
+Set-NetAdapterAdvancedProperty : No matching display value found. The following are valid display values: Auto Negotiat
+ion, 10 Mbps Half Duplex, 10 Mbps Full Duplex, 100 Mbps Half Duplex, 100 Mbps Full Duplex, 1.0 Gbps Full Duplex
+    + CategoryInfo          : InvalidArgument: (MSFT_NetAdapter...E2FE9A384}:...):ROOT/StandardCi...ertySettingData) [
+   Set-NetAdapterAdvancedProperty], CimException
+    + FullyQualifiedErrorId : Windows System Error 87,Set-NetAdapterAdvancedProperty
+
+[129.0.0.111]: PS C:\jperf-2.0.0\bin> Set-NetAdapterAdvancedProperty -name "ethernet 8" -displayname "Speed & Duplex" -d
+isplayvalue "1.0 Gbps Full Duplex"
+
+@@@@网卡相关配置命令：
+Get-NetAdapterHardwareInfo  | select-object *
+
+get-netadapteradvancedproperty  -name "ethernet 5"| findstr -i speed
+
+PS> Get-NetAdapter
+PS> Get-NetAdapter -Name WiFi | Get-NetAdapterPowerManagement
+
+Get-NetAdapter -Name 'WLAN' | Restart-NetAdapter
+
+powershell 设置IP地址 
+# 获取网络适配器
+$wmi=get-wmiobject -class win32_networkadapterconfiguration -filter ipenabled=true -computername .
+# 设置IP地址和子网掩码
+$wmi.EnableStatic('192.168.0.100','255.255.255.0')
+# 设置网关
+$wmi.SetGateways('192.168.0.254')
+# 设置DNS
+$wmi.SetDNSServerSearchOrder('192.168.0.1')
+
+
+netsh 配置和删除IP
+删除IP
+netsh interface ip delete address "本地连接" 172.30.16.234
+添加IP
+netsh interface ip set address name="本地连接" source=static addr=%slection1% mask=255.255.255.0
+
+@@@@@
+系统日志相关：
+Windows7和win2008命令行清除日志方法
+
+1） wevtutil gl security/system/application
+C:\Windows\system32>wevtutil gl security
+
+name: security
+enabled: true
+type: Admin
+owningPublisher:
+isolation: Custom
+channelAccess: O:BAG:SYD:(A;;0xf0005;;;SY)(A;;0×5;;;BA)(A;;0×1;;;S-1-5-32-573)
+logging:
+  logFileName: %SystemRoot%\System32\Winevt\Logs\security.evtx
+  retention: false
+  autoBackup: false
+  maxSize: 20971520
+publishing:
+  fileMax: 1
+  
+  2) 清空SECURITY/SYSTEM/APPLICATION日志:
+
+C:\Windows\system32>wevtutil cl security
+C:\Windows\system32>wevtutil cl system
+C:\Windows\system32>wevtutil cl application
+  
+  
+  3)利用WEVTUTIL工具从Windows Server 2008获取的完整日志列表
+   wevtutil el  
+   
+   4) 文件导出命令：
+   c:\>wevtutil qe security > a.log
+   
+  5） 
+   c:\>wevtutil
+未指定命令。
+Windows 事件命令行实用程序。
+
+用于检索有关事件日志和发布者的信息，
+安装和卸载事件清单，运行查询以及导出、存档和清除日志。
+
+用法:
+
+你可以使用短(如 ep /uni)或长(如
+enum-publishers /unicode)形式的命令和选项名称。
+命令、选项和选项值不区分大小写。
+
+变量均使用大写形式。
+
+wevtutil COMMAND [ARGUMENT [ARGUMENT] ...] [/OPTION:VALUE [/OPTION:VALUE] ...]
+
+命令:
+
+el | enum-logs          列出日志名称。
+gl | get-log            获取日志配置信息。
+sl | set-log            修改日志配置。
+ep | enum-publishers    列出事件发布者。
+gp | get-publisher      获取发布者配置信息。
+im | install-manifest   从清单中安装事件发布者和日志。
+um | uninstall-manifest 从清单中卸载事件发布者和日志。
+qe | query-events       从日志或日志文件中查询事件。
+gli | get-log-info      获取日志状态信息。
+epl | export-log        导出日志。
+al | archive-log        存档导出的日志。
+cl | clear-log          清除日志。
+
+常用选项:
+
+/{r | remote}:VALUE
+如果指定，则在远程计算机上运行该命令。VALUE 是远程计算机名称。
+/im 和 /um 选项不支持远程操作。
+
+/{u | username}:VALUE
+指定一个不同的用户以登录到远程计算机。
+VALUE 是 domain\user 或 user 形式的用户名。只有在指定 /r 选项时才适用。
+
+/{p | password}:VALUE
+指定的用户密码。如果未指定，
+或者 VALUE 为 "*"，则会提示用户输入密码。
+只有在指定 /u 选项时才适用。
+
+/{a | authentication}:[Default|Negotiate|Kerberos|NTLM]
+用于连接到远程计算机的身份验证类型。默认值为 Negotiate。
+/{uni | unicode}:[true|false]
+使用 Unicode 显示输出。如果为 true，则使用 Unicode 显示输出。
+
+要了解特定命令的详细信息，请键入以下命令:
+
+wevtutil COMMAND /?
+
+6）dos 下文件工作命令：findstr
+    同样支持管道 |
+ipconfig /a | findstr "DNS"
+
+7）使用命令行导出和存档事件日志的步骤
+a)
+若要将日志导出至文件，请键入以下命令：
+wevtutil epl <LogName> <FileName.evtx>
+b)若要存档包含显示信息的日志，请键入以下命令：
+wevtutil al <FileName.evtx> [/l:<LocaleString>]
+c)若要查看附带 epl 选项的 wevutil 命令的完整语法，请在命令提示符下键入以下命令：
+wevtutil epl /?
+d)若要查看附带 epl 选项的 wevutil 命令的完整语法，请在命令提示符下键入以下命令：
+wevtutil al /?
+
+其他注意事项
+
+    如果以 .evtx 文件格式将日志存档，则可以在事件查看器中将其重新打开。
+
+    存档并不删除日志的内容。
+
+    保存日志时不保留排序顺序。
+
+    如果将筛选的日志存档，则将仅保存满足筛选器的记录。
+
+    若要解决已在远程计算机上记录的事件的问题，必须导出并存档包含显示信息的日志。已保存事件的
+	显示信息存储在 LocaleMetaData 文件夹中，在其他计算机上查看该信息时应连同日志信息一起移动。
+	
+	8)
+	powershell 下日志操作方法：  cmd--powershell
+	PowerShell 2.0 实践（六）管理Windows日志
+	上一次我们对Windows注册表进行了简单的管理操作，重在理解"项"和"值"的概念。练习了新建、修改、删除、查看注册表项、值的命令，此外，借助于.NET框架，我们同样可以远程管理注册表，前提是远程计算机上的"Remote Registry"服务要启动。本次我们来重点关注一下Windows日志，Windows日志记录了各种软件、硬件发生的变化，当计算机出现问题时，方便管理员快速排错、恢复计算机等。尤其在一些软件安装失败时，
+	根据日志中的EventID和详细信息能够帮助我们查找解决方案。
+	a)
+	PowerShell 2.0中关于日志操作的命令有如下一些： 
+	
+	 Get-EventLog
+
+Get-WinEvent
+
+New-EventLog
+
+Clear-EventLog
+
+Remove-EventLog
+
+Show-EventLog
+
+Write-EventLog
+
+Limit-EventLog 
+
+b)查看日志分类列表。 
+Get-EventLog –List 
+PS C:\Users\Administrator.ZTE-20150515YGO> get-eventlog -list
+
+  Max(K) Retain OverflowAction        Entries Log
+  ------ ------ --------------        ------- ---
+   5,120      0 OverwriteAsNeeded       9,080 Application
+  20,480      0 OverwriteAsNeeded           0 HardwareEvents
+     512      7 OverwriteOlder              0 Internet Explorer
+  20,480      0 OverwriteAsNeeded           0 Key Management Service
+   8,192      0 OverwriteAsNeeded           0 Media Center
+  16,384      0 OverwriteAsNeeded          40 ODiag
+  16,384      0 OverwriteAsNeeded       4,976 OSession
+   5,120      0 OverwriteAsNeeded       8,027 Security
+     512      7 OverwriteOlder          2,319 SSB
+   5,120      0 OverwriteAsNeeded      15,769 System
+  20,480      7 OverwriteOlder            163 VisualSVNServer
+  20,480      7 OverwriteOlder              0 VisualSVNServerActivity
+  20,480     -1 DoNotOverwrite              0 VisualSVNServerManagement
+  20,480      7 OverwriteOlder              0 VisualSVNServerReplication
+  15,360      0 OverwriteAsNeeded         118 Windows PowerShell
+  
+  这里你可能会奇怪，怎么返回的分类这么少呢？刚才可是看到了很多的分类啊，这是因为从Windows Vista/2008开始，Windows使用了一种新的日志格式：.evtx，代替了之前的.evt，而Get-EventLog命
+  令只能查看之前的日志格式。后面会看到如何查看.evtx格式的日志。
+
+  9) windows 系统日志处理：
+    C:\Windows\system32>wevtutil cl system  清空系统日志 或 [129.0.0.111]: PS C:\> clear-eventlog -logname "system"
+	 powershell :
+	   get-winevent -logname "system" 
+	     get-winevent -logname "system" >> c:\system.log
+
+
+@@@@
+#######################################################################################################
+windows 下磁盘配置命令：从裸盘到系统下可识别的盘（diskpart工具介绍说明：）
+DISKPART> list disk
+
+  磁盘 ###  状态           大小     可用     Dyn  Gpt
+  --------  -------------  -------  -------  ---  ---
+  磁盘 0    联机              279 GB      0 B
+* 磁盘 1    脱机              557 GB   557 GB
+
+DISKPART> select disk 1
+
+磁盘 1 现在是所选磁盘。
+
+DISKPART> online disk
+
+DiskPart 成功使所选磁盘联机。
+
+DISKPART> list disk
+
+  磁盘 ###  状态           大小     可用     Dyn  Gpt
+  --------  -------------  -------  -------  ---  ---
+  磁盘 0    联机              279 GB      0 B
+* 磁盘 1    联机              557 GB   557 GB
+
+DISKPART> clean
+
+DiskPart 成功地清除了磁盘。
+
+DISKPART> create volume simple
+
+指定的磁盘不是动态的。
+请指定一个动态磁盘，然后再试一次。
+
+如何执行convert dynamic发生如下的错误：
+
+DiskPart has encountered an error: The media is write protected.
+See the System Event Log for more information.
+
+//attributes disk  --查看是否是readonly 
+执行：attributes disk clear readonly 后 即可；
+（attributes volume clear readonly）
+
+DISKPART> convert dynamic                
+
+DiskPart 已将所选磁盘成功地转更换为动态格式。
+
+
+DISKPART> create volume simple
+
+DiskPart 成功地创建了卷。
+
+
+DISKPART> assign letter=E
+
+DiskPart 成功地分配了驱动器号或装载点。
+
+DISKPART> format fs=ntfs label="new volume" quick
+
+  100 百分比已完成
+
+DiskPart 成功格式化该卷。
+
+此时在系统下就可以看到磁盘设备了；
+
+#######################windows 下使用diskpart处理磁盘总结：
+c:\bin_win_z>diskpart
+
+Microsoft DiskPart version 6.3.9600
+
+Copyright (C) 1999-2013 Microsoft Corporation.
+On computer: WIN-VHTSSD4Q81P
+
+DISKPART> list disk
+
+  Disk ###  Status         Size     Free     Dyn  Gpt
+  --------  -------------  -------  -------  ---  ---
+  Disk 0    Online          279 GB      0 B
+  Disk 1    Offline         557 GB   557 GB
+
+DISKPART> select disk 1
+
+Disk 1 is now the selected disk.
+
+DISKPART> online disk
+
+DiskPart successfully onlined the selected disk.
+
+DISKPART> list disk
+
+  Disk ###  Status         Size     Free     Dyn  Gpt
+  --------  -------------  -------  -------  ---  ---
+  Disk 0    Online          279 GB      0 B
+* Disk 1    Online          557 GB   557 GB
+
+DISKPART> convert
+
+Microsoft DiskPart version 6.3.9600
+
+BASIC       - Convert a disk from dynamic to basic.
+DYNAMIC     - Convert a disk from basic to dynamic.
+GPT         - Convert a disk from MBR to GPT.
+MBR         - Convert a disk from GPT to MBR.
+
+DISKPART> convert dynamic
+
+DiskPart has encountered an error: The media is write protected.
+See the System Event Log for more information.
+
+DISKPART> attributes disk
+Current Read-only State : Yes
+Read-only  : Yes
+Boot Disk  : No
+Pagefile Disk  : No
+Hibernation File Disk  : No
+Crashdump Disk  : No
+Clustered Disk  : No
+
+DISKPART> attributes disk clear readonly
+
+Disk attributes cleared successfully.
+
+DISKPART> attributes disk
+Current Read-only State : No
+Read-only  : No
+Boot Disk  : No
+Pagefile Disk  : No
+Hibernation File Disk  : No
+Crashdump Disk  : No
+Clustered Disk  : No
+
+DISKPART> convert dynamic
+
+DiskPart successfully converted the selected disk to dynamic format.
+
+DISKPART> create volume simple
+
+DiskPart successfully created the volume.
+
+DISKPART> assign letter=G
+
+DiskPart successfully assigned the drive letter or mount point.
+
+DISKPART> format fs=ntfs label="new" quick
+
+  100 percent completed
+
+DiskPart successfully formatted the volume.
+
+DISKPART> list volume
+
+  Volume ###  Ltr  Label        Fs     Type        Size     Status     Info
+  ----------  ---  -----------  -----  ----------  -------  ---------  --------
+  Volume 0         System Rese  NTFS   Partition    350 MB  Healthy    System
+  Volume 1     C                NTFS   Partition    279 GB  Healthy    Boot
+* Volume 2     G   new          NTFS   Simple       557 GB  Healthy
+
+DISKPART>
+
+
+############################################################################################
+powershell 读硬盘及分区
+get-disk   
+get-partition
+
+Get-PhysicalDisk | Select-Object *
+Get-disk | Select-Object *
+
+说明：raid卡下裸盘，sas3008和PMC7805 会上报给os,也就是使用get-physicaldisk可以看到的设备；
+物理盘，要创建成卷，并分别盘符（或挂载点），格式化后，get-volume才可见；
+[129.0.0.111]: PS C:\> Get-StoragePool
+$PDToAdd = Get-PhysicalDisk -FriendlyName PhysicalDisk5
+[129.0.0.111]: PS C:\> Add-PhysicalDisk -physicaldisks $pdtoadd -storagepoolfriendlyname primordial
+[129.0.0.111]: PS C:\> Get-PhysicalDisk
+[129.0.0.111]: PS C:\> Get-Volume
+
+PS C:\> New-Volume -StoragePoolName "CompanyData" -FriendlyName "TestVolume" -Size 10GB 
+-ResiliencySettingName "Mirror" -FileSystem NTFS -AccessPath "M: "-ProvisioningType Fixed
+
+创建raid的磁盘卷：
+[129.0.0.111]: PS C:\bin_win_z> Get-PhysicalDisk
+
+FriendlyName        CanPool             OperationalStatus   HealthStatus        Usage                              Size
+------------        -------             -----------------   ------------        -----                              ----
+PhysicalDisk1       True                OK                  Healthy             Auto-Select                   557.86 GB
+PhysicalDisk0       False               OK                  Healthy             Auto-Select                    279.4 GB
+
+
+#查询存储相关的所有命令：
+get-command -module storage
+
+
+Powershell中获取所有磁盘盘符的方法
+#requires -Version 1
+[Environment]::GetLogicalDrives()
+
+###### 使用Windows PowerShell来查看操作系统信息01——查看硬件信息 
+PS C:/> Get-WmiObject -Class Win32_BIOS
+PS C:/> Get-WmiObject -Class Win32_PhysicalMemory
+PS C:/> Get-WmiObject -Class Win32_Processor
+PS C:/> Get-WmiObject -Class Win32_VideoController
+PS C:/> Get-WmiObject -Class Win32_DiskDrive
+
+
+@@@@@配置IP地址命令：
+PS C:\Users\Administrator> netsh interface ip set address name="ethernet 3" sour
+ce=static addr=129.0.0.111 mask=255.0.0.0
+
+@@@@windows文本过滤命令：
+＃＃＃findstr 命令区分大小写用-i;
+[129.0.0.111]: PS C:\lspci-win-ver> .\lspci.exe | findstr -i i350
+[129.0.0.111]: PS C:\check\windows> .\LSIUtil.exe -a 1 -p 1
+
+@@@@powershell 文本查询的过滤方法：
+ Get-WindowsFeature  | Where {$_.name -like "*web*"}  | where {$_.name  -like "*net*"}
+ Get-WindowsFeature  | Where-Object {$_.name -like "*web*"}
+ 
+ where和 where-object查询的结果相同；
+
+
+@@@@ 系统管理员常用的powershell 命令：
+
+搜索命令的命令： get-command
+搜索命令的使用范例： help
+Get-Command "*netadapter*"
+help Set-NetAdapter
+help Set-NetAdapter -examples
+
+更新帮助文档：help-update
+
+1)查看IP地址命令：
+ Get-NetIPConfiguration -detailed
+2）查看网卡信息：
+Get-NetAdapter
+Get-NetAdapterStatistics
+Get-NetIPAddress
+
+3）配置IP地址：
+New-NetIPAddress -interfacealias "ethernet 2" -ipaddress 128.0.0.200 -prefixlength 8
+
+4）配置DNS
+Set-DnsClientServerAddress
+
+网络查错：
+传统的排错第一步是通过ping,tracert或telnet判断路由和端口是否打开。比如：
+ping 10.1.1.1
+tracert www.baidu.com
+telnet 8.8.8.8 53
+powershell下面一个命令都实现了。
+
+5)ping远程服务器：
+test-netconnection www.baidu.com
+
+6)telnet端口：
+test-netconnection 8.8.8.8 -port 53
+
+7)跟踪路径：
+test-netconnection 8.8.8.8 -traceroute
+
+windows服务的操作：
+8)重启服务：
+Restart-Service
+9）获取当前的服务：
+get-service | out-gridview
+注意那个out-gridview的输出格式，所有的PS命令都是通用的，可以把结果用表格的形式输出来，这样用户还
+可以手动的排序或者添加标准标准；
+10）停止，开始，配置服务
+stop-service
+start-service
+set-service
+
+AD和域的操作，这个可能是windows2012系统管理员最应该记住的部分；
+
+11）计算机的重命名：
+Rename-Computer ****
+
+12)重启电脑：
+restart-computer 
+
+13)shutdown-computer
+
+14)加入域
+Add-Computer -DomainName test.com
+15）修复AD的信任关系。 这个命令很重要。正常情况下，如果某台计算机无法验证AD,最简单的解决办法是退出
+域，重启，然后重新加入域，重启。现在可以在计算机上直接执行以下命令进行修复。
+如果直接执行，他会进行判读，true表示OK； False 表示无法连接AD，那么需要提供管理员密码进行修复；
+ Test-ComputerSecureChannel -Credential domain\admin -repair
+
+16）配置防火墙profile
+Set-NetFirewallProfile
+比如:打开domain,public和private的防火墙；
+
+17）配置防火墙策略，命令很长，可以用帮助
+实例1：禁止所有出去的80端口，
+New-NetFirewallRule -DisplayName "Block Outbound port 80" -direction outbound -localport 80 -protocol TCP -action block
+实例2：禁止所有来自wins服务器的请求
+New-NetFirewallRule -DisplayName "block wins" -direction inbound -action block -remoteaddress wins
+
+18)添加roles和features
+ Install-WindowsFeature
+
+//查询并安装命令：
+ Get-WindowsFeature | where {$_.name -like "*web*"} | where {$_.name -like "*net"} | Install-WindowsFeature
+Get-WindowsFeature | where {$_.name -like "RemoteAccess" } | Install-WindowsFeature
+
+//安装telnet服务器后，启动telnet服务后，就可以在调试机上用telnet-23端口连接到windows机器上；
+[129.0.0.19]: PS C:\Users\Administrator\Documents> Get-WindowsFeature | where {$_.name -like "*telnet*" }
+
+Display Name                                            Name                       Install State
+------------                                            ----                       -------------
+[X] Telnet Client                                       Telnet-Client                  Installed
+[X] Telnet Server                                       Telnet-Server                  Installed
+
+[129.0.0.19]: PS C:\Users\Administrator\Documents> netstat -nao | findstr -i 23
+  TCP    0.0.0.0:23             0.0.0.0:0              LISTENING       4168
+  TCP    128.0.0.200:23         128.0.0.20:57012       ESTABLISHED     4168
+  TCP    [::]:23                [::]:0                 LISTENING       4168
+
+
+
+@@@查询服务及操作：
+ get-service dhcp* | restart-service
+ stop-service  -displayname dhcp* -force
+ get-service dhcp*
+ 
+ 例如：
+ 代码如下:
+C:\PS>restart-service policyagent
+
+此命令在本地计算机上重新启动 IPsec Policy Agent 服务。
+
+复制代码 代码如下:
+C:\PS>restart-service -displayname net* -exclude "net logon"
+
+此命令重新启动显示名称以“Net”开头的服务，“Net Logon”服务除外。
+
+复制代码 代码如下:
+C:\PS>get-service net* | where-object {$_.Status -eq "Stopped"} | restart-service
+
+
+
+@@@powershell 设置IP地址 
+
+# 获取网络适配器
+$wmi=get-wmiobject -class win32_networkadapterconfiguration -filter ipenabled=true -computername .
+# 设置IP地址和子网掩码
+$wmi.EnableStatic('192.168.0.100','255.255.255.0')
+# 设置网关
+$wmi.SetGateways('192.168.0.254')
+# 设置DNS
+
+$wmi.SetDNSServerSearchOrder('192.168.0.1')
+
+
+
+
+执行：
+$wmi=get-wmiobject -class win32_networkadapterconfiguration -filter index=0
+$wmi.EnableStatic('192.168.0.100','255.255.255.0')
+关闭防火墙命令：
+netsh firewall set opmode mode=disable
+之后就可以ping通了；
+
+
+
+@@@@@如何使用DOS命令打开和删除网络共享连接
+
+我们先连接到共享主机，在运行框输入：cmd打开命令提示框，在提示框中输入要访问的网络共享路径，账号和密码。
+示例如：net use \\192.168.1.90 /user:gv-ri\test Abc@123，如不是域用户，域名用共享主机的IP和计算机名替换，
+那就是这样写：net use \\192.168.1.90 /user:192.168.1.90\test Abc@123。
+
+
+然后，我们就可以打开共享了，接着在cmd中输入：start \\192.168.1.90，回车，就会出来我们要访问的共享服务器。
+
+我们在cmd中输入：net use，查看下当前的连接
+
+我们现在删除当前连接，在cmd中输入：net use \\192.168.1.90 /d /y或者net use * /d /y，后面这个命令是删除所有共享连接。
+
+
+当然我们也可以把命令写到一起，做成批处理文件，到时候直接用运行批处理就可以使用指定账号来访问网络共享。
+下图我给大家写一个示例供参考：
+
+net use * /d /y
+net use \\192.168.1.90  /user:gy-ri\test abc@123
+start \\192.168.1.90
+
+
+
+
+@@@@@@@@@@@@@@@win7 安装配置hyper-v管理工具，及连接hyper-v server的配置方法：
+客户端：
+
+放在c:下，
+
+cscript hvremote.wsf /anondcom:grant
+cscript hvremote.wsf /mmc:enable  --》/da:enable
+
+
+重启服务：
+管理工具--服务：
+   hyper-v虚拟机管理  重启
+   windows mangemnt instrument 重启
+
+服务器器端：
+命令行下：
+net user softice abc123 /add
+cscript hvremote.wsf /add:softice
+
+
+
+虚拟机母盘：
+
+在虚拟下，进入以下目录：
+c:/windows/system32/sysprep目录下：
+
+@@创建用户名及附管理员权限：
+
+net user 用户名　密码　/add 建立用户
+net localgroup administrators 用户名 /add 把“用户”添加到管理员中使其具有管理员权限,注意：administrator后加s用复数 
+
+
+关机命令：shutdown -s -t 0
+复位命令：shutdown -r -t 0
+
+
+

@@ -1,0 +1,68 @@
+1.django解决数据库并发访问的问题：
+ss=asset_db.objects.filter(**kwargs)
+ss=asset_db.objects.select_for_update().filter(**kwargs) ##更新锁定功能；
+
+
+mysql> desc django_session;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| session_key  | varchar(40) | NO   | PRI | NULL    |       |
+| session_data | longtext    | NO   |     | NULL    |       |
+| expire_date  | datetime    | NO   | MUL | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+python27 manage.py shell
+from django.contrib.sessions.models import Session
+s=Session.objects.get(pk='d6muarjno6th3d9veme88p0xqcy3zd1f') 或者使用 s=Session.objects.get(session_key='d6muarjno6th3d9veme88p0xqcy3zd1f')一样；
+
+>>> s.expire_date
+datetime.datetime(2018, 7, 19, 5, 56, 25, tzinfo=<UTC>)
+>>> s.session_data
+u'NzIyOTA5NjQxY2FmMGNlMTQ1MDJlYzAyNzhjOGExMmVjYjM3ODI0YTp7Il9hdXRoX3VzZXJfaWQiOjgsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIn0='
+>>> s.get_decoded()  ##解码session中的数据
+{u'_auth_user_backend': u'django.contrib.auth.backends.ModelBackend', u'_auth_user_id': 8}
+
+
+
+访问：192.198.100.100后的cookie的数据如下：
+名字：	sessionid
+内容：	eg5sna1uvwqtzbsq6dndqmzbvhnjq3ic
+域：	192.198.100.100
+路径：	/
+发送用途：	各种连接
+脚本可访问：	否（仅 Http）
+创建时间：	2018年7月5日星期四 下午5:21:25
+过期时间：	2018年7月19日星期四 下午5:21:25
+
+使用cookie中的session_id查看信息如下：
+>>> s=Session.objects.get(pk='eg5sna1uvwqtzbsq6dndqmzbvhnjq3ic')
+>>> s.expire_date
+datetime.datetime(2018, 7, 19, 9, 21, 25, tzinfo=<UTC>)
+>>> s.session_data
+u'MDRkNzgzOWE0MjY4Y2EwZTExMjQ2YzIzMDE3NzdkYmFlZWMzZWJmZDp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0='
+>>> s.get_decoded()
+{u'_auth_user_id': 1, u'_auth_user_backend': u'django.contrib.auth.backends.ModelBackend'}
+
+
+
+查询用户数据表， _auth_user_id=1时，查询到的用户名为 root;
+mysql> select * from auth_user;
++----+-------------------------------------------------------------------------------+---------------------+
+--+-------------+------------+-----------+--------------+----------+-----------+---------------------+
+| id | password                                                                      | last_login          |
+r | username    | first_name | last_name | email        | is_staff | is_active | date_joined         |
++----+-------------------------------------------------------------------------------+---------------------+
+--+-------------+------------+-----------+--------------+----------+-----------+---------------------+
+|  1 | pbkdf2_sha256$10000$N135AwTW0h1Q$aFcYghpUbGama481l4IW7tdV81GETBB3q8+/w0+ny1c= | 2018-07-05 09:21:25 |
+1 | root        |            |           | root@123.com |        1 |         1 | 2017-02-13 05:19:33 |
+
+
+在web页面上搜索 “r5300g4-24-22”后，再查看cookie中的信息：
+
+>>> from django.contrib.sessions.models import Session
+>>> s=Session.objects.get(pk='eg5sna1uvwqtzbsq6dndqmzbvhnjq3ic')
+>>> s.get_decoded()
+{u'_auth_user_backend': u'django.contrib.auth.backends.ModelBackend', u'_auth_user_id': 1, u'key': u'r5300g4-24-22'}
+

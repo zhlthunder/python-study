@@ -1,0 +1,69 @@
+8/9#########linux系统下软raid配置命令 mdadm
+multidisk --md
+/dev/md*
+man mdadm
+
+Options :
+-l: raid level
+-n: numbers of disks to make raid
+-c: chunk size （一般是bs的整数倍）
+-a: automatic make md disk
+-x: numbers of disks for spare
+
+##创建软raid:mdadm -C /dev/md0 -a yes -l 0 -n 2 /dev/sdc{1,2}
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sdc1               1         523     4200966   fd  Linux raid autodetect
+/dev/sdc2             524        1046     4200997+  fd  Linux raid autodetect
+
+mdadm -C /dev/md0 -a yes -l 0 -n 2 /dev/sdc{1,2}
+
+##查看：cat /proc/mdstat 
+##查看详细信息：mdadm -D /dev/md0
+
+mkfs.ext /dev/md0
+mkdir /test1
+mount /dev/md0 /test1
+[root@localhost bin]# cd /test1
+[root@localhost test1]# ls
+lost+found
+
+
+watch -n 1 'cat /proc/mdstat'
+
+
+##管理模式：
+--remove(-r) --add (-a) --fault(-f)
+
+##set fault manually
+[root@localhost ~]# mdadm /dev/md0 -f /dev/sdc8
+mdadm: set /dev/sdc8 faulty in /dev/md0
+
+md0 : active raid1 sdc8[1](F) sdc7[0]
+      2102400 blocks super 1.2 [2/1] [U_]
+##remove disks
+[root@localhost ~]# mdadm /dev/md0 -r /dev/sdc8
+mdadm: hot removed /dev/sdc8 from /dev/md0
+
+##add disks
+[root@localhost ~]# mdadm /dev/md0 -a /dev/sdc8
+mdadm: added /dev/sdc8
+
+mkfs.ext3 -b 4096 -E stride=16 /dev/md0  //指定扩展选项stride 的格式化命令
+
+
+###创建完raid后，执行：mdadm  -D --scan 扫描所有软raid的信息：并写入配置文件：
+mdadm -D --scan >> /etc/mdadm.conf
+
+[root@localhost ~]# mdadm  -D --scan
+ARRAY /dev/md/localhost.localdomain:0 metadata=1.2 name=localhost.localdomain:0 UUID=d3d489f3:373b6f4a:b9622d54:fc8f0f31
+ARRAY /dev/md/localhost.localdomain:0_0 metadata=1.2 name=localhost.localdomain:0 UUID=f212a10d:93791182:6c4b4e58:08ee11c0
+ARRAY /dev/md0 metadata=1.2 name=localhost.localdomain:0 UUID=2dd4a619:d2f01b6c:f25cfce7:a151e7fc
+[root@localhost ~]# mdadm -D --scan >> /etc/mdadm.conf
+
+##stop 软raid命令：
+mdadm -S /dev/md0
+stop 软raid 命令，stop之后就看不到这个raid信息了；
+
+##编辑了配置文件后，执行mdadm -A /dev/md0 --scan 能自动进行raid的组装操作
+[root@localhost ~]# mdadm -A /dev/md0 --scan
+mdadm: /dev/md0 has been started with 2 drives.

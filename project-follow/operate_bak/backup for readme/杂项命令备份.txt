@@ -1,0 +1,454 @@
+#I8350 风扇调速  （BMC shell(root/root)--ushell(zte/zte)--sh 1）
+BSP_DbgFanTest(1)    //关闭风扇调速策略
+BSP_SetFanPwm(0xff)  //手动设置风扇占空比，参数01-ff
+BSP_GetFanRpm()             //读取风机转速
+
+###串口切换(BMC)
+BSP_SetPanelUart(1)   //HOST UArt
+BSP_SetPanelUart(0)   //BMC UArt
+BSP_SetPanelUart(3)   //expander UArt --问下谢焕军，如确认expander的版本信息
+
+0xff--5700rpm
+
+0xe9--5000rpm
+0xd1--4500rpm
+0xc1--4100~4200rpm
+0xbb--4000rpm
+0xa1--3500rpm  
+0x8c--3000rpm  
+
+#linux raid控制图形管理工具调用命令
+./startupui.sh
+
+
+#LSI mega 命令行操作
+./storcli.exe    /c0    show    all  （查询当前控制器下的盘信息 ，需关注 EID:Slt  用于后续操作）
+./storcli.exe /c0 /exxx /sxx    set    good （将此盘转为 Unconfig Good ）
+./storcli.exe /c0    /f    all    del （清除新加入盘的 RAID 配置信息 ）
+./storcli.exe    /c0    /exxx    /sxx    add    hotsparedrive （盘转为热备盘 ）
+
+#PMC raid命令行配置：
+ARCCONF GETCONFIG <Controller#> [AD|LD [LD#]|PD|MC|AL]
+
+#bash默认命令
+/usr/local/bin/
+/bin/ 
+
+#创建链接命令
+ln -s /home/thunder/storcli-linux  /bin/storcli_lnk
+
+#fio 2.1.14 具有gfio模块，编译此模块的方法
+cd到fio目录后，用
+./configure --enable-gfio
+make fio
+make gfio
+./fio -S (fio server模式)
+在另一个终端输入./gfio启动client模式
+
+
+#gfio 配置脚本中，directory是进行IO测试的目标路径
+在第一次创建时，可以看到动态的波形图，第二次测试时，建议把这个文件先删除
+
+#linux下裸盘格式化
+mkfs /dev/sdb, 不格式化，有时可能无法进行读写
+mkdir /mnt/vfat
+mount -t ext2 /dev/sdb /mnt/vfat
+
+
+#常用解压命令：
+总结 
+1、*.tar 用 tar –xvf 解压 
+2、*.gz 用 gzip -d或者gunzip 解压 
+3、*.tar.gz和*.tgz 用 tar –xzf 解压 
+4、*.bz2 用 bzip2 -d或者用bunzip2 解压 
+5、*.tar.bz2用tar –xjf 解压 
+6、*.Z 用 uncompress 解压 
+7、*.tar.Z 用tar –xZf 解压 
+8、*.rar 用 unrar e解压 
+9、*.zip 用 unzip 解压
+
+
+01-.tar格式
+解包：[＊＊＊＊＊＊＊]$ tar xvf FileName.tar
+打包：[＊＊＊＊＊＊＊]$ tar cvf FileName.tar DirName（注：tar是打包，不是压缩！）
+
+02-.gz格式
+解压1：[＊＊＊＊＊＊＊]$ gunzip FileName.gz
+解压2：[＊＊＊＊＊＊＊]$ gzip -d FileName.gz
+压 缩：[＊＊＊＊＊＊＊]$ gzip FileName
+
+03-.tar.gz格式
+解压：[＊＊＊＊＊＊＊]$ tar zxvf FileName.tar.gz
+压缩：[＊＊＊＊＊＊＊]$ tar zcvf FileName.tar.gz DirName
+
+04-.bz2格式
+解压1：[＊＊＊＊＊＊＊]$ bzip2 -d FileName.bz2
+解压2：[＊＊＊＊＊＊＊]$ bunzip2 FileName.bz2
+压 缩： [＊＊＊＊＊＊＊]$ bzip2 -z FileName
+
+05-.tar.bz2格式
+解压：[＊＊＊＊＊＊＊]$ tar jxvf FileName.tar.bz2
+压缩：[＊＊＊＊＊＊＊]$ tar jcvf FileName.tar.bz2 DirName
+
+#linux下软件查询和安装命令
+rpm -ql | grep "***"
+rpm -e ***卸载软件
+
+
+
+#部门dell服务器信息
+
+部门内dell服务器(9MZGY02)
+root/  HardTest1
+IDRAC ip: 192.168.0.120
+（IDRAC:integrated dell remote access controller）
+
+#基本的IPMI 命令和ZTE相同,且ipmi命令格式如下：
+ipmitool -H *.*.*.*（管理IP） -I lanplus -U <用户名> -P <密码>
+
+
+#R5300 测试版本
+ftp://10.43.166.8//2015中移动集采测试版本//R5300//中移测试现场所有固件版本
+
+RSS RSS
+
+BMC:BMC_SGLMA_P3_R_V02.01.62.07_201508281414.BIN
+EPLD:SGLMA_01_140201_EPLD_102.vpd
+
+#linux 命令：
+cat /proc/cpuinfo | grep name | uniq -c | cut -d: -f2
+uniq -c:用于计数，显示“重复次数：主板名”
+cut -d: -f2 (定义分隔符为：，只输出第二个域field)cut是一个选取命令，就是将一段数据经过分析，取出我们想要的。一般来说，选取信息通常是针对“行”来进行分析的
+主要参数
+-b ：以字节为单位进行分割。这些字节位置将忽略多字节字符边界，除非也指定了 -n 标志。
+-c ：以字符为单位进行分割。
+-d ：自定义分隔符，默认为制表符。
+-f  ：与-d一起使用，指定显示哪个区域。
+
+#wc:Linux系统中的wc(Word Count)命令的功能为统计指定文件中的字节数、字数、行数，并将统计结果显示输出
+命令参数：
+
+-c 统计字节数。
+
+-l 统计行数。
+
+-m 统计字符数。这个标志不能与 -c 标志一起使用。
+
+-w 统计字数。一个字被定义为由空白、跳格或换行字符分隔的字符串。
+
+### HDD 操作命令备注：
+sas1064e/sas1068e:cfggen-linux (command:cfggen-linux list;cfggen-linux 0 status；cfggen-linux 0 display)
+
+SAS2(SAS2008/2308): (含linux,windows)
+sas2ircu-linux (command:sas2ircu-linux list;sas2ircu-linux 0 status;sas2ircu-linux 0 display)
+lsiutil-1.71-linux （command:./lsiutil-1.71-linux-x64 -p1 -a 1,8,16,66,60,0;./lsiutil-1.71-linux-x64 -p1 -a 21,1,2,3,0,0,0）
+
+SAS3008: (含linux,windows)
+sas3ircu-linux (command:sas3ircu-linux list;sas3ircu-linux 0 status,sas3ircu-linux 0 display)
+lsiutil-1.71-linux （command:./lsiutil-1.71-linux-x64 -p1 -a 1,8,16,66,60,0;./lsiutil-1.71-linux-x64 -p1 -a 21,1,2,3,0,0,0）
+
+LSI MegaRaid (SAS2208/9361-8I...)(含linux,windows)
+storcli-linux (command:storcli-linux /c0 show all;storcli-linux /c0 /vall show all;storcli-linux /c0 /eall /sall show all)
+
+PMC 6805/7805:(含linux,windows)
+arcconf-linux (command:arcconf-linux  getconfig 1 (AD/PD..))
+
+Disk information checking:
+lsscsi;lsblk;diskman** -g;diskman** -d;smartctl -a /dev/sg*/ diskman*** -i /dev/sg*; diskman*** -I /dev/sg*;fdisk -l;df -h;tune2fs -l /dev/sd**;
+
+dmesg; cat /proc/cpuinfo;/var/log/messages;
+
+###driver information check
+modinfo mpt2sas --lsi HBA
+modinfo megaraid_sas ---lsi megaraid
+modinfo aacraid --PMC 6805/7805
+
+
+####
+BMC--OFF SPAN
+HOST--IN SPAN
+
+##分区及格式化
+parted /dev/sdb--mklabel--gpt--yes--p--mkpart--gpt4t--ext4--1或0--(-1)--P--Q (sdb/sdb1)
+mkfs.ext4 /dev/sdb1
+
+一条命令实现：parted /dev/sdb rm 1  删除分区
+一条命令实现： 
+parted /dev/sdb mkpart gpt4t ext4 0 4000GB I   :4TB (如何提示无法识别设备文件，可以加上mklabel gpt命令)
+parted /dev/sdb mkpart gpt4t ext4 0 2996GB I  ：3TB  (如何提示无法识别设备文件，可以加上mklabel gpt命令)
+parted /dev/sdb mkpart gpt4t ext4 0 1997GB I  ：2TB  (如何提示无法识别设备文件，可以加上mklabel gpt命令)
+
+用此命令创建分区后，直接
+
+
+
+##命令用法举例：
+ifconfig eth0 | grep [B,b]cast |awk -F: '{print "IP_address:" $2}' | awk '{print $1}'
+
+
+###linux引导时提示挂载时间错误的问题cd
+fsck -y /dev/sda1, fsck -y /dev/sda2, fsck -y /dev/sda3
+
+##确认redhat 版本
+cat /etc/redhat-release 
+
+##yum更新路径
+baseurl=ftp://redhat:redhat@129.0.0.50/
+
+##系统宕机时，查看：
+service kdump status/start  记录的日志为：/var/crash
+触发的命令：echo c > /proc/sysrq-trigger 
+触发之后可以kdump开始记录日志信息
+
+#### linux shell编程循环,和C语言相同
+ 退出命令：break
+  继续：continue
+
+#linux下PMC管理地址：
+https://129.0.0.77:8443/maxview/manager/login.xhtml 
+安装后对应的服务为：(Tomcat Service) ？？？？
+
+####
+kdump是一种先进的基于kexec的内核崩溃转储机制。当系统崩溃时，kdump使用kexec 启动到第二个内核。第二个内核通常叫做捕获内核，以很小内存启动以捕获转储镜像。第一个内核保留了内存的一部分给第二内核启动用。由于kdump利用kexec启动捕获内核，绕过了 BIOS，所以第一个内核的内存得以保留。这是内核崩溃转储的本质。kdump需要两个不同目的的内核，生产内核和捕获内核。生产内核是捕获内核服务的对像。捕获内核会在生产内核崩溃时启动起来，与相应的ramdisk一起组建一个微环境，用以对生产内核下的内存进行收集和转存。注意，在启动时，kdump保留了一定数量的重要的内存，为了计算系统需要的真正最小内存，加上kdump使用的内存数量，以决定真正的最小内存的需求。
+为了更好的容错，这个机制最好还是启用 
+
+####查看IO信息
+iostat -x -d 2 /dev/sdb
+iostat -x -d 2
+
+### scp命令
+scp /home/thunder/zhl_jack.txt  root@129.0.0.54:/home/
+scp root@129.0.0.54:/home/zhl.txt /home/thunder
+
+###linux系统中如何切换拼音输入法
+ctrl+空格
+
+###ftp功能设置：
+ 1. 先用rpm -qa| grep vsftpd命令检查是否已经安装，如果ftp没有安装，使用yum  -y  install vsftpd 安装,(ubuntu 下使用apt-get install vsftpd)
+
+2. service vsftpd start
+
+启动要让FTP每次开机自动启动，运行命令:  chkconfig --level 35 vsftpd on
+
+3. 设置ftp权限
+
+vi  /etc/vsftpd/vsftpd.conf
+将anonymous_enable=YES 改为 anonymous_enable=NO
+ESC返回,输入“:wq”保存并推出
+
+4. 添加ftp帐号和目录
+
+useradd   -d /alidata/www/wwwroot -s /sbin/nologin pwftp
+passwd   pwftp
+chmod -R 755 /alidata/www/wwwroot
+chown -R  pwftp /alidata/www/wwwroot
+/etc/rc.d/init.d/vsftpd restart
+然后用帐号pwftp密码123456
+测试下就可以登陆ftp了。目录是/alidata/www/wwwroot
+
+
+####linux系统日志文件确认：
+dmesg; /var/log/messages
+dmesg | tail (显示尾部的信息)
+dmesg -c (清除信息)
+
+#### dd 硬盘测试
+测试硬盘写能力：time dd if=/dev/zero of=/dev/sdb bs=8k count=300000  
+测试硬盘读能力：time dd if=/dev/sda of=/dev/null bs=8k count=300000
+执行过程中用 iostat -x -d 2查看读写， 执行后用dmesg查看是否有错误
+
+
+#####iostat输出结果确认事项：
+cpu属性值说明：
+
+%user：CPU处在用户模式下的时间百分比。
+
+%nice：CPU处在带NICE值的用户模式下的时间百分比。
+
+%system：CPU处在系统模式下的时间百分比。
+
+%iowait：CPU等待输入输出完成时间的百分比。
+
+%steal：管理程序维护另一个虚拟处理器时，虚拟CPU的无意识等待时间百分比。
+
+%idle：CPU空闲时间百分比。
+
+备注：如果%iowait的值过高，表示硬盘存在I/O瓶颈，%idle值高，表示CPU较空闲，如果%idle值高但系统响应慢时，有可能是CPU等待分配内存，此时应加大内存容量。%idle值如果持续低于10，那么系统的CPU处理能力相对较低，表明系统中最需要解决的资源是CPU。
+
+disk属性值说明：
+
+rrqm/s:  每秒进行 merge 的读操作数目。即 rmerge/s
+
+wrqm/s:  每秒进行 merge 的写操作数目。即 wmerge/s
+
+r/s:  每秒完成的读 I/O 设备次数。即 rio/s
+
+w/s:  每秒完成的写 I/O 设备次数。即 wio/s
+
+rsec/s:  每秒读扇区数。即 rsect/s
+
+wsec/s:  每秒写扇区数。即 wsect/s
+
+rkB/s:  每秒读K字节数。是 rsect/s 的一半，因为每扇区大小为512字节。
+
+wkB/s:  每秒写K字节数。是 wsect/s 的一半。
+
+avgrq-sz:  平均每次设备I/O操作的数据大小 (扇区)。
+
+avgqu-sz:  平均I/O队列长度。
+
+await:  平均每次设备I/O操作的等待时间 (毫秒)。
+
+svctm: 平均每次设备I/O操作的服务时间 (毫秒)。
+
+%util:  一秒中有百分之多少的时间用于 I/O 操作，即被io消耗的cpu百分比
+
+备注：如果 %util 接近 100%，说明产生的I/O请求太多，I/O系统已经满负荷，该磁盘可能存在瓶颈。如果 svctm 比较接近 await，说明 I/O 几乎没有等待时间；如果 await 远大于 svctm，说明I/O 队列太长，io响应太慢，则需要进行必要优化。如果avgqu-sz比较大，也表示有当量io在等待。
+
+
+
+
+#### txt文件转换为csv文件命令
+sort *.txt > *.csv
+
+###硬盘体检：fsck, e2fsck
+fsck/e2fsck -c  (Check for bad blocks and add them to the badblock list)
+hdparm -t /dev/sda ( -t   评估硬盘的读取效率。)
+hdparm -tT /dev/sda
+
+
+###标卡固件更新方法：
+1）制作dos启动盘，启动进入DOS后，执行eeupdate回车，显示具体的nic号
+2）烧结网卡的固件使用命令如下：eeupdate -nic=x  -data=xxxx.txt
+
+补充：
+通过DOS启动盘烧结网卡MAC方法
+1、制作DOS启动U盘（大白菜等软件）
+2、将Eeupdate.exe工具和固件映像（例如1G的映像：i350_KX_NO-MNG_1_52.txt）放入U盘s
+3、刀片启动进入DOS后，执行eeupdate回车，显示具体的nic号，母板的是0、1
+4、烧结网卡的固件使用命令如下
+eeupdate -nic=x  -data=xxxx.txt
+5、烧结网卡的MAC使用命令如下
+eeupdate -nic=x -mac=001122334455
+
+
+####lsi 2308 固件和bios更新方法
+1）将固件和bios 与lsiutil工具放到相同的目录
+2）1--查看bios和固件的版本
+   2--升级固件
+   4--升级bios
+
+####网卡查询：
+lspci | grep "Ethernet"
+ifconfig -a
+ethtool ethx
+ethtool -i ethx
+
+#####linux下VNC使用步骤归纳：
+1）vnc 软件安装 2）启动VNCserver 3)关闭防火墙 4）修改配置文件/root/.vnc/xstartup,(# unset SESSION_MANAGER   # exec /etc/X11/xinit/xinitrc) 去掉这两行的注释，5）vncserver -kill :1 6）vncserver :1 7）在PC端打开VNC即可使用。
+
+#### fio测试命令：
+fio -name=testc -filename=/dev/sdb -bs=64k --rw=write -iodepth=32 -runtime=48h  -direct=1 -numjobs=30 -time_based  -ioengine=libaio -thread -group_reporting=1
+
+####常用压缩和解压
+tar zcvf servertool~.tar.gz servertool~/
+tar xzf  servertool~.tar.gz
+
+####linux进程后台执行命令 nohup (另一个作用是让所有的命令同时并发执行)
+nohup命令：如果你正在运行一个进程，而且你觉得在退出帐户时该进程还不会结束，那么可以使用nohup命令。该命令可以在你退出帐户/关闭终端之后继续运行相应的进程。nohup就是不挂起的意思( no hang up)。 　
+该命令的一般形式为：nohup command & 　　使用nohup命令提交作业
+ 如果使用nohup命令提交作业，那么在缺省情况下该作业的所有输出都被重定向到一个名为nohup.out的文件中，除非另外指定了输出文件： 　　
+nohup command > myout.file 2>&1 & 　　
+在上面的例子中，输出被重定向到myout.file文件中。 　　
+使用 jobs 查看任务。 　　
+使用 fg %n　关闭。 　　
+另外有两个常用的ftp工具ncftpget和ncftpput，可以实现后台的ftp上传和下载，这样我就可以利用这些命令在后台上传和下载文件了。 
+
+nohup *.sh &
+一般在用户登出的同时，会给所执行的程序下达停止指令；而用 nohup 等命令后，会将该命令交给其他用户。
+
+
+####linux下驱动升级和回退操作步骤如下：
+举例更新mpt2sas的驱动，
+首先在/lib/modules/2.6.32-431.el6.x86_64/extra/路径下创建mpt2sas目录，pmc则为创建aacraid的目录；
+然后将编译生成的mpt2sas.ko拷贝到上一步创建的目录
+第3步，执行depmod -a；
+第4步，执行modprobe mpt2sas
+第5步，进入/boot目录，执行mkinitrd initramfs-2.6.32-431.el6.x86_64.img 2.6.32-431.el6.x86_64 --force，完成后执行lsinitrd  initramfs-2.6.32-431.el6.x86_64.img | grep mpt2sas确认驱动路径与预期一致；也可以通过modinfo mpt2sas来查看版本信息，确认驱动更新成功；
+第6步骤，重启，确认驱动版本信息，开展测试。
+
+
+
+####
+modprobe -l| grep “” ：查看当前可以加载的模块（即驱动已经安装）
+lsmod | grep ＂＂　查看当前已经加载的模块
+modprobe 驱动名    挂载驱动
+modprobe -r 驱动名  卸载驱动
+
+驱动更新相关总结说明：
+1）使用modprobe -l | grep *** 查看系统中存在的驱动模块
+2）modinfo **  查看驱动版本，和驱动是否加载没关系，查看的是当前默认路径下驱动的信息（即depmod -a 识别的路径）
+2）lsmod | grep ** 查看依据加载的驱动模块
+3）modprobe -r ***  卸载驱动
+4）从官网下载驱动的源文件，比如是ixgbe-4.1.2.tar.gz
+5）tar -xzf ixgbe-4.1.2.tar.gz;  cd ./src; make ,此时在当前路径下就有ixgbe.ko驱动模块，用modinfo +绝对路径可以查看新驱动的版本信息；
+6）将新驱动copy到/lib/modules/2.6.32-431.el6.x86_64/extra/新建的dir/下，
+7）执行depmod -a  ，修改配置文件默认识别的驱动路径,优先识别层级比较浅的驱动模块；
+8）modprobe ixgbe.ko 加载驱动，modinfo ixgbe.ko 查看驱动的路径和版本信息
+9）重新编制内核文件mkinitrd initramfs-2.6.32-431.el6.x86_64.img 2.6.32-431.el6.x86_64 --force，（这个是重新封包核心的命令，例如你自己修改了一个设备的驱动，如果这个驱动要加入核心级别的话，就需要对核心进行重新封包，把新加的配置编译到核心内部去）
+
+###驱动rpm包方式更新的方法：
+rpm -Uvh *.rpm
+
+
+Linux：.c文件编译为.ko文件
+写个my.c和一个Makefile文件，然后make编译一下，就成功了，生成my.ko
+
+再加载一下insmod my.ko     dmesg|grep module 看到模块初始化时候的打印
+
+卸载模块rmmod my.ko  dmesg|grep module  看模块卸载时候的打印
+
+####grep 命令说明
+ grep -v **** 反向输出，即输出不包含关键词的所有line
+ grep -i *** 表示忽略大小写
+ grep ***直接按关键字过滤
+
+###关闭进程命令
+kill  PID
+pkill command
+
+###linux 磁盘分析工具命令：baobab
+
+##rpm包安装相关：
+如果用-i 安装过程中提示与现有文件冲突，或需要依赖一些其它的文件等等，而终止安装,可以使用
+rpm -i --force --nodeps 可以忽略所有依赖关系和文件问题，什么包 
+都能安装上，但这种强制安装的软件包不能保证完全发挥功能
+
+##卸载rpm包：rpm -e 包名，包名可以包含版本号等信息（可以不用完全名），但是不可以有后缀.rpm 
+如何卸载过程中提示错误“这个软件被其他软件需要，不能随便卸载”，可以用rpm -e --nodeps强制卸载
+
+##已安装的包查询 rpm -qa | grep ***
+##已安装的包的安装路径查询 rpm -ql ** （无.rpm的包名）
+
+###驱动查询相关
+uname -a
+lspci | grep -i lsi
+rpm -qa | grep -i mpt2sas
+modinfo mpt2sas
+rpm -e  ***卸载驱动
+rpm -Uvh ** 更新驱动
+
+####硬盘格式化命令说明
+mk2fs -t ext4 和 mkfs.ext4  两个命令相同功能
+
+
+###秘钥设置相关：
+ssh-keygen
+ssh-copy-id -i /root/.ssh/id_rsa.pub 129.0.0.77（要登陆的目标主机的IP）
+
+###linux系统时间同步命令，及设置命令
+ ntpdate -u 129.0.0.50
+ date -s 10:18:00
+
+###
+

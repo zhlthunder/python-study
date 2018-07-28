@@ -1,0 +1,195 @@
+#################httpd配置相关：
+
+虚拟主机和中心主机不可以同时使用，如果要使用中心主机，就
+注销掉中心主机的documentroot
+具体配置步骤如下：
+vi /etc/httpd/conf/httpd.conf 
+#DocumentRoot "/var/www/html"  //注释掉
+
+@@基于域名的虚拟主机配置方法：
+
+1） 在/etc/httpd/conf.d 创建virtual.conf 配置文件，编辑如下：
+NameVirtualHost 128.0.0.201:80   //基于域名的虚拟主机需要增加此项，两台主机通过servername来区分
+<VirtualHost 128.0.0.201:80>
+    ServerName hello.b.com
+    DocumentRoot "/www/b.com"
+</VirtualHost>
+
+<VirtualHost 128.0.0.201:80>
+    ServerName hello.zhl.com
+    DocumentRoot "/www/zhl.com"
+</VirtualHost>
+
+2）mkdir -p /www/zhl.com  /www/b.com
+3)httpd -t 进行语法检测；
+4）service httpd restart
+5）编辑windows 本地hosts文件C:\Windows\System32\drivers\etc\hosts，增加 
+128.0.0.201      hello.zhl.com
+128.0.0.201      hello.b.com
+6）在本地ping hello.zhl.com和hello.b.com，可以ping通，表示DNS 解析正确；
+7）用IE 对域名进行访问，提示找不到，排查了好长时间，最后发现是 局域网代理服务器设置的问题
+ 需要将要访问的域名加到”例外情况”中，即不使用代理服务器；（此问题排查了好像，紧记）
+
+
+@@基于IP的虚拟主机的配置方法：
+1） 在/etc/httpd/conf.d 创建virtual.conf 配置文件，编辑如下：
+<VirtualHost 128.0.0.201:80>
+    ServerName hello.b.com
+    DocumentRoot "/www/b.com"
+</VirtualHost>
+
+<VirtualHost 128.0.0.202:80>
+    ServerName hello.zhl.com
+    DocumentRoot "/www/zhl.com"
+</VirtualHost>
+
+2）为本地服务器配置两个IP地址；
+3）和上面步骤相似，创建对应documentroot目录，并编辑html文件；
+4）httpd -t 进行语法检测；
+5）service httpd restart
+6）直接访问即可；
+
+@@基于端口的虚拟主机的配置方法：
+1） 在/etc/httpd/conf.d 创建virtual.conf 配置文件，编辑如下：
+<VirtualHost 128.0.0.201:80>
+    ServerName hello.b.com
+    DocumentRoot "/www/b.com"
+</VirtualHost>
+
+<VirtualHost 128.0.0.201:8080>
+    ServerName hello.zhl.com
+    DocumentRoot "/www/zhl.com"
+</VirtualHost>
+
+2）编辑vi /etc/httpd/conf/httpd.conf文件，增加：
+Listen 8080
+3）和上面步骤相似，创建对应documentroot目录，并编辑html文件；
+4）httpd -t 进行语法检测；
+5）service httpd restart
+6）直接访问即可；
+
+remark: 
+/var/log/httpd/access_log    默认的访问日志路径
+/var/log/httpd/error_log     默认的错误日志路径
+ 
+@@修改网站访问日志存储路径的方法：
+1）编辑vi /etc/httpd/conf.d/virtual.conf如下：
+<VirtualHost 128.0.0.201:80>
+    ServerName hello.b.com
+    DocumentRoot "/www/b.com"
+    CustomLog /var/log/httpd/b.com/access_log combined
+</VirtualHost>
+2）创建日志目录：
+mkdir -pv /var/log/httpd/b.com/
+3）httpd -t 进行语法检测；
+4）service httpd restart
+5）通过IE访问网站后，查看日志信息，自动生成日志文件：
+[root@localhost zhl.com]# ll /var/log/httpd/b.com/
+total 4
+-rw-r--r-- 1 root root 1776 Aug 10 09:09 access_log
+修改成功
+
+
+@@基于域名的虚拟主机,并根据用户名进行访问控制的配置方法：
+说明：
+hello.b.com //需要用户名及密码才可以访问；
+hello.zhl.com //限制固定的IP地址访问
+
+1） 在/etc/httpd/conf.d 创建virtual.conf 配置文件，编辑如下：
+NameVirtualHost 128.0.0.201:80   //基于域名的虚拟主机需要增加此项，两台主机通过servername来区分
+<VirtualHost 128.0.0.201:80>
+    ServerName hello.b.com
+    DocumentRoot "/www/b.com"
+    CustomLog /var/log/httpd/b.com/access_log combined
+    <Directory "/www/b.com">
+        options none
+        AllowOverride authconfig
+        AuthType  basic
+        AuthName "Restrict area."
+        AuthUserFile "/etc/httpd/.htpasswd"
+        Require valid-user
+     </Directory>
+</VirtualHost>
+
+<VirtualHost 128.0.0.201:80>
+    ServerName hello.zhl.com
+    DocumentRoot "/www/zhl.com"
+    CustomLog /var/log/httpd/zhl.com/access_log combined
+     <Directory "/www/zhl.com">
+        options none
+        AllowOverride none
+        Order deny,allow
+        Deny from 128.0.0.20
+     </Directory>
+</VirtualHost>
+
+2) httpd -t 语法检测；
+3）日志文件创建：
+mkdir -p /var/log/httpd/zhl.com
+mkdir -p /var/log/httpd/b.com
+4)创建授权用户
+htpasswd -c -m /etc/httpd/.htpasswd tom   并设置密码；
+htpasswd  -m /etc/httpd/.htpasswd jack  并设置密码； 第二次使用不用加-c，否则会覆盖第一次产生的问题件；
+5）service httpd restart
+6)访问验证即可；
+
+hello.b.com  //访问时需要输入指定的用户名和密码才可以访问；
+hello.zhl.com  //调试机无法进行访问，采用在服务器本地进行验证；
+编辑本地的DNS文件：
+vi /etc/hosts，增加：
+128.0.0.201 hello.zhl.com
+
+ping hello.zhl.com,验证可以ping通；
+使用elinks hello.zhl.com 访问进行验证即可；
+
+备注：
+1）linux 下设置dns的方法：
+vi /etc/resolv.conf 
+nameserver 1.1.1.1
+nameserver 1.1.1.2
+前面的就是首选DNS，后面一行就是次要的DNS服务器DNS
+
+2）linux下hosts主机表文件：
+跟Windows系统一样，Linux系统也有主机表文件。同样可以通过设置主机表地址进行特定主机的解析，
+优先DNS服务器地址,配置文件，在/etc/hosts;
+
+总结：Linux下设置DNS的位置主要是，1网卡设置配置文件里面DNS服务器地址设置，2.系统默认DNS服务器地址设置。
+3,hosts文件指定生效顺序是： 1 hosts文件 ---- 2 网卡配置文件DNS服务地址 ---3 /etc/resolv.conf 
+
+
+####在documentroot 下建立一个硬连接，指向服务器上的任意文件，比如：
+ln  /etc/fstab /www/zhl.com/link
+这样通过http://http://hello.zhl.com/link就可以访问任意的文件，所以很不安全；
+
+
+###httpd.conf配置选项介绍：
+　这里定义的是系统对外发布文档的目录的访问设置，设置不同的AllowOverride选项，以定义配置文件中的目录设置
+和用户目录下的安全控制文件的关系，而Options选项用于定义该目录的特性。
+
+每个目录具备一定属性，可以使用Options来控制这个目录下的一些访问特性设置，以下为常用的特性选项：
+--options
+Options设置 服务器特性设置
+　　All 所有的目录特性都有效，这是缺省状态
+　　None 所有的目录特性都无效
+　　FollowSymLinks 允许使用符号连接，这将使浏览器有可能访问文档根目录（DocumentRoot）之外的文档
+　　SymLinksIfOwnerMatch 只有符号连接的目的与符号连接本身为同一用户所拥有时，才允许访问，这个设置将增加一些安全性
+　　ExecCGI 允许这个目录下可以执行CGI程序
+　　Indexes 允许浏览器可以生成这个目录下所有文件的索引，使得在这个目录下没有index.html（或其他索引文件）时，
+    能向浏览器发送这个目录下的文件列表  （验证OK）
+
+配置文件和每个目录下的访问控制文件都可以设置访问限制，设置文件是由管理员设置的，而每个目录下的访问控制
+文件是由目录的属主设置的，因此管理员可以规定目录的属主是否能覆盖系统在设置文件中的设置，
+这就需要使用 AllowOverride参数进行设置，通常可以设置的值为
+--allowoverride选项：
+AllowOverride的设置 对每个目录访问控制文件作用的影响
+　　All 缺省值，使访问控制文件可以覆盖系统配置
+　　None 服务器忽略访问控制文件的设置
+　　Options 允许访问控制文件中可以使用Options参数定义目录的选项
+　　FileInfo 允许访问控制文件中可以使用AddType等参数设置
+　　AuthConfig 允许访问控制文件使用AuthName，AuthType等针对每个用户的认证机制，这使目录属主能用口令和用户名来保护目录
+　　Limit 允许对访问目录的客户机的IP地址和名字进行限制 
+
+
+此外，上例中还使用了Order、Allow、Deny等参数，这是Limit语句中用来根据浏览器的域名和 IP地址来控制访问的一种方式。
+其中Order定义处理Allow和Deny的顺序，而Allow、Deny则针对名字或IP进行访问控制设置，上例使用allow from all，
+表示允许所有的客户机访问这个目录，而不进行任何限制。

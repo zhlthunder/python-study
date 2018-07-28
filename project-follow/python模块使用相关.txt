@@ -1,0 +1,77 @@
+1.从别的安装环境上拷贝过来的模块文件，比如：urllib3-1.22-py2.7.egg
+导入urllib3时报错，进入C:\Python27\Lib\site-packages\urllib3-1.22-py2.7.egg 这个目录下，
+执行导入时没有报错，推测是模块搜索路径的问题，确认如下：
+
+>>> import sys
+>>> print sys.path
+['', 'C:\\Python27\\lib\\site-packages\\setuptools-0.6c11-py2.7.egg', 'C:\\Python27\\lib\\site-packages\\robotframework_selenium2library-1.5.0-py2.7.egg', 'C:\\Python27\\lib\\site-packages\\docutils-0
+.12-py2.7.egg', 'C:\\Python27\\lib\\site-packages\\decorator-4.0.9-py2.7.egg', 'C:\\Python27\\lib\\site-packages\\pysnmp_mibs-0.1.4-py2.7.egg', 'C:\\Python27\\lib\\site-packages\\pysnmp_apps-0.3.3-py2
+.7.egg', 'C:\\Python27\\lib\\site-packages\\paramiko-1.14.1-py2.7.egg', 'C:\\Python27\\lib\\site-packages\\ecdsa-0.13-py2.7.egg', 'C:\\Python27\\lib\\site-packages\\robotframework_sshlibrary-2.1.1-py2
+.7.egg', 'C:\\Python27\\lib\\site-packages\\pysmi-0.0.7-py2.7.egg', 'C:\\Python27\\lib\\site-packages\\pyasn1-0.1.9-py2.7.egg', 'C:\\Python27\\lib\\site-packages\\ply-3.8-py2.7.egg', 'C:\\Python27\\li
+b\\site-packages\\selenium-2.43.0-py2.7.egg', 'C:\\Python27\\lib\\site-packages\\pysnmp-4.3.2-py2.7.egg', 'C:\\Python27\\lib\\site-packages\\requests-2.19.1-py2.7.egg', 'C:\\Windows\\system32\\python2
+7.zip', 'C:\\Program Files\\VisualSVN Server\\bin', 'C:\\Program Files\\VisualSVN Server\\PythonPackages', 'C:\\Python27\\DLLs', 'C:\\Python27\\lib', 'C:\\Python27\\lib\\plat-win', 'C:\\Python27\\lib\
+\lib-tk', 'C:\\Python27', 'C:\\Python27\\lib\\site-packages', 'C:\\Python27\\lib\\site-packages\\win32', 'C:\\Python27\\lib\\site-packages\\win32\\lib', 'C:\\Python27\\lib\\site-packages\\Pythonwin']
+
+
+==》也就是说，通过源码安装的方式，会自动将模块路径加入到搜索路径中，那这种拷贝的方式如何解决呢？
+解决版本： 
+在C:\Python27\Lib\site-packages 下创建wx.pth （文件名任意）
+#.pth file for the my project
+C:\Python27\Lib\site-packages\urllib3-1.22-py2.7.egg
+
+即可；
+
+2.可以通过直接拷贝使用的模块分为三种：
+1） chardet-3.0.4-py2.7.egg 单个文件； 模块添加方法为： sys.path.append(r'C:\Python27\Lib\site-packages\chardet-3.0.4-py2.7.egg')
+2）urllib3-1.22-py2.7.egg 文件夹, 模块添加方法见上；
+3）比如six.py, 直接拷贝six.py 和 six.pyc到目录目录下即可；
+
+#.pth file for the my project
+C:\Python27\Lib\site-packages\chardet-3.0.4-py2.7.egg  ##针对拷贝的模块是一个文件的情况
+C:\Python27\Lib\site-packages\urllib3-1.22-py2.7.egg   ##针对拷贝的模块是一个文件夹的情况
+
+
+3. BMC脚本中使用全局变量的方法：
+global ENVIRONVARALL
+ENVIRONVARALL = locals()
+attributesvar = {"BMCIP":bmcip,"URL":url,"USERNAME":username,"PASSWORD":password,"PCSERVERIP":pcserverip,"VS_TBLDAILYENVIRON":tbldailyenviron}
+ #更新全局变量
+ENVIRONVARALL.update(attributesvar)
+
+这样在代码中就可以直接调用全局变量了：
+print(BMCIP)
+
+
+4.通过命令行查询模块的存储位置：
+C:\Users\Administrator>python27
+Python 2.7 (r27:82525, Jul  4 2010, 07:43:08) [MSC v.1500 64 bit (AMD64)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import winrm
+>>> print winrm.__file__
+C:\Python27\lib\site-packages\pywinrm-0.3.0-py2.7.egg\winrm\__init__.pyc
+
+5.另外一种缺少库拷贝的方法：
+C:\Users\Administrator.ZTE-20150515YGO>python
+Python 2.7.8 (default, Jun 30 2014, 16:03:49) [MSC v.1500 32 bit (Intel)] on win32
+Type "help", "copyright", "credits" or "license" for more information.
+Alternative ReadLine 1.7 -- Copyright 2001, Chris Gonnerman
+>>> import winrm
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "build\bdist.win-amd64\egg\winrm\__init__.py", line 6, in <module>
+
+  File "build\bdist.win-amd64\egg\winrm\protocol.py", line 9, in <module>
+ImportError: No module named six
+
+在另一台机器上确认：
+>>> import six
+>>> print six.__file__
+C:\Python27\lib\site-packages\six.pyc
+
+处理方法：将C:\Python27\lib\site-packages 下的 six.py 和 six.pyc 都拷贝到目前机器的C:\Python27\lib\site-packages
+就可以直接使用这个库了。
+
+
+6. 字符串转python基本数据格式的方法
+json.loads(string)
+eval(string)
