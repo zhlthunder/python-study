@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://www.hostedredmine.com/" />
+<title>redmine_total</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">redmine_total</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=登录</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=username</td>
+	<td>zhuerma</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=password</td>
+	<td>zhl040702246</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=login-submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=span.drdn-trigger</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=zhl</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=问题</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>xpath=(//a[contains(text(),'新建问题')])[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=issue_subject</td>
+	<td>ppppp</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=issue_description</td>
+	<td>aaaaaaaaaaaaa</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=issue_priority_id</td>
+	<td>label=High</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=issue_assigned_to_id</td>
+	<td>label=&lt;&lt; 我 &gt;&gt;</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=commit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=编辑</td>
+	<td></td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>id=issue_done_ratio</td>
+	<td>label=100 %</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=issue_notes</td>
+	<td>close</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=#issue-form &gt; input[name=&quot;commit&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=删除</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertConfirmation</td>
+	<td>您确定要删除选中的问题吗？</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=退出</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://sample.wangding.in" />
+<title>手机号码归属地查询网站测试脚本</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">手机号码归属地查询网站测试脚本</td></tr>
+</thead><tbody>
+<!--这是一个使用数据驱动测试手机归属地查询网页的自动化脚本,数据文件类型是html-->
+<!--一、打开数据页面，初始化循环变量和数组-->
+<tr>
+	<td>open</td>
+	<td>/selenium/mobile-data.html</td>
+	<td></td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>window.document.getElementsByTagName('tr').length</td>
+	<td>rows</td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>new Array(storedVars.rows)</td>
+	<td>num</td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>new Array(storedVars.rows)</td>
+	<td>res</td>
+</tr>
+<tr>
+	<td>store</td>
+	<td>1</td>
+	<td>n</td>
+</tr>
+<!--二、循环装入测试数据-->
+<tr>
+	<td>while</td>
+	<td>${n} &lt;= ${rows}</td>
+	<td></td>
+</tr>
+<tr>
+	<td>storeText</td>
+	<td>//tr[${n}]/td[1]</td>
+	<td>number</td>
+</tr>
+<tr>
+	<td>storeText</td>
+	<td>//tr[${n}]/td[2]</td>
+	<td>result</td>
+</tr>
+<tr>
+	<td>runScript</td>
+	<td>javascript{storedVars.num[storedVars.n] = storedVars.number}</td>
+	<td></td>
+</tr>
+<tr>
+	<td>runScript</td>
+	<td>javascript{storedVars.res[storedVars.n] = storedVars.result}</td>
+	<td></td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>${n} + 1</td>
+	<td>n</td>
+</tr>
+<tr>
+	<td>endWhile</td>
+	<td></td>
+	<td></td>
+</tr>
+<!--三、打开手机归属地查询工具网页-->
+<tr>
+	<td>open</td>
+	<td>http://www.atool.org/phonenumber.php</td>
+	<td></td>
+</tr>
+<tr>
+	<td>store</td>
+	<td>1</td>
+	<td>n</td>
+</tr>
+<!--四、循环查询各手机号的归属地-->
+<tr>
+	<td>while</td>
+	<td>${n}&lt;=${rows}</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=q</td>
+	<td>javascript{storedVars.num[storedVars.n]}</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=input.form_button</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>css=pre</td>
+	<td>javascript{storedVars.res[storedVars.n]}</td>
+</tr>
+<tr>
+	<td>storeEval</td>
+	<td>${n}+1</td>
+	<td>n</td>
+</tr>
+<tr>
+	<td>endWhile</td>
+	<td></td>
+	<td></td>
+</tr>
+</tbody></table>
+</body>
+</html>

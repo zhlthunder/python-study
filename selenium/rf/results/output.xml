@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot rpa="false" generated="20180922 11:11:30.979" generator="Robot 3.1a1 (Python 2.7.13 on win32)">
+<suite source="C:\Users\lin\PycharmProjects\python_study_1s\python_study\git-zhl\python-study\selenium\rf\tt1.robot" id="s1" name="Tt1">
+<test id="s1-t1" name="t1">
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>hhhhhhhhhhhhhhhhhhhhhh</arg>
+</arguments>
+<assign>
+<var>${a}</var>
+</assign>
+<msg timestamp="20180922 11:11:31.017" level="INFO">${a} = hhhhhhhhhhhhhhhhhhhhhh</msg>
+<status status="PASS" endtime="20180922 11:11:31.018" starttime="20180922 11:11:31.017"></status>
+</kw>
+<kw name="Log To Console" library="BuiltIn">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${a}</arg>
+</arguments>
+<status status="PASS" endtime="20180922 11:11:31.018" starttime="20180922 11:11:31.018"></status>
+</kw>
+<status status="PASS" endtime="20180922 11:11:31.018" critical="yes" starttime="20180922 11:11:31.017"></status>
+</test>
+<status status="PASS" endtime="20180922 11:11:31.019" starttime="20180922 11:11:30.984"></status>
+</suite>
+<statistics>
+<total>
+<stat fail="0" pass="1">Critical Tests</stat>
+<stat fail="0" pass="1">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat fail="0" id="s1" name="Tt1" pass="1">Tt1</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
