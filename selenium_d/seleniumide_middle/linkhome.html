@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="https://www.baidu.com/" />
+<title>linkhome</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">linkhome</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=kw</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=kw</td>
+	<td>链家</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=su</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTitle</td>
+	<td>链家_百度搜索</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=链家，连接每个家的故事</td>
+	<td></td>
+</tr>
+<!--selectPopUpAndWait虽然会报timeout error,但可以解决页面跳转的问题-->
+<!--补充说明：使用selectPopUpAndWait时，只有在slow播放时会报timeout error, fast播放时，不会报timeout error的问题；-->
+<tr>
+	<td>selectPopUpAndWait</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>storeTitle</td>
+	<td>aaa</td>
+	<td></td>
+</tr>
+<tr>
+	<td>echo</td>
+	<td>${aaa}</td>
+	<td></td>
+</tr>
+<tr>
+	<td></td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>storeText</td>
+	<td>xpath=/html/body/div[5]/div/ul/li[2]/a/div[1]/div/p[2]/span[3]</td>
+	<td>area</td>
+</tr>
+<tr>
+	<td>echo</td>
+	<td>${area}</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>

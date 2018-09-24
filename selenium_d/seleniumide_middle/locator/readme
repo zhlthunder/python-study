@@ -1,0 +1,52 @@
+在线网站：
+https://codepen.io/#
+账户信息和邮箱相同
+
+
+locator 相关：
+
+
+base url:
+file:///C:/Users/lin/PycharmProjects/python_study_1s/python_study/git-zhl/python-study/selenium_d/seleniumide_middle/locator/
+打开的命令
+ open  sample.html
+
+设定方法：
+先用浏览器打开这个本地的sample.html,然后把地址拆分一下即可；
+
+--identifier
+identifier, 是依次使用ID和 NAME进行定位，即 把等号右边的值，先用ID定位，如果定位不到，再用NAME定位；实际是ID和NAME的复合；
+idenifier=continue, 如果代码中有两个元素name="continue",则定位到第一个出现的元素，即谁在前，定位到谁；
+identifier是默认的定位类型，也可以不指定，如果不指定定位的类型，默认就是用 identifier;
+
+--ID
+id=loginForm
+
+--Name
+name=continue  , 如果代码中有两个元素name="continue",则定位到第一个出现的元素，即谁在前，定位到谁；
+如果要匹配到第二个，需要增加过滤器，写法如下：
+name=continue value=clear
+name=continue clear （简写方式）
+
+--Link Text
+用于定位超链接的文本
+link=sample页面
+
+--css (速度优于 xpath和dom，但上面的简单的几种，更快)
+css选择器包括：
+
+标签选择器，   比如 p
+id选择器,比如 #id
+类选择器， 比如 .required
+
+标签和ID选择器：css=form#loginForm   //标签+id的组合
+标签和类选择器：css=input.required  //标签+类选择器的组合
+标签和属性选择器 css=input[name="username"]
+标签，类和属性选择器： css=input.required[type="text"]
+标签和内部文本选择器： css=tag:contains("inner text")
+
+--xpath:
+xpath=/html/body/form[1]  //绝对路径，不推荐使用
+xpath=//form[@id='loginForm']   相对路径定位
+
+

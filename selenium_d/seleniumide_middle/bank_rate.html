@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://www.ccb.com/cn/personal/interest/" />
+<title>rate</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">rate</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/cn/home/indexv3.html</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=a.search_tow_a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=keyword</td>
+	<td>人民币存储利率</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>css=input.search_btn.</td>
+	<td></td>
+</tr>
+<tr>
+	<td>此处页面切换有问题，待继续调试</td>
+	<td></td>
+	<td></td>
+</tr>
+<tr>
+	<td>selectWindow</td>
+	<td>title=建设银行个人客户首页</td>
+	<td></td>
+</tr>
+<tr>
+	<td>storeTitle</td>
+	<td>t2</td>
+	<td></td>
+</tr>
+<tr>
+	<td>echo</td>
+	<td>${t2}</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTitle</td>
+	<td>建设银行个人客户首页</td>
+	<td></td>
+</tr>
+<tr>
+	<td>highlight</td>
+	<td>css=a&gt;span</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=a &gt; span</td>
+	<td></td>
+</tr>
+<tr>
+	<td>highlight</td>
+	<td>css=font</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>css=font</td>
+	<td></td>
+</tr>
+<tr>
+	<td>storeText</td>
+	<td>xpath=/html/body/table/tbody/tr[6]/td[2]</td>
+	<td>3month_rate</td>
+</tr>
+<tr>
+	<td>echo</td>
+	<td>${3month_rate}</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>

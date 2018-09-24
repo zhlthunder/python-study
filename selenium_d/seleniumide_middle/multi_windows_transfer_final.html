@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="https://www.baidu.com/" />
+<title>multiwindows_transfer_final</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">multiwindows_transfer_final</td></tr>
+</thead><tbody>
+<tr>
+	<td>store</td>
+	<td>贴吧</td>
+	<td>s1</td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/</td>
+	<td></td>
+</tr>
+<tr>
+	<td>storeTitle</td>
+	<td>t1</td>
+	<td></td>
+</tr>
+<tr>
+	<td>echo</td>
+	<td>${t1}</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=${s1}</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=宇宙吧</td>
+	<td></td>
+</tr>
+<!--打开第一个新的窗口-->
+<tr>
+	<td>selectPopUpAndWait</td>
+	<td></td>
+	<td></td>
+</tr>
+<!--获取并打印第一个新窗口对应的title-->
+<tr>
+	<td>storeTitle</td>
+	<td>t2</td>
+	<td></td>
+</tr>
+<tr>
+	<td>echo</td>
+	<td>${t2}</td>
+	<td></td>
+</tr>
+<!--打开第二个新窗口-->
+<tr>
+	<td>click</td>
+	<td>link=自然</td>
+	<td></td>
+</tr>
+<!--关闭两个新打开的窗口-->
+<tr>
+	<td>close</td>
+	<td></td>
+	<td></td>
+</tr>
+<!--控制权归还给原始窗口，此处还会报 timeout error-->
+<tr>
+	<td>deselectPopUpAndWait</td>
+	<td></td>
+	<td></td>
+</tr>
+<!--获取原始窗口的title,并打印-->
+<tr>
+	<td>storeTitle</td>
+	<td>t3</td>
+	<td></td>
+</tr>
+<tr>
+	<td>echo</td>
+	<td>${t3}</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>

@@ -1,0 +1,42 @@
+click 点击, 如果涉及页面加载延时的，使用 clickandWait 替代
+highlight  高亮显示特定的locator
+verifyText 验证文本，
+verifyElementPresent 验证图片
+verifyTitle 验证页面标题  和 assettitle功能类似
+open 打开url
+echo 打印输出
+
+
+selenium 的命令集合称为 selenese ,总共534个； 分成3大类：
+1. action  动作类命令
+2. accessors 访问器类命令
+3.assertions 判断类命令
+
+
+命令详解：
+https://www.cnblogs.com/jin-wen-xin/p/4864457.html
+
+https://blog.csdn.net/u011436666/article/details/73473013
+
+
+
+unittest:  https://blog.csdn.net/fengguangke/article/details/81711981
+
+
+
+Selenium IDE 使用方法小结
+https://blog.csdn.net/qq_26182553/article/details/75047872
+https://blog.csdn.net/huyanyan08/article/details/78547782
+http://sariyalee.iteye.com/blog/1743350
+
+
+selenim ide 多窗口切换的问题：
+http://www.mamicode.com/info-detail-2361611.html
+  很多朋友录制脚本时新打开弹出窗口后无法定位元素,我也遇到同样的问题，国内没有什么好的资料，于是就阅读英文，不断尝试，感觉那个selectWindow(title)什么就是个坑，我用这种方法成功处理后得到的title，然后再调用selectWindow同样换败，不过好在找到了一种还算完美的解决方案.
+
+     如果谁把那个selectWindow研究透了，欢迎跟贴拍砖共享。
+
+
+
+
+

@@ -1,0 +1,20 @@
+在selenium ide中调试代码时，一定要选择低速 slow, 否则会出现报错的问题， 比如
+1.在baidu中搜索后，获取title时，一直获取的是旧的title,但实际上已经新的了。
+2.获取页面上的css样式时，一直提示找不到，就是因为页面没有及时更新，还是从第一个页面上找，所有没要找到。
+
+如果要解决上面的问题，需要添加waitfortitle ...来解决fast引入的问题。
+
+
+microsoft network monitor
+microsoft Spy++ ， 升级版本：winspector
+
+https://github.com/wangding/selenium-ide-demo
+https://seide.wangding.in/
+
+
+
+解决ImportError: cannot import name webdriver
+最近在写一个Python程序的时候，使用from selenium import webdriver,在run的时候却出现ImportError: cannot import name webdriver的提示，
+但是在Python IDLE里面跑却没有错误。很是疑惑，谷歌一下才发现有人已经在stackoverflow里面提出类似问题了，原因如下，在当前目录有个明教selenium的文件，
+Python会先导入这个文件，然后再导入标准库里面的selenium.py可以使用import selenium print selenium.__file__去看打印出的文件路径，如果不是下面类似的
+C:\Python27\lib\site-packages\selenium-2.31.0-py2.7.egg\selenium\__init__.pyc，需要把当前目录下的文件删除或者重命名。
