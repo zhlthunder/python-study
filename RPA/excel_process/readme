@@ -1,0 +1,46 @@
+https://blog.csdn.net/lanchunhui/article/details/77951767
+
+读取 excel 格式文件：df = pd.read_excel(‘xx.xlsx’)，下面是一些简单查看文件内容的函数：
+
+    df.head()：展示前五行；
+    df.columns：展示所有的列名，也即属性名；
+
+    简单统计处理：
+
+求某列元素的最大最小平均值，最大最小值所在的行号；
+
+df['col_name'].argmax(), df['col_name'].max()
+df['col_name'].argmin(), df['col_name'].min()
+df['col_name'].mean()
+
+多 sheet 的读取
+
+import pandas
+df = pandas.read_excel(open('your_xls_xlsx_filename','rb'), sheetname='Sheet 1')
+    # 使用 sheet 名
+
+# or using sheet index starting 0
+df = pandas.read_excel(open('your_xls_xlsx_filename','rb'), sheetname=2)
+    # 使用 sheet 所在的索引
+
+使用 ExcelFile 类
+
+pd.read_excel() ⇒ 将 excel 的第一个 sheet 读取到 DataFrame
+
+使用 ExcelFile 对象：
+xls = pd.ExcelFile('excel_file_path.xls')
+xls.sheet_names     # 获取各个 sheet 的名字
+sheet_df = xls.parse(0)
+
+
+Tricks：将 sheet 读入到字典中，通过 sheet 名索引：
+sheet_map = {}
+for sheet_name in xls.sheet_names:
+    sheet_map[sheet_name] = xls.parse(sheet_name)
+
+
+
+https://blog.csdn.net/GeekLeee/article/details/52797115
+用Pandas完成Excel中常见的任务
+
+http://python.jobbole.com/81212/   数据透视表
